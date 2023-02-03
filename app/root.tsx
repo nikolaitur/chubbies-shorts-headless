@@ -1,25 +1,24 @@
+import { cssBundleHref } from '@remix-run/css-bundle'
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { Cart } from '@shopify/hydrogen-react/storefront-api-types'
 import {
   defer,
   type LinksFunction,
-  type MetaFunction,
   type LoaderArgs,
-} from '@shopify/remix-oxygen';
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  useLoaderData,
-} from '@remix-run/react';
-import {Cart, Shop} from '@shopify/hydrogen-react/storefront-api-types';
-import {Layout} from '~/components';
-import styles from './styles/app.css';
-import favicon from '../public/favicon.svg';
+  type MetaFunction,
+} from '@shopify/remix-oxygen'
+import { BaseStyles } from '@solo-brands/ui-library.styles.global'
+// @ts-expect-error there are no typings for this module
+import { theme } from '@solobrands/token-library/dist/styled/isle'
+import { ThemeProvider } from 'styled-components'
+import favicon from '../public/favicon.svg'
+import MainFrame from './frames/main-frame'
+import { CART_QUERY } from './graphql/storefront/cart/queries'
 
 export const links: LinksFunction = () => {
-  return [
-    {rel: 'stylesheet', href: styles},
+  const cssBundle = { rel: 'stylesheet', href: cssBundleHref ?? '' }
+
+  const externalLinks = [
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -28,22 +27,28 @@ export const links: LinksFunction = () => {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
-  ];
-};
+    { rel: 'icon', type: 'image/svg+xml', href: favicon },
+  ]
 
-export const meta: MetaFunction = (data) => ({
+  if (cssBundleHref) {
+    externalLinks.push(cssBundle)
+  }
+
+  return externalLinks
+}
+
+export const meta: MetaFunction = data => ({
   charset: 'utf-8',
   viewport: 'width=device-width,initial-scale=1',
-});
+})
 
-export async function loader({context, request}: LoaderArgs) {
-  const cartId = await context.session.get('cartId');
+export async function loader({ context, request }: LoaderArgs) {
+  const cartId = await context.session.get('cartId')
 
-  const [cart, layout] = await Promise.all([
+  const [cart] = await Promise.all([
     cartId
       ? (
-          await context.storefront.query<{cart: Cart}>(CART_QUERY, {
+          await context.storefront.query<{ cart: Cart }>(CART_QUERY, {
             variables: {
               cartId,
               /**
@@ -58,20 +63,14 @@ export async function loader({context, request}: LoaderArgs) {
           })
         ).cart
       : null,
-    await context.storefront.query<{shop: Shop}>(LAYOUT_QUERY),
-  ]);
+  ])
 
   return defer({
     cart,
-    layout,
-  });
+  })
 }
 
 export default function App() {
-  const data = useLoaderData<typeof loader>();
-
-  const {name, description} = data.layout.shop;
-
   return (
     <html lang="en">
       <head>
@@ -79,134 +78,15 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Layout description={description} title={name}>
-          <Outlet />
-        </Layout>
-        <ScrollRestoration />
-        <Scripts />
+        <ThemeProvider theme={theme}>
+          <BaseStyles />
+          <MainFrame>
+            <Outlet />
+          </MainFrame>
+          <ScrollRestoration />
+          <Scripts />
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
-
-const CART_QUERY = `#graphql
-  query CartQuery($cartId: ID!) {
-    cart(id: $cartId) {
-      ...CartFragment
-    }
-  }
-
-  fragment CartFragment on Cart {
-    id
-    checkoutUrl
-    totalQuantity
-    buyerIdentity {
-      countryCode
-      customer {
-        id
-        email
-        firstName
-        lastName
-        displayName
-      }
-      email
-      phone
-    }
-    lines(first: 100) {
-      edges {
-        node {
-          id
-          quantity
-          attributes {
-            key
-            value
-          }
-          cost {
-            totalAmount {
-              amount
-              currencyCode
-            }
-            amountPerQuantity {
-              amount
-              currencyCode
-            }
-            compareAtAmountPerQuantity {
-              amount
-              currencyCode
-            }
-          }
-          merchandise {
-            ... on ProductVariant {
-              id
-              availableForSale
-              compareAtPrice {
-                ...MoneyFragment
-              }
-              price {
-                ...MoneyFragment
-              }
-              requiresShipping
-              title
-              image {
-                ...ImageFragment
-              }
-              product {
-                handle
-                title
-                id
-              }
-              selectedOptions {
-                name
-                value
-              }
-            }
-          }
-        }
-      }
-    }
-    cost {
-      subtotalAmount {
-        ...MoneyFragment
-      }
-      totalAmount {
-        ...MoneyFragment
-      }
-      totalDutyAmount {
-        ...MoneyFragment
-      }
-      totalTaxAmount {
-        ...MoneyFragment
-      }
-    }
-    note
-    attributes {
-      key
-      value
-    }
-    discountCodes {
-      code
-    }
-  }
-
-  fragment MoneyFragment on MoneyV2 {
-    currencyCode
-    amount
-  }
-
-  fragment ImageFragment on Image {
-    id
-    url
-    altText
-    width
-    height
-  }
-`;
-
-const LAYOUT_QUERY = `#graphql
-  query layout {
-    shop {
-      name
-      description
-    }
-  }
-`;
