@@ -1,7 +1,5 @@
-export default function Index() {
-  return (
-    <p>
-      Edit this route in <em>app/routes/index.tsx</em>.
-    </p>
-  );
+const Home = () => {
+  return <div>Home</div>
 }
+
+export default Home
