@@ -1,40 +1,36 @@
 // Virtual entry point for the app
-import * as remixBuild from '@remix-run/dev/server-build';
-import {createStorefrontClient} from '@shopify/hydrogen';
+import * as remixBuild from '@remix-run/dev/server-build'
+import { createStorefrontClient } from '@shopify/hydrogen'
 import {
+  createCookieSessionStorage,
   createRequestHandler,
   getBuyerIp,
-  createCookieSessionStorage,
-  type SessionStorage,
   type Session,
-} from '@shopify/remix-oxygen';
+  type SessionStorage,
+} from '@shopify/remix-oxygen'
 
 /**
  * A global `process` object is only available during build to access NODE_ENV.
  */
-declare const process: {env: {NODE_ENV: string}};
+declare const process: { env: { NODE_ENV: string } }
 
 /**
  * Export a fetch handler in module format.
  */
 export default {
-  async fetch(
-    request: Request,
-    env: Env,
-    executionContext: ExecutionContext,
-  ): Promise<Response> {
+  async fetch(request: Request, env: Env, executionContext: ExecutionContext): Promise<Response> {
     try {
       /**
        * Open a cache instance in the worker and a custom session instance.
        */
       if (!env?.SESSION_SECRET) {
-        throw new Error('SESSION_SECRET environment variable is not set');
+        throw new Error('SESSION_SECRET environment variable is not set')
       }
 
       const [cache, session] = await Promise.all([
         caches.open('hydrogen'),
         HydrogenSession.init(request, [env.SESSION_SECRET]),
-      ]);
+      ])
 
       /**
        * Create a Remix request handler and pass
@@ -44,36 +40,35 @@ export default {
         build: remixBuild,
         mode: process.env.NODE_ENV,
         getLoadContext() {
-          const waitUntil = executionContext.waitUntil.bind(executionContext);
+          const waitUntil = executionContext.waitUntil.bind(executionContext)
 
-          const {storefront} = createStorefrontClient({
+          const { storefront } = createStorefrontClient({
             cache,
             waitUntil,
             buyerIp: getBuyerIp(request),
-            i18n: {language: 'EN', country: 'US'},
+            i18n: { language: 'EN', country: 'US' },
             publicStorefrontToken: env.PUBLIC_STOREFRONT_API_TOKEN,
             privateStorefrontToken: env.PRIVATE_STOREFRONT_API_TOKEN,
             storeDomain: env.PUBLIC_STORE_DOMAIN,
-            storefrontApiVersion:
-              env.PUBLIC_STOREFRONT_API_VERSION || '2022-10',
-          });
+            storefrontApiVersion: env.PUBLIC_STOREFRONT_API_VERSION || '2022-10',
+          })
 
           return {
             session,
             storefront,
             env,
-          };
+          }
         },
-      });
+      })
 
-      return await handleRequest(request);
+      return await handleRequest(request)
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(error);
-      return new Response('An unexpected error occurred', {status: 500});
+      console.error(error)
+      return new Response('An unexpected error occurred', { status: 500 })
     }
   },
-};
+}
 
 /**
  * This is a custom session implementation for your Hydrogen shop.
@@ -81,10 +76,7 @@ export default {
  * swap out the cookie-based implementation with something else!
  */
 class HydrogenSession {
-  constructor(
-    private sessionStorage: SessionStorage,
-    private session: Session,
-  ) {}
+  constructor(private sessionStorage: SessionStorage, private session: Session) {}
 
   static async init(request: Request, secrets: string[]) {
     const storage = createCookieSessionStorage({
@@ -95,34 +87,34 @@ class HydrogenSession {
         sameSite: 'lax',
         secrets,
       },
-    });
+    })
 
-    const session = await storage.getSession(request.headers.get('Cookie'));
+    const session = await storage.getSession(request.headers.get('Cookie'))
 
-    return new this(storage, session);
+    return new this(storage, session)
   }
 
   get(key: string) {
-    return this.session.get(key);
+    return this.session.get(key)
   }
 
   destroy() {
-    return this.sessionStorage.destroySession(this.session);
+    return this.sessionStorage.destroySession(this.session)
   }
 
   flash(key: string, value: any) {
-    this.session.flash(key, value);
+    this.session.flash(key, value)
   }
 
   unset(key: string) {
-    this.session.unset(key);
+    this.session.unset(key)
   }
 
   set(key: string, value: any) {
-    this.session.set(key, value);
+    this.session.set(key, value)
   }
 
   commit() {
-    return this.sessionStorage.commitSession(this.session);
+    return this.sessionStorage.commitSession(this.session)
   }
 }
