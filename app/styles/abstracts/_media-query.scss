@@ -1,11 +1,18 @@
-@mixin mq($breakpoint) {
-  @media (min-width: $breakpoint) {
-    @content;
-  }
-}
+@use 'sass:map';
 
-@mixin mq-max($breakpoint) {
-  @media (max-width: $breakpoint) {
+$breakpoints: (
+  sm: 481px,
+  md: 769px,
+  lg: 1025px,
+  xl: 1281px,
+  xxl: 1441px,
+  xxxl: 1681px,
+);
+
+@mixin media-query($value) {
+  $breakpoint: map.get($breakpoints, $value);
+
+  @media screen and (min-width: $breakpoint) {
     @content;
   }
 }
