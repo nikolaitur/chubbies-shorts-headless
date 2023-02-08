@@ -1,0 +1,67 @@
+.wrapper {
+  padding: 16px;
+  margin: 24px 0;
+  display: grid;
+  gap: 16px;
+  position: relative;
+  color: rgb(255, 255, 255);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #1C355E;
+  opacity: var(--background-opacity);
+  z-index: -1;
+}
+
+.bgImage {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logoWrapper {
+  width: 140px;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+}
+
+.learnMoreButton {
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  line-height: 100%;
+  font-size: 14px;
+  letter-spacing: 0%;
+  text-decoration: underline;
+}
+
+.title {
+  font-family: Poppins, sans-serif;
+  font-weight: 700;
+  line-height: 110%;
+  font-size: 18px;
+  letter-spacing: 0%;
+}
+
+.description {
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  line-height: 150%;
+  font-size: 14px;
+}

@@ -1,0 +1,25 @@
+@use '../../styles/abstracts' as *;
+
+.container {
+  padding: 0 $space-4;
+
+  @include media-query(md) {
+    max-width: 960px;
+    padding: 0 $space-8;
+    margin: 0 auto;
+  }
+
+  @include media-query(lg) {
+    max-width: 1088px;
+    padding: 0 $space-24;
+  }
+
+  @include media-query(xl) {
+    max-width: 1312px;
+    padding: 0 $space-36;
+  }
+
+  @include media-query(xxl) {
+    max-width: 1632px;
+  }
+}

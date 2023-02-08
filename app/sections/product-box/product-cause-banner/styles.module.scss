@@ -1,0 +1,55 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  padding: $space-4;
+  margin: $space-6 0;
+  display: grid;
+  gap: $space-4;
+  position: relative;
+  color: $text-neutral-white;
+  border-radius: $rounded-2;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    @include inset(0);
+    background-color: $text-neutral-default;
+    opacity: var(--background-opacity);
+    z-index: -1;
+  }
+}
+
+.bgImage {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logoWrapper {
+  width: 140px;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+}
+
+.learnMoreButton {
+  @include textlink-md;
+}
+
+.title {
+  @include headings-sm;
+}
+
+.description {
+  @include body-semi-md;
+}

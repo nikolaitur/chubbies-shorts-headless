@@ -1,0 +1,16 @@
+overwrite: true
+schema:
+  - https://chubbies.myshopify.com/api/2023-04/graphql.json:
+      headers:
+        X-Shopify-Storefront-Access-Token: 6beb9ad94eb8033605576c7a2f498cb6
+        content-type: application/json
+documents: 'app/graphql/**/*.ts'
+pluckConfig: { gqlMagicComment: 'gql' }
+generates:
+  app/graphql/generated/index.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+    config:
+      skipTypename: true
+      mergeFragmentTypes: true
