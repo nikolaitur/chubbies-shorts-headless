@@ -13,8 +13,27 @@ jobs:
     name: Deploy to Oxygen
     timeout-minutes: 30
     runs-on: ubuntu-latest
+
+    env:
+      BIT_TOKEN: ${{ secrets.BIT_TOKEN }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Setup BIT Authentication
+        run: |
+          echo "Adding bit.cloud to npm registry"
+          npm config set @solobrands:registry=https://registry.npmjs.org/
+          npm config set @solo-brands:registry=https://node.bit.cloud
+          npm config set @teambit:registry=https://node.bit.cloud
+          npm config set //node.bit.cloud/:_authToken ${BIT_TOKEN}
+          npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
+          echo "Completed adding bit.cloud to npm registry"
 
       - name: Setup node.js
         uses: actions/setup-node@v3
@@ -42,7 +61,7 @@ jobs:
         uses: shopify/oxygenctl-action@v4
         with:
           oxygen_deployment_token: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_458825 }}
-          build_command: "HYDROGEN_ASSET_BASE_URL=$OXYGEN_ASSET_BASE_URL yarn build"
+          build_command: 'HYDROGEN_ASSET_BASE_URL=$OXYGEN_ASSET_BASE_URL yarn build'
 
       # Create GitHub Deployment
       - name: Create GitHub Deployment
