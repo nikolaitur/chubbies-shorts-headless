@@ -1,4 +1,5 @@
 import { useLoaderData } from '@remix-run/react'
+import type { Product as ProductType } from '@shopify/hydrogen/storefront-api-types'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
 import { PdpQuery } from '~/graphql/generated'
 import { PDP_QUERY } from '~/graphql/storefront/products/queries'
@@ -16,10 +17,15 @@ const ProductPage = () => {
 
 export default ProductPage
 
-export async function loader({ params: { handle }, context: { storefront } }: LoaderArgs) {
-  const { product } = await storefront.query<PdpQuery>(PDP_QUERY, {
+export async function loader({ params, context: { storefront } }: LoaderArgs) {
+  const { handle } = params
+  const { product } = await storefront.query<{
+    product: ProductType
+  }>(PDP_QUERY, {
     variables: {
       handle,
+      country: storefront.i18n.country,
+      language: storefront.i18n.language,
     },
     cache: storefront.CacheShort(),
   })

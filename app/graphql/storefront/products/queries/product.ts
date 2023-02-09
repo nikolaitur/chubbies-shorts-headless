@@ -17,7 +17,11 @@ export const PDP_QUERY = /* gql */ `#graphql
     }
   }
 
-  query PDP($handle: String!) {
+  query PDP(
+    $handle: String!
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language){
     product(handle: $handle) {
       infoBlocks: metafield(namespace: "custom", key: "product_info_blocks") {
         references(first: 10) {
