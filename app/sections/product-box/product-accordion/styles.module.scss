@@ -1,0 +1,8 @@
+@use '../../../styles/abstracts' as *;
+
+.panel {
+  > div {
+    padding-top: $space-4;
+    padding-bottom: $space-8;
+  }
+}

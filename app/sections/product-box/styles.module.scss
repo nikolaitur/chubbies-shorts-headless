@@ -1,0 +1,17 @@
+@use '../../styles/abstracts' as *;
+
+.productBox {
+  display: grid;
+
+  @include media-query(lg) {
+    grid-template-columns: 1fr 500px;
+  }
+
+  @include media-query(xl) {
+    grid-template-columns: 1fr 570px;
+  }
+
+  @include media-query(xxl) {
+    grid-template-columns: 1fr 640px;
+  }
+}

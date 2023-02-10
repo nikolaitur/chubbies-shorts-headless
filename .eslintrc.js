@@ -6,5 +6,6 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     '@typescript-eslint/naming-convention': 'off',
+    'react/no-array-index-key': 'off',
   },
 }

@@ -1,17 +1,38 @@
+import { MEDIA_IMAGE_FRAGMENT } from '~/graphql/global-fragments'
+
 export const PDP_QUERY = /* gql */ `#graphql
+  ${MEDIA_IMAGE_FRAGMENT}
+
+  fragment InfoBlockFieldReference on MetafieldReference {
+    ... on MediaImage {
+      ...MediaImage
+    }
+
+    ... on Metaobject {
+      type
+      fields {
+        key
+        value
+        reference {
+          ... on MediaImage {
+            ...MediaImage
+          }
+        }
+      }
+    }
+  }
+
   fragment InfoBlock on Metaobject {
     type
     fields {
       key
       value
       reference {
-        ... on MediaImage {
-          image {
-            url
-            width
-            height
-            altText
-          }
+        ...InfoBlockFieldReference
+      }
+      references(first: 20) {
+        nodes {
+          ...InfoBlockFieldReference
         }
       }
     }

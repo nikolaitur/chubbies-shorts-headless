@@ -15,7 +15,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #1C355E;
+  background-color: rgb(0, 0, 0);
   opacity: var(--background-opacity);
   z-index: -1;
 }
@@ -43,16 +43,16 @@
 }
 
 .learnMoreButton {
-  font-family: Poppins, sans-serif;
+  font-family: futura-pt, sans-serif;
   font-weight: 600;
   line-height: 100%;
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 0%;
   text-decoration: underline;
 }
 
 .title {
-  font-family: Poppins, sans-serif;
+  font-family: futura-pt, sans-serif;
   font-weight: 700;
   line-height: 110%;
   font-size: 18px;
@@ -60,8 +60,8 @@
 }
 
 .description {
-  font-family: Poppins, sans-serif;
-  font-weight: 600;
-  line-height: 150%;
-  font-size: 14px;
+  font-family: futura-pt, sans-serif;
+  font-weight: 500;
+  line-height: 120%;
+  font-size: 16px;
 }

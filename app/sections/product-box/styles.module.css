@@ -1,1 +1,18 @@
-
+.productBox {
+  display: grid;
+}
+@media screen and (min-width: 1024px) {
+  .productBox {
+    grid-template-columns: 1fr 500px;
+  }
+}
+@media screen and (min-width: 1281px) {
+  .productBox {
+    grid-template-columns: 1fr 570px;
+  }
+}
+@media screen and (min-width: 1441px) {
+  .productBox {
+    grid-template-columns: 1fr 640px;
+  }
+}

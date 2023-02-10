@@ -1,8 +1,9 @@
 import { Link } from '@remix-run/react'
 import { Image } from '@shopify/hydrogen'
 import { CSSProperties } from 'react'
+import RichText from '~/components/rich-text'
 import { MetaobjectField } from '~/graphql/generated'
-import { flattenMetaobjectFields } from '~/helpers/shopify'
+import { flattenMetaobjectFields } from '~/helpers'
 import styles from './styles.module.css'
 import { ProductCauseBannerFlattenedFields, ProductCauseBannerProps } from './types'
 
@@ -25,17 +26,12 @@ const ProductCauseBanner = ({ fields, ...props }: ProductCauseBannerProps) => {
         <div className={styles.logoWrapper}>
           {logoData && <Image className={styles.logo} data={logoData} />}
         </div>
-        <Link className={styles.learnMoreButton} to={cta_link.value}>
+        <Link className={styles.learnMoreButton} to={cta_link.value ?? ''}>
           {cta_text.value}
         </Link>
       </div>
       <div>
-        {/* TODO: create richtext component for this */}
-        <p className={styles.title}>Every order counts</p>
-        <p className={styles.description}>
-          Your purchase of this product supports Foundation 43’s mission to expand access to mental
-          health care and suicide prevention in the United States.
-        </p>
+        <RichText source={body_text.value} />
       </div>
       {bgImageData && <Image className={styles.bgImage} data={bgImageData} />}
     </div>

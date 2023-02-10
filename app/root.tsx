@@ -9,11 +9,12 @@ import {
 } from '@shopify/remix-oxygen'
 import { BaseStyles } from '@solo-brands/ui-library.styles.global'
 // @ts-expect-error there are no typings for this module
-import { theme } from '@solobrands/token-library/dist/styled/isle'
+import { theme } from '@solobrands/token-library/dist/styled/chubbies'
 import { ThemeProvider } from 'styled-components'
 import favicon from '../public/favicon.svg'
 import MainFrame from './frames/main-frame'
 import { CART_QUERY } from './graphql/storefront/cart/queries'
+import appStyles from './styles/app.css'
 
 export const links: LinksFunction = () => {
   const cssBundle = { rel: 'stylesheet', href: cssBundleHref ?? '' }
@@ -28,6 +29,14 @@ export const links: LinksFunction = () => {
       href: 'https://shop.app',
     },
     { rel: 'icon', type: 'image/svg+xml', href: favicon },
+    { rel: 'stylesheet', href: 'https://use.typekit.net/rkh0qht.css' },
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'true' },
+    {
+      href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap',
+      rel: 'stylesheet',
+    },
+    { rel: 'stylesheet', href: appStyles },
   ]
 
   if (cssBundleHref) {

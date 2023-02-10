@@ -1,0 +1,17 @@
+.panel.withIcon {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+}
+.panel.withIcon .image {
+  height: 40px;
+}
+
+.image {
+  width: 100%;
+  height: 700px;
+}
+
+.textWrapper > p {
+  margin-bottom: 6px;
+}

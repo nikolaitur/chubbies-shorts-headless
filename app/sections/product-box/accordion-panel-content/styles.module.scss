@@ -1,0 +1,24 @@
+@use '../../../styles/abstracts/' as *;
+
+.panel {
+  &.withIcon {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: $space-4;
+
+    .image {
+      height: 40px;
+    }
+  }
+}
+
+.image {
+  width: 100%;
+  height: 700px;
+}
+
+.textWrapper {
+  > p {
+    margin-bottom: $space-1-5;
+  }
+}

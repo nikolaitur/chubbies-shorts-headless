@@ -6788,11 +6788,23 @@ export enum WeightUnit {
   Pounds = 'POUNDS'
 }
 
-export type InfoBlockFragment = { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { id: string, mediaContentType: MediaContentType, sources: Array<{ url: string, height: number, width: number }> } | null }> };
+export type MediaImageFragment = { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null };
+
+type InfoBlockFieldReference_7B8u7m2tpLweUnvsU5BrdYx8NJcgtx3INbx3qEQxg_Fragment = {};
+
+type InfoBlockFieldReference_MediaImage_Fragment = { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null };
+
+type InfoBlockFieldReference_Metaobject_Fragment = { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | null }> };
+
+export type InfoBlockFieldReferenceFragment = InfoBlockFieldReference_7B8u7m2tpLweUnvsU5BrdYx8NJcgtx3INbx3qEQxg_Fragment | InfoBlockFieldReference_MediaImage_Fragment | InfoBlockFieldReference_Metaobject_Fragment;
+
+export type InfoBlockFragment = { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | null }> } | null, references?: { nodes: Array<{ image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | null }> }> } | null }> };
 
 export type PdpQueryVariables = Exact<{
   handle: Scalars['String'];
+  country?: InputMaybe<CountryCode>;
+  language?: InputMaybe<LanguageCode>;
 }>;
 
 
-export type PdpQuery = { product?: { infoBlocks?: { references?: { nodes: Array<{ type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { id: string, mediaContentType: MediaContentType, sources: Array<{ url: string, height: number, width: number }> } | null }> }> } | null } | null } | null };
+export type PdpQuery = { product?: { infoBlocks?: { references?: { nodes: Array<{ type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | null }> } | null, references?: { nodes: Array<{ image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | null }> }> } | null }> }> } | null } | null } | null };

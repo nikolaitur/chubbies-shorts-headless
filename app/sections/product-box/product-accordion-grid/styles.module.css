@@ -1,0 +1,12 @@
+.panel > div {
+  padding-top: 16px;
+  padding-bottom: 32px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media screen and (min-width: 768px) {
+  .panel > div {
+    grid-template-columns: 1fr 1fr;
+  }
+}
