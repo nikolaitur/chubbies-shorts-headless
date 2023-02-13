@@ -1,6 +1,7 @@
 import ProductAccordion from '../product-accordion'
 import ProductAccordionGrid from '../product-accordion-grid'
 import ProductCauseBanner from '../product-cause-banner'
+import styles from './styles.module.css'
 import { InfoBlockProps, ProductInfoBlocksProps } from './types'
 
 const InfoBlock = ({ type, fields }: InfoBlockProps) => {
@@ -25,7 +26,7 @@ const InfoBlock = ({ type, fields }: InfoBlockProps) => {
 
 const ProductInfoBlocks = ({ infoBlocks, ...props }: ProductInfoBlocksProps) => {
   return (
-    <div {...props}>
+    <div className={styles.wrapper} {...props}>
       {infoBlocks.map(block => (
         <InfoBlock key={block.type} {...block} />
       ))}

@@ -6790,6 +6790,16 @@ export enum WeightUnit {
 
 export type MediaImageFragment = { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null };
 
+type PdpMedia_ExternalVideo_Fragment = { mediaContentType: MediaContentType, embedUrl: any, host: MediaHost };
+
+type PdpMedia_MediaImage_Fragment = { mediaContentType: MediaContentType, image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null };
+
+type PdpMedia_Model3d_Fragment = { mediaContentType: MediaContentType, alt?: string | null, previewImage?: { altText?: string | null, url: any } | null, sources: Array<{ url: string }> };
+
+type PdpMedia_Video_Fragment = { mediaContentType: MediaContentType, previewImage?: { url: any } | null, sources: Array<{ mimeType: string, url: string }> };
+
+export type PdpMediaFragment = PdpMedia_ExternalVideo_Fragment | PdpMedia_MediaImage_Fragment | PdpMedia_Model3d_Fragment | PdpMedia_Video_Fragment;
+
 type InfoBlockFieldReference_7B8u7m2tpLweUnvsU5BrdYx8NJcgtx3INbx3qEQxg_Fragment = {};
 
 type InfoBlockFieldReference_MediaImage_Fragment = { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null };
@@ -6807,4 +6817,4 @@ export type PdpQueryVariables = Exact<{
 }>;
 
 
-export type PdpQuery = { product?: { infoBlocks?: { references?: { nodes: Array<{ type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | null }> } | null, references?: { nodes: Array<{ image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | null }> }> } | null }> }> } | null } | null } | null };
+export type PdpQuery = { product?: { media: { nodes: Array<{ mediaContentType: MediaContentType, embedUrl: any, host: MediaHost } | { mediaContentType: MediaContentType, image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { mediaContentType: MediaContentType, alt?: string | null, previewImage?: { altText?: string | null, url: any } | null, sources: Array<{ url: string }> } | { mediaContentType: MediaContentType, previewImage?: { url: any } | null, sources: Array<{ mimeType: string, url: string }> }> }, infoBlocks?: { references?: { nodes: Array<{ type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | null }> } | null, references?: { nodes: Array<{ image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | { type: string, fields: Array<{ key: string, value?: string | null, reference?: { image?: { url: any, width?: number | null, height?: number | null, altText?: string | null } | null } | null }> }> } | null }> }> } | null } | null } | null };

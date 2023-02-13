@@ -3,6 +3,43 @@ import { MEDIA_IMAGE_FRAGMENT } from '~/graphql/global-fragments'
 export const PDP_QUERY = /* gql */ `#graphql
   ${MEDIA_IMAGE_FRAGMENT}
 
+  fragment PdpMedia on Media {
+    ... on Model3d {
+      mediaContentType
+      alt
+      previewImage {
+        altText
+        url
+      }
+      sources {
+        url
+      }
+      __typename
+    }
+    ... on MediaImage {
+      mediaContentType
+      ...MediaImage
+      __typename
+    }
+    ... on Video {
+      mediaContentType
+      previewImage {
+        url
+      }
+      sources {
+        mimeType
+        url
+      }
+      __typename
+    }
+    ... on ExternalVideo {
+      mediaContentType
+      embedUrl
+      host
+      __typename
+    }
+  }
+
   fragment InfoBlockFieldReference on MetafieldReference {
     ... on MediaImage {
       ...MediaImage
@@ -38,12 +75,14 @@ export const PDP_QUERY = /* gql */ `#graphql
     }
   }
 
-  query PDP(
-    $handle: String!
-    $country: CountryCode
-    $language: LanguageCode
-  ) @inContext(country: $country, language: $language){
+  query PDP($handle: String!, $country: CountryCode, $language: LanguageCode)
+  @inContext(country: $country, language: $language) {
     product(handle: $handle) {
+      media(first: 50) {
+        nodes {
+          ...PdpMedia
+        }
+      }
       infoBlocks: metafield(namespace: "custom", key: "product_info_blocks") {
         references(first: 10) {
           nodes {

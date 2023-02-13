@@ -1,0 +1,52 @@
+.wrapper {
+  width: 100%;
+  display: grid;
+  justify-self: center;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+
+.mainCarousel {
+  height: 500px;
+}
+.mainCarousel > :global(.item-list) > div {
+  height: 100%;
+  aspect-ratio: initial;
+}
+
+.thumbnailCarousel {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    max-width: 702px;
+    margin: 0;
+  }
+  .wrapper.slider {
+    align-items: start;
+    align-content: start;
+    grid-template-columns: 82px 1fr;
+    gap: 32px;
+  }
+  .mainCarousel {
+    height: auto;
+  }
+  .mainCarousel > :global(.item-list) > div {
+    height: auto;
+    aspect-ratio: 3/4;
+  }
+  .thumbnailCarousel {
+    display: block;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    max-width: initial;
+    justify-self: initial;
+  }
+  .wrapper.grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}

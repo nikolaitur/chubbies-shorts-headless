@@ -1,0 +1,65 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  width: 100%;
+  display: grid;
+  justify-self: center;
+  margin-left: -$space-4;
+  margin-right: -$space-4;
+}
+
+.mainCarousel {
+  height: 500px;
+
+  > :global(.item-list) {
+    > div {
+      height: 100%;
+      aspect-ratio: initial;
+    }
+  }
+}
+
+.thumbnailCarousel {
+  display: none;
+}
+
+@include media-query(md) {
+  .wrapper {
+    max-width: 702px;
+    margin: 0;
+
+    &.slider {
+      align-items: start;
+      align-content: start;
+      grid-template-columns: 82px 1fr;
+      gap: $space-8;
+    }
+  }
+
+  .mainCarousel {
+    height: auto;
+
+    > :global(.item-list) {
+      > div {
+        height: auto;
+        aspect-ratio: 3 / 4;
+      }
+    }
+  }
+
+  .thumbnailCarousel {
+    display: block;
+  }
+}
+
+@include media-query(lg) {
+  .wrapper {
+    max-width: initial;
+    justify-self: initial;
+
+    &.grid {
+      grid-template-columns: 1fr 1fr;
+      gap: $space-4;
+    }
+  }
+}
