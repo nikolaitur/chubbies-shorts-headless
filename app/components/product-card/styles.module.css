@@ -1,0 +1,60 @@
+.card {
+  display: grid;
+  gap: 10px;
+}
+
+.imageWrapper {
+  position: relative;
+  height: 216px;
+}
+@media screen and (min-width: 768px) {
+  .imageWrapper {
+    height: 405px;
+  }
+}
+@media screen and (min-width: 1281px) {
+  .imageWrapper {
+    height: 540px;
+  }
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+}
+
+.tag {
+  padding: 10px;
+  background-color: #9D6005;
+  border-radius: 0px;
+  color: white;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  font-family: futura-pt, sans-serif;
+  font-weight: 600;
+  line-height: 100%;
+  font-size: 14px;
+  text-transform: none;
+}
+
+.colorVariants {
+  display: flex;
+  gap: 8px;
+}
+
+.sizeVariants {
+  display: flex;
+  gap: 8px;
+}
+
+.cardFooter {
+  color: #007E45;
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 14px;
+}

@@ -1,0 +1,8 @@
+@use '../../styles/abstracts' as *;
+
+.collectionTitle {
+  @include headings-md;
+  @include media-query(md) {
+    @include headings-xxl;
+  }
+}

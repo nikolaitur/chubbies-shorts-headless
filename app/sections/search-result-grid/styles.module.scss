@@ -1,0 +1,86 @@
+@use '../../styles/abstracts' as *;
+
+.container {
+  padding: $space-8 $space-4;
+}
+
+.sidebar {
+  display: none;
+  width: 300px;
+}
+.filters {
+  position: sticky;
+  top: 10px;
+}
+.grid {
+  position: relative;
+  display: flex;
+  gap: 40px;
+}
+
+.resultsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+  flex-grow: 1;
+}
+
+.gridHeader {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  justify-content: space-between;
+}
+
+.searchButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-2;
+  div {
+    display: grid;
+
+    @include media-query(lg) {
+      &.filterButton {
+        display: none;
+      }
+    }
+  }
+}
+
+.productsGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-4;
+}
+
+@include media-query(md) {
+  .container {
+    padding: $space-8;
+  }
+
+  .searchButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: $space-2;
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@include media-query(lg) {
+  .gridHeader {
+    flex-direction: row;
+  }
+  .sidebar {
+    display: block;
+  }
+}
+
+@include media-query(xxxl) {
+  .productsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

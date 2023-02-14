@@ -1,0 +1,41 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  padding: 0 32px;
+  gap: 12px;
+}
+
+.filterHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.heading {
+  font-family: futura-pt, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 120%;
+}
+
+.sizeFilterSelector {
+  display: flex;
+  flex-flow: wrap;
+  gap: 6px;
+  padding: 4px 0;
+  text-transform: uppercase;
+}
+
+.colorFilterSelector {
+  display: flex;
+  gap: 6px;
+}
+
+.clear {
+  font-family: futura-pt, sans-serif;
+  font-weight: 600;
+  line-height: 100%;
+  font-size: 12px;
+  letter-spacing: 0%;
+  text-decoration: underline;
+}

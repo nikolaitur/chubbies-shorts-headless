@@ -1,0 +1,38 @@
+@use '../../styles/abstracts' as *;
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  padding: 0 $space-8;
+  gap: $space-3;
+}
+
+.filterHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: $space-2 0;
+}
+
+.heading {
+  font-family: $font-futura-pt;
+  font-weight: $font-weight-demi;
+  font-size: $font-size-18;
+  line-height: $line-height-120; // MISSING MIXIN TOKEN
+}
+
+.sizeFilterSelector {
+  display: flex;
+  flex-flow: wrap;
+  gap: $space-1-5;
+  padding: 4px 0;
+  text-transform: uppercase;
+}
+
+.colorFilterSelector {
+  display: flex;
+  gap: $space-1-5;
+}
+
+.clear {
+  @include textlink-xs;
+}
