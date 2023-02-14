@@ -15,7 +15,7 @@ export const useMatchMedia = (breakpoint: string, initialValue = false) => {
 
     // set isMatch value on change
     media.onchange = e => handleChange(e)
-  }, [])
+  }, [breakpoint])
 
   return isMatch
 }
