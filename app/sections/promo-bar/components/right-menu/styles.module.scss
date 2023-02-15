@@ -1,0 +1,20 @@
+@use '../../../../styles/abstracts' as *;
+
+.section {
+  visibility: hidden;
+  position: absolute;
+  align-self: center;
+  right: $space-6;
+}
+
+.wrapper {
+  display: flex;
+  column-gap: $space-4;
+  align-items: center;
+}
+
+@include media-query(xl) {
+  .section {
+    visibility: visible;
+  }
+}

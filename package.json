@@ -28,6 +28,7 @@
     "@solo-brands/ui-library.ui.atomic.button-icon": "^1.0.5",
     "@solo-brands/ui-library.styles.global": "^1.0.1",
     "@solo-brands/ui-library.ui.atomic.accordion": "^1.0.4",
+    "@solo-brands/ui-library.ui.atomic.counter": "^1.0.5",
     "@solo-brands/ui-library.ui.atomic.icon": "^1.0.1",
     "@solo-brands/ui-library.ui.atomic.payment-method": "^1.0.0",
     "@solo-brands/ui-library.ui.atomic.price": "^1.0.3",
@@ -43,6 +44,7 @@
     "graphql-tag": "^2.12.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "remix-utils": "^6.0.0",
     "styled-components": "^5.3.6",
     "yup": "^0.32.11"
   },

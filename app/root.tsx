@@ -31,7 +31,7 @@ export const links: LinksFunction = () => {
     { rel: 'icon', type: 'image/svg+xml', href: favicon },
     { rel: 'stylesheet', href: 'https://use.typekit.net/rkh0qht.css' },
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'true' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'true' },
     {
       href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap',
       rel: 'stylesheet',

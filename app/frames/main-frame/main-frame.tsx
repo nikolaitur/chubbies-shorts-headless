@@ -1,4 +1,5 @@
 import { forwardRef, HTMLAttributes, ReactNode, Ref } from 'react'
+import Header from '~/sections/header'
 
 export type MainFrameProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
@@ -7,7 +8,7 @@ export type MainFrameProps = HTMLAttributes<HTMLDivElement> & {
 const MainFrame = ({ children, ...props }: MainFrameProps, ref: Ref<HTMLDivElement>) => {
   return (
     <main ref={ref} {...props}>
-      <header>Header</header>
+      <Header />
       {children}
       <footer>Footer</footer>
     </main>
