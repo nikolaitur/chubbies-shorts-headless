@@ -40,6 +40,36 @@ export const PDP_QUERY = /* gql */ `#graphql
     }
   }
 
+  fragment PdpProductVariants on ProductVariant {
+    id
+    availableForSale
+    selectedOptions {
+      name
+      value
+    }
+    image {
+      id
+      url
+      altText
+      width
+      height
+    }
+    price {
+      amount
+      currencyCode
+    }
+    compareAtPrice {
+      amount
+      currencyCode
+    }
+    sku
+    title
+    product {
+      title
+      handle
+    }
+  }
+
   fragment InfoBlockFieldReference on MetafieldReference {
     ... on MediaImage {
       ...MediaImage
@@ -83,6 +113,13 @@ export const PDP_QUERY = /* gql */ `#graphql
           ...PdpMedia
         }
       }
+
+      variants(first: 10) {
+        nodes {
+          ...PdpProductVariants
+        }
+      }
+
       infoBlocks: metafield(namespace: "custom", key: "product_info_blocks") {
         references(first: 10) {
           nodes {

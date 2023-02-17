@@ -16,7 +16,7 @@ import MainFrame from './frames/main-frame'
 import { CART_QUERY } from './graphql/storefront/cart/queries'
 import appStyles from './styles/app.css'
 
-// @ts-expect-error TODO: Fix type error LinksFunction
+// @ts-expect-error - TODO: find a way to correct the types of this
 export const links: LinksFunction = () => {
   const cssBundle = { rel: 'stylesheet', href: cssBundleHref ?? '' }
 

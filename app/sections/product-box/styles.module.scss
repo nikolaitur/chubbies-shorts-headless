@@ -6,8 +6,8 @@
   margin-right: -$space-4;
 
   @include media-query(md) {
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: $space-0;
+    margin-right: $space-0;
   }
 
   @include media-query(lg) {
@@ -21,5 +21,13 @@
 
   @include media-query(xxl) {
     grid-template-columns: 1fr 640px;
+  }
+}
+
+.productBoxDetails {
+  padding: $space-0 $space-4;
+
+  @include media-query(md) {
+    padding: $space-0;
   }
 }

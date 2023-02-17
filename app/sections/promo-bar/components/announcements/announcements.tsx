@@ -35,12 +35,12 @@ const Announcements = (
               <Link to={link?.value} title={title?.value ?? undefined} target="_blank">
                 {content?.value}
               </Link>
-              {end_date?.value ? <Counter {...counterProps} /> : null}
+              {end_date?.value && <Counter {...counterProps} />}
             </>
           ) : (
             <>
               <span>{content?.value}</span>
-              {end_date?.value ? <Counter {...counterProps} /> : null}
+              {end_date?.value && <Counter {...counterProps} />}
             </>
           )}
         </div>

@@ -1,0 +1,41 @@
+@use '../../../styles/abstracts' as *;
+
+.carousel {
+  &.slider {
+    padding-left: $space-8;
+    padding-right: $space-16;
+
+    :global(.carousel-navigation) {
+      padding-left: $space-0;
+      padding-right: $space-0;
+    }
+
+    :global(.carousel-next-button) {
+      transform: translateX(-$space-8);
+      transition: 0.1s ease-out;
+
+      &.withRemainingCount {
+        transform: translateX($space-0);
+      }
+    }
+
+    .remainingSlidesCount {
+      right: $space-8;
+    }
+  }
+
+  &.inline {
+    padding-right: $space-8;
+
+    .remainingSlidesCount {
+      right: $space-0;
+    }
+  }
+}
+
+.remainingSlidesCount {
+  position: absolute;
+  color: $text-neutral-default;
+
+  @include product-variant-label-md;
+}
