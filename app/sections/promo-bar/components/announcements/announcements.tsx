@@ -13,7 +13,7 @@ const Announcements = (
   const { title, content, link, end_date, background_color, font_color, countdown } = announcement
 
   const counterProps = {
-    endDate: end_date?.value,
+    endDate: end_date?.value ?? '',
     backgroundColor: 'transparent',
     fontColor: 'inherit',
     withIcon: true,
@@ -35,12 +35,12 @@ const Announcements = (
               <Link to={link?.value} title={title?.value ?? undefined} target="_blank">
                 {content?.value}
               </Link>
-              {!!end_date?.value ? <Counter {...counterProps} /> : null}
+              {end_date?.value ? <Counter {...counterProps} /> : null}
             </>
           ) : (
             <>
               <span>{content?.value}</span>
-              {!!end_date?.value ? <Counter {...counterProps} /> : null}
+              {end_date?.value ? <Counter {...counterProps} /> : null}
             </>
           )}
         </div>

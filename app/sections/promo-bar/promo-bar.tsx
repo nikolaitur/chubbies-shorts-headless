@@ -108,7 +108,7 @@ const PromoBar = ({ ...props }: HeaderProps, ref: Ref<HTMLDivElement>) => {
   return (
     <div
       className={clsx(styles.section, `announcement-bar`)}
-      style={{ backgroundColor: backgroundColor }}
+      style={{ backgroundColor }}
       ref={ref}
       {...props}
     >
