@@ -1,0 +1,9 @@
+.section {
+  padding: auto 48px;
+  display: grid;
+  position: relative;
+  width: 100%;
+  height: 38px;
+  background-color: #fff;
+  color: white;
+}

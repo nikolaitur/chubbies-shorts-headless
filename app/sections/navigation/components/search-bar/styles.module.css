@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  position: relative;
+  grid-column: 1/span 3;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 32px;
+  border-radius: 500px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border-color: #A0A2A5;
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 100%;
+  font-size: 16px;
+}
+.input::placeholder {
+  color: #A0A2A5;
+}
+.input:active {
+  color: rgb(0, 0, 0);
+}
+
+.searchIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 12px;
+}
+
+.closeIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  right: 12px;
+  color: #DD1C2F;
+}

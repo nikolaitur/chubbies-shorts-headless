@@ -1,0 +1,23 @@
+@use './../../../../styles/abstracts/' as *;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 $space-3;
+  height: calc($space-10 + $space-8);
+  cursor: pointer;
+  border-top: $border-width-2 solid transparent;
+  border-bottom: $border-width-2 solid transparent;
+
+  &:hover {
+    border-bottom: $border-width-2 solid $text-neutral-default;
+  }
+
+  @include body-bold-md;
+}
+
+@include media-query(lg) {
+  .wrapper {
+    padding: 0 $space-4-5;
+  }
+}

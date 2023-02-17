@@ -1,0 +1,47 @@
+@use './../../../../styles/abstracts/' as *;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  position: relative;
+  grid-column: 1 / span 3;
+}
+
+.input {
+  width: 100%;
+  padding: $space-2 $space-8;
+  border-radius: $rounded-pill;
+
+  background-color: $input-bg;
+  color: $input-content;
+  border-color: $input-border;
+
+  @include input-content-text;
+
+  &::placeholder {
+    color: $input-placeholder;
+  }
+
+  &:active {
+    color: $input-content;
+  }
+}
+
+.searchIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: $space-3;
+}
+
+.closeIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  right: $space-3;
+  color: $input-error-message;
+}
