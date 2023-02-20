@@ -1,9 +1,12 @@
 .wrapper {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: start;
   position: relative;
   grid-column: 1/span 3;
+  min-width: 100%;
+  max-width: 430px;
 }
 
 .input {
