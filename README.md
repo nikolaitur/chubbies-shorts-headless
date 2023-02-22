@@ -42,7 +42,7 @@ cat ~/.npmrc
 SESSION_SECRET="991867ba-ee74-4861-81e1-e73f402f58bf"
 PUBLIC_STOREFRONT_API_TOKEN="6beb9ad94eb8033605576c7a2f498cb6"
 PUBLIC_STOREFRONT_API_VERSION="2023-04"
-PUBLIC_STORE_DOMAIN="https://chubbies.myshopify.com"
+PUBLIC_STORE_DOMAIN="chubbies.myshopify.com"
 ```
 
 8. Run:

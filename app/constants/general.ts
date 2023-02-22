@@ -5,3 +5,9 @@ export const BREAKPOINTS = {
   XXL: '(min-width:1441px)',
   XXXL: '(min-width:1681px)',
 }
+
+export const STOREFRONT_NAME_KEY = 'storefront_name'
+export const PRODUCT_ROUTE_ID = 'routes/($lang)/products/$handle'
+export const UNIT_MEASUREMENT_SYMBOL: { [key: string]: string } = {
+  INCHES: '"',
+}

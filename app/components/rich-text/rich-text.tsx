@@ -23,7 +23,6 @@ const RichTextNode = ({
   value,
   listType = '',
 }) => {
-  const currentCount = count + 1
   const Tag = {
     root: React.Fragment,
     text: 'span',
@@ -46,8 +45,8 @@ const RichTextNode = ({
   return (
     <Tag {...elementProps}>
       {value}
-      {children.map(child => (
-        <RichTextNode key={currentCount} {...child} />
+      {children.map((child, index) => (
+        <RichTextNode key={`${value}-${index}`} {...child} />
       ))}
     </Tag>
   )

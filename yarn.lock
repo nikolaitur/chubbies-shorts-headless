@@ -1468,6 +1468,14 @@
     lit "^2.2.3"
     three "^0.139.2"
 
+"@graphql-codegen/add@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/add/-/add-4.0.1.tgz#c187af820fdd2fc7a9c1c2453bc389cd4e16699e"
+  integrity sha512-A7k+9eRfrKyyNfhWEN/0eKz09R5cp4XXxUuNLQAVm/aohmVI2xdMV4lM02rTlM6Pyou3cU/v0iZnhgo6IRpqeg==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^4.1.0"
+    tslib "~2.5.0"
+
 "@graphql-codegen/cli@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-3.0.0.tgz#eb367adfe51349e4822518183fc7ea7c06aea11b"
@@ -1530,6 +1538,18 @@
     import-from "4.0.0"
     lodash "~4.17.0"
     tslib "~2.4.0"
+
+"@graphql-codegen/plugin-helpers@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-4.1.0.tgz#4b193c12d6bb458f1f2af48c200bc86617884f60"
+  integrity sha512-xvSHJb9OGb5CODIls0AI1rCenLz+FuiaNPCsfHMCNsLDjOZK2u0jAQ9zUBdc/Wb+21YXZujBCc0Vm1QX+Zz0nw==
+  dependencies:
+    "@graphql-tools/utils" "^9.0.0"
+    change-case-all "1.0.15"
+    common-tags "1.8.2"
+    import-from "4.0.0"
+    lodash "~4.17.0"
+    tslib "~2.5.0"
 
 "@graphql-codegen/schema-ast@^3.0.0":
   version "3.0.0"
@@ -2881,11 +2901,13 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.swatch-selector@^1.0.4":
-  version "1.0.4"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.swatch-selector/-/@solo-brands-ui-library.ui.atomic.swatch-selector-1.0.4.tgz#88b0c30d271b70ac43d6cce515634a9d113856ac"
-  integrity sha1-iLDDDScbcKxD1szlFWNKnRE4Vqw=
+"@solo-brands/ui-library.ui.atomic.swatch-selector@^1.0.6":
+  version "1.0.6"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.swatch-selector/-/@solo-brands-ui-library.ui.atomic.swatch-selector-1.0.6.tgz#1dccbdc221ff214d1e26d201d83707c865f74ac0"
+  integrity sha1-Hcy9wiH/IU0eJtIB2DcHyGX3SsA=
   dependencies:
+    "@shopify/hydrogen" "^2023.1.4"
+    "@shopify/hydrogen-react" "^2022.10.3"
     "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
     core-js "^3.0.0"
     styled-components "5.3.6"
@@ -2910,10 +2932,10 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.shared.gallery-nav@^1.0.20":
-  version "1.0.20"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.shared.gallery-nav/-/@solo-brands-ui-library.ui.shared.gallery-nav-1.0.20.tgz#05ed26b70e731ab3320ffdb31f64fcaf3418e166"
-  integrity sha1-Be0mtw5zGrMyD/2zH2T8rzQY4WY=
+"@solo-brands/ui-library.ui.shared.gallery-nav@^1.0.21":
+  version "1.0.21"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.shared.gallery-nav/-/@solo-brands-ui-library.ui.shared.gallery-nav-1.0.21.tgz#a2a5a376747d5cef83e0f8e336f148d5f306eace"
+  integrity sha1-oqWjdnR9XO+D4PjjNvFI1fMG6s4=
   dependencies:
     "@solo-brands/ui-library.ui.atomic.carousel" "0.0.20"
     "@solo-brands/ui-library.ui.atomic.gallery-thumbnail" "1.0.2"

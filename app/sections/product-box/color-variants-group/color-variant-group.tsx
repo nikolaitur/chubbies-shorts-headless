@@ -1,70 +1,67 @@
 import VariantInfo from '@solo-brands/ui-library.ui.atomic.variant-info'
-import clsx from 'clsx'
+import { useMatches } from 'react-router'
+import { PRODUCT_ROUTE_ID } from '~/constants'
+import { PdpRouteData } from '~/global-types'
 import ColorVariantsCarousel from '../color-variants-carousel'
 import ColorVariantsExpandable from '../color-variants-expandable'
 import styles from './styles.module.css'
-import { ColorVariantsGroupProps } from './types'
-
-const colors = [
-  {
-    hex: '#000000',
-  },
-  {
-    hex: '#36454F',
-  },
-  {
-    hex: '#023020',
-  },
-  {
-    hex: '#301934',
-  },
-  {
-    hex: '#343434',
-  },
-  {
-    hex: '#1B1212',
-  },
-  {
-    hex: '#28282B',
-  },
-  {
-    hex: '#191970',
-  },
-  {
-    hex: '#353935',
-  },
-  {
-    hex: '#B2BEB5',
-  },
-  {
-    hex: '#7393B3',
-  },
-  {
-    hex: '#A9A9A9',
-  },
-  {
-    hex: '#71797E',
-  },
-  {
-    hex: '#848884',
-  },
-  {
-    hex: '#E5E4E2',
-  },
-]
+import { ColorGroupProps, ColorVariantsGroupProps } from './types'
 
 const ColorVariantsGroup = ({
-  size = 'md',
+  size = 'xl',
   variant = 'inline',
   ...props
 }: ColorVariantsGroupProps) => {
+  const matches = useMatches()
+  const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
+  const { colorOptions, colorOptionsByGroup } = data.product
+  const groups = Object.keys(colorOptionsByGroup ?? {})
+
+  if (!colorOptions) return null
+
+  const selectedColorName = colorOptions.find(option => option.selected)?.name
+
   return (
-    <div className={clsx(styles.wrapper, styles[size])} {...props}>
-      <VariantInfo size={'sm'} optionName="Color" optionValue="Value" />
+    <div className={styles.wrapper} {...props}>
+      {groups.map((group, index) => {
+        const colorOptions = colorOptionsByGroup?.[group]
+
+        if (!colorOptions) return null
+
+        return (
+          <ColorGroup
+            key={index}
+            groupName={group}
+            colorOptions={colorOptions}
+            selectedColorName={selectedColorName ?? ''}
+            size={size}
+            variant={variant}
+          />
+        )
+      })}
+    </div>
+  )
+}
+
+const ColorGroup = ({
+  groupName,
+  colorOptions,
+  selectedColorName,
+  size,
+  variant,
+}: ColorGroupProps) => {
+  const isSelectedGroup = colorOptions.some(option => option.name === selectedColorName)
+  return (
+    <div className={styles.groupWrapper}>
+      <VariantInfo
+        size={'sm'}
+        optionName={groupName}
+        optionValue={isSelectedGroup ? selectedColorName : ''}
+      />
       {variant !== 'expandable' ? (
-        <ColorVariantsCarousel colors={colors} size={size} variant={variant} />
+        <ColorVariantsCarousel colorOptions={colorOptions} size={size} variant={variant} />
       ) : (
-        <ColorVariantsExpandable colors={colors} size={size} />
+        <ColorVariantsExpandable colorOptions={colorOptions} size={size} />
       )}
     </div>
   )

@@ -1,0 +1,12 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  display: grid;
+  gap: $space-2;
+}
+
+.sizeOptions {
+  display: flex;
+  align-items: center;
+  gap: $space-1-5;
+}

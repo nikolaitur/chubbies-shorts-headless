@@ -6,11 +6,17 @@ schema:
         content-type: application/json
 documents: 'app/graphql/**/*.ts'
 pluckConfig: { gqlMagicComment: 'gql' }
+hooks:
+  afterAllFileWrite:
+    - prettier --write
 generates:
   app/graphql/generated/index.ts:
     plugins:
+      - 'add'
       - 'typescript'
       - 'typescript-operations'
     config:
+      content: '/* eslint-disable */'
       skipTypename: true
+      omitOperationSuffix: true
       mergeFragmentTypes: true

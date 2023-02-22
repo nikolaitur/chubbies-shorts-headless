@@ -1,4 +1,6 @@
+import { ColorOption } from '~/global-types'
+
 export type ColorVariantsExpandableProps = {
-  colors: any[] // type not yet known
+  colorOptions: ColorOption[] // type not yet known
   size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs'
 }

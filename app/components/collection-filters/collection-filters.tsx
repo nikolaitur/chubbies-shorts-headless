@@ -1,13 +1,13 @@
-import styles from './styles.module.css'
-import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
 import Accordion, {
   AccordionButton,
   AccordionItem,
   AccordionPanel,
 } from '@solo-brands/ui-library.ui.atomic.accordion'
-import clsx from 'clsx'
-import { CollectionFiltersProps } from './types'
 import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector'
+import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
+import clsx from 'clsx'
+import styles from './styles.module.css'
+import { CollectionFiltersProps } from './types'
 
 const CollectionFilters = ({ className }: CollectionFiltersProps) => {
   const sizeVariants = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL']
@@ -59,14 +59,7 @@ const CollectionFilters = ({ className }: CollectionFiltersProps) => {
               <AccordionPanel>
                 <div className={styles.colorFilterSelector}>
                   {colorVariants.map(variant => {
-                    return (
-                      <SwatchSelector
-                        key={variant}
-                        variant="one-color"
-                        colors={[variant]}
-                        option={variant}
-                      />
-                    )
+                    return <SwatchSelector key={variant} colors={[variant]} option={variant} />
                   })}
                 </div>
               </AccordionPanel>

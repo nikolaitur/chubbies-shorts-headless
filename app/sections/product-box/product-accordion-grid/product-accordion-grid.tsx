@@ -35,7 +35,9 @@ const ProductAccordionGrid = ({ fields, ...props }: ProductAccordionGridProps) =
             const { image, text } = flattenedCardFields
             const iconData = image.reference?.image
 
-            return <AccordionPanelContent key={index} icon={iconData} text={text.value} />
+            return (
+              <AccordionPanelContent key={`${text}-${index}`} icon={iconData} text={text.value} />
+            )
           })}
         </AccordionPanel>
       </AccordionItem>

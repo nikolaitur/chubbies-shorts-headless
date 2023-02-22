@@ -1,5 +1,5 @@
 export const MEDIA_IMAGE_FRAGMENT = /* gql */ `#graphql
-  fragment MediaImage on MediaImage {
+  fragment MediaImageFragment on MediaImage {
     image {
       url
       width

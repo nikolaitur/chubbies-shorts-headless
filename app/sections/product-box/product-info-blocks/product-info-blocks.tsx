@@ -26,8 +26,8 @@ const InfoBlock = ({ type, fields }: InfoBlockProps) => {
 const ProductInfoBlocks = ({ infoBlocks, ...props }: ProductInfoBlocksProps) => {
   return (
     <div {...props}>
-      {infoBlocks.map(block => (
-        <InfoBlock key={block.type} {...block} />
+      {infoBlocks.map((block, index) => (
+        <InfoBlock key={`${block.type}-${index}`} {...block} />
       ))}
     </div>
   )

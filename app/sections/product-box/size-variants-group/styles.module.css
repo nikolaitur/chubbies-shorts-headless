@@ -1,0 +1,10 @@
+.wrapper {
+  display: grid;
+  gap: 8px;
+}
+
+.sizeOptions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

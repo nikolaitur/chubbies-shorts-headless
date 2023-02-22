@@ -1,4 +1,9 @@
 .wrapper {
   display: grid;
+  gap: 16px;
+}
+
+.groupWrapper {
+  display: grid;
   gap: 8px;
 }

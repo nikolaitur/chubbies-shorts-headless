@@ -1,25 +1,31 @@
+import { Link, useLocation } from '@remix-run/react'
 import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector/dist/swatch-selector'
 import clsx from 'clsx'
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import styles from './styles.module.css'
 import { ColorVariantsExpandableProps } from './types'
 
-const ColorVariantsExpandable = ({ colors, size = 'md' }: ColorVariantsExpandableProps) => {
+const ColorVariantsExpandable = ({ colorOptions, size = 'md' }: ColorVariantsExpandableProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
+  const location = useLocation()
+
   const columnCount = 7
-  const initialColorsToShow = colors.slice(0, columnCount)
-  const remainingColorsCount = colors.length - columnCount
-  const colorsToShow = isExpanded ? colors : initialColorsToShow
+  const initialColorsToShow = colorOptions.slice(0, columnCount)
+  const remainingColorsCount = colorOptions.length - columnCount
+  const colorsToShow = isExpanded ? colorOptions : initialColorsToShow
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.grid}>
-        {colorsToShow.map((color, index) => (
-          <Fragment key={index}>
-            {/* Fragment is needed to add comment here, it will be remove once we don't need ts-ignore below  */}
-            {/* @ts-expect-error - TODO: Update SwatchSelector types */}
-            <SwatchSelector size={size} colors={[color.hex]} />
-          </Fragment>
+        {colorsToShow.map(({ image, handle, selected }, index) => (
+          <Link
+            key={index}
+            className={styles.link}
+            prefetch="render"
+            to={{ pathname: `/products/${handle}`, search: location.search }}
+          >
+            <SwatchSelector size={size} image={image} selected={selected} />
+          </Link>
         ))}
       </div>
       <button

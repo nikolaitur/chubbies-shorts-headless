@@ -2,5 +2,10 @@
 
 .wrapper {
   display: grid;
+  gap: $space-4;
+}
+
+.groupWrapper {
+  display: grid;
   gap: $space-2;
 }

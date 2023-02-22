@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.groupWrapper {
+  display: grid;
+  gap: 8px;
+}
+
+.inseamOptions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.illustrationWrapper {
+  height: 100%;
+  width: 100px;
+}
+.illustrationWrapper img {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+}

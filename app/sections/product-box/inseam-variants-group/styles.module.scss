@@ -1,0 +1,29 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-4;
+}
+
+.groupWrapper {
+  display: grid;
+  gap: $space-2;
+}
+
+.inseamOptions {
+  display: flex;
+  align-items: center;
+  gap: $space-1-5;
+}
+
+.illustrationWrapper {
+  height: 100%;
+  width: 100px;
+
+  img {
+    height: 100px;
+    width: 100px;
+    position: absolute;
+  }
+}

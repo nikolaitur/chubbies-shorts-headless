@@ -1,12 +1,11 @@
 import { Image } from '@shopify/hydrogen'
-import styles from './styles.module.css'
-import { ProductCardProps } from './types'
 import Button from '@solo-brands/ui-library.ui.atomic.button'
 import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon'
-import Price from '@solo-brands/ui-library.ui.atomic.price'
 import { HeartIcon } from '@solo-brands/ui-library.ui.atomic.icon'
-import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
+import Price from '@solo-brands/ui-library.ui.atomic.price'
 import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector'
+import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
+import styles from './styles.module.css'
 
 const ProductCard = () => {
   const backgroundImage = {
@@ -41,9 +40,7 @@ const ProductCard = () => {
       </div>
       <div className={styles.colorVariants}>
         {colorVariants.map(variant => {
-          return (
-            <SwatchSelector key={variant} variant="one-color" colors={[variant]} option={variant} />
-          )
+          return <SwatchSelector key={variant} colors={[variant]} option={variant} />
         })}
       </div>
       <div className={styles.sizeVariants}>

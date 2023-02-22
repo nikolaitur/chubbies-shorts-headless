@@ -10,3 +10,5 @@ export const splitArrayToChunks = (array: any[], size = 2) => {
 
   return result
 }
+
+export const capitalizeWord = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)

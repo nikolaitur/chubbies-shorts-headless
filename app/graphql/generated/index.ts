@@ -1,3 +1,4 @@
+/* eslint-disable */
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
@@ -705,6 +706,10 @@ export type CartDiscountCodesUpdatePayload = {
 export enum CartErrorCode {
   /** The input value is invalid. */
   Invalid = 'INVALID',
+  /** Delivery group was not found in cart. */
+  InvalidDeliveryGroup = 'INVALID_DELIVERY_GROUP',
+  /** Delivery option was not valid. */
+  InvalidDeliveryOption = 'INVALID_DELIVERY_OPTION',
   /** Merchandise line was not found in cart. */
   InvalidMerchandiseLine = 'INVALID_MERCHANDISE_LINE',
   /** The input value should be less than the maximum value allowed. */
@@ -5175,6 +5180,7 @@ export type PageEdge = {
 /**
  * Returns information about pagination in a connection, in accordance with the
  * [Relay specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).
+ * For more information, please read our [GraphQL Pagination Usage Guide](https://shopify.dev/api/usage/pagination-graphql).
  *
  */
 export type PageInfo = {
@@ -6707,13 +6713,13 @@ export type MediaImageFragment = {
   } | null
 }
 
-type PdpMedia_ExternalVideo_Fragment = {
+type PdpMediaFragment_ExternalVideo_ = {
   mediaContentType: MediaContentType
   embedUrl: any
   host: MediaHost
-}
+} & { __typename: 'ExternalVideo' }
 
-type PdpMedia_MediaImage_Fragment = {
+type PdpMediaFragment_MediaImage_ = {
   mediaContentType: MediaContentType
   image?: {
     url: any
@@ -6721,32 +6727,54 @@ type PdpMedia_MediaImage_Fragment = {
     height?: number | null
     altText?: string | null
   } | null
-}
+} & { __typename: 'MediaImage' }
 
-type PdpMedia_Model3d_Fragment = {
+type PdpMediaFragment_Model3d_ = {
   mediaContentType: MediaContentType
   alt?: string | null
   previewImage?: { altText?: string | null; url: any } | null
   sources: Array<{ url: string }>
-}
+} & { __typename: 'Model3d' }
 
-type PdpMedia_Video_Fragment = {
+type PdpMediaFragment_Video_ = {
   mediaContentType: MediaContentType
   previewImage?: { url: any } | null
   sources: Array<{ mimeType: string; url: string }>
-}
+} & { __typename: 'Video' }
 
 export type PdpMediaFragment =
-  | PdpMedia_ExternalVideo_Fragment
-  | PdpMedia_MediaImage_Fragment
-  | PdpMedia_Model3d_Fragment
-  | PdpMedia_Video_Fragment
+  | PdpMediaFragment_ExternalVideo_
+  | PdpMediaFragment_MediaImage_
+  | PdpMediaFragment_Model3d_
+  | PdpMediaFragment_Video_
 
-// TODO: check if possible to use @shopify/hydrogen-react/storefront-api-types
-// eslint-disable-next-line @typescript-eslint/ban-types
-type InfoBlockFieldReference_7B8u7m2tpLweUnvsU5BrdYx8NJcgtx3INbx3qEQxg_Fragment = {}
+export type ProductGroupVariantsFragment = {
+  id: string
+  availableForSale: boolean
+  selectedOptions: Array<{ name: string; value: string }>
+}
 
-type InfoBlockFieldReference_MediaImage_Fragment = {
+export type PdpProductVariantsFragment = {
+  id: string
+  availableForSale: boolean
+  sku?: string | null
+  title: string
+  selectedOptions: Array<{ name: string; value: string }>
+  image?: {
+    id?: string | null
+    url: any
+    altText?: string | null
+    width?: number | null
+    height?: number | null
+  } | null
+  price: { amount: any; currencyCode: CurrencyCode }
+  compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+  product: { title: string; handle: string }
+}
+
+type InfoBlockFieldReferenceFragment_7B8u7m2tpLweUnvsU5BrdYx8NJcgtx3INbx3qEQxg_ = {}
+
+type InfoBlockFieldReferenceFragment_MediaImage_ = {
   image?: {
     url: any
     width?: number | null
@@ -6755,7 +6783,7 @@ type InfoBlockFieldReference_MediaImage_Fragment = {
   } | null
 }
 
-type InfoBlockFieldReference_Metaobject_Fragment = {
+type InfoBlockFieldReferenceFragment_Metaobject_ = {
   type: string
   fields: Array<{
     key: string
@@ -6772,9 +6800,9 @@ type InfoBlockFieldReference_Metaobject_Fragment = {
 }
 
 export type InfoBlockFieldReferenceFragment =
-  | InfoBlockFieldReference_7B8u7m2tpLweUnvsU5BrdYx8NJcgtx3INbx3qEQxg_Fragment
-  | InfoBlockFieldReference_MediaImage_Fragment
-  | InfoBlockFieldReference_Metaobject_Fragment
+  | InfoBlockFieldReferenceFragment_7B8u7m2tpLweUnvsU5BrdYx8NJcgtx3INbx3qEQxg_
+  | InfoBlockFieldReferenceFragment_MediaImage_
+  | InfoBlockFieldReferenceFragment_Metaobject_
 
 export type InfoBlockFragment = {
   type: string
@@ -6836,18 +6864,108 @@ export type InfoBlockFragment = {
   }>
 }
 
+export type ColorMetafieldFragment = {
+  color?: {
+    reference?: {
+      type: string
+      fields: Array<{
+        key: string
+        value?: string | null
+        reference?:
+          | {
+              image?: {
+                url: any
+                width?: number | null
+                height?: number | null
+                altText?: string | null
+              } | null
+            }
+          | { fields: Array<{ key: string; value?: string | null }> }
+          | null
+      }>
+    } | null
+  } | null
+}
+
+export type ColorGroupMetafieldFragment = {
+  colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
+}
+
+export type ColorFragment = {
+  type: string
+  fields: Array<{
+    key: string
+    value?: string | null
+    reference?:
+      | {
+          image?: {
+            url: any
+            width?: number | null
+            height?: number | null
+            altText?: string | null
+          } | null
+        }
+      | { fields: Array<{ key: string; value?: string | null }> }
+      | null
+  }>
+}
+
+export type InseamMetafieldFragment = { inseam?: { value: string } | null }
+
+export type ProductGroupFragment = {
+  products: {
+    nodes: Array<{
+      handle: string
+      id: string
+      variants: {
+        nodes: Array<{
+          id: string
+          availableForSale: boolean
+          selectedOptions: Array<{ name: string; value: string }>
+        }>
+      }
+      color?: {
+        reference?: {
+          type: string
+          fields: Array<{
+            key: string
+            value?: string | null
+            reference?:
+              | {
+                  image?: {
+                    url: any
+                    width?: number | null
+                    height?: number | null
+                    altText?: string | null
+                  } | null
+                }
+              | { fields: Array<{ key: string; value?: string | null }> }
+              | null
+          }>
+        } | null
+      } | null
+      colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
+      inseam?: { value: string } | null
+    }>
+  }
+}
+
 export type PdpQueryVariables = Exact<{
   handle: Scalars['String']
   country?: InputMaybe<CountryCode>
   language?: InputMaybe<LanguageCode>
+  selectedOptions: Array<SelectedOptionInput> | SelectedOptionInput
 }>
 
 export type PdpQuery = {
   product?: {
+    handle: string
     media: {
       nodes: Array<
-        | { mediaContentType: MediaContentType; embedUrl: any; host: MediaHost }
-        | {
+        | ({ mediaContentType: MediaContentType; embedUrl: any; host: MediaHost } & {
+            __typename: 'ExternalVideo'
+          })
+        | ({
             mediaContentType: MediaContentType
             image?: {
               url: any
@@ -6855,19 +6973,38 @@ export type PdpQuery = {
               height?: number | null
               altText?: string | null
             } | null
-          }
-        | {
+          } & { __typename: 'MediaImage' })
+        | ({
             mediaContentType: MediaContentType
             alt?: string | null
             previewImage?: { altText?: string | null; url: any } | null
             sources: Array<{ url: string }>
-          }
-        | {
+          } & { __typename: 'Model3d' })
+        | ({
             mediaContentType: MediaContentType
             previewImage?: { url: any } | null
             sources: Array<{ mimeType: string; url: string }>
-          }
+          } & { __typename: 'Video' })
       >
+    }
+    variants: {
+      nodes: Array<{
+        id: string
+        availableForSale: boolean
+        sku?: string | null
+        title: string
+        selectedOptions: Array<{ name: string; value: string }>
+        image?: {
+          id?: string | null
+          url: any
+          altText?: string | null
+          width?: number | null
+          height?: number | null
+        } | null
+        price: { amount: any; currencyCode: CurrencyCode }
+        compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+        product: { title: string; handle: string }
+      }>
     }
     infoBlocks?: {
       references?: {
@@ -6932,5 +7069,85 @@ export type PdpQuery = {
         }>
       } | null
     } | null
+    inseam?: { value: string } | null
+    productGroup?: {
+      value: string
+      reference?: {
+        products: {
+          nodes: Array<{
+            handle: string
+            id: string
+            variants: {
+              nodes: Array<{
+                id: string
+                availableForSale: boolean
+                selectedOptions: Array<{ name: string; value: string }>
+              }>
+            }
+            color?: {
+              reference?: {
+                type: string
+                fields: Array<{
+                  key: string
+                  value?: string | null
+                  reference?:
+                    | {
+                        image?: {
+                          url: any
+                          width?: number | null
+                          height?: number | null
+                          altText?: string | null
+                        } | null
+                      }
+                    | { fields: Array<{ key: string; value?: string | null }> }
+                    | null
+                }>
+              } | null
+            } | null
+            colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
+            inseam?: { value: string } | null
+          }>
+        }
+      } | null
+    } | null
+    selectedVariant?: {
+      id: string
+      availableForSale: boolean
+      sku?: string | null
+      title: string
+      selectedOptions: Array<{ name: string; value: string }>
+      image?: {
+        id?: string | null
+        url: any
+        altText?: string | null
+        width?: number | null
+        height?: number | null
+      } | null
+      price: { amount: any; currencyCode: CurrencyCode }
+      compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+      product: { title: string; handle: string }
+    } | null
+    options: Array<{ name: string; values: Array<string> }>
+    color?: {
+      reference?: {
+        type: string
+        fields: Array<{
+          key: string
+          value?: string | null
+          reference?:
+            | {
+                image?: {
+                  url: any
+                  width?: number | null
+                  height?: number | null
+                  altText?: string | null
+                } | null
+              }
+            | { fields: Array<{ key: string; value?: string | null }> }
+            | null
+        }>
+      } | null
+    } | null
+    colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
   } | null
 }

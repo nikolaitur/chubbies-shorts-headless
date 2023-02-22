@@ -1,3 +1,4 @@
+import { Link, useLocation } from '@remix-run/react'
 import Carousel, {
   CarouselSlide,
   useCarouselState,
@@ -9,26 +10,29 @@ import styles from './styles.module.css'
 import { ColorVariantsCarouselInnerProps, ColorVariantsCarouselProps } from './types'
 
 const ColorVariantsCarousel = ({
-  colors,
+  colorOptions,
   size = 'md',
   variant = 'inline',
 }: ColorVariantsCarouselProps) => (
   <Carousel
     className={clsx(styles.carousel, styles[variant])}
-    slidesLength={colors.length}
+    slidesLength={colorOptions.length}
     options={{
       gap: 6,
       navigation: {
         enabled: variant !== 'inline',
       },
+      navigationSlides: false,
     }}
   >
-    <ColorVariantsCarouselInner colors={colors} size={size} />
+    <ColorVariantsCarouselInner colorOptions={colorOptions} size={size} />
   </Carousel>
 )
 
-const ColorVariantsCarouselInner = ({ colors, size }: ColorVariantsCarouselInnerProps) => {
+const ColorVariantsCarouselInner = ({ colorOptions, size }: ColorVariantsCarouselInnerProps) => {
   const { carouselRef, currentIndex, currentSlidesPerView, slidesLength } = useCarouselState()
+  const location = useLocation()
+
   const remainingSlidesCount = slidesLength - (currentSlidesPerView + currentIndex)
   const hasRemainingSlides = remainingSlidesCount > 0
 
@@ -43,10 +47,20 @@ const ColorVariantsCarouselInner = ({ colors, size }: ColorVariantsCarouselInner
 
   return (
     <>
-      {colors.map((color, index) => (
-        <CarouselSlide key={index} index={index}>
-          {/* @ts-expect-error - TODO: Update SwatchSelector types */}
-          <SwatchSelector className={styles.swatchSelector} size={size} colors={[color.hex]} />
+      {colorOptions.map(({ image, handle, selected }, index) => (
+        <CarouselSlide key={`${handle}-${index}`} index={index}>
+          <Link
+            className={styles.link}
+            prefetch="render"
+            to={{ pathname: `/products/${handle}`, search: location.search }}
+          >
+            <SwatchSelector
+              className={styles.swatchSelector}
+              size={size}
+              image={image}
+              selected={selected}
+            />
+          </Link>
         </CarouselSlide>
       ))}
       {hasRemainingSlides && (

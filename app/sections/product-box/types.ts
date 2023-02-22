@@ -1,4 +1,4 @@
 import { HTMLAttributes } from 'react'
-import { PdpQuery } from '~/graphql/generated'
+import { PdpProduct } from '~/global-types'
 
-export type ProductBoxProps = HTMLAttributes<HTMLElement> & { product: PdpQuery['product'] }
+export type ProductBoxProps = HTMLAttributes<HTMLElement> & { product: PdpProduct }
