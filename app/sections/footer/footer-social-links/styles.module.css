@@ -1,0 +1,28 @@
+.component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 16px;
+}
+
+.title {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 16px;
+}
+
+.icons {
+  display: flex;
+  flex-direction: row;
+  column-gap: 32px;
+}
+
+@media screen and (min-width: 1025px) {
+  .component {
+    align-items: flex-start;
+  }
+  .icons {
+    column-gap: 14px;
+  }
+}

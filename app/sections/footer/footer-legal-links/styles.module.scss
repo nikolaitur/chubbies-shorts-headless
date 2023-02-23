@@ -1,0 +1,37 @@
+@use '../../../styles/abstracts' as *;
+
+.component {
+  display: flex;
+  flex-direction: column;
+  row-gap: $space-3;
+  color: $text-neutral-subdued;
+  align-items: center;
+  @include body-semi-md;
+}
+
+.links {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: $space-3;
+}
+
+@include media-query(md) {
+  .component {
+    row-gap: $space-8;
+  }
+
+  .links {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@include media-query(lg) {
+  .component {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
+    border-top: none;
+    padding-top: 60px;
+  }
+}

@@ -1,0 +1,46 @@
+.component {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media screen and (min-width: 1025px) {
+  .component {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.title {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 16px;
+}
+
+.links {
+  display: grid;
+  row-gap: 16px;
+}
+.links .link {
+  font-family: futura-pt, sans-serif;
+  font-weight: 500;
+  line-height: 120%;
+  font-size: 16px;
+}
+
+.social {
+  padding-top: 8px;
+}
+
+.desktop, .mobileHidden {
+  display: none;
+}
+@media screen and (min-width: 1025px) {
+  .desktop, .mobileHidden {
+    display: flex;
+  }
+}

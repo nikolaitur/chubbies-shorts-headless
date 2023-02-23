@@ -1,5 +1,5 @@
 import { cssBundleHref } from '@remix-run/css-bundle'
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
 import { Cart } from '@shopify/hydrogen-react/storefront-api-types'
 import { json, type LinksFunction, type LoaderArgs, type MetaFunction } from '@shopify/remix-oxygen'
 import { BaseStyles } from '@solo-brands/ui-library.styles.global'
@@ -16,6 +16,8 @@ import {
 import favicon from '../public/favicon.svg'
 import MainFrame from './frames/main-frame'
 import { CART_QUERY } from './graphql/storefront/cart/queries'
+import { getFooterData } from '~/helpers'
+
 import appStyles from './styles/app.css'
 
 // @ts-expect-error - TODO: find a way to correct the types of this
@@ -56,7 +58,12 @@ export const meta: MetaFunction = data => ({
 
 export async function loader({ context, request, params }: LoaderArgs) {
   const { storefront } = context
-  const cartId = await context.session.get('cartId')
+
+  const [cartId, footerData] = await Promise.all([
+    context.session.get('cartId'),
+    getFooterData(context),
+  ])
+
   const [cart] = await Promise.all([
     cartId
       ? (
@@ -89,6 +96,7 @@ export async function loader({ context, request, params }: LoaderArgs) {
     {
       cart,
       nosto: recommendedProducts,
+      footerData,
     },
     {
       headers: new Headers(headers),
@@ -97,6 +105,8 @@ export async function loader({ context, request, params }: LoaderArgs) {
 }
 
 export default function App() {
+  const data = useLoaderData<typeof loader>()
+
   return (
     <html lang="en">
       <head>
@@ -106,7 +116,7 @@ export default function App() {
       <body>
         <ThemeProvider theme={theme}>
           <BaseStyles />
-          <MainFrame>
+          <MainFrame layout={{ footer: data?.footerData }}>
             <Outlet />
           </MainFrame>
           <ScrollRestoration />

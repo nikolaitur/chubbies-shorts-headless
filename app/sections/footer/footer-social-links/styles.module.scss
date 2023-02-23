@@ -1,0 +1,28 @@
+@use '../../../styles/abstracts' as *;
+
+.component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: $space-4;
+}
+
+.title {
+  @include body-bold-md;
+}
+
+.icons {
+  display: flex;
+  flex-direction: row;
+  column-gap: $space-8;
+}
+
+@include media-query(lg) {
+  .component {
+    align-items: flex-start;
+  }
+
+  .icons {
+    column-gap: $space-3-5;
+  }
+}

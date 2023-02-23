@@ -1,0 +1,23 @@
+@use '../../styles/abstracts' as *;
+
+.section {
+  padding: $space-10 $space-0;
+  background-color: $backgrounds-light;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  row-gap: $space-8;
+}
+
+.divider {
+  border-top: $border-width-1 solid $borders-divider-subdued;
+}
+
+@include media-query(lg) {
+  .divider,
+  .mobile {
+    display: none;
+  }
+}

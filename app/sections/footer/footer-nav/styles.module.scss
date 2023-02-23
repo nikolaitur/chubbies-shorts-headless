@@ -1,0 +1,41 @@
+@use '../../../styles/abstracts' as *;
+
+.component {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @include media-query(lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  row-gap: $space-4;
+}
+
+.title {
+  @include body-bold-md;
+}
+
+.links {
+  display: grid;
+  row-gap: $space-4;
+
+  .link {
+    @include body-semi-md;
+  }
+}
+
+.social {
+  padding-top: $space-2;
+}
+
+.desktop, .mobileHidden {
+  display: none;
+
+  @include media-query(lg) {
+    display: flex;
+  }
+}

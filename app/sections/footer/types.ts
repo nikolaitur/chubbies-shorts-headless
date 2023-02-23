@@ -1,3 +1,7 @@
 import { HTMLAttributes } from 'react'
 
-export type FooterProps = HTMLAttributes<HTMLElement>
+import { FooterData } from '~/global-types'
+
+export type FooterProps = HTMLAttributes<HTMLElement> & {
+  data?: FooterData
+}

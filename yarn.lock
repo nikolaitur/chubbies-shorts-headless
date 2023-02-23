@@ -2981,6 +2981,15 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
+"@solo-brands/ui-library.ui.atomic.container@^1.0.3":
+  version "1.0.4"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.container/-/@solo-brands-ui-library.ui.atomic.container-1.0.4.tgz#9ab5c5325c8fd68af660fe9a41f552922896032d"
+  integrity sha1-mrXFMlyP1or2YP6aQfVSkiiWAy0=
+  dependencies:
+    "@solo-brands/ui-library.constants.breakpoints" "1.0.0"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
 "@solo-brands/ui-library.ui.atomic.counter@^1.0.8":
   version "1.0.9"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.counter/-/@solo-brands-ui-library.ui.atomic.counter-1.0.9.tgz#aba227da352e0c8d094042d98eca8d272d2bf726"

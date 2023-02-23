@@ -1,0 +1,60 @@
+@use '../../../styles/abstracts' as *;
+
+.component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: $space-3;
+
+  .mobile {
+    display: block;
+  }
+
+  .desktop {
+    display: none;
+  }
+}
+
+.title {
+  @include body-bold-md;
+  padding-bottom: $space-1;
+}
+
+.description {
+  @include body-semi-md;
+}
+
+.actions {
+  display: flex;
+  gap: $space-3;
+
+  .button {
+    height: 48px;
+    padding: $space-3-5 $space-6;
+    text-transform: uppercase;
+    font-weight:$font-weight-semi;
+  }
+}
+
+.time {
+  width: 100%;
+}
+
+@include media-query(lg) {
+  .component {
+    align-items: flex-start;
+
+    .mobile {
+      display: none;
+    }
+
+    .desktop {
+      display: block;
+    }
+
+    .actions {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+}

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "shopify hydrogen build",
     "dev": "op run --env-file=.env -- shopify hydrogen dev",
-    "start": "concurrently 'yarn run sass' 'yarn dev'",
+    "start": "concurrently \"yarn run sass\" \"yarn dev\"",
     "sass": "sass -w app/:app/ --load-path=node_modules --no-source-map",
     "lint": "eslint --no-error-on-unmatched-pattern --ext .js,.ts,.jsx,.tsx ./app/",
     "preview": "npm run build && shopify hydrogen preview",
@@ -35,6 +35,7 @@
     "@solo-brands/ui-library.ui.atomic.carousel": "^0.0.20",
     "@solo-brands/ui-library.ui.atomic.counter": "^1.0.8",
     "@solo-brands/ui-library.ui.atomic.icon": "^1.0.7",
+    "@solo-brands/ui-library.ui.atomic.container": "^1.0.3",
     "@solo-brands/ui-library.ui.atomic.payment-method": "^1.0.0",
     "@solo-brands/ui-library.ui.atomic.price": "^1.0.3",
     "@solo-brands/ui-library.ui.atomic.swatch-selector": "^1.0.6",

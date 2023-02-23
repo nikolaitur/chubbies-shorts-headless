@@ -1,0 +1,21 @@
+.section {
+  padding: 40px 0px;
+  background-color: #F5F7FA;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+}
+
+.divider {
+  border-top: 1px solid #acb0b4;
+}
+
+@media screen and (min-width: 1025px) {
+  .divider,
+  .mobile {
+    display: none;
+  }
+}
