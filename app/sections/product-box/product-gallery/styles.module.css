@@ -18,7 +18,7 @@
   display: none;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 769px) {
   .wrapper {
     max-width: 702px;
     margin: 0;
@@ -40,7 +40,7 @@
     display: block;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
   .wrapper {
     max-width: initial;
     justify-self: initial;

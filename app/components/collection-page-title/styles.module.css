@@ -5,7 +5,7 @@
   font-size: 24px;
   letter-spacing: 0%;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 769px) {
   .collectionTitle {
     font-family: futura-pt, sans-serif;
     font-weight: 700;

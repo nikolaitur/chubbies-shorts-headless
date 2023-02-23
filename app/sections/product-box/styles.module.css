@@ -3,13 +3,13 @@
   margin-left: -16px;
   margin-right: -16px;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 769px) {
   .productBox {
     margin-left: 0px;
     margin-right: 0px;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
   .productBox {
     grid-template-columns: 1fr 500px;
     gap: 40px;
@@ -29,7 +29,7 @@
 .productBoxDetails {
   padding: 0px 16px;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 769px) {
   .productBoxDetails {
     padding: 0px;
   }

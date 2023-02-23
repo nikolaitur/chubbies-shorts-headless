@@ -40,7 +40,7 @@
 .searchButtons div {
   display: grid;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
   .searchButtons div.filterButton {
     display: none;
   }
@@ -53,7 +53,7 @@
   gap: 16px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 769px) {
   .container {
     padding: 32px;
   }
@@ -66,7 +66,7 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
   .gridHeader {
     flex-direction: row;
   }

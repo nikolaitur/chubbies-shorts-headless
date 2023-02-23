@@ -33,7 +33,7 @@
     display: flex;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
   .wrapper {
     margin: auto 48px;
   }
