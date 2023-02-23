@@ -1,0 +1,24 @@
+.orderSummary {
+  padding: 16px;
+  display: grid;
+  background-color: rgb(255, 255, 255);
+  margin-top: 16px;
+}
+
+.title {
+  color: rgb(0, 0, 0);
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 16px;
+}
+
+.divider {
+  height: 2px;
+  background-color: #D2D4D7;
+  margin: 8px 0;
+}
+
+.button {
+  margin: 16px 0;
+}

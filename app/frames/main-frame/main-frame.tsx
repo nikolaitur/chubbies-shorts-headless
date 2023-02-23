@@ -1,5 +1,5 @@
 import { forwardRef, HTMLAttributes, ReactNode, Ref } from 'react'
-
+import CartSlider from '~/sections/cart-slider'
 import Header from '~/sections/header'
 import Footer from '~/sections/footer'
 
@@ -16,6 +16,7 @@ const MainFrame = ({ children, layout, ...props }: MainFrameProps, ref: Ref<HTML
       <Header />
       {children}
       <Footer data={layout.footer} />
+      <CartSlider />
     </main>
   )
 }

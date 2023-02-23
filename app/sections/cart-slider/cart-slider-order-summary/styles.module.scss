@@ -1,0 +1,23 @@
+@use '../../../styles/abstracts' as *;
+
+.orderSummary {
+  padding: $space-4;
+  display: grid;
+  background-color: $backgrounds-white;
+  margin-top: $space-4;
+}
+
+.title {
+  color: $text-neutral-default;
+  @include body-bold-md;
+}
+
+.divider {
+  height: 2px;
+  background-color: $borders-divider-muted;
+  margin: $space-2 0;
+}
+
+.button {
+  margin: $space-4 0;
+}

@@ -1,0 +1,18 @@
+@use '../../../styles/abstracts' as *;
+
+.gwp {
+  background-color: $backgrounds-white;
+
+  :global(.carousel-navigation) {
+    z-index: 1;
+  }
+
+  :global(.carousel) {
+    padding: 0 45px $space-4 45px;
+  }
+}
+
+.button {
+  color: $text-neutral-default;
+  @include body-bold-lg;
+}

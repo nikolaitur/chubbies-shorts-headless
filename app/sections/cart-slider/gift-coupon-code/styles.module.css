@@ -1,0 +1,16 @@
+.button {
+  color: #595d61;
+  font-family: futura-pt, sans-serif;
+  font-weight: 600;
+  line-height: 100%;
+  font-size: 14px;
+  letter-spacing: 0%;
+  text-decoration: underline;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 264px 1fr;
+  grid-gap: 8px;
+  align-items: start;
+}

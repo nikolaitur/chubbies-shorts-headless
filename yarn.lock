@@ -2915,6 +2915,11 @@
   resolved "https://node.bit.cloud/@solo-brands/ui-library.constants.breakpoints/-/@solo-brands-ui-library.constants.breakpoints-1.0.0.tgz#f435bf84655898d1c80f775660a04b36ec70528a"
   integrity sha1-9DW/hGVYmNHID3dWYKBLNuxwUoo=
 
+"@solo-brands/ui-library.constants.currency-code-symbols@1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.constants.currency-code-symbols/-/@solo-brands-ui-library.constants.currency-code-symbols-1.0.0.tgz#2c6dbd76d2768d23a7e3f5930ac62dd604ce6f6c"
+  integrity sha1-LG29dtJ2jSOn4/WTCsYt1gTOb2w=
+
 "@solo-brands/ui-library.helpers.responsive-props@1.0.0", "@solo-brands/ui-library.helpers.responsive-props@^1.0.0":
   version "1.0.0"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.helpers.responsive-props/-/@solo-brands-ui-library.helpers.responsive-props-1.0.0.tgz#0469956056220d902927775bd1a331c79e32deb0"
@@ -2952,6 +2957,24 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
+"@solo-brands/ui-library.ui.atomic.bnpl-message@1.0.5":
+  version "1.0.5"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.bnpl-message/-/@solo-brands-ui-library.ui.atomic.bnpl-message-1.0.5.tgz#07cd337efdefd4eda92a1ffcfb0f02f1b7500d51"
+  integrity sha1-B80zfv3v1O2pKh/8+w8C8bdQDVE=
+  dependencies:
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.atomic.button-checkout@^1.0.12":
+  version "1.0.12"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.button-checkout/-/@solo-brands-ui-library.ui.atomic.button-checkout-1.0.12.tgz#6b9e3dfc6453cd5be971deeaa49d927c64f99bed"
+  integrity sha1-a549/GRTzVvpcd7qpJ2SfGT5m+0=
+  dependencies:
+    "@solo-brands/ui-library.ui.atomic.button" "1.0.9"
+    "@solo-brands/ui-library.ui.atomic.icon" "1.0.8"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
 "@solo-brands/ui-library.ui.atomic.button-icon@1.0.9", "@solo-brands/ui-library.ui.atomic.button-icon@^1.0.8":
   version "1.0.9"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.button-icon/-/@solo-brands-ui-library.ui.atomic.button-icon-1.0.9.tgz#e39c4fa2fe497e08dea0e69aa2e70aacd13bca22"
@@ -2961,7 +2984,7 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.button@^1.0.8":
+"@solo-brands/ui-library.ui.atomic.button@1.0.9", "@solo-brands/ui-library.ui.atomic.button@^1.0.8":
   version "1.0.9"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.button/-/@solo-brands-ui-library.ui.atomic.button-1.0.9.tgz#f27493eb2715dda0694366af668a63b41ebc7926"
   integrity sha1-8nST6ycV3aBpQ2avZopjtB68eSY=
@@ -2999,6 +3022,16 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
+"@solo-brands/ui-library.ui.atomic.field-error-message@1.0.8":
+  version "1.0.8"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.field-error-message/-/@solo-brands-ui-library.ui.atomic.field-error-message-1.0.8.tgz#6f633c6e840cdf371701d46fc6fa6f13342d23d3"
+  integrity sha1-b2M8boQM3zcXAdRvxvpvEzQtI9M=
+  dependencies:
+    "@solo-brands/ui-library.ui.atomic.icon" "1.0.8"
+    core-js "^3.0.0"
+    formik "2.2.9"
+    styled-components "5.3.6"
+
 "@solo-brands/ui-library.ui.atomic.gallery-thumbnail@1.0.2":
   version "1.0.2"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.gallery-thumbnail/-/@solo-brands-ui-library.ui.atomic.gallery-thumbnail-1.0.2.tgz#45d54d386b667435691371648f44bb1d235131e1"
@@ -3018,6 +3051,17 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
+"@solo-brands/ui-library.ui.atomic.input@^1.0.8":
+  version "1.0.8"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.input/-/@solo-brands-ui-library.ui.atomic.input-1.0.8.tgz#9f25d0b644b7bff42662166ed86466eb6f26d74b"
+  integrity sha1-nyXQtkS3v/QmYhZu2GRm628m10s=
+  dependencies:
+    "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
+    "@solo-brands/ui-library.ui.atomic.field-error-message" "1.0.8"
+    core-js "^3.0.0"
+    formik "2.2.9"
+    styled-components "5.3.6"
+
 "@solo-brands/ui-library.ui.atomic.payment-method@1.0.4", "@solo-brands/ui-library.ui.atomic.payment-method@^1.0.0":
   version "1.0.4"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.payment-method/-/@solo-brands-ui-library.ui.atomic.payment-method-1.0.4.tgz#4df360817f7160c491688390f8a34de1d4f604b8"
@@ -3027,7 +3071,25 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.price@1.0.4", "@solo-brands/ui-library.ui.atomic.price@^1.0.3":
+"@solo-brands/ui-library.ui.atomic.price-discount@1.0.4":
+  version "1.0.4"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.price-discount/-/@solo-brands-ui-library.ui.atomic.price-discount-1.0.4.tgz#f1d884f8a562193e3ed8ad51f2275a89ed3caf91"
+  integrity sha1-8diE+KViGT4+2K1R8idaie08r5E=
+  dependencies:
+    "@shopify/hydrogen-react" "^2022.10.3"
+    "@solo-brands/ui-library.constants.currency-code-symbols" "1.0.0"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.atomic.price-message@1.0.4":
+  version "1.0.4"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.price-message/-/@solo-brands-ui-library.ui.atomic.price-message-1.0.4.tgz#0bc429dc63d15d39d79b1b92f5347b3bf5b00b4e"
+  integrity sha1-C8Qp3GPRXTnXmxuS9TR7O/WwC04=
+  dependencies:
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.atomic.price@1.0.4", "@solo-brands/ui-library.ui.atomic.price@^1.0.4":
   version "1.0.4"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.price/-/@solo-brands-ui-library.ui.atomic.price-1.0.4.tgz#7d8b979d79b08bdb5a6062b72c44ea86d3b78b76"
   integrity sha1-fYuXnXmwi9taYGK3LETqhtO3i3Y=
@@ -3086,6 +3148,19 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
+"@solo-brands/ui-library.ui.shared.order-summary-item@^1.0.11":
+  version "1.0.11"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.shared.order-summary-item/-/@solo-brands-ui-library.ui.shared.order-summary-item-1.0.11.tgz#aad83630d409c29a0a0f6bc78ad5ea5f9632b2da"
+  integrity sha1-qtg2MNQJwpoKD2vHitXqX5Yysto=
+  dependencies:
+    "@solo-brands/ui-library.ui.atomic.bnpl-message" "1.0.5"
+    "@solo-brands/ui-library.ui.atomic.button-icon" "1.0.9"
+    "@solo-brands/ui-library.ui.atomic.icon" "1.0.8"
+    "@solo-brands/ui-library.ui.atomic.price" "1.0.4"
+    "@solo-brands/ui-library.ui.shared.price-group" "1.0.5"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
 "@solo-brands/ui-library.ui.shared.payment-information@^1.0.0":
   version "1.0.4"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.shared.payment-information/-/@solo-brands-ui-library.ui.shared.payment-information-1.0.4.tgz#a86788326f7753df714c2ea4f0e68fd83d5f96ba"
@@ -3093,6 +3168,18 @@
   dependencies:
     "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
     "@solo-brands/ui-library.ui.atomic.payment-method" "1.0.4"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.shared.price-group@1.0.5":
+  version "1.0.5"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.shared.price-group/-/@solo-brands-ui-library.ui.shared.price-group-1.0.5.tgz#ed1a96d9b4511f3bdff464bd95140adf441642b2"
+  integrity sha1-7RqW2bRRHzvf9GS9lRQK30QWQrI=
+  dependencies:
+    "@shopify/hydrogen-react" "^2022.10.3"
+    "@solo-brands/ui-library.ui.atomic.price" "1.0.4"
+    "@solo-brands/ui-library.ui.atomic.price-discount" "1.0.4"
+    "@solo-brands/ui-library.ui.atomic.price-message" "1.0.4"
     core-js "^3.0.0"
     styled-components "5.3.6"
 
@@ -3673,6 +3760,11 @@ acorn@^8.0.0, acorn@^8.4.1, acorn@^8.7.0, acorn@^8.8.0, acorn@^8.8.2:
   version "8.8.2"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.8.2.tgz#1b2f25db02af965399b9776b0c2c391276d37c4a"
   integrity sha512-xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==
+
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+  integrity sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==
 
 agent-base@6, agent-base@^6.0.0, agent-base@^6.0.2:
   version "6.0.2"
@@ -6541,7 +6633,7 @@ formdata-polyfill@^4.0.10:
   dependencies:
     fetch-blob "^3.1.2"
 
-formik@^2.2.9:
+formik@2.2.9, formik@^2.2.9:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/formik/-/formik-2.2.9.tgz#8594ba9c5e2e5cf1f42c5704128e119fc46232d0"
   integrity sha512-LQLcISMmf1r5at4/gyJigGn0gOwFbeEAlji+N9InZF6LIMXnFNkO42sCI8Jt84YZggpD4cPWObAZaxpEFtSzNA==
@@ -12714,7 +12806,7 @@ yargs@^17.0.0, yargs@^17.2.1, yargs@^17.3.1:
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
 
-yarn@^1.22.18:
+yarn@^1.22.18, yarn@^1.22.19:
   version "1.22.19"
   resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.19.tgz#4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
   integrity sha512-/0V5q0WbslqnwP91tirOvldvYISzaqhClxzyUKXYxs07yUILIs5jx/k6CFe8bvKSkds5w+eiOqta39Wk3WxdcQ==

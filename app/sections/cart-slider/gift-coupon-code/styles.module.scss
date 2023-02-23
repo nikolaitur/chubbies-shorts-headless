@@ -1,0 +1,13 @@
+@use '../../../styles/abstracts' as *;
+
+.button {
+  color: $text-neutral-subdued;
+  @include textlink-sm;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 264px 1fr;
+  grid-gap: $space-2;
+  align-items: start;
+}

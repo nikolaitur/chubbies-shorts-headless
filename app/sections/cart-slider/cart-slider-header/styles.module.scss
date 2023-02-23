@@ -1,0 +1,24 @@
+@use '../../../styles/abstracts' as *;
+
+.cartSliderHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-2;
+  padding: $space-3 $space-4;
+  background-color: $backgrounds-white;
+}
+
+.editButton {
+  visibility: hidden;
+  pointer-events: none;
+  &.isEditEnabled {
+    visibility: visible;
+    pointer-events: initial;
+  }
+}
+
+.title {
+  color: var(--text_neutral_default);
+  @include headings-sm;
+}

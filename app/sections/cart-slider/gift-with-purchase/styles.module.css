@@ -1,0 +1,17 @@
+.gwp {
+  background-color: rgb(255, 255, 255);
+}
+.gwp :global(.carousel-navigation) {
+  z-index: 1;
+}
+.gwp :global(.carousel) {
+  padding: 0 45px 16px 45px;
+}
+
+.button {
+  color: rgb(0, 0, 0);
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 18px;
+}

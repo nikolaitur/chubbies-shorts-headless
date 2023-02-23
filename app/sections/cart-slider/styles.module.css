@@ -1,0 +1,30 @@
+.container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: initial;
+  z-index: 100;
+  width: 375px;
+  background-color: #F5F7FA;
+  transition: 0.15s ease-out;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+}
+.container.isCartOpen {
+  transform: translateX(0);
+}
+@media screen and (min-width: 768px) {
+  .container {
+    width: 500px;
+  }
+}
+
+.itemContainer {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-top: 16px;
+}

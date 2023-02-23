@@ -1,0 +1,83 @@
+@use '../../../styles/abstracts' as *;
+
+.card {
+  border: $border-width-1-5 solid $borders-divider-muted;
+  border-radius: $border-radius-base;
+  padding: $space-2-5;
+  min-height: 100px;
+  width: 284px;
+  position: relative;
+
+  &.isSelected {
+    border-color: $alert-success-default;
+  }
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  grid-gap: $space-4;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  align-items: start;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  background: gray;
+}
+
+.icon {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  border-radius: $rounded-pill;
+
+  &.isSelected {
+    background-color: $alert-success-default;
+
+    svg g path {
+      stroke: $text-neutral-white;
+    }
+  }
+
+  &.isDisabled {
+    background-color: $backgrounds-white;
+  }
+}
+
+.description {
+  color: $text-neutral-default;
+  @include body-semi-sm;
+}
+
+.details {
+  display: grid;
+}
+
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-1-5;
+  margin-top: $space-2;
+}
+
+.disabledOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: $border-radius-base;
+  height: 100%;
+  width: 100%;
+  background-color: $base-colors-neutral-black;
+  opacity: $opacity-2;
+  z-index: 0;
+}

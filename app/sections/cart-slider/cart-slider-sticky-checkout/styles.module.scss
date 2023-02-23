@@ -1,0 +1,35 @@
+@use '../../../styles/abstracts' as *;
+
+.checkout {
+  margin-top: auto;
+  padding: $space-2-5 $space-4;
+  box-shadow: $shadow-sticky-bar-top;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    color: $text-neutral-subdued;
+    @include body-regular-md;
+  }
+}
+
+.title {
+  color: $text-neutral-default;
+  @include body-bold-md;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+}
+
+.message {
+  color: $alert-success-default;
+  @include body-semi-md;
+}
