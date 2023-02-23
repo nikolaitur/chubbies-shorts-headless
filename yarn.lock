@@ -3042,10 +3042,19 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.icon@1.0.8", "@solo-brands/ui-library.ui.atomic.icon@^1.0.7":
+"@solo-brands/ui-library.ui.atomic.icon@1.0.8":
   version "1.0.8"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.icon/-/@solo-brands-ui-library.ui.atomic.icon-1.0.8.tgz#b7a2a589c3fe8f8a4dba9356295aea98e3a94582"
   integrity sha1-t6KlicP+j4pNupNWKVrqmOOpRYI=
+  dependencies:
+    "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.atomic.icon@^1.0.9":
+  version "1.0.9"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.icon/-/@solo-brands-ui-library.ui.atomic.icon-1.0.9.tgz#a763238ad932a2324c3790c7c7e32ae8c67545be"
+  integrity sha1-p2MjitkyojJMN5DHx+Mq6MZ1Rb4=
   dependencies:
     "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
     core-js "^3.0.0"
