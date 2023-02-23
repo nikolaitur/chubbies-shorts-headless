@@ -15,6 +15,7 @@ declare global {
    * Declare expected Env parameter in fetch handler.
    */
   interface Env {
+    NOSTO_API_APPS_TOKEN: string
     SESSION_SECRET: string
     PUBLIC_STOREFRONT_API_TOKEN: string
     PRIVATE_STOREFRONT_API_TOKEN: string

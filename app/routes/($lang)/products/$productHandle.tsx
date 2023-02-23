@@ -50,7 +50,7 @@ const ProductPage = () => {
 export default ProductPage
 
 export async function loader({ params, request, context: { storefront } }: LoaderArgs) {
-  const { handle } = params
+  const { productHandle } = params
 
   const searchParams = new URL(request.url).searchParams
 
@@ -62,7 +62,9 @@ export async function loader({ params, request, context: { storefront } }: Loade
 
   const { product } = (await storefront.query(PDP_QUERY, {
     variables: {
-      handle,
+      country: storefront.i18n.country,
+      language: storefront.i18n.language,
+      handle: productHandle,
       selectedOptions,
     },
     cache: storefront.CacheShort(),

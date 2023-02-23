@@ -1,16 +1,18 @@
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import { Cart } from '@shopify/hydrogen-react/storefront-api-types'
-import {
-  defer,
-  type LinksFunction,
-  type LoaderArgs,
-  type MetaFunction,
-} from '@shopify/remix-oxygen'
+import { json, type LinksFunction, type LoaderArgs, type MetaFunction } from '@shopify/remix-oxygen'
 import { BaseStyles } from '@solo-brands/ui-library.styles.global'
 // @ts-expect-error there are no typings for this module
 import { theme } from '@solobrands/token-library/dist/styled/chubbies'
 import { ThemeProvider } from 'styled-components'
+import {
+  createNostoCookie,
+  generateNostoEventPayload,
+  getNostoSessionID,
+  getProductDataForRecs,
+  updateNostoSession,
+} from '~/helpers/nosto'
 import favicon from '../public/favicon.svg'
 import MainFrame from './frames/main-frame'
 import { CART_QUERY } from './graphql/storefront/cart/queries'
@@ -52,32 +54,46 @@ export const meta: MetaFunction = data => ({
   viewport: 'width=device-width,initial-scale=1',
 })
 
-export async function loader({ context, request }: LoaderArgs) {
+export async function loader({ context, request, params }: LoaderArgs) {
+  const { storefront } = context
   const cartId = await context.session.get('cartId')
-
   const [cart] = await Promise.all([
     cartId
       ? (
-          await context.storefront.query<{ cart: Cart }>(CART_QUERY, {
+          await storefront.query<{ cart: Cart }>(CART_QUERY, {
             variables: {
               cartId,
-              /**
-              Country and language properties are automatically injected
-              into all queries. Passing them is unnecessary unless you
-              want to override them from the following default:
-              */
-              country: context.storefront.i18n?.country,
-              language: context.storefront.i18n?.language,
             },
-            cache: context.storefront.CacheNone(),
+            cache: storefront.CacheNone(),
           })
         ).cart
       : null,
   ])
+  //Placeholder for customer info
+  const customer = {}
+  const headers: HeadersInit = []
 
-  return defer({
-    cart,
-  })
+  const destination = request.headers.get('sec-fetch-dest')
+  /* Generate Nosto Session  */
+  const nostoAPIKey = context.env.NOSTO_API_APPS_TOKEN
+  const nostoSessionID = await getNostoSessionID(request, nostoAPIKey)
+  headers.push(createNostoCookie(nostoSessionID))
+
+  //TODO: [CHU-184] Remove await when Remix bug is fixed
+  const recommendedProducts = await generateNostoEventPayload(storefront, request, params)
+    .then(payload => updateNostoSession(payload, nostoAPIKey, nostoSessionID))
+    .then(placements => getProductDataForRecs(storefront, placements))
+
+  //TODO: [CHU-184] Change to defer when Remix bug is fixed this is fixed
+  return json(
+    {
+      cart,
+      nosto: recommendedProducts,
+    },
+    {
+      headers: new Headers(headers),
+    },
+  )
 }
 
 export default function App() {

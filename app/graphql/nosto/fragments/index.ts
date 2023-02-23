@@ -1,0 +1,7 @@
+export * from './cartPage'
+export * from './categoryPage'
+export * from './frontPage'
+export * from './otherPage'
+export * from './productPage'
+export * from './recommendations'
+export * from './searchPage'
