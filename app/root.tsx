@@ -6,6 +6,7 @@ import { BaseStyles } from '@solo-brands/ui-library.styles.global'
 // @ts-expect-error there are no typings for this module
 import { theme } from '@solobrands/token-library/dist/styled/chubbies'
 import { ThemeProvider } from 'styled-components'
+import { getFooterData } from '~/helpers'
 import {
   createNostoCookie,
   generateNostoEventPayload,
@@ -16,7 +17,6 @@ import {
 import favicon from '../public/favicon.svg'
 import MainFrame from './frames/main-frame'
 import { CART_QUERY } from './graphql/storefront/cart/queries'
-import { getFooterData } from '~/helpers'
 
 import appStyles from './styles/app.css'
 

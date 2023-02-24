@@ -1,0 +1,93 @@
+@use '../../styles/abstracts' as *;
+
+.banner {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  &.parallaxScale {
+    .parallaxWrapper {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: -1;
+    }
+    .parallaxImage {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(var(--scroll-scale));
+    }
+  }
+
+  &.imgFixed {
+    background-image: var(--fixed-image-url);
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: none;
+  }
+  &.bgFixed {
+    .parallaxWrapper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .parallaxImage {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: none;
+    }
+    .backgroundImage {
+      height: auto;
+      width: auto;
+      top: var(--parallax-top);
+    }
+  }
+
+  height: 500px;
+  @include media-query(md) {
+    height: 400px;
+  }
+  @include media-query(lg) {
+    height: 450px;
+    justify-content: var(--content-position);
+  }
+}
+
+.backgroundImage {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.contentWrapper {
+  text-align: center;
+
+  @include media-query(lg) {
+    text-align: var(--content-position);
+    padding-left: $space-36;
+    padding-right: $space-36;
+  }
+}
+.textContent {
+  display: grid;
+  gap: $space-2-5;
+  color: $text-neutral-white;
+}
+.heading {
+  @include headings-lg;
+}
+.description {
+  @include headings-sm;
+}
+.button {
+  margin-top: $space-4-5;
+}
