@@ -1,6 +1,5 @@
 import { useLoaderData } from '@remix-run/react'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
-import { STOREFRONT_NAME_KEY } from '~/constants'
 import { Inseam, PdpProduct, PpdLoaderData } from '~/global-types'
 import { SelectedOptionInput } from '~/graphql/generated'
 import {
@@ -49,9 +48,9 @@ export async function loader({ params, request, context: { storefront } }: Loade
   const { handle, infoBlocks, media, selectedVariant, variants, inseam, color } = product
   const productsFromProductGroup = productGroup?.reference?.products.nodes
   const parsedInseam: Inseam | null = JSON.parse(inseam?.value ?? 'null')
-  const colorName = color?.reference?.fields.find(field => field.key === STOREFRONT_NAME_KEY)?.value
-  const inseamOptions = getInseamOptions(parsedInseam, productsFromProductGroup)
-  const colorOptions = getColorOptions(colorName, parsedInseam, productsFromProductGroup)
+  const colorId = color?.reference?.id
+  const inseamOptions = getInseamOptions(parsedInseam, colorId, productsFromProductGroup)
+  const colorOptions = getColorOptions(colorId, parsedInseam, productsFromProductGroup)
   const colorOptionsByGroup = getColorOptionsByGroup(colorOptions)
   const sizeOptions = getSizeOptions(product)
 

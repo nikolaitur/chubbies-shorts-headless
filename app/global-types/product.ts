@@ -11,6 +11,7 @@ export type PdpProduct = Omit<
 }
 
 export type ColorOption = {
+  id: string
   name: string
   color?: string
   image?: ImageData

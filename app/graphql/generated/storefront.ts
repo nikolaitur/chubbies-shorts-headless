@@ -6898,6 +6898,7 @@ export type InfoBlockFragment = {
 }
 
 export type ColorFragment = {
+  id: string
   type: string
   fields: Array<{
     key: string
@@ -6919,6 +6920,7 @@ export type ColorFragment = {
 export type ColorMetafieldFragment = {
   color?: {
     reference?: {
+      id: string
       type: string
       fields: Array<{
         key: string
@@ -6965,6 +6967,7 @@ export type ProductGroupFragment = {
       }
       color?: {
         reference?: {
+          id: string
           type: string
           fields: Array<{
             key: string
@@ -7109,46 +7112,6 @@ export type PpdProductQuery = {
       } | null
     } | null
     inseam?: { value: string } | null
-    productGroup?: {
-      value: string
-      reference?: {
-        products: {
-          nodes: Array<{
-            handle: string
-            id: string
-            variants: {
-              nodes: Array<{
-                id: string
-                availableForSale: boolean
-                selectedOptions: Array<{ name: string; value: string }>
-              }>
-            }
-            color?: {
-              reference?: {
-                type: string
-                fields: Array<{
-                  key: string
-                  value?: string | null
-                  reference?:
-                    | {
-                        image?: {
-                          url: any
-                          width?: number | null
-                          height?: number | null
-                          altText?: string | null
-                        } | null
-                      }
-                    | { fields: Array<{ key: string; value?: string | null }> }
-                    | null
-                }>
-              } | null
-            } | null
-            colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
-            inseam?: { value: string } | null
-          }>
-        }
-      } | null
-    } | null
     selectedVariant?: {
       id: string
       availableForSale: boolean
@@ -7169,6 +7132,7 @@ export type PpdProductQuery = {
     options: Array<{ name: string; values: Array<string> }>
     color?: {
       reference?: {
+        id: string
         type: string
         fields: Array<{
           key: string
@@ -7195,7 +7159,6 @@ export type PpdProductGroupQueryVariables = Exact<{
   handle: Scalars['String']
   country?: InputMaybe<CountryCode>
   language?: InputMaybe<LanguageCode>
-  selectedOptions: Array<SelectedOptionInput> | SelectedOptionInput
 }>
 
 export type PpdProductGroupQuery = {
@@ -7216,6 +7179,7 @@ export type PpdProductGroupQuery = {
             }
             color?: {
               reference?: {
+                id: string
                 type: string
                 fields: Array<{
                   key: string

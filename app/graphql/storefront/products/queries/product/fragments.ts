@@ -110,6 +110,7 @@ export const INFO_BLOCK_FRAGMENT = /* gql */ `#graphql
 
 export const COLOR_FRAGMENT = /* gql */ `#graphql
   fragment ColorFragment on Metaobject {
+    id
     type
     fields {
       key

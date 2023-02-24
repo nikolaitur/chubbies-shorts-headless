@@ -20,12 +20,22 @@ import { flattenMetaobjectFields } from './shopify'
 
 export const getInseamOptions = (
   inseam: Inseam | null,
+  colorId: string | undefined,
   products: ProductGroupProducts | undefined,
 ): InseamOption[] | null => {
   if (!inseam || !products) return null
 
+  // get products from
+  const productsByColorId = products.filter(product => {
+    const currentColorId = product.color?.reference?.id
+
+    if (!currentColorId) return false
+
+    return colorId === currentColorId
+  })
+
   // Go through each products in the product group and find the unique inseams
-  const uniqueInseamOptions = products.reduce((options: InseamOption[], product) => {
+  const uniqueInseamOptions = productsByColorId.reduce((options: InseamOption[], product) => {
     const currentInseam = product.inseam?.value
 
     if (!currentInseam) return options
@@ -44,15 +54,19 @@ export const getInseamOptions = (
     return [...options, data]
   }, [])
 
-  return uniqueInseamOptions
+  const sortedInseamOptions = uniqueInseamOptions.sort((a, z) => {
+    return a.value - z.value
+  })
+
+  return sortedInseamOptions
 }
 
 export const getColorOptions = (
-  colorName: string | null | undefined,
+  colorId: string | undefined,
   inseam: Inseam | null,
   products: ProductGroupProducts | undefined,
 ) => {
-  if (!colorName || !inseam || !products) return null
+  if (!colorId || !inseam || !products) return null
 
   const productsByInseam = products.filter(product => {
     const currentInseam: Inseam | null = JSON.parse(product.inseam?.value ?? 'null')
@@ -79,19 +93,21 @@ export const getColorOptions = (
 
     if (isColorExists) return options
 
+    const currentColorId = currentColor.id
     const flattenedFamilyFields = family.reference?.fields
     const familyValue = flattenedFamilyFields?.find(field => field.key === 'storefront_name')?.value
     const flattenedImage = colorImage.reference?.image
     const colorGroup = product.colorGroup?.reference?.name?.value ?? null
 
     const data = {
+      id: currentColorId,
       name: currentColorName,
       color: hexColor?.value,
       image: flattenedImage,
       family: familyValue,
       group: colorGroup,
       handle: product.handle,
-      selected: colorName === currentColorName,
+      selected: colorId === currentColorId,
     }
 
     return [...options, data]
