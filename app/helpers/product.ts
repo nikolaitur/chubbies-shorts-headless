@@ -25,7 +25,7 @@ export const getInseamOptions = (
 ): InseamOption[] | null => {
   if (!inseam || !products) return null
 
-  // get products from
+  // filter products based on selected color
   const productsByColorId = products.filter(product => {
     const currentColorId = product.color?.reference?.id
 
@@ -68,6 +68,7 @@ export const getColorOptions = (
 ) => {
   if (!colorId || !inseam || !products) return null
 
+  // filter products based on selected inseam
   const productsByInseam = products.filter(product => {
     const currentInseam: Inseam | null = JSON.parse(product.inseam?.value ?? 'null')
 
