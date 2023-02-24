@@ -42,7 +42,12 @@ export async function loader({ params, request, context: { storefront } }: Loade
       handle: productHandle,
       selectedOptions,
     },
-    cache: storefront.CacheShort(),
+    cache: storefront.CacheCustom({
+      sMaxAge: 1,
+      staleWhileRevalidate: 59,
+      maxAge: 59,
+      staleIfError: 600,
+    }),
   })) as PdpQuery
 
   if (!product) {
