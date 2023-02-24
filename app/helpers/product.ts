@@ -1,3 +1,4 @@
+import { Storefront } from '@shopify/hydrogen'
 import { PRODUCT_SIZES } from '~/constants'
 import {
   ColorFields,
@@ -8,7 +9,13 @@ import {
   ProductGroupProducts,
   SizeOption,
 } from '~/global-types'
-import { MetaobjectField, PdpQuery } from '~/graphql/generated'
+import {
+  MetaobjectField,
+  PpdProductGroupQuery,
+  PpdProductQuery,
+  PpdProductQueryVariables,
+} from '~/graphql/generated'
+import { PDP_PRODUCT_GROUP_QUERY, PDP_PRODUCT_QUERY } from '~/graphql/storefront/products/queries'
 import { flattenMetaobjectFields } from './shopify'
 
 export const getInseamOptions = (
@@ -118,7 +125,7 @@ export const getColorOptionsByGroup = (colorOptions: ColorOption[] | null) => {
   return colorOptionsByGroup
 }
 
-export const getSizeOptions = (product: PdpQuery['product']) => {
+export const getSizeOptions = (product: PpdProductQuery['product']) => {
   const { variants, options } = product ?? {}
   // get all available sizes of current product
   const availableSizes = options?.find(option => option.name.toLowerCase() === 'size')?.values
@@ -150,4 +157,46 @@ export const getSizeOptions = (product: PdpQuery['product']) => {
 
 export const getSizeTextDisplay = (size: string) => {
   return size === 'XXXL' ? '3XL' : size
+}
+
+export const fetchPdpProductData = async (
+  storefront: Storefront,
+  variables: Partial<Pick<PpdProductQueryVariables, 'handle' | 'selectedOptions'>>,
+): Promise<PpdProductQuery['product']> => {
+  const { product } = (await storefront.query(PDP_PRODUCT_QUERY, {
+    variables: {
+      country: storefront.i18n.country,
+      language: storefront.i18n.language,
+      ...variables,
+    },
+    cache: storefront.CacheCustom({
+      sMaxAge: 1,
+      staleWhileRevalidate: 59,
+      maxAge: 59,
+      staleIfError: 600,
+    }),
+  })) as PpdProductQuery
+
+  return product
+}
+
+export const fetchPdpProductGroupData = async (
+  storefront: Storefront,
+  variables: Partial<Pick<PpdProductQueryVariables, 'handle'>>,
+): Promise<NonNullable<PpdProductGroupQuery['product']>['productGroup']> => {
+  const { product } = (await storefront.query(PDP_PRODUCT_GROUP_QUERY, {
+    variables: {
+      country: storefront.i18n.country,
+      language: storefront.i18n.language,
+      ...variables,
+    },
+    cache: storefront.CacheCustom({
+      sMaxAge: 1,
+      staleWhileRevalidate: 59,
+      maxAge: 59,
+      staleIfError: 600,
+    }),
+  })) as PpdProductGroupQuery
+
+  return product?.productGroup
 }

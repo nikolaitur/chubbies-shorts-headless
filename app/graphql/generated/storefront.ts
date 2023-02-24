@@ -5616,6 +5616,18 @@ export type ProductPriceRange = {
   minVariantPrice: MoneyV2
 }
 
+/**
+ * The recommendation intent that is used to generate product recommendations.
+ * You can use intent to generate product recommendations according to different strategies.
+ *
+ */
+export enum ProductRecommendationIntent {
+  /** Offer customers products that are complementary to a product for which recommendations are to be fetched. An example is add-on products that display in a Pair it with section. */
+  Complementary = 'COMPLEMENTARY',
+  /** Offer customers a mix of products that are similar or complementary to a product for which recommendations are to be fetched. An example is substitutable products that display in a You may also like section. */
+  Related = 'RELATED',
+}
+
 /** The set of valid sort keys for the Product query. */
 export enum ProductSortKeys {
   /** Sort by the `best_selling` value. */
@@ -6027,6 +6039,7 @@ export type QueryRootProductByHandleArgs = {
 
 /** The schema’s entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 export type QueryRootProductRecommendationsArgs = {
+  intent?: InputMaybe<ProductRecommendationIntent>
   productId: Scalars['ID']
 }
 
@@ -6704,6 +6717,30 @@ export enum WeightUnit {
   Pounds = 'POUNDS',
 }
 
+export type FooterMenuContentVariables = Exact<{
+  footerMenuHandle: Scalars['String']
+  footerLegalLinksHandle: Scalars['String']
+}>
+
+export type FooterMenuContent = {
+  footerMenu?: {
+    items: Array<{
+      id: string
+      title: string
+      items: Array<{ id: string; title: string; url?: any | null }>
+    }>
+  } | null
+  footerLegalLinks?: { items: Array<{ id: string; title: string; url?: any | null }> } | null
+}
+
+export type FooterMenuItem = {
+  id: string
+  title: string
+  items: Array<{ id: string; title: string; url?: any | null }>
+}
+
+export type FooterLegalLinksItem = { id: string; title: string; url?: any | null }
+
 export type MediaImageFragment = {
   image?: {
     url: any
@@ -6749,12 +6786,6 @@ export type PdpMediaFragment =
   | PdpMediaFragment_MediaImage_
   | PdpMediaFragment_Model3d_
   | PdpMediaFragment_Video_
-
-export type ProductGroupVariantsFragment = {
-  id: string
-  availableForSale: boolean
-  selectedOptions: Array<{ name: string; value: string }>
-}
 
 export type PdpProductVariantsFragment = {
   id: string
@@ -6866,6 +6897,25 @@ export type InfoBlockFragment = {
   }>
 }
 
+export type ColorFragment = {
+  type: string
+  fields: Array<{
+    key: string
+    value?: string | null
+    reference?:
+      | {
+          image?: {
+            url: any
+            width?: number | null
+            height?: number | null
+            altText?: string | null
+          } | null
+        }
+      | { fields: Array<{ key: string; value?: string | null }> }
+      | null
+  }>
+}
+
 export type ColorMetafieldFragment = {
   color?: {
     reference?: {
@@ -6893,26 +6943,13 @@ export type ColorGroupMetafieldFragment = {
   colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
 }
 
-export type ColorFragment = {
-  type: string
-  fields: Array<{
-    key: string
-    value?: string | null
-    reference?:
-      | {
-          image?: {
-            url: any
-            width?: number | null
-            height?: number | null
-            altText?: string | null
-          } | null
-        }
-      | { fields: Array<{ key: string; value?: string | null }> }
-      | null
-  }>
-}
-
 export type InseamMetafieldFragment = { inseam?: { value: string } | null }
+
+export type ProductGroupVariantsFragment = {
+  id: string
+  availableForSale: boolean
+  selectedOptions: Array<{ name: string; value: string }>
+}
 
 export type ProductGroupFragment = {
   products: {
@@ -6952,14 +6989,14 @@ export type ProductGroupFragment = {
   }
 }
 
-export type PdpQueryVariables = Exact<{
+export type PpdProductQueryVariables = Exact<{
   handle: Scalars['String']
   country?: InputMaybe<CountryCode>
   language?: InputMaybe<LanguageCode>
   selectedOptions: Array<SelectedOptionInput> | SelectedOptionInput
 }>
 
-export type PdpQuery = {
+export type PpdProductQuery = {
   product?: {
     handle: string
     media: {
@@ -7151,6 +7188,58 @@ export type PdpQuery = {
       } | null
     } | null
     colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
+  } | null
+}
+
+export type PpdProductGroupQueryVariables = Exact<{
+  handle: Scalars['String']
+  country?: InputMaybe<CountryCode>
+  language?: InputMaybe<LanguageCode>
+  selectedOptions: Array<SelectedOptionInput> | SelectedOptionInput
+}>
+
+export type PpdProductGroupQuery = {
+  product?: {
+    productGroup?: {
+      value: string
+      reference?: {
+        products: {
+          nodes: Array<{
+            handle: string
+            id: string
+            variants: {
+              nodes: Array<{
+                id: string
+                availableForSale: boolean
+                selectedOptions: Array<{ name: string; value: string }>
+              }>
+            }
+            color?: {
+              reference?: {
+                type: string
+                fields: Array<{
+                  key: string
+                  value?: string | null
+                  reference?:
+                    | {
+                        image?: {
+                          url: any
+                          width?: number | null
+                          height?: number | null
+                          altText?: string | null
+                        } | null
+                      }
+                    | { fields: Array<{ key: string; value?: string | null }> }
+                    | null
+                }>
+              } | null
+            } | null
+            colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
+            inseam?: { value: string } | null
+          }>
+        }
+      } | null
+    } | null
   } | null
 }
 

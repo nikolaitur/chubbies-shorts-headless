@@ -2,9 +2,10 @@ import { useLoaderData } from '@remix-run/react'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
 import { STOREFRONT_NAME_KEY } from '~/constants'
 import { Inseam, PdpProduct, PpdLoaderData } from '~/global-types'
-import { PdpQuery, SelectedOptionInput } from '~/graphql/generated'
-import { PDP_QUERY } from '~/graphql/storefront/products/queries'
+import { SelectedOptionInput } from '~/graphql/generated'
 import {
+  fetchPdpProductData,
+  fetchPdpProductGroupData,
   getColorOptions,
   getColorOptionsByGroup,
   getInseamOptions,
@@ -35,39 +36,33 @@ export async function loader({ params, request, context: { storefront } }: Loade
     selectedOptions.push({ name, value })
   })
 
-  const { product } = (await storefront.query(PDP_QUERY, {
-    variables: {
-      country: storefront.i18n.country,
-      language: storefront.i18n.language,
-      handle: productHandle,
-      selectedOptions,
-    },
-    cache: storefront.CacheCustom({
-      sMaxAge: 1,
-      staleWhileRevalidate: 59,
-      maxAge: 59,
-      staleIfError: 600,
-    }),
-  })) as PdpQuery
+  // split queries to prevent throttled requests
+  const [product, productGroup] = await Promise.all([
+    await fetchPdpProductData(storefront, { handle: productHandle, selectedOptions }),
+    await fetchPdpProductGroupData(storefront, { handle: productHandle }),
+  ])
 
   if (!product) {
     throw json({ message: 'Product does not exist' }, { status: 404, statusText: 'Not Found' })
   }
 
-  const productsFromProductGroup = product.productGroup?.reference?.products.nodes
-  const parsedInseam: Inseam | null = JSON.parse(product.inseam?.value ?? 'null')
-  const colorName = product.color?.reference?.fields.find(
-    field => field.key === STOREFRONT_NAME_KEY,
-  )?.value
+  const { handle, infoBlocks, media, selectedVariant, variants, inseam, color } = product
+  const productsFromProductGroup = productGroup?.reference?.products.nodes
+  const parsedInseam: Inseam | null = JSON.parse(inseam?.value ?? 'null')
+  const colorName = color?.reference?.fields.find(field => field.key === STOREFRONT_NAME_KEY)?.value
   const inseamOptions = getInseamOptions(parsedInseam, productsFromProductGroup)
   const colorOptions = getColorOptions(colorName, parsedInseam, productsFromProductGroup)
   const colorOptionsByGroup = getColorOptionsByGroup(colorOptions)
   const sizeOptions = getSizeOptions(product)
 
+  // return what is only needed
   const newProduct: PdpProduct = {
-    ...product,
+    handle,
+    media,
+    infoBlocks,
+    variants,
+    selectedVariant,
     inseamOptions,
-    colorOptions,
     colorOptionsByGroup,
     sizeOptions,
   }

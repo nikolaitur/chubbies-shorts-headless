@@ -1,11 +1,12 @@
-import { PdpQuery, ProductGroupFragment } from '~/graphql/generated'
+import { PpdProductQuery, ProductGroupFragment } from '~/graphql/generated'
 import { ImageData, MetaobjectFieldV2 } from './general'
 
-export type PdpProduct = PdpQuery['product'] & {
+export type PdpProduct = Omit<
+  NonNullable<PpdProductQuery['product']>,
+  'inseam' | 'options' | 'color' | 'colorGroup' | 'ine'
+> & {
   inseamOptions: InseamOption[] | null
-  colorOptions: ColorOption[] | null
   colorOptionsByGroup: { [key: string]: ColorOption[] } | null
-
   sizeOptions: SizeOption[] | null
 }
 
