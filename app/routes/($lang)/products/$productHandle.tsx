@@ -1,6 +1,5 @@
-import { useLoaderData, useSearchParams } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
-import { useEffect } from 'react'
 import { STOREFRONT_NAME_KEY } from '~/constants'
 import { Inseam, PdpProduct, PpdLoaderData } from '~/global-types'
 import { PdpQuery, SelectedOptionInput } from '~/graphql/generated'
@@ -15,30 +14,6 @@ import ProductBox from '~/sections/product-box'
 
 const ProductPage = () => {
   const { product } = useLoaderData() as PpdLoaderData
-  const { selectedVariant } = product
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  // set search params for selected variant if it's not yet being set
-  // this will only trigger once per visit of product page
-  useEffect(() => {
-    if (!selectedVariant) return
-
-    const selectedVariantSearchParamsString = selectedVariant.selectedOptions.reduce(
-      (params, option, index) => {
-        return `${params}${index > 0 ? '&' : ''}${option.name}=${option.value}`
-      },
-      '',
-    )
-
-    const selectedVariantSearchParams = new URLSearchParams(selectedVariantSearchParamsString)
-
-    const isVariantExistsInSearchParams = searchParams
-      .toString()
-      .includes(selectedVariantSearchParams.toString())
-
-    if (!isVariantExistsInSearchParams) setSearchParams(selectedVariantSearchParams)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedVariant, searchParams])
 
   return (
     <>
@@ -83,8 +58,6 @@ export async function loader({ params, request, context: { storefront } }: Loade
   const colorOptions = getColorOptions(colorName, parsedInseam, productsFromProductGroup)
   const colorOptionsByGroup = getColorOptionsByGroup(colorOptions)
   const sizeOptions = getSizeOptions(product)
-  const firstVariant = product.variants.nodes[0]
-  const newSelectedVariant = product.selectedVariant ?? firstVariant
 
   const newProduct: PdpProduct = {
     ...product,
@@ -92,7 +65,6 @@ export async function loader({ params, request, context: { storefront } }: Loade
     colorOptions,
     colorOptionsByGroup,
     sizeOptions,
-    selectedVariant: newSelectedVariant,
   }
 
   return { product: newProduct }

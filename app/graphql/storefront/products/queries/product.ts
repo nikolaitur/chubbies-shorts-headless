@@ -1,4 +1,4 @@
-import { MEDIA_IMAGE_FRAGMENT } from '~/graphql/global-fragments'
+import { MEDIA_IMAGE_FRAGMENT } from '~/graphql/storefront/global-fragments'
 
 export const PDP_QUERY = /* gql */ `#graphql
   ${MEDIA_IMAGE_FRAGMENT}
