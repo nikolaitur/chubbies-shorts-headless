@@ -1,6 +1,6 @@
 import { builder, Builder } from '@builder.io/react'
 import { RemixBrowser } from '@remix-run/react'
-import { startTransition, StrictMode } from 'react'
+import { StrictMode } from 'react'
 import { hydrateRoot } from 'react-dom/client'
 import builderConfig from '../builderConfig.json'
 import HeroBanner from './sections/hero-banner'
@@ -56,22 +56,10 @@ Builder.registerComponent(HeroBanner, {
     },
   ],
 })
-
-function hydrate() {
-  startTransition(() => {
-    hydrateRoot(
-      document,
-      <StrictMode>
-        <RemixBrowser />
-      </StrictMode>,
-    )
-  })
-}
-
-if (typeof requestIdleCallback === 'function') {
-  requestIdleCallback(hydrate)
-} else {
-  // Safari doesn't support requestIdleCallback
-  // https://caniuse.com/requestidlecallback
-  setTimeout(hydrate, 1)
-}
+//TODO: Remove document.getElementById('root')! when Xiphe/remix-island is no longer needed (facebook/react#24430)
+hydrateRoot(
+  document.getElementById('root')!,
+  <StrictMode>
+    <RemixBrowser />
+  </StrictMode>,
+)

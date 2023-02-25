@@ -5,6 +5,7 @@ import { json, type LinksFunction, type LoaderArgs, type MetaFunction } from '@s
 import { BaseStyles } from '@solo-brands/ui-library.styles.global'
 // @ts-expect-error there are no typings for this module
 import { theme } from '@solobrands/token-library/dist/styled/chubbies'
+import { createHead } from 'remix-island'
 import { ThemeProvider } from 'styled-components'
 import { getFooterData } from '~/helpers'
 import {
@@ -104,25 +105,28 @@ export async function loader({ context, request, params }: LoaderArgs) {
   )
 }
 
+//TODO: add Head back to main return when Xiphe/remix-island is no longer needed (facebook/react#24430)
+export const Head = createHead(() => (
+  <>
+    <Meta />
+    <Links />
+  </>
+))
+
 export default function App() {
   const data = useLoaderData<typeof loader>()
 
   return (
-    <html lang="en">
-      <head>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <ThemeProvider theme={theme}>
-          <BaseStyles />
-          <MainFrame layout={{ footer: data?.footerData }}>
-            <Outlet />
-          </MainFrame>
-          <ScrollRestoration />
-          <Scripts />
-        </ThemeProvider>
-      </body>
-    </html>
+    <>
+      <Head />
+      <ThemeProvider theme={theme}>
+        <BaseStyles />
+        <MainFrame layout={{ footer: data?.footerData }}>
+          <Outlet />
+        </MainFrame>
+      </ThemeProvider>
+      <ScrollRestoration />
+      <Scripts />
+    </>
   )
 }
