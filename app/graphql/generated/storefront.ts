@@ -7204,6 +7204,7 @@ export type PpdProductQuery = {
         product: { title: string; handle: string }
       }>
     }
+    productGroup?: { value: string } | null
     infoBlocks?: {
       references?: {
         nodes: Array<{
@@ -7312,54 +7313,49 @@ export type PpdProductQuery = {
 }
 
 export type PpdProductGroupQueryVariables = Exact<{
-  handle: Scalars['String']
+  productGroupId: Scalars['ID']
   country?: InputMaybe<CountryCode>
   language?: InputMaybe<LanguageCode>
 }>
 
 export type PpdProductGroupQuery = {
-  product?: {
-    productGroup?: {
-      value: string
-      reference?: {
-        products: {
+  collection?: {
+    products: {
+      nodes: Array<{
+        handle: string
+        id: string
+        variants: {
           nodes: Array<{
-            handle: string
             id: string
-            variants: {
-              nodes: Array<{
-                id: string
-                availableForSale: boolean
-                selectedOptions: Array<{ name: string; value: string }>
-              }>
-            }
-            color?: {
-              reference?: {
-                id: string
-                type: string
-                fields: Array<{
-                  key: string
-                  value?: string | null
-                  reference?:
-                    | {
-                        image?: {
-                          url: any
-                          width?: number | null
-                          height?: number | null
-                          altText?: string | null
-                        } | null
-                      }
-                    | { fields: Array<{ key: string; value?: string | null }> }
-                    | null
-                }>
-              } | null
-            } | null
-            colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
-            inseam?: { value: string } | null
+            availableForSale: boolean
+            selectedOptions: Array<{ name: string; value: string }>
           }>
         }
-      } | null
-    } | null
+        color?: {
+          reference?: {
+            id: string
+            type: string
+            fields: Array<{
+              key: string
+              value?: string | null
+              reference?:
+                | {
+                    image?: {
+                      url: any
+                      width?: number | null
+                      height?: number | null
+                      altText?: string | null
+                    } | null
+                  }
+                | { fields: Array<{ key: string; value?: string | null }> }
+                | null
+            }>
+          } | null
+        } | null
+        colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
+        inseam?: { value: string } | null
+      }>
+    }
   } | null
 }
 

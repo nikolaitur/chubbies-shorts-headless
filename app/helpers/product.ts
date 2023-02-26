@@ -12,6 +12,7 @@ import {
 import {
   MetaobjectField,
   PpdProductGroupQuery,
+  PpdProductGroupQueryVariables,
   PpdProductQuery,
   PpdProductQueryVariables,
 } from '~/graphql/generated'
@@ -160,13 +161,14 @@ export const getSizeOptions = (product: PpdProductQuery['product']) => {
       return currentVariantSize === size
     })
 
-    const data = {
-      name: size,
-      exists: isSizeExist,
-      availableForSale: currentVariant?.availableForSale,
-    }
-
-    return [...options, data]
+    return [
+      ...options,
+      {
+        name: size,
+        exists: isSizeExist,
+        availableForSale: currentVariant?.availableForSale,
+      },
+    ]
   }, [])
 
   return sizeOptions
@@ -199,12 +201,10 @@ export const fetchPdpProductData = async (
 
 export const fetchPdpProductGroupData = async (
   storefront: Storefront,
-  variables: Partial<Pick<PpdProductQueryVariables, 'handle'>>,
-): Promise<NonNullable<PpdProductGroupQuery['product']>['productGroup']> => {
-  const { product } = (await storefront.query(PDP_PRODUCT_GROUP_QUERY, {
+  variables: Partial<Pick<PpdProductGroupQueryVariables, 'productGroupId'>>,
+): Promise<PpdProductGroupQuery['collection']> => {
+  const { collection } = (await storefront.query(PDP_PRODUCT_GROUP_QUERY, {
     variables: {
-      country: storefront.i18n.country,
-      language: storefront.i18n.language,
       ...variables,
     },
     cache: storefront.CacheCustom({
@@ -215,5 +215,5 @@ export const fetchPdpProductGroupData = async (
     }),
   })) as PpdProductGroupQuery
 
-  return product?.productGroup
+  return collection
 }

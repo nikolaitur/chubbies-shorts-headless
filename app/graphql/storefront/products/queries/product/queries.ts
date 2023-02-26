@@ -41,6 +41,9 @@ export const PDP_PRODUCT_QUERY = /* gql */ `#graphql
           ...PdpProductVariantsFragment
         }
       }
+      productGroup: metafield(namespace: "custom", key: "product_group") {
+        value
+      }
       infoBlocks: metafield(namespace: "custom", key: "product_info_blocks") {
         references(first: 10) {
           nodes {
@@ -77,17 +80,12 @@ export const PDP_PRODUCT_GROUP_QUERY = /* gql */ `#graphql
   ${PRODUCT_GROUP_FRAGMENT}
 
   query PpdProductGroupQuery(
-    $handle: String!
+    $productGroupId: ID!
     $country: CountryCode
     $language: LanguageCode
   ) @inContext(country: $country, language: $language) {
-    product(handle: $handle) {
-      productGroup: metafield(namespace: "custom", key: "product_group") {
-        value
-        reference {
-          ...ProductGroupFragment
-        }
-      }
+    collection(id:$productGroupId) {
+      ...ProductGroupFragment
     }
   }
 `

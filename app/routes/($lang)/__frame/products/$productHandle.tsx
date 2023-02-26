@@ -36,17 +36,17 @@ export async function loader({ params, request, context: { storefront } }: Loade
   })
 
   // split queries to prevent throttled requests
-  const [product, productGroup] = await Promise.all([
-    await fetchPdpProductData(storefront, { handle: productHandle, selectedOptions }),
-    await fetchPdpProductGroupData(storefront, { handle: productHandle }),
-  ])
+  const product = await fetchPdpProductData(storefront, { handle: productHandle, selectedOptions })
+  const productGroup = await fetchPdpProductGroupData(storefront, {
+    productGroupId: product?.productGroup?.value,
+  })
 
   if (!product) {
     throw json({ message: 'Product does not exist' }, { status: 404, statusText: 'Not Found' })
   }
 
   const { handle, infoBlocks, media, selectedVariant, variants, inseam, color } = product
-  const productsFromProductGroup = productGroup?.reference?.products.nodes
+  const productsFromProductGroup = productGroup?.products.nodes
   const parsedInseam: Inseam | null = JSON.parse(inseam?.value ?? 'null')
   const colorId = color?.reference?.id
   const inseamOptions = getInseamOptions(parsedInseam, colorId, productsFromProductGroup)
