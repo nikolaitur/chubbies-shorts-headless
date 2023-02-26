@@ -1,3 +1,4 @@
+import { Storefront } from '@shopify/hydrogen'
 import { PRODUCT_SIZES } from '~/constants'
 import {
   ColorFields,
@@ -8,17 +9,33 @@ import {
   ProductGroupProducts,
   SizeOption,
 } from '~/global-types'
-import { MetaobjectField, PdpQuery } from '~/graphql/generated'
+import {
+  MetaobjectField,
+  PpdProductGroupQuery,
+  PpdProductQuery,
+  PpdProductQueryVariables,
+} from '~/graphql/generated'
+import { PDP_PRODUCT_GROUP_QUERY, PDP_PRODUCT_QUERY } from '~/graphql/storefront/products/queries'
 import { flattenMetaobjectFields } from './shopify'
 
 export const getInseamOptions = (
   inseam: Inseam | null,
+  colorId: string | undefined,
   products: ProductGroupProducts | undefined,
 ): InseamOption[] | null => {
   if (!inseam || !products) return null
 
+  // filter products based on selected color
+  const productsByColorId = products.filter(product => {
+    const currentColorId = product.color?.reference?.id
+
+    if (!currentColorId) return false
+
+    return colorId === currentColorId
+  })
+
   // Go through each products in the product group and find the unique inseams
-  const uniqueInseamOptions = products.reduce((options: InseamOption[], product) => {
+  const uniqueInseamOptions = productsByColorId.reduce((options: InseamOption[], product) => {
     const currentInseam = product.inseam?.value
 
     if (!currentInseam) return options
@@ -37,16 +54,21 @@ export const getInseamOptions = (
     return [...options, data]
   }, [])
 
-  return uniqueInseamOptions
+  const sortedInseamOptions = uniqueInseamOptions.sort((a, z) => {
+    return a.value - z.value
+  })
+
+  return sortedInseamOptions
 }
 
 export const getColorOptions = (
-  colorName: string | null | undefined,
+  colorId: string | undefined,
   inseam: Inseam | null,
   products: ProductGroupProducts | undefined,
 ) => {
-  if (!colorName || !inseam || !products) return null
+  if (!colorId || !inseam || !products) return null
 
+  // filter products based on selected inseam
   const productsByInseam = products.filter(product => {
     const currentInseam: Inseam | null = JSON.parse(product.inseam?.value ?? 'null')
 
@@ -72,19 +94,21 @@ export const getColorOptions = (
 
     if (isColorExists) return options
 
+    const currentColorId = currentColor.id
     const flattenedFamilyFields = family.reference?.fields
     const familyValue = flattenedFamilyFields?.find(field => field.key === 'storefront_name')?.value
     const flattenedImage = colorImage.reference?.image
     const colorGroup = product.colorGroup?.reference?.name?.value ?? null
 
     const data = {
+      id: currentColorId,
       name: currentColorName,
       color: hexColor?.value,
       image: flattenedImage,
       family: familyValue,
       group: colorGroup,
       handle: product.handle,
-      selected: colorName === currentColorName,
+      selected: colorId === currentColorId,
     }
 
     return [...options, data]
@@ -118,7 +142,7 @@ export const getColorOptionsByGroup = (colorOptions: ColorOption[] | null) => {
   return colorOptionsByGroup
 }
 
-export const getSizeOptions = (product: PdpQuery['product']) => {
+export const getSizeOptions = (product: PpdProductQuery['product']) => {
   const { variants, options } = product ?? {}
   // get all available sizes of current product
   const availableSizes = options?.find(option => option.name.toLowerCase() === 'size')?.values
@@ -150,4 +174,46 @@ export const getSizeOptions = (product: PdpQuery['product']) => {
 
 export const getSizeTextDisplay = (size: string) => {
   return size === 'XXXL' ? '3XL' : size
+}
+
+export const fetchPdpProductData = async (
+  storefront: Storefront,
+  variables: Partial<Pick<PpdProductQueryVariables, 'handle' | 'selectedOptions'>>,
+): Promise<PpdProductQuery['product']> => {
+  const { product } = (await storefront.query(PDP_PRODUCT_QUERY, {
+    variables: {
+      country: storefront.i18n.country,
+      language: storefront.i18n.language,
+      ...variables,
+    },
+    cache: storefront.CacheCustom({
+      sMaxAge: 1,
+      staleWhileRevalidate: 59,
+      maxAge: 59,
+      staleIfError: 600,
+    }),
+  })) as PpdProductQuery
+
+  return product
+}
+
+export const fetchPdpProductGroupData = async (
+  storefront: Storefront,
+  variables: Partial<Pick<PpdProductQueryVariables, 'handle'>>,
+): Promise<NonNullable<PpdProductGroupQuery['product']>['productGroup']> => {
+  const { product } = (await storefront.query(PDP_PRODUCT_GROUP_QUERY, {
+    variables: {
+      country: storefront.i18n.country,
+      language: storefront.i18n.language,
+      ...variables,
+    },
+    cache: storefront.CacheCustom({
+      sMaxAge: 1,
+      staleWhileRevalidate: 59,
+      maxAge: 59,
+      staleIfError: 600,
+    }),
+  })) as PpdProductGroupQuery
+
+  return product?.productGroup
 }

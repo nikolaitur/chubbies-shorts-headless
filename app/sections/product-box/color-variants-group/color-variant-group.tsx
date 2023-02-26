@@ -14,12 +14,10 @@ const ColorVariantsGroup = ({
 }: ColorVariantsGroupProps) => {
   const matches = useMatches()
   const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
-  const { colorOptions, colorOptionsByGroup } = data.product
+  const { colorOptionsByGroup } = data.product
   const groups = Object.keys(colorOptionsByGroup ?? {})
 
-  if (!colorOptions) return null
-
-  const selectedColorName = colorOptions.find(option => option.selected)?.name
+  if (!colorOptionsByGroup) return null
 
   return (
     <div className={styles.wrapper} {...props}>
@@ -33,7 +31,6 @@ const ColorVariantsGroup = ({
             key={index}
             groupName={group}
             colorOptions={colorOptions}
-            selectedColorName={selectedColorName ?? ''}
             size={size}
             variant={variant}
           />
@@ -43,21 +40,11 @@ const ColorVariantsGroup = ({
   )
 }
 
-const ColorGroup = ({
-  groupName,
-  colorOptions,
-  selectedColorName,
-  size,
-  variant,
-}: ColorGroupProps) => {
-  const isSelectedGroup = colorOptions.some(option => option.name === selectedColorName)
+const ColorGroup = ({ groupName, colorOptions, size, variant }: ColorGroupProps) => {
+  const selectedColorName = colorOptions.find(option => option.selected)?.name
   return (
     <div className={styles.groupWrapper}>
-      <VariantInfo
-        size={'sm'}
-        optionName={groupName}
-        optionValue={isSelectedGroup ? selectedColorName : ''}
-      />
+      <VariantInfo size={'sm'} optionName={groupName} optionValue={selectedColorName ?? ''} />
       {variant !== 'expandable' ? (
         <ColorVariantsCarousel colorOptions={colorOptions} size={size} variant={variant} />
       ) : (

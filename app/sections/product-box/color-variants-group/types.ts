@@ -9,5 +9,4 @@ export type ColorVariantsGroupProps = HTMLAttributes<HTMLDivElement> & {
 export type ColorGroupProps = ColorVariantsGroupProps & {
   groupName: string
   colorOptions: ColorOption[]
-  selectedColorName: string
 }

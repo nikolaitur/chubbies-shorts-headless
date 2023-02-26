@@ -6717,6 +6717,30 @@ export enum WeightUnit {
   Pounds = 'POUNDS',
 }
 
+export type FooterMenuContentVariables = Exact<{
+  footerMenuHandle: Scalars['String']
+  footerLegalLinksHandle: Scalars['String']
+}>
+
+export type FooterMenuContent = {
+  footerMenu?: {
+    items: Array<{
+      id: string
+      title: string
+      items: Array<{ id: string; title: string; url?: any | null }>
+    }>
+  } | null
+  footerLegalLinks?: { items: Array<{ id: string; title: string; url?: any | null }> } | null
+}
+
+export type FooterMenuItem = {
+  id: string
+  title: string
+  items: Array<{ id: string; title: string; url?: any | null }>
+}
+
+export type FooterLegalLinksItem = { id: string; title: string; url?: any | null }
+
 export type MediaImageFragment = {
   image?: {
     url: any
@@ -6844,12 +6868,6 @@ export type PdpMediaFragment =
   | PdpMediaFragment_Model3d_
   | PdpMediaFragment_Video_
 
-export type ProductGroupVariantsFragment = {
-  id: string
-  availableForSale: boolean
-  selectedOptions: Array<{ name: string; value: string }>
-}
-
 export type PdpProductVariantsFragment = {
   id: string
   availableForSale: boolean
@@ -6960,9 +6978,30 @@ export type InfoBlockFragment = {
   }>
 }
 
+export type ColorFragment = {
+  id: string
+  type: string
+  fields: Array<{
+    key: string
+    value?: string | null
+    reference?:
+      | {
+          image?: {
+            url: any
+            width?: number | null
+            height?: number | null
+            altText?: string | null
+          } | null
+        }
+      | { fields: Array<{ key: string; value?: string | null }> }
+      | null
+  }>
+}
+
 export type ColorMetafieldFragment = {
   color?: {
     reference?: {
+      id: string
       type: string
       fields: Array<{
         key: string
@@ -6987,26 +7026,13 @@ export type ColorGroupMetafieldFragment = {
   colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
 }
 
-export type ColorFragment = {
-  type: string
-  fields: Array<{
-    key: string
-    value?: string | null
-    reference?:
-      | {
-          image?: {
-            url: any
-            width?: number | null
-            height?: number | null
-            altText?: string | null
-          } | null
-        }
-      | { fields: Array<{ key: string; value?: string | null }> }
-      | null
-  }>
-}
-
 export type InseamMetafieldFragment = { inseam?: { value: string } | null }
+
+export type ProductGroupVariantsFragment = {
+  id: string
+  availableForSale: boolean
+  selectedOptions: Array<{ name: string; value: string }>
+}
 
 export type ProductGroupFragment = {
   products: {
@@ -7022,6 +7048,7 @@ export type ProductGroupFragment = {
       }
       color?: {
         reference?: {
+          id: string
           type: string
           fields: Array<{
             key: string
@@ -7046,14 +7073,14 @@ export type ProductGroupFragment = {
   }
 }
 
-export type PdpQueryVariables = Exact<{
+export type PpdProductQueryVariables = Exact<{
   handle: Scalars['String']
   country?: InputMaybe<CountryCode>
   language?: InputMaybe<LanguageCode>
   selectedOptions: Array<SelectedOptionInput> | SelectedOptionInput
 }>
 
-export type PdpQuery = {
+export type PpdProductQuery = {
   product?: {
     handle: string
     media: {
@@ -7166,6 +7193,57 @@ export type PdpQuery = {
       } | null
     } | null
     inseam?: { value: string } | null
+    selectedVariant?: {
+      id: string
+      availableForSale: boolean
+      sku?: string | null
+      title: string
+      selectedOptions: Array<{ name: string; value: string }>
+      image?: {
+        id?: string | null
+        url: any
+        altText?: string | null
+        width?: number | null
+        height?: number | null
+      } | null
+      price: { amount: any; currencyCode: CurrencyCode }
+      compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+      product: { title: string; handle: string }
+    } | null
+    options: Array<{ name: string; values: Array<string> }>
+    color?: {
+      reference?: {
+        id: string
+        type: string
+        fields: Array<{
+          key: string
+          value?: string | null
+          reference?:
+            | {
+                image?: {
+                  url: any
+                  width?: number | null
+                  height?: number | null
+                  altText?: string | null
+                } | null
+              }
+            | { fields: Array<{ key: string; value?: string | null }> }
+            | null
+        }>
+      } | null
+    } | null
+    colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
+  } | null
+}
+
+export type PpdProductGroupQueryVariables = Exact<{
+  handle: Scalars['String']
+  country?: InputMaybe<CountryCode>
+  language?: InputMaybe<LanguageCode>
+}>
+
+export type PpdProductGroupQuery = {
+  product?: {
     productGroup?: {
       value: string
       reference?: {
@@ -7182,6 +7260,7 @@ export type PdpQuery = {
             }
             color?: {
               reference?: {
+                id: string
                 type: string
                 fields: Array<{
                   key: string
@@ -7206,45 +7285,6 @@ export type PdpQuery = {
         }
       } | null
     } | null
-    selectedVariant?: {
-      id: string
-      availableForSale: boolean
-      sku?: string | null
-      title: string
-      selectedOptions: Array<{ name: string; value: string }>
-      image?: {
-        id?: string | null
-        url: any
-        altText?: string | null
-        width?: number | null
-        height?: number | null
-      } | null
-      price: { amount: any; currencyCode: CurrencyCode }
-      compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
-      product: { title: string; handle: string }
-    } | null
-    options: Array<{ name: string; values: Array<string> }>
-    color?: {
-      reference?: {
-        type: string
-        fields: Array<{
-          key: string
-          value?: string | null
-          reference?:
-            | {
-                image?: {
-                  url: any
-                  width?: number | null
-                  height?: number | null
-                  altText?: string | null
-                } | null
-              }
-            | { fields: Array<{ key: string; value?: string | null }> }
-            | null
-        }>
-      } | null
-    } | null
-    colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
   } | null
 }
 

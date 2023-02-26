@@ -1,8 +1,4 @@
-import { MEDIA_IMAGE_FRAGMENT } from '../../global/fragments'
-
-export const PDP_QUERY = /* gql */ `#graphql
-  ${MEDIA_IMAGE_FRAGMENT}
-
+export const PDP_MEDIA_FRAGMENT = /* gql */ `#graphql
   fragment PdpMediaFragment on Media {
     ... on Model3d {
       mediaContentType
@@ -39,16 +35,9 @@ export const PDP_QUERY = /* gql */ `#graphql
       __typename
     }
   }
+`
 
-  fragment ProductGroupVariantsFragment on ProductVariant {
-    id
-    availableForSale
-    selectedOptions {
-      name
-      value
-    }
-  }
-
+export const PDP_PRODUCT_VARIANTS_FRAGMENT = /* gql */ `#graphql
   fragment PdpProductVariantsFragment on ProductVariant {
     id
     availableForSale
@@ -78,7 +67,9 @@ export const PDP_QUERY = /* gql */ `#graphql
       handle
     }
   }
+`
 
+export const INFO_BLOCK_FIELD_REFERENCE_FRAGMENT = /* gql */ `#graphql
   fragment InfoBlockFieldReferenceFragment on MetafieldReference {
     ... on MediaImage {
       ...MediaImageFragment
@@ -97,7 +88,9 @@ export const PDP_QUERY = /* gql */ `#graphql
       }
     }
   }
+`
 
+export const INFO_BLOCK_FRAGMENT = /* gql */ `#graphql
   fragment InfoBlockFragment on Metaobject {
     type
     fields {
@@ -106,37 +99,18 @@ export const PDP_QUERY = /* gql */ `#graphql
       reference {
         ...InfoBlockFieldReferenceFragment
       }
-      references(first: 20) {
+      references(first: 10) {
         nodes {
           ...InfoBlockFieldReferenceFragment
         }
       }
     }
   }
+`
 
-  fragment ColorMetafieldFragment on Product {
-    color: metafield(namespace: "custom", key: "swatch") {
-      reference {
-        ... on Metaobject {
-          ...ColorFragment
-        }
-      }
-    }
-  }
-
-  fragment ColorGroupMetafieldFragment on Product {
-    colorGroup: metafield(namespace: "custom", key: "swatch_group") {
-      reference {
-        ... on Metaobject {
-          name: field(key: "storefront_name") {
-            value
-          }
-        }
-      }
-    }
-  }
-
+export const COLOR_FRAGMENT = /* gql */ `#graphql
   fragment ColorFragment on Metaobject {
+    id
     type
     fields {
       key
@@ -155,13 +129,54 @@ export const PDP_QUERY = /* gql */ `#graphql
       }
     }
   }
+`
 
+export const COLOR_METAFIELD_FRAGMENT = /* gql */ `#graphql
+  fragment ColorMetafieldFragment on Product {
+    color: metafield(namespace: "custom", key: "swatch") {
+      reference {
+        ... on Metaobject {
+          ...ColorFragment
+        }
+      }
+    }
+  }
+`
+
+export const COLOR_GROUP_METAFIELD_FRAGMENT = /* gql */ `#graphql
+  fragment ColorGroupMetafieldFragment on Product {
+    colorGroup: metafield(namespace: "custom", key: "swatch_group") {
+      reference {
+        ... on Metaobject {
+          name: field(key: "storefront_name") {
+            value
+          }
+        }
+      }
+    }
+  }
+`
+
+export const INSEAM_METAFIELD_FRAGMENT = /* gql */ `#graphql
   fragment InseamMetafieldFragment on Product {
     inseam: metafield(namespace: "custom", key: "inseam_length") {
       value
     }
   }
+`
 
+export const PRODUCT_GROUP_VARIANTS_FRAGMENT = /* gql */ `#graphql
+  fragment ProductGroupVariantsFragment on ProductVariant {
+    id
+    availableForSale
+    selectedOptions {
+      name
+      value
+    }
+  }
+`
+
+export const PRODUCT_GROUP_FRAGMENT = /* gql */ `#graphql
   fragment ProductGroupFragment on Collection {
     products(first: 100) {
       nodes {
@@ -176,55 +191,6 @@ export const PDP_QUERY = /* gql */ `#graphql
         ...ColorGroupMetafieldFragment
         ...InseamMetafieldFragment
       }
-    }
-  }
-
-  query PdpQuery(
-    $handle: String!
-    $country: CountryCode
-    $language: LanguageCode
-    $selectedOptions: [SelectedOptionInput!]!
-  ) @inContext(country: $country, language: $language) {
-    product(handle: $handle) {
-      handle
-      media(first: 50) {
-        nodes {
-          ...PdpMediaFragment
-        }
-      }
-      variants(first: 10) {
-        nodes {
-          ...PdpProductVariantsFragment
-        }
-      }
-      infoBlocks: metafield(namespace: "custom", key: "product_info_blocks") {
-        references(first: 10) {
-          nodes {
-            ... on Metaobject {
-              ...InfoBlockFragment
-            }
-          }
-        }
-      }
-      inseam: metafield(namespace: "custom", key: "inseam_length") {
-        value
-      }
-      productGroup: metafield(namespace: "custom", key: "product_group") {
-        value
-        reference {
-          ...ProductGroupFragment
-        }
-      }
-      selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions) {
-        ...PdpProductVariantsFragment
-      }
-      options {
-        name
-        values
-      }
-      ...ColorMetafieldFragment
-      ...ColorGroupMetafieldFragment
-      ...InseamMetafieldFragment
     }
   }
 `
