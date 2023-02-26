@@ -5616,6 +5616,18 @@ export type ProductPriceRange = {
   minVariantPrice: MoneyV2
 }
 
+/**
+ * The recommendation intent that is used to generate product recommendations.
+ * You can use intent to generate product recommendations according to different strategies.
+ *
+ */
+export enum ProductRecommendationIntent {
+  /** Offer customers products that are complementary to a product for which recommendations are to be fetched. An example is add-on products that display in a Pair it with section. */
+  Complementary = 'COMPLEMENTARY',
+  /** Offer customers a mix of products that are similar or complementary to a product for which recommendations are to be fetched. An example is substitutable products that display in a You may also like section. */
+  Related = 'RELATED',
+}
+
 /** The set of valid sort keys for the Product query. */
 export enum ProductSortKeys {
   /** Sort by the `best_selling` value. */
@@ -6027,6 +6039,7 @@ export type QueryRootProductByHandleArgs = {
 
 /** The schema’s entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 export type QueryRootProductRecommendationsArgs = {
+  intent?: InputMaybe<ProductRecommendationIntent>
   productId: Scalars['ID']
 }
 
@@ -6711,6 +6724,87 @@ export type MediaImageFragment = {
     height?: number | null
     altText?: string | null
   } | null
+}
+
+export type GlobalSettingsVariables = Exact<{
+  globalSettingsHandle: Scalars['String']
+}>
+
+export type GlobalSettings = {
+  globalSettings?: {
+    promoBarAnnouncements?: {
+      references?: {
+        nodes: Array<{
+          id: string
+          title?: { value?: string | null } | null
+          content?: { value?: string | null } | null
+          link?: { value?: string | null } | null
+          font_color?: { value?: string | null } | null
+          background_color?: { value?: string | null } | null
+          start_date?: { value?: string | null } | null
+          end_date?: { value?: string | null } | null
+          countdown?: { value?: string | null } | null
+        }>
+      } | null
+    } | null
+    promoBarMenuHandle?: { value?: string | null } | null
+    footerMenuHandle?: { value?: string | null } | null
+    legalLinksMenuHandle?: { value?: string | null } | null
+  } | null
+}
+
+export type AnnouncementContent = {
+  id: string
+  title?: { value?: string | null } | null
+  content?: { value?: string | null } | null
+  link?: { value?: string | null } | null
+  font_color?: { value?: string | null } | null
+  background_color?: { value?: string | null } | null
+  start_date?: { value?: string | null } | null
+  end_date?: { value?: string | null } | null
+  countdown?: { value?: string | null } | null
+}
+
+export type MainFrameMenusVariables = Exact<{
+  promoBarMenuHandle: Scalars['String']
+  footerMenuHandle: Scalars['String']
+  legalLinksMenuHandle: Scalars['String']
+}>
+
+export type MainFrameMenus = {
+  promoBarMenu?: {
+    items: Array<{
+      id: string
+      title: string
+      url?: any | null
+      items: Array<{ id: string; title: string; url?: any | null }>
+    }>
+  } | null
+  footerMenu?: {
+    items: Array<{
+      id: string
+      title: string
+      url?: any | null
+      items: Array<{ id: string; title: string; url?: any | null }>
+    }>
+  } | null
+  legalLinksMenu?: {
+    items: Array<{
+      id: string
+      title: string
+      url?: any | null
+      items: Array<{ id: string; title: string; url?: any | null }>
+    }>
+  } | null
+}
+
+export type MenuFragment = {
+  items: Array<{
+    id: string
+    title: string
+    url?: any | null
+    items: Array<{ id: string; title: string; url?: any | null }>
+  }>
 }
 
 export type ProductMiniCardFragment = { title: string; id: string }

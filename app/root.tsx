@@ -7,7 +7,6 @@ import { BaseStyles } from '@solo-brands/ui-library.styles.global'
 import { theme } from '@solobrands/token-library/dist/styled/chubbies'
 import { createHead } from 'remix-island'
 import { ThemeProvider } from 'styled-components'
-import { getFooterData } from '~/helpers'
 import {
   createNostoCookie,
   generateNostoEventPayload,
@@ -16,7 +15,6 @@ import {
   updateNostoSession,
 } from '~/helpers/nosto'
 import favicon from '../public/favicon.svg'
-import MainFrame from './frames/main-frame'
 import { CART_QUERY } from './graphql/storefront/cart/queries'
 
 import appStyles from './styles/app.css'
@@ -60,10 +58,7 @@ export const meta: MetaFunction = data => ({
 export async function loader({ context, request, params }: LoaderArgs) {
   const { storefront } = context
 
-  const [cartId, footerData] = await Promise.all([
-    context.session.get('cartId'),
-    getFooterData(context),
-  ])
+  const cartId = await context.session.get('cartId')
 
   const [cart] = await Promise.all([
     cartId
@@ -97,7 +92,6 @@ export async function loader({ context, request, params }: LoaderArgs) {
     {
       cart,
       nosto: recommendedProducts,
-      footerData,
     },
     {
       headers: new Headers(headers),
@@ -121,9 +115,7 @@ export default function App() {
       <Head />
       <ThemeProvider theme={theme}>
         <BaseStyles />
-        <MainFrame layout={{ footer: data?.footerData }}>
-          <Outlet />
-        </MainFrame>
+        <Outlet />
       </ThemeProvider>
       <ScrollRestoration />
       <Scripts />

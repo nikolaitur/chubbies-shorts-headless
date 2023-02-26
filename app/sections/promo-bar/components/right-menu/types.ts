@@ -1,9 +1,5 @@
-type RightMenu = {
-  title: string
-  children: string
-  to: string
-}
+import { MenuFragment } from '~/graphql/generated'
 
-export type HeaderProps = {
-  data?: RightMenu[]
+export type RightMenuProps = {
+  data?: MenuFragment | null
 }

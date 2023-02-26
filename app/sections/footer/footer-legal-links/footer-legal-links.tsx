@@ -1,10 +1,8 @@
 import { Link } from '@remix-run/react'
-
-import { EnhancedMenu } from '~/global-types'
-
+import { MenuFragment } from '~/graphql/generated'
 import styles from './styles.module.css'
 
-const FooterLegalLinks = ({ legalLinks }: { legalLinks?: EnhancedMenu }) => {
+const FooterLegalLinks = ({ legalLinks }: { legalLinks?: MenuFragment | null }) => {
   return (
     <div className={styles.component}>
       <p>© 2023 Chubbies Inc. - The Weekend Has Arrived - All Rights Reserved</p>

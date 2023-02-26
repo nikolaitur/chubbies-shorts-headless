@@ -1,13 +1,10 @@
-import { forwardRef, Ref } from 'react'
-import Navigation from '../navigation'
-import PromoBar from '../promo-bar'
-import styles from './styles.module.css'
-import { HeaderProps } from './types'
+import { forwardRef, HTMLAttributes, Ref } from 'react'
 
-const Header = ({ ...props }: HeaderProps, ref: Ref<HTMLDivElement>) => (
+import styles from './styles.module.css'
+
+const Header = ({ children, ...props }: HTMLAttributes<HTMLElement>, ref: Ref<HTMLDivElement>) => (
   <div className={styles.section} {...props} ref={ref}>
-    <PromoBar />
-    <Navigation />
+    {children}
   </div>
 )
 

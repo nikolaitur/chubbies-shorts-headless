@@ -1,47 +1,29 @@
-import { Link } from '@remix-run/react'
 import { forwardRef, Ref } from 'react'
+import { Link } from '@remix-run/react'
+
 import LocaleSelector from '../locale-selector'
+import { RightMenuProps } from './types'
+
 import styles from './styles.module.css'
-import { HeaderProps } from './types'
 
-const mockData = [
-  {
-    to: '/rewards',
-    title: 'Rewards 🌟',
-    children: 'Rewards 🌟',
-  },
-  {
-    to: '/size-guides',
-    title: 'Size Guides',
-    children: 'Size Guides',
-  },
-  {
-    to: '/help',
-    title: 'Help',
-    children: 'Help',
-  },
-]
+const RightMenu = ({ data }: RightMenuProps, ref: Ref<HTMLDivElement>) => (
+  <div className={styles.section} ref={ref}>
+    <div className={styles.wrapper}>
+      {/*TODO: In localization*/}
+      <LocaleSelector />
+      {data?.items.map((nav, idx) => {
+        const { url, title } = nav
 
-const RightMenu = ({ data = [] }: HeaderProps, ref: Ref<HTMLDivElement>) => {
-  // TODO: LIVE DATA INTEGRATION
-  const navMenu = data.length > 0 ? data : mockData
+        if (!url) return null
 
-  return (
-    <div className={styles.section} ref={ref}>
-      <div className={styles.wrapper}>
-        <LocaleSelector />
-        {navMenu?.map((nav, idx) => {
-          const { to, title, children } = nav
-
-          return (
-            <Link key={`nav-link-${idx + 1}`} to={to} title={title}>
-              {children}
-            </Link>
-          )
-        })}
-      </div>
+        return (
+          <Link key={`nav-link-${idx + 1}`} to={url} title={title}>
+            {title}
+          </Link>
+        )
+      })}
     </div>
-  )
-}
+  </div>
+)
 
 export default forwardRef(RightMenu)

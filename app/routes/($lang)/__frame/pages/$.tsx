@@ -1,18 +1,18 @@
 import { builder, BuilderComponent, useIsPreviewing } from '@builder.io/react'
 import type { BuilderContent } from '@builder.io/sdk'
+import type { LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { LoaderArgs } from '@shopify/remix-oxygen'
-import builderConfig from '../../../builderConfig.json'
+import builderConfig from '../../../../../builderConfig.json'
 
 builder.init(builderConfig.apiKey)
-const pageModel = 'homepage'
+const pageModel = 'landing-pages'
 
-export async function loader({ params }: LoaderArgs) {
+export const loader: LoaderFunction = async ({ params }) => {
   const page = await builder
     .get(pageModel, {
       options: { includeUnpublished: true },
       userAttributes: {
-        urlPath: `/`,
+        urlPath: `/pages/${params['*']}`,
       },
     })
     .toPromise()

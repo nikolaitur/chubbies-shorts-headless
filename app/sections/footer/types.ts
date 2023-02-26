@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react'
-
-import { FooterData } from '~/global-types'
+import { MenuFragment } from '~/graphql/generated'
 
 export type FooterProps = HTMLAttributes<HTMLElement> & {
-  data?: FooterData
+  menu?: MenuFragment | null
+  legalLinks?: MenuFragment | null
 }

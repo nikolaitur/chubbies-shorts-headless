@@ -11,6 +11,3 @@ export const PRODUCT_ROUTE_ID = 'routes/($lang)/products/$productHandle'
 export const UNIT_MEASUREMENT_SYMBOL: { [key: string]: string } = {
   INCHES: '"',
 }
-
-export const FOOTER_MENU_HANDLE = 'footer-menu'
-export const FOOTER_LEGAL_HANDLE = 'footer-legal'
