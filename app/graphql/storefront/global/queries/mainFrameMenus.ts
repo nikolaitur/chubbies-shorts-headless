@@ -1,8 +1,9 @@
-export const MainFrameMenusQuery = /* gql */ `
+export const MainFrameMenusQuery = /* gql */ `#graphql
 query MainFrameMenus(
   $promoBarMenuHandle:String!,
   $footerMenuHandle:String!,
-  $legalLinksMenuHandle:String!
+  $legalLinksMenuHandle:String!,
+  $headerNavMenuHandle:String!
 ){
 	promoBarMenu:menu(handle:$promoBarMenuHandle) {
     ...MenuFragment
@@ -13,17 +14,34 @@ query MainFrameMenus(
   legalLinksMenu:menu(handle:$legalLinksMenuHandle) {
     ...MenuFragment
   }
+  headerNavMenu:menu(handle:$headerNavMenuHandle) {
+    ...MenuFragment
+  }
 }
 fragment MenuFragment on Menu {
   items {
-  	id
-  	title
+		...MenuItemFragment
+  }
+}
+fragment MenuItemFragment on MenuItem {
+  title
+  id
+  title
+  url
+  resourceId
+  items {
+    title
+    id
+    title
     url
-  	items {
+    resourceId
+    items {
+      title
       id
       title
       url
-  	}
+      resourceId
+    }
   }
 }
 `

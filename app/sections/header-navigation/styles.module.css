@@ -1,0 +1,73 @@
+.content {
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid #D2D4D7;
+}
+
+.mobileNav {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0px;
+  height: 57px;
+}
+
+.positionBlock {
+  display: flex;
+  column-gap: 12px;
+}
+.positionBlock .icon {
+  padding: 0px;
+}
+.positionBlock .icon > div {
+  width: 24px;
+  height: 24px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.logoLink {
+  display: flex;
+}
+
+.logo {
+  height: 28px;
+}
+
+.searchMobile {
+  padding: 4px 0px 12px;
+}
+
+.searchDesktop {
+  display: none;
+}
+
+@media screen and (min-width: 481px) {
+  .content {
+    border-bottom: none;
+  }
+  .mobileNav {
+    height: 72px;
+    padding: 0px;
+  }
+  .positionBlock .searchIcon {
+    display: none;
+  }
+  .searchMobile {
+    display: none;
+  }
+  .searchDesktop {
+    display: block;
+    width: 100%;
+  }
+  .logo {
+    height: 40px;
+  }
+}
+@media screen and (min-width: 1281px) {
+  .positionBlock .mobileNavIcon {
+    display: none;
+  }
+}

@@ -1,11 +1,21 @@
-import clsx from 'clsx'
 import { forwardRef, Ref } from 'react'
-import styles from './styles.module.css'
-import { BackdropProps } from './types'
+import clsx from 'clsx'
 
-const Backdrop = ({ isShown = false, ...props }: BackdropProps, ref: Ref<HTMLDivElement>) => {
+import { BackdropProps } from '~/components/backdrop/types'
+
+import styles from './styles.module.css'
+
+const Backdrop = (
+  { isShown = false, top = 0, ...props }: BackdropProps,
+  ref: Ref<HTMLDivElement>,
+) => {
   return (
-    <div className={clsx(styles.backdrop, { [styles.isShown]: isShown })} ref={ref} {...props} />
+    <div
+      style={{ top: `${top}px` }}
+      className={clsx(styles.backdrop, { [styles.isShown]: isShown })}
+      ref={ref}
+      {...props}
+    />
   )
 }
 

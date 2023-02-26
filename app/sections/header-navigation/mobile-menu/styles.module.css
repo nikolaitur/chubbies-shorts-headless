@@ -1,0 +1,28 @@
+.menuItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 16px;
+  border-bottom: 1px solid #D2D4D7;
+  height: 40px;
+  cursor: pointer;
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 16px;
+}
+.menuItem.menuItemWithSubmenu {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 16px;
+}
+.menuItem.featured span {
+  color: #9D6005;
+}
+@media screen and (min-width: 769px) {
+  .menuItem.mobile_only {
+    display: none;
+  }
+}

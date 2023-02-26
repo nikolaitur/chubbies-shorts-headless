@@ -17,6 +17,9 @@ query GlobalSettings($globalSettingsHandle:String!) {
     legalLinksMenuHandle:field(key:"legal_links_menu_handle") {
       value
     }
+    headerNavMenuHandle:field(key:"header_nav_menu_handle") {
+      value
+    }
   }
 }
 fragment AnnouncementContent on Metaobject {

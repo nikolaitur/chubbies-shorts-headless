@@ -6717,36 +6717,52 @@ export enum WeightUnit {
   Pounds = 'POUNDS',
 }
 
-export type FooterMenuContentVariables = Exact<{
-  footerMenuHandle: Scalars['String']
-  footerLegalLinksHandle: Scalars['String']
-}>
-
-export type FooterMenuContent = {
-  footerMenu?: {
-    items: Array<{
-      id: string
-      title: string
-      items: Array<{ id: string; title: string; url?: any | null }>
-    }>
-  } | null
-  footerLegalLinks?: { items: Array<{ id: string; title: string; url?: any | null }> } | null
-}
-
-export type FooterMenuItem = {
-  id: string
-  title: string
-  items: Array<{ id: string; title: string; url?: any | null }>
-}
-
-export type FooterLegalLinksItem = { id: string; title: string; url?: any | null }
-
 export type MediaImageFragment = {
   image?: {
     url: any
     width?: number | null
     height?: number | null
     altText?: string | null
+  } | null
+}
+
+export type CollectionNavImagesVariables = Exact<{
+  ids: Array<Scalars['ID']> | Scalars['ID']
+}>
+
+export type CollectionNavImages = {
+  nodes: Array<{
+    id: string
+    navigation_image?: {
+      reference?: {
+        id: string
+        image?: {
+          altText?: string | null
+          height?: number | null
+          id?: string | null
+          originalSrc: any
+          url: any
+          width?: number | null
+        } | null
+      } | null
+    } | null
+  } | null>
+}
+
+export type NavCollectionFragment = {
+  id: string
+  navigation_image?: {
+    reference?: {
+      id: string
+      image?: {
+        altText?: string | null
+        height?: number | null
+        id?: string | null
+        originalSrc: any
+        url: any
+        width?: number | null
+      } | null
+    } | null
   } | null
 }
 
@@ -6774,6 +6790,7 @@ export type GlobalSettings = {
     promoBarMenuHandle?: { value?: string | null } | null
     footerMenuHandle?: { value?: string | null } | null
     legalLinksMenuHandle?: { value?: string | null } | null
+    headerNavMenuHandle?: { value?: string | null } | null
   } | null
 }
 
@@ -6793,41 +6810,99 @@ export type MainFrameMenusVariables = Exact<{
   promoBarMenuHandle: Scalars['String']
   footerMenuHandle: Scalars['String']
   legalLinksMenuHandle: Scalars['String']
+  headerNavMenuHandle: Scalars['String']
 }>
 
 export type MainFrameMenus = {
   promoBarMenu?: {
     items: Array<{
-      id: string
       title: string
+      id: string
       url?: any | null
-      items: Array<{ id: string; title: string; url?: any | null }>
+      resourceId?: string | null
+      items: Array<{
+        title: string
+        id: string
+        url?: any | null
+        resourceId?: string | null
+        items: Array<{ title: string; id: string; url?: any | null; resourceId?: string | null }>
+      }>
     }>
   } | null
   footerMenu?: {
     items: Array<{
-      id: string
       title: string
+      id: string
       url?: any | null
-      items: Array<{ id: string; title: string; url?: any | null }>
+      resourceId?: string | null
+      items: Array<{
+        title: string
+        id: string
+        url?: any | null
+        resourceId?: string | null
+        items: Array<{ title: string; id: string; url?: any | null; resourceId?: string | null }>
+      }>
     }>
   } | null
   legalLinksMenu?: {
     items: Array<{
-      id: string
       title: string
+      id: string
       url?: any | null
-      items: Array<{ id: string; title: string; url?: any | null }>
+      resourceId?: string | null
+      items: Array<{
+        title: string
+        id: string
+        url?: any | null
+        resourceId?: string | null
+        items: Array<{ title: string; id: string; url?: any | null; resourceId?: string | null }>
+      }>
+    }>
+  } | null
+  headerNavMenu?: {
+    items: Array<{
+      title: string
+      id: string
+      url?: any | null
+      resourceId?: string | null
+      items: Array<{
+        title: string
+        id: string
+        url?: any | null
+        resourceId?: string | null
+        items: Array<{ title: string; id: string; url?: any | null; resourceId?: string | null }>
+      }>
     }>
   } | null
 }
 
 export type MenuFragment = {
   items: Array<{
-    id: string
     title: string
+    id: string
     url?: any | null
-    items: Array<{ id: string; title: string; url?: any | null }>
+    resourceId?: string | null
+    items: Array<{
+      title: string
+      id: string
+      url?: any | null
+      resourceId?: string | null
+      items: Array<{ title: string; id: string; url?: any | null; resourceId?: string | null }>
+    }>
+  }>
+}
+
+export type MenuItemFragment = {
+  title: string
+  id: string
+  url?: any | null
+  resourceId?: string | null
+  items: Array<{
+    title: string
+    id: string
+    url?: any | null
+    resourceId?: string | null
+    items: Array<{ title: string; id: string; url?: any | null; resourceId?: string | null }>
   }>
 }
 

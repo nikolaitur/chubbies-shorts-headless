@@ -1,0 +1,9 @@
+@use '../../styles/abstracts/index' as *;
+
+.container {
+  position: sticky;
+  top: $space-0;
+  left: $space-0;
+  right: $space-0;
+  z-index: 100;
+}

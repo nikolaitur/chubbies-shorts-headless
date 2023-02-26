@@ -1,0 +1,42 @@
+.inputWrapper {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 12px;
+  top: 8px;
+}
+
+.closeIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  right: 12px;
+  color: #DD1C2F;
+  top: 8px;
+}
+
+.input {
+  padding: 8px 32px;
+  width: 100%;
+  gap: 6px;
+  height: 32px;
+  background: rgb(255, 255, 255);
+  border: 1px solid #A0A2A5;
+  border-radius: 500px;
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 100%;
+  font-size: 16px;
+}
+.input::placeholder {
+  color: #A0A2A5;
+}

@@ -1,13 +1,14 @@
 import { Outlet, useLoaderData } from '@remix-run/react'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
-import { GlobalSettings, MainFrameMenus } from '~/graphql/generated'
+import type { CollectionNavImages, GlobalSettings, MainFrameMenus } from '~/graphql/generated'
+import { COLLECTION_NAV_IMAGES } from '~/graphql/storefront/global/queries/collectionNavImage'
 import { GLOBAL_SETTINGS_QUERY } from '~/graphql/storefront/global/queries/globalSettings'
 import { MainFrameMenusQuery } from '~/graphql/storefront/global/queries/mainFrameMenus'
 import CartSlider from '~/sections/cart-slider'
 import Footer from '~/sections/footer'
-import Header from '~/sections/header'
-import Navigation from '~/sections/navigation'
+import HeaderNavigation from '~/sections/header-navigation'
 import PromoBar from '~/sections/promo-bar'
+import Header from '~/sections/header'
 
 export async function loader({ context }: LoaderArgs) {
   const { storefront } = context
@@ -25,30 +26,72 @@ export async function loader({ context }: LoaderArgs) {
     },
     cache: mainFrameCacheStrategy,
   })
-  const { promoBarAnnouncements, promoBarMenuHandle, footerMenuHandle, legalLinksMenuHandle } =
-    globalSettings || {}
-  const { promoBarMenu, footerMenu, legalLinksMenu } = await storefront.query<MainFrameMenus>(
-    MainFrameMenusQuery,
-    {
+  const {
+    promoBarAnnouncements,
+    promoBarMenuHandle,
+    footerMenuHandle,
+    legalLinksMenuHandle,
+    headerNavMenuHandle,
+  } = globalSettings || {}
+  const { promoBarMenu, footerMenu, legalLinksMenu, headerNavMenu } =
+    await storefront.query<MainFrameMenus>(MainFrameMenusQuery, {
       variables: {
         promoBarMenuHandle: promoBarMenuHandle?.value,
         footerMenuHandle: footerMenuHandle?.value,
         legalLinksMenuHandle: legalLinksMenuHandle?.value,
+        headerNavMenuHandle: headerNavMenuHandle?.value,
       },
       cache: mainFrameCacheStrategy,
+    })
+  const navCollectionIds = headerNavMenu?.items?.reduce<string[]>((acc, item) => {
+    item?.items?.forEach(innerItem => {
+      if (innerItem.resourceId?.includes('/Collection/')) {
+        acc.push(innerItem.resourceId)
+      }
+    })
+    return acc
+  }, [])
+  const navCollectionImages = await storefront.query<CollectionNavImages>(COLLECTION_NAV_IMAGES, {
+    variables: {
+      ids: navCollectionIds,
     },
-  )
+  })
+  /*
+  headerNavMenu?.items?.forEach(item => {
+    item?.items?.forEach(innerItem => {
+      if (innerItem.resourceId?.includes('/Collection/')) {
+        const collectionImage = navCollectionImages.nodes?.find(
+          collection => collection?.id === innerItem.resourceId,
+        )
+        if (collectionImage) {
+          //@ts-expect-error how do we add a new property to MenuItem?
+          innerItem.image = collectionImage?.navigation_image?.reference?.image
+        }
+      }
+    })
+  })*/
+
+  //retrieve images for the mega menu
   return json({
+    promoBarAnnouncements,
     promoBarMenu,
+    headerNavMenu,
     footerMenu,
     legalLinksMenu,
-    promoBarAnnouncements,
+    navCollectionImages,
   })
 }
 
 export default function MainFrame() {
-  const { promoBarMenu, footerMenu, legalLinksMenu, promoBarAnnouncements } =
-    useLoaderData<typeof loader>()
+  const {
+    promoBarMenu,
+    headerNavMenu,
+    footerMenu,
+    legalLinksMenu,
+    promoBarAnnouncements,
+    navCollectionImages,
+  } = useLoaderData<typeof loader>()
+
   return (
     <>
       <Header>
@@ -56,7 +99,8 @@ export default function MainFrame() {
           announcements={promoBarAnnouncements?.references?.nodes}
           menuLinks={promoBarMenu}
         />
-        <Navigation />
+        {/*/@ts-expect-error TODO: navImages types looks like correct, but I can`t resolve TS error*/}
+        <HeaderNavigation menu={headerNavMenu} navImages={navCollectionImages?.nodes} />
       </Header>
       <Outlet />
       <Footer menu={footerMenu} legalLinks={legalLinksMenu} />

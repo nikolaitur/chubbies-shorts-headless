@@ -1,0 +1,42 @@
+@use '../../../styles/abstracts/index' as *;
+
+.inputWrapper {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: $space-3;
+  top: $space-2;
+}
+
+.closeIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  right: $space-3;
+  color: $input-error-message;
+  top: $space-2;
+}
+
+.input {
+  padding: $space-2 $space-8;
+  width: 100%;
+  gap: $space-1-5;
+  height: 32px;
+  background: $input-bg;
+  border: $border-width-1 solid $input-border;
+  border-radius: $rounded-pill;
+  @include input-content-text;
+
+    &::placeholder {
+      color: $input-placeholder;
+    }
+}

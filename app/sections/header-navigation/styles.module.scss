@@ -1,0 +1,98 @@
+@use '../../styles/abstracts/index' as *;
+
+.content {
+  background-color: $backgrounds-white;
+  border-bottom: $border-width-1 solid $borders-divider-muted;
+}
+
+.mobileNav {
+  display: flex;
+  column-gap: $space-4;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-3 $space-0;
+  height: 57px;
+}
+
+.positionBlock {
+  display: flex;
+  column-gap: $space-3;
+
+  .icon {
+    //Override ui-library
+    padding: $space-0;
+
+    > div {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.cartIcon {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.logoLink {
+  display: flex;
+}
+
+.logo {
+  height: 28px;
+}
+
+.searchMobile {
+  padding: 4px $space-0 $space-3;
+}
+
+.searchDesktop {
+  display: none;
+}
+
+@include media-query(sm) {
+  .content {
+    border-bottom: none;
+  }
+  .mobileNav {
+    height: 72px;
+    padding: $space-0;
+  }
+  .positionBlock {
+    .searchIcon {
+      display: none;
+    }
+  }
+
+  .searchMobile {
+    display: none;
+  }
+
+  .searchDesktop {
+    display: block;
+    width: 100%;
+  }
+
+  .logo {
+    height: 40px;
+  }
+}
+
+@include media-query(md) {
+}
+
+@include media-query(lg) {
+}
+
+@include media-query(xl) {
+  .positionBlock {
+    .mobileNavIcon {
+      display: none;
+    }
+  }
+}
