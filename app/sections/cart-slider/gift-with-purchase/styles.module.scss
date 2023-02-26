@@ -5,14 +5,24 @@
 
   :global(.carousel-navigation) {
     z-index: 1;
+    padding: $space-0;
   }
 
   :global(.carousel) {
-    padding: 0 45px $space-4 45px;
+    padding: $space-0 30px;
   }
 }
 
 .button {
   color: $text-neutral-default;
   @include body-bold-lg;
+}
+
+.panel {
+  padding-left: $space-1 !important;
+  padding-right: $space-1 !important;
+}
+
+.panel > div {
+  padding-bottom: $space-4;
 }

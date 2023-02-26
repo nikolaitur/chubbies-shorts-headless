@@ -28,6 +28,12 @@
   justify-content: center;
 }
 
+.icon {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
 @media screen and (min-width: 481px) {
   .wrapper {
     display: flex;

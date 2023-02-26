@@ -1,0 +1,92 @@
+@use './../../../styles/abstracts/' as *;
+
+.cartModal {
+  border-radius: $border-radius-modal;
+  background-color: $backgrounds-white;
+  box-shadow: $shadow-modal;
+  position: absolute;
+  top: calc(100% + $space-3);
+  width: 370px;
+  right: 0;
+  z-index: 1;
+  display: none;
+
+  &.showCartModal {
+    display: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 13px;
+    width: 100%;
+    top: -13px;
+  }
+
+  @include media-query(lg) {
+    &.showCartModal {
+      display: initial;
+    }
+  }
+}
+
+.details {
+  padding: $space-4;
+  border-bottom: $border-width-1 solid $borders-divider-muted;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  color: $text-neutral-default;
+  @include body-bold-md;
+
+  span {
+    color: $text-neutral-subdued;
+    @include body-regular-md;
+  }
+}
+
+.shipping {
+  color: $text-neutral-default;
+  @include body-regular-md;
+  text-align: left;
+
+  span {
+    @include body-bold-md;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  gap: $space-4;
+  margin-top: $space-4;
+}
+
+.button {
+  width: 100%;
+}
+
+.rewards {
+  padding: $space-4;
+  text-align: left;
+}
+
+.message {
+  color: $alert-warning-default;
+  @include body-bold-md;
+}
+
+.link {
+  color: $text-link-primary--default;
+  @include textlink-md;
+}
+
+.gwp {
+  overflow: hidden;
+  border-radius: 0 0 $border-radius-modal $border-radius-modal;
+}

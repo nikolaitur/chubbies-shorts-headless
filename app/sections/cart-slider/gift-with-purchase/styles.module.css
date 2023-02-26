@@ -3,9 +3,10 @@
 }
 .gwp :global(.carousel-navigation) {
   z-index: 1;
+  padding: 0px;
 }
 .gwp :global(.carousel) {
-  padding: 0 45px 16px 45px;
+  padding: 0px 30px;
 }
 
 .button {
@@ -14,4 +15,13 @@
   font-weight: 700;
   line-height: 120%;
   font-size: 18px;
+}
+
+.panel {
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+}
+
+.panel > div {
+  padding-bottom: 16px;
 }
