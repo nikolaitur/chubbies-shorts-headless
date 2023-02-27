@@ -1,14 +1,15 @@
 import { Outlet, useLoaderData } from '@remix-run/react'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
+import { CartProvider } from '~/components/cart-context/cart-context'
 import type { CollectionNavImages, GlobalSettings, MainFrameMenus } from '~/graphql/generated'
 import { COLLECTION_NAV_IMAGES } from '~/graphql/storefront/global/queries/collectionNavImage'
 import { GLOBAL_SETTINGS_QUERY } from '~/graphql/storefront/global/queries/globalSettings'
 import { MainFrameMenusQuery } from '~/graphql/storefront/global/queries/mainFrameMenus'
 import CartSlider from '~/sections/cart-slider'
 import Footer from '~/sections/footer'
+//TODO: Rename <HeaderNavigation> back to <Header> when the coast is clear
 import HeaderNavigation from '~/sections/header-navigation'
 import PromoBar from '~/sections/promo-bar'
-import Header from '~/sections/header'
 
 export async function loader({ context }: LoaderArgs) {
   const { storefront } = context
@@ -93,18 +94,13 @@ export default function MainFrame() {
   } = useLoaderData<typeof loader>()
 
   return (
-    <>
-      <Header>
-        <PromoBar
-          announcements={promoBarAnnouncements?.references?.nodes}
-          menuLinks={promoBarMenu}
-        />
-        {/*/@ts-expect-error TODO: navImages types looks like correct, but I can`t resolve TS error*/}
-        <HeaderNavigation menu={headerNavMenu} navImages={navCollectionImages?.nodes} />
-      </Header>
+    <CartProvider>
+      <PromoBar announcements={promoBarAnnouncements?.references?.nodes} menuLinks={promoBarMenu} />
+      {/*/@ts-expect-error TODO: navImages types looks like correct, but I can`t resolve TS error*/}
+      <HeaderNavigation menu={headerNavMenu} navImages={navCollectionImages?.nodes} />
       <Outlet />
       <Footer menu={footerMenu} legalLinks={legalLinksMenu} />
       <CartSlider />
-    </>
+    </CartProvider>
   )
 }

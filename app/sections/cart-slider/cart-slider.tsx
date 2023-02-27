@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
 import Backdrop from '~/components/backdrop'
+import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
 import CartSliderEmptyMessage from './cart-slider-empty-message'
 import CartSliderHeader from './cart-slider-header'
 import CartSliderOrderSummary from './cart-slider-order-summary'
@@ -9,16 +10,11 @@ import GiftWithPurchase from './gift-with-purchase'
 import PaymentInformation from './payment-information'
 import styles from './styles.module.css'
 
-export type CartSliderProps = HTMLAttributes<HTMLDivElement> & {
-  isCartOpen?: boolean
-}
+export type CartSliderProps = HTMLAttributes<HTMLDivElement>
 
-const CartSlider = (
-  { isCartOpen = false, ...props }: CartSliderProps,
-  ref: Ref<HTMLDivElement>,
-) => {
-  // TO-DO: Cart state logic
-  const onClose = () => {}
+const CartSlider = ({ ...props }: CartSliderProps, ref: Ref<HTMLDivElement>) => {
+  const { isCartOpen } = useCartState()
+  const { setIsCartOpen } = useCartActions()
 
   // TO-DO: Line item edit logic
   const onEditClose = () => {}
@@ -26,7 +22,7 @@ const CartSlider = (
   return (
     <div className={styles.cartSlider} ref={ref} {...props}>
       <div className={clsx(styles.container, { [styles.isCartOpen]: isCartOpen })}>
-        <CartSliderHeader onCartClose={onClose} onEditClose={onEditClose} />
+        <CartSliderHeader onCartClose={() => setIsCartOpen(false)} onEditClose={onEditClose} />
         <div className={styles.itemContainer}>
           <GiftWithPurchase />
           <CartSliderEmptyMessage />
@@ -44,7 +40,7 @@ const CartSlider = (
         </div>
         <CartSliderStickyCheckout />
       </div>
-      <Backdrop isShown={false} onClick={onClose} />
+      <Backdrop isShown={isCartOpen} onClick={() => setIsCartOpen(false)} />
     </div>
   )
 }

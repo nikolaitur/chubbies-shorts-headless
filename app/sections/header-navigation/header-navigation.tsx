@@ -8,7 +8,7 @@ import {
   MagnifyingIcon,
 } from '@solo-brands/ui-library.ui.atomic.icon'
 import clsx from 'clsx'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 import Logo from '~/components/logo'
 import DesktopNav from '~/sections/header-navigation/desktop-nav'
@@ -17,10 +17,14 @@ import SearchBar from '~/sections/header-navigation/search-bar'
 
 import { HeaderNavigationProps } from './types'
 
+import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
+import CartModal from '~/sections/header-navigation/cart-modal/cart-modal'
 import styles from './styles.module.css'
-import CartModal from '~/sections/header/cart-modal/cart-modal'
 
 const HeaderNavigation = ({ menu, navImages }: HeaderNavigationProps) => {
+  const { isCartOpen } = useCartState()
+  const { setIsCartOpen } = useCartActions()
+
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false)
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
   const [showCartModal, setShowCartModal] = useState<boolean>(false)
@@ -65,6 +69,7 @@ const HeaderNavigation = ({ menu, navImages }: HeaderNavigationProps) => {
               className={styles.cartIcon}
               onMouseEnter={() => setShowCartModal(true)}
               onMouseLeave={() => setShowCartModal(false)}
+              onClick={() => setIsCartOpen(isCartOpen ? false : true)}
             >
               <ChubbiesBagIcon />
               <CartModal isShown={showCartModal} />

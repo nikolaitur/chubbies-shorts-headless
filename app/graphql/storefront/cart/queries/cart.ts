@@ -26,6 +26,12 @@ export const CART_QUERY = `#graphql
         node {
           id
           quantity
+          discountAllocations {
+            discountedAmount {
+              amount
+              currencyCode
+            }
+          }
           attributes {
             key
             value
@@ -48,6 +54,7 @@ export const CART_QUERY = `#graphql
             ... on ProductVariant {
               id
               availableForSale
+              sku
               compareAtPrice {
                 ...MoneyFragment
               }
@@ -63,6 +70,10 @@ export const CART_QUERY = `#graphql
                 handle
                 title
                 id
+                seo {
+                  description
+                  title
+                }
               }
               selectedOptions {
                 name

@@ -1,5 +1,6 @@
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
+import { Storefront } from '@shopify/hydrogen'
 import { Cart } from '@shopify/hydrogen-react/storefront-api-types'
 import { json, type LinksFunction, type LoaderArgs, type MetaFunction } from '@shopify/remix-oxygen'
 import { BaseStyles } from '@solo-brands/ui-library.styles.global'
@@ -60,18 +61,8 @@ export async function loader({ context, request, params }: LoaderArgs) {
 
   const cartId = await context.session.get('cartId')
 
-  const [cart] = await Promise.all([
-    cartId
-      ? (
-          await storefront.query<{ cart: Cart }>(CART_QUERY, {
-            variables: {
-              cartId,
-            },
-            cache: storefront.CacheNone(),
-          })
-        ).cart
-      : null,
-  ])
+  const cart = cartId ? await getCart(context.storefront, cartId) : undefined
+
   //Placeholder for customer info
   const customer = {}
   const headers: HeadersInit = []
@@ -121,4 +112,17 @@ export default function App() {
       <Scripts />
     </>
   )
+}
+
+export async function getCart(storefront: Storefront, cartId: string) {
+  const { cart } = await storefront.query<{ cart?: Cart }>(CART_QUERY, {
+    variables: {
+      cartId,
+      country: storefront.i18n.country,
+      language: storefront.i18n.language,
+    },
+    cache: storefront.CacheNone(),
+  })
+
+  return cart
 }
