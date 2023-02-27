@@ -45,6 +45,8 @@
     "@solo-brands/ui-library.ui.atomic.input": "^1.0.8",
     "@solo-brands/ui-library.ui.atomic.payment-method": "^1.0.0",
     "@solo-brands/ui-library.ui.atomic.price": "^1.0.4",
+    "@solo-brands/ui-library.ui.atomic.product-title": "^1.0.4",
+    "@solo-brands/ui-library.ui.atomic.ratings": "^1.0.7",
     "@solo-brands/ui-library.ui.atomic.spinner": "^1.0.9",
     "@solo-brands/ui-library.ui.atomic.swatch-selector": "^1.0.6",
     "@solo-brands/ui-library.ui.atomic.variant-info": "^1.0.4",

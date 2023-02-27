@@ -31,6 +31,7 @@ export const PDP_PRODUCT_QUERY = /* gql */ `#graphql
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
       handle
+      title
       media(first: 20) {
         nodes {
           ...PdpMediaFragment
@@ -41,8 +42,17 @@ export const PDP_PRODUCT_QUERY = /* gql */ `#graphql
           ...PdpProductVariantsFragment
         }
       }
+      displayName: metafield(namespace: "custom", key: "display_name") {
+        value
+      }
       productGroup: metafield(namespace: "custom", key: "product_group") {
         value
+        reference {
+          ... on Collection {
+            title
+            description
+          }
+        }
       }
       infoBlocks: metafield(namespace: "custom", key: "product_info_blocks") {
         references(first: 10) {

@@ -11,7 +11,9 @@
 .mainCarousel {
   height: 500px;
 
-  > :global(.item-list) {
+  > :global(.carousel-scroller) {
+    height: 100%;
+
     > div {
       height: 100%;
       aspect-ratio: initial;
@@ -39,7 +41,9 @@
   .mainCarousel {
     height: auto;
 
-    > :global(.item-list) {
+    > :global(.carousel-scroller) {
+      height: auto;
+
       > div {
         height: auto;
         aspect-ratio: 3 / 4;

@@ -3,6 +3,7 @@ import ButtonAddToCart from '@solo-brands/ui-library.ui.atomic.button-add-to-car
 import Spinner from '@solo-brands/ui-library.ui.atomic.spinner'
 import { useEffect, useRef } from 'react'
 import { CartAction } from '~/global-types'
+import { getDisplayPrices } from '~/helpers'
 import { useCartActions, useCartState } from '../cart-context/cart-context'
 import styles from './styles.module.css'
 import { ATCButtonProps } from './types'
@@ -13,6 +14,7 @@ const ATCButton = ({ defaultVariant, selectedVariant, additionalLines = [] }: AT
   const fetcher = useFetcher()
   const isATCActive = useRef(false)
   const isAdding = fetcher.state === 'loading' || fetcher.state === 'submitting'
+  const { price, compareAtPrice } = getDisplayPrices(defaultVariant, selectedVariant)
 
   useEffect(() => {
     if (isCartOpen || isAdding || !isATCActive.current) return
@@ -20,16 +22,6 @@ const ATCButton = ({ defaultVariant, selectedVariant, additionalLines = [] }: AT
     setIsCartOpen(true)
     isATCActive.current = false
   }, [isCartOpen, isATCActive, isAdding, setIsCartOpen])
-
-  const priceDisplay = selectedVariant?.price ?? defaultVariant.price
-  const compareAtPriceDisplay = (() => {
-    const newCompareAtPrice = selectedVariant?.compareAtPrice ?? defaultVariant.compareAtPrice
-
-    if (!newCompareAtPrice || !priceDisplay) return
-    if (parseFloat(newCompareAtPrice.amount) <= parseFloat(priceDisplay.amount)) return
-
-    return newCompareAtPrice
-  })()
 
   const lines = selectedVariant
     ? [
@@ -48,8 +40,8 @@ const ATCButton = ({ defaultVariant, selectedVariant, additionalLines = [] }: AT
       {/* TODO: input for analytics data & locale */}
       <ButtonAddToCart
         className={styles.atcButton}
-        price={priceDisplay}
-        compareAtPrice={compareAtPriceDisplay}
+        price={price}
+        compareAtPrice={compareAtPrice}
         disabled={Boolean(!selectedVariant) || isAdding}
         onClick={() => (isATCActive.current = true)}
       >

@@ -1,7 +1,10 @@
-import { LINES_CART_FRAGMENT, USER_ERROR_FRAGMENT } from '../fragments'
+import { CART_LINES_FRAGMENT, USER_ERROR_FRAGMENT } from '../fragments'
 
 export const ADD_LINES_MUTATION = /* gql */ `#graphql
-  mutation (
+  ${CART_LINES_FRAGMENT}
+  ${USER_ERROR_FRAGMENT}
+
+  mutation CartLinesAddMutation(
     $cartId: ID!
     $lines: [CartLineInput!]!
     $country: CountryCode = ZZ
@@ -12,10 +15,9 @@ export const ADD_LINES_MUTATION = /* gql */ `#graphql
         ...CartLinesFragment
       }
       errors: userErrors {
-        ...ErrorFragment
+        ...UserErrorFragment
       }
     }
   }
-  ${LINES_CART_FRAGMENT}
-  ${USER_ERROR_FRAGMENT}
+  
 `

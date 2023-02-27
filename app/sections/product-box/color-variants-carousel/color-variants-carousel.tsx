@@ -53,6 +53,7 @@ const ColorVariantsCarouselInner = ({ colorOptions, size }: ColorVariantsCarouse
             className={styles.link}
             prefetch="render"
             to={{ pathname: `/products/${handle}`, search: location.search }}
+            preventScrollReset
           >
             <SwatchSelector
               className={styles.swatchSelector}

@@ -2,6 +2,6 @@ import { CartLineInput, ProductVariant } from '@shopify/hydrogen/storefront-api-
 
 export type ATCButtonProps = {
   defaultVariant: ProductVariant
-  selectedVariant?: ProductVariant | null
+  selectedVariant: ProductVariant | null
   additionalLines?: CartLineInput[]
 }

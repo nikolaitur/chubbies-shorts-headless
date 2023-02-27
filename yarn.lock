@@ -3181,6 +3181,24 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
+"@solo-brands/ui-library.ui.atomic.product-title@^1.0.4":
+  version "1.0.4"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.product-title/-/@solo-brands-ui-library.ui.atomic.product-title-1.0.4.tgz#dfe81d385644dc6e241da2be514eb1cd2dd763e6"
+  integrity sha1-3+gdOFZE3G4kHaK+UU6xzS3XY+Y=
+  dependencies:
+    "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.atomic.ratings@^1.0.7":
+  version "1.0.7"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.ratings/-/@solo-brands-ui-library.ui.atomic.ratings-1.0.7.tgz#37bc260e49276823924b757a992e46639c7995c9"
+  integrity sha1-N7wmDkknaCOSS3V6mS5GY5x5lck=
+  dependencies:
+    "@solo-brands/ui-library.ui.atomic.star-ratings" "1.0.4"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
 "@solo-brands/ui-library.ui.atomic.slider-filter-control@^1.0.2":
   version "1.0.2"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.slider-filter-control/-/@solo-brands-ui-library.ui.atomic.slider-filter-control-1.0.2.tgz#4efde79a21a23e0922a5e2ca39e9c5be97636dc0"
@@ -3203,6 +3221,15 @@
   integrity sha1-MXmY214yzeJdkvRWaD3LCmSU3/4=
   dependencies:
     "@solo-brands/ui-library.ui.atomic.icon" "1.0.9"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.atomic.star-ratings@1.0.4":
+  version "1.0.4"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.star-ratings/-/@solo-brands-ui-library.ui.atomic.star-ratings-1.0.4.tgz#aa1832b53e5e0b63c1bfd0710972b76dac132fea"
+  integrity sha1-qhgytT5eC2PBv9BxCXK3bawTL+o=
+  dependencies:
+    "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
     core-js "^3.0.0"
     styled-components "5.3.6"
 
@@ -3293,9 +3320,9 @@
     styled-components "5.3.6"
 
 "@solobrands/token-library@^1.1.84":
-  version "1.1.108"
-  resolved "https://registry.yarnpkg.com/@solobrands/token-library/-/token-library-1.1.108.tgz#396aed6481d92153877850234533381b67936c61"
-  integrity sha512-bt+/LUsW13RdjmG6B12RsXiQacFhc5UMJpW7NJ9+qsIxj+kEGiJOoz5BcmO84kITPfdNTShBW2m8GYfFxgj44g==
+  version "1.1.110"
+  resolved "https://registry.yarnpkg.com/@solobrands/token-library/-/token-library-1.1.110.tgz#8670fb7f9c5108ea78d70f99b1002fac604456c4"
+  integrity sha512-AXLhdwwYZ8qKRX9LbTstiMJbvtDvl6tp3ZAuvIQPpsJ6NnFk+fMq/ab5OgPxjNZ7rygnLrrr1+1/bcIEoV0IWw==
   dependencies:
     "@types/node" "^18.11.9"
     child_process "^1.0.2"
@@ -8972,13 +8999,14 @@ micromark-core-commonmark@^1.0.0, micromark-core-commonmark@^1.0.1:
     uvu "^0.5.0"
 
 micromark-extension-frontmatter@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/micromark-extension-frontmatter/-/micromark-extension-frontmatter-1.0.0.tgz#612498e6dad87c132c95e25f0918e7cc0cd535f6"
-  integrity sha512-EXjmRnupoX6yYuUJSQhrQ9ggK0iQtQlpi6xeJzVD5xscyAI+giqco5fdymayZhJMbIFecjnE2yz85S9NzIgQpg==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/micromark-extension-frontmatter/-/micromark-extension-frontmatter-1.0.1.tgz#68971b6b591f4cafdfcb85a27e281cf11d4a529d"
+  integrity sha512-9OJhCXkrpj8qIXW5AAgRZGvS8Q4GTMdH5+Ljt98kV4XQVflRGeEhNRYp6O/zCvf8c8lZ+wc4uwmbly27pS/s4Q==
   dependencies:
     fault "^2.0.0"
     micromark-util-character "^1.0.0"
     micromark-util-symbol "^1.0.0"
+    micromark-util-types "^1.0.0"
 
 micromark-extension-mdx-expression@^1.0.0:
   version "1.0.4"
@@ -12394,9 +12422,11 @@ unist-util-generated@^2.0.0:
   integrity sha512-qF72kLmPxAw0oN2fwpWIqbXAVyEqUzDHMsbtPvOudIlUzXYFIeQIuxXQCRCFh22B7cixvU0MG7m3MW8FTq/S+A==
 
 unist-util-is@^5.0.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/unist-util-is/-/unist-util-is-5.2.0.tgz#37eed0617b76c114fd34d44c201aa96fd928b309"
-  integrity sha512-Glt17jWwZeyqrFqOK0pF1Ded5U3yzJnFr8CG1GMjCWTp9zDo2p+cmD6pWbZU8AgM5WU3IzRv6+rBwhzsGh6hBQ==
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/unist-util-is/-/unist-util-is-5.2.1.tgz#b74960e145c18dcb6226bc57933597f5486deae9"
+  integrity sha512-u9njyyfEh43npf1M+yGKDGVPbY/JWEemg5nH05ncKPfi+kBbKBJoTdsogMu33uhytuLlv9y0O7GH7fEdwLdLQw==
+  dependencies:
+    "@types/unist" "^2.0.0"
 
 unist-util-position-from-estree@^1.0.0, unist-util-position-from-estree@^1.1.0:
   version "1.1.2"

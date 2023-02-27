@@ -2,7 +2,7 @@ import { USER_ERROR_FRAGMENT } from '../fragments'
 
 export const REMOVE_LINE_ITEMS_MUTATION = /* gql */ `#graphql
 ${USER_ERROR_FRAGMENT}
-  mutation ($cartId: ID!, $lineIds: [ID!]!, $language: LanguageCode, $country: CountryCode)
+  mutation CartLinesRemoveMutation($cartId: ID!, $lineIds: [ID!]!, $language: LanguageCode, $country: CountryCode)
   @inContext(country: $country, language: $language) {
     cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
       cart {
@@ -23,7 +23,7 @@ ${USER_ERROR_FRAGMENT}
         }
       }
       errors: userErrors {
-        ...ErrorFragment
+        ...UserErrorFragment
       }
     }
   }

@@ -6717,6 +6717,109 @@ export enum WeightUnit {
   Pounds = 'POUNDS',
 }
 
+export type UserErrorFragment = {
+  message: string
+  field?: Array<string> | null
+  code?: CartErrorCode | null
+}
+
+export type CartLinesFragment = { id: string; totalQuantity: number }
+
+export type CartBuyerIdentityUpdateMutationVariables = Exact<{
+  cartId: Scalars['ID']
+  buyerIdentity: CartBuyerIdentityInput
+  country?: InputMaybe<CountryCode>
+  language?: InputMaybe<LanguageCode>
+}>
+
+export type CartBuyerIdentityUpdateMutation = {
+  cartBuyerIdentityUpdate?: {
+    cart?: {
+      id: string
+      buyerIdentity: {
+        email?: string | null
+        phone?: string | null
+        countryCode?: CountryCode | null
+      }
+    } | null
+    errors: Array<{ message: string; field?: Array<string> | null; code?: CartErrorCode | null }>
+  } | null
+}
+
+export type CartCreateMutationVariables = Exact<{
+  input: CartInput
+  country?: InputMaybe<CountryCode>
+  language?: InputMaybe<LanguageCode>
+}>
+
+export type CartCreateMutation = {
+  cartCreate?: {
+    cart?: { id: string; totalQuantity: number } | null
+    errors: Array<{ message: string; field?: Array<string> | null; code?: CartErrorCode | null }>
+  } | null
+}
+
+export type CartDiscountCodesUpdateMutationVariables = Exact<{
+  cartId: Scalars['ID']
+  discountCodes?: InputMaybe<Array<Scalars['String']> | Scalars['String']>
+  country?: InputMaybe<CountryCode>
+}>
+
+export type CartDiscountCodesUpdateMutation = {
+  cartDiscountCodesUpdate?: {
+    cart?: { id: string; discountCodes: Array<{ code: string }> } | null
+    errors: Array<{ field?: Array<string> | null; message: string }>
+  } | null
+}
+
+export type CartLinesAddMutationVariables = Exact<{
+  cartId: Scalars['ID']
+  lines: Array<CartLineInput> | CartLineInput
+  country?: InputMaybe<CountryCode>
+  language?: InputMaybe<LanguageCode>
+}>
+
+export type CartLinesAddMutation = {
+  cartLinesAdd?: {
+    cart?: { id: string; totalQuantity: number } | null
+    errors: Array<{ message: string; field?: Array<string> | null; code?: CartErrorCode | null }>
+  } | null
+}
+
+export type CartLinesRemoveMutationVariables = Exact<{
+  cartId: Scalars['ID']
+  lineIds: Array<Scalars['ID']> | Scalars['ID']
+  language?: InputMaybe<LanguageCode>
+  country?: InputMaybe<CountryCode>
+}>
+
+export type CartLinesRemoveMutation = {
+  cartLinesRemove?: {
+    cart?: {
+      id: string
+      totalQuantity: number
+      lines: {
+        edges: Array<{ node: { id: string; quantity: number; merchandise: { id: string } } }>
+      }
+    } | null
+    errors: Array<{ message: string; field?: Array<string> | null; code?: CartErrorCode | null }>
+  } | null
+}
+
+export type CartLinesUpdateMutationVariables = Exact<{
+  cartId: Scalars['ID']
+  lines: Array<CartLineUpdateInput> | CartLineUpdateInput
+  language?: InputMaybe<LanguageCode>
+  country?: InputMaybe<CountryCode>
+}>
+
+export type CartLinesUpdateMutation = {
+  cartLinesUpdate?: {
+    cart?: { id: string; totalQuantity: number } | null
+    errors: Array<{ message: string; field?: Array<string> | null; code?: CartErrorCode | null }>
+  } | null
+}
+
 export type MediaImageFragment = {
   image?: {
     url: any
@@ -7158,6 +7261,7 @@ export type PpdProductQueryVariables = Exact<{
 export type PpdProductQuery = {
   product?: {
     handle: string
+    title: string
     media: {
       nodes: Array<
         | ({ mediaContentType: MediaContentType; embedUrl: any; host: MediaHost } & {
@@ -7204,7 +7308,11 @@ export type PpdProductQuery = {
         product: { title: string; handle: string }
       }>
     }
-    productGroup?: { value: string } | null
+    displayName?: { value: string } | null
+    productGroup?: {
+      value: string
+      reference?: { title: string; description: string } | null
+    } | null
     infoBlocks?: {
       references?: {
         nodes: Array<{

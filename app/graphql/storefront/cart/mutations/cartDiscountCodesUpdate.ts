@@ -1,5 +1,5 @@
 export const DISCOUNT_CODES_UPDATE = /* gql */ `#graphql
-  mutation cartDiscountCodesUpdate(
+  mutation CartDiscountCodesUpdateMutation(
     $cartId: ID!
     $discountCodes: [String!]
     $country: CountryCode = ZZ

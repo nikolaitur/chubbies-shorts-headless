@@ -3,8 +3,10 @@ import { ImageData, MetaobjectFieldV2 } from './general'
 
 export type PdpProduct = Omit<
   NonNullable<PpdProductQuery['product']>,
-  'inseam' | 'options' | 'color' | 'colorGroup' | 'ine'
+  'inseam' | 'options' | 'color' | 'colorGroup' | 'productGroup' | 'displayName'
 > & {
+  collectionTitle?: string
+  description?: string
   inseamOptions: InseamOption[] | null
   colorOptionsByGroup: { [key: string]: ColorOption[] } | null
   sizeOptions: SizeOption[] | null

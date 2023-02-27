@@ -9,7 +9,10 @@
 .mainCarousel {
   height: 500px;
 }
-.mainCarousel > :global(.item-list) > div {
+.mainCarousel > :global(.carousel-scroller) {
+  height: 100%;
+}
+.mainCarousel > :global(.carousel-scroller) > div {
   height: 100%;
   aspect-ratio: initial;
 }
@@ -32,7 +35,10 @@
   .mainCarousel {
     height: auto;
   }
-  .mainCarousel > :global(.item-list) > div {
+  .mainCarousel > :global(.carousel-scroller) {
+    height: auto;
+  }
+  .mainCarousel > :global(.carousel-scroller) > div {
     height: auto;
     aspect-ratio: 3/4;
   }

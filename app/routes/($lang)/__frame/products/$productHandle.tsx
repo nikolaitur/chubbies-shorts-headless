@@ -45,7 +45,17 @@ export async function loader({ params, request, context: { storefront } }: Loade
     throw json({ message: 'Product does not exist' }, { status: 404, statusText: 'Not Found' })
   }
 
-  const { handle, infoBlocks, media, selectedVariant, variants, inseam, color } = product
+  const {
+    title,
+    color,
+    inseam,
+    options,
+    colorGroup,
+    productGroup: productBoxProductGroup,
+    displayName,
+    ...restProduct
+  } = product
+  const { title: collectionTitle, description } = productBoxProductGroup?.reference ?? {}
   const productsFromProductGroup = productGroup?.products.nodes
   const parsedInseam: Inseam | null = JSON.parse(inseam?.value ?? 'null')
   const colorId = color?.reference?.id
@@ -56,11 +66,10 @@ export async function loader({ params, request, context: { storefront } }: Loade
 
   // return what is only needed
   const newProduct: PdpProduct = {
-    handle,
-    media,
-    infoBlocks,
-    variants,
-    selectedVariant,
+    ...restProduct,
+    title: displayName?.value ?? title,
+    collectionTitle,
+    description,
     inseamOptions,
     colorOptionsByGroup,
     sizeOptions,

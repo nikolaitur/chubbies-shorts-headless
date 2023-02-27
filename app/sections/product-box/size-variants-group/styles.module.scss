@@ -9,4 +9,15 @@
   display: flex;
   align-items: center;
   gap: $space-1-5;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+
+  > a {
+    scroll-snap-align: start;
+  }
+
+  &::-webkit-scrollbar {
+    height: 0;
+    display: none;
+  }
 }

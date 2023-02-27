@@ -1,5 +1,5 @@
 export const UPDATE_CART_BUYER_COUNTRY = /* gql */ `#graphql
-  mutation (
+  mutation CartBuyerIdentityUpdateMutation(
     $cartId: ID!
     $buyerIdentity: CartBuyerIdentityInput!
     $country: CountryCode = ZZ

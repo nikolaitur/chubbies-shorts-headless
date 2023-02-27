@@ -31,6 +31,7 @@ const InseamVariantsGroup = ({ size = 'xl', ...props }: InseamVariantsGroupProps
               key={index}
               prefetch="render"
               to={{ pathname: `/products/${handle}`, search: location.search }}
+              preventScrollReset
             >
               <VariantSelector
                 size={size}

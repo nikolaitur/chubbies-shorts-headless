@@ -6,6 +6,7 @@ import Section from '~/components/section'
 import { PdpMediaFragment } from '~/graphql/generated'
 import ProductGallery from './product-gallery'
 import ProductInfoBlocks from './product-info-blocks'
+import ProductInfos from './product-infos'
 import ProductVariants from './product-variants'
 import styles from './styles.module.css'
 import { ProductBoxProps } from './types'
@@ -21,13 +22,14 @@ const ProductBox = ({ product, ...props }: ProductBoxProps) => {
       <Container>
         <div className={styles.productBox}>
           {flattenedMedia && <ProductGallery media={flattenedMedia} />}
-          <div className={styles.productBoxDetails}>
+          <div className={styles.details}>
+            <ProductInfos />
             <ProductVariants />
-            {flattenedInfoBlocks && <ProductInfoBlocks infoBlocks={flattenedInfoBlocks} />}
             <ATCButton
               defaultVariant={firstVariant as ProductVariant}
               selectedVariant={selectedVariant as ProductVariant}
             />
+            {flattenedInfoBlocks && <ProductInfoBlocks infoBlocks={flattenedInfoBlocks} />}
           </div>
         </div>
       </Container>

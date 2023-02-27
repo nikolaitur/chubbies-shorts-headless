@@ -1,4 +1,5 @@
 import { Storefront } from '@shopify/hydrogen'
+import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { PRODUCT_SIZES } from '~/constants'
 import {
   ColorFields,
@@ -216,4 +217,21 @@ export const fetchPdpProductGroupData = async (
   })) as PpdProductGroupQuery
 
   return collection
+}
+
+export const getDisplayPrices = (
+  defaultVariant: ProductVariant,
+  selectedVariant: ProductVariant | null,
+) => {
+  const price = selectedVariant?.price ?? defaultVariant.price
+  const compareAtPrice = (() => {
+    const newCompareAtPrice = selectedVariant?.compareAtPrice ?? defaultVariant.compareAtPrice
+
+    if (!newCompareAtPrice || !price) return
+    if (parseFloat(newCompareAtPrice.amount) <= parseFloat(price.amount)) return
+
+    return newCompareAtPrice
+  })()
+
+  return { price, compareAtPrice }
 }

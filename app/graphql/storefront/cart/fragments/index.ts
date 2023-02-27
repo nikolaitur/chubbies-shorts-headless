@@ -1,12 +1,12 @@
-export const USER_ERROR_FRAGMENT = `#graphql
-  fragment ErrorFragment on CartUserError {
+export const USER_ERROR_FRAGMENT = /* gql */ `#graphql
+  fragment UserErrorFragment on CartUserError {
     message
     field
     code
   }
 `
 
-export const LINES_CART_FRAGMENT = `#graphql
+export const CART_LINES_FRAGMENT = /* gql */ `#graphql
   fragment CartLinesFragment on Cart {
     id
     totalQuantity
