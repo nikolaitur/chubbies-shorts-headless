@@ -2,7 +2,7 @@
 import * as remixBuild from '@remix-run/dev/server-build'
 import { createStorefrontClient, storefrontRedirect } from '@shopify/hydrogen'
 import { createRequestHandler, getBuyerIp } from '@shopify/remix-oxygen'
-import { getLocaleFromRequest } from '~/helpers/locale'
+import { getLocaleFromRequest } from '~/helpers'
 import { HydrogenSession } from '~/sessions/session.server'
 
 /**

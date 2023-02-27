@@ -1,5 +1,5 @@
 import { useMatches } from '@remix-run/react'
-import { retrieveRecsForPlacement } from '~/helpers/nosto'
+import { retrieveRecsForPlacement } from '~/helpers'
 
 const CollectionPage = () => {
   //Demonstration of retrieving Nosto recommendations for a given placement

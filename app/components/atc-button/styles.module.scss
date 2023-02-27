@@ -1,0 +1,26 @@
+@use '../../styles/abstracts' as *;
+
+.atcButton {
+  width: 100%;
+
+  // styles below is temporary only, will delete after adding isLoading state in ATCButton inside UI Library
+  position: relative;
+  overflow: hidden;
+
+  &:disabled {
+    .spinnerWrapper {
+      background-color: $button-addtocart-bg--disabled;
+    }
+  }
+}
+
+//  styles below is temporary only, will delete after adding isLoading state in ATCButton inside UI Library
+.spinnerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  @include inset(0);
+  background-color: $button-addtocart-bg--default;
+  z-index: 1;
+}

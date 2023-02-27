@@ -14,7 +14,7 @@ import {
   getNostoSessionID,
   getProductDataForRecs,
   updateNostoSession,
-} from '~/helpers/nosto'
+} from '~/helpers'
 import favicon from '../public/favicon.svg'
 import { CART_QUERY } from './graphql/storefront/cart/queries'
 

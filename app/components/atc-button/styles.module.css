@@ -1,0 +1,21 @@
+.atcButton {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.atcButton:disabled .spinnerWrapper {
+  background-color: #74777a;
+}
+
+.spinnerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #0069d7;
+  z-index: 1;
+}

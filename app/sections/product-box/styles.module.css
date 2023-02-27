@@ -27,10 +27,17 @@
 }
 
 .productBoxDetails {
+  display: grid;
+  gap: 24px;
+  align-content: start;
   padding: 0px 16px;
 }
 @media screen and (min-width: 769px) {
   .productBoxDetails {
     padding: 0px;
   }
+}
+
+.atcButton {
+  width: 100%;
 }

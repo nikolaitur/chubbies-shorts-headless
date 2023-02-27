@@ -25,9 +25,16 @@
 }
 
 .productBoxDetails {
+  display: grid;
+  gap: $space-6;
+  align-content: start;
   padding: $space-0 $space-4;
 
   @include media-query(md) {
     padding: $space-0;
   }
+}
+
+.atcButton {
+  width: 100%;
 }
