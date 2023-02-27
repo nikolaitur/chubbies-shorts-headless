@@ -15,7 +15,7 @@ const ProductInfos = (props: ProductInfosProps) => {
   const matches = useMatches()
   const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
   const { title, collectionTitle, description, selectedVariant, variants } = data.product
-  const firstVariant = variants.nodes[0]
+  const [firstVariant] = variants.nodes
 
   const { price, compareAtPrice } = getDisplayPrices(
     firstVariant as ProductVariant,
