@@ -31,10 +31,27 @@
   gap: 6px;
 }
 
+.priceRangeSelector {
+  position: relative;
+  width: 100%;
+}
+.priceRangeSelector .priceRangeText {
+  display: flex;
+  justify-content: space-between;
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 150%;
+  font-size: 14px;
+  text-decoration: none;
+}
+.priceRangeSelector .rangeInput {
+  padding: 8px 0;
+}
+
 .clear {
   font-family: futura-pt, sans-serif;
   font-weight: 600;
-  line-height: 100%;
+  line-height: 120%;
   font-size: 12px;
   letter-spacing: 0%;
   text-decoration: underline;

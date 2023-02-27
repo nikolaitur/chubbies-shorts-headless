@@ -28,7 +28,7 @@ const ProductCard = () => {
           variant="tertiary"
           border="rounded"
           icon={<HeartIcon fill="#000000" />}
-        ></ButtonIcon>
+        />
       </div>
       <Button className={styles.actions} variant="tertiary">
         Quick Shop

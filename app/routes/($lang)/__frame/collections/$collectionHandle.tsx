@@ -9,7 +9,9 @@ const CollectionPage = () => {
 
   return (
     <>
-      <h1>Collection Page</h1>
+      {/* Temporarily remove CollectionGrid */}
+      {/* TODO - Investigate issue with CollectionGrid breaking pdp styles */}
+      {/* <CollectionGrid /> */}
     </>
   )
 }

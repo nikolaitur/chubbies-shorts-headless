@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 .atcButton:disabled .spinnerWrapper {
-  background-color: #74777a;
+  background-color: #74777A;
 }
 
 .spinnerWrapper {
@@ -16,6 +16,6 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #0069d7;
+  background-color: #0069D7;
   z-index: 1;
 }
