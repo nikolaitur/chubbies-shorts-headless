@@ -1,6 +1,3 @@
 import { HTMLAttributes } from 'react'
 
-export type CollectionPageTitleProps = HTMLAttributes<HTMLElement> & {
-  title: string
-  description?: string
-}
+export type CollectionPageTitleProps = HTMLAttributes<HTMLElement> & { title: string }

@@ -3,7 +3,6 @@ import Accordion, {
   AccordionItem,
   AccordionPanel,
 } from '@solo-brands/ui-library.ui.atomic.accordion'
-import SliderFilterControl from '@solo-brands/ui-library.ui.atomic.slider-filter-control'
 import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector'
 import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
 import clsx from 'clsx'
@@ -14,12 +13,6 @@ const CollectionFilters = ({ className }: CollectionFiltersProps) => {
   const sizeVariants = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL']
   const selectedSize = 'XS'
   const colorVariants = ['#3B53AA', '#D9D9D9', '#1F2846']
-
-  const min = 1,
-    max = 100
-  const minValue = 20,
-    maxValue = 80
-
   return (
     <div className={clsx(styles.filters, className)}>
       <div className={styles.priceFilter}>
@@ -28,19 +21,9 @@ const CollectionFilters = ({ className }: CollectionFiltersProps) => {
           <div className={styles.clear}>clear</div>
         </div>
         <div className={styles.filterBody}>
-          <div className={styles.priceRangeSelector}>
-            <div className={styles.priceRangeText}>
-              <div className={styles.minText}>{minValue}</div>
-              <div className={styles.maxText}>{maxValue}</div>
-            </div>
-
-            <SliderFilterControl
-              className={styles.rangeInput}
-              min={min}
-              max={max}
-              minValue={minValue}
-              maxValue={maxValue}
-            />
+          <div>
+            {/* TODO: RANGE SELECTOR */}
+            PRICE RANGE SELECTOR
           </div>
         </div>
       </div>
