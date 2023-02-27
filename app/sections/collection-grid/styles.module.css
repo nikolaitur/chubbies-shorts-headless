@@ -1,0 +1,94 @@
+.sidebar {
+  display: none;
+  width: 300px;
+}
+
+.filters {
+  position: sticky;
+  top: 10px;
+}
+
+.collectionBanner,
+.collectionPromoBanner {
+  height: 160px;
+}
+
+.grid {
+  padding: 32px 16px;
+  position: relative;
+  display: flex;
+  gap: 40px;
+}
+
+.resultsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  flex-grow: 1;
+}
+
+.gridHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.searchButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.searchButtons div {
+  display: grid;
+}
+@media screen and (min-width: 1025px) {
+  .searchButtons div.filterButton {
+    display: none;
+  }
+}
+
+.sortByButton {
+  position: relative;
+}
+
+.productsGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media screen and (min-width: 769px) {
+  .container {
+    padding: 32px;
+  }
+  .searchButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .productsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .collectionBanner,
+  .collectionPromoBanner {
+    height: 230px;
+  }
+}
+@media screen and (min-width: 1025px) {
+  .gridHeader {
+    flex-direction: row;
+  }
+  .sidebar {
+    display: block;
+  }
+  .collectionBanner {
+    height: 380px;
+  }
+}
+@media screen and (min-width: 1681px) {
+  .productsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

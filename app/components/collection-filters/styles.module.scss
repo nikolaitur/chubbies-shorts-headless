@@ -33,6 +33,19 @@
   gap: $space-1-5;
 }
 
+.priceRangeSelector {
+  position: relative;
+  width: 100%;
+  .priceRangeText {
+    display: flex;
+    justify-content: space-between;
+    @include product-price-bold-sm;
+  }
+  .rangeInput {
+    padding: $space-2 0;
+  }
+}
+
 .clear {
   @include textlink-xs;
 }
