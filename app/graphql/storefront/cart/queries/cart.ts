@@ -70,9 +70,11 @@ export const CART_QUERY = `#graphql
                 handle
                 title
                 id
-                seo {
-                  description
-                  title
+                inseamLength: metafield(namespace: "custom", key: "inseam_length") {
+                  value
+                }
+                displayName: metafield(namespace: "custom", key: "display_name") {
+                  value
                 }
               }
               selectedOptions {

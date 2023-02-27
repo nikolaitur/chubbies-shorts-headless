@@ -1,0 +1,34 @@
+.cartLineItems {
+  background-color: rgb(255, 255, 255);
+  margin-top: 16px;
+  padding: 16px;
+}
+
+.lineItemsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.count {
+  color: rgb(0, 0, 0);
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 14px;
+}
+
+.link {
+  color: #46484B;
+  font-family: futura-pt, sans-serif;
+  font-weight: 600;
+  line-height: 120%;
+  font-size: 14px;
+  letter-spacing: 0%;
+  text-decoration: underline;
+}
+
+.itemList {
+  display: grid;
+}

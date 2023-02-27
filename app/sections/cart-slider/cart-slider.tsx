@@ -1,7 +1,9 @@
+import { useMatches } from '@remix-run/react'
 import clsx from 'clsx'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
 import Backdrop from '~/components/backdrop'
 import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
+import CartLineItems from './cart-line-items'
 import CartSliderEmptyMessage from './cart-slider-empty-message'
 import CartSliderHeader from './cart-slider-header'
 import CartSliderOrderSummary from './cart-slider-order-summary'
@@ -15,6 +17,12 @@ export type CartSliderProps = HTMLAttributes<HTMLDivElement>
 const CartSlider = ({ ...props }: CartSliderProps, ref: Ref<HTMLDivElement>) => {
   const { isCartOpen } = useCartState()
   const { setIsCartOpen } = useCartActions()
+  const [root] = useMatches()
+
+  const cart = root.data.cart ?? {}
+
+  const { lines, totalQuantity } = cart
+  const hasCartLines = Boolean(totalQuantity)
 
   // TO-DO: Line item edit logic
   const onEditClose = () => {}
@@ -24,19 +32,16 @@ const CartSlider = ({ ...props }: CartSliderProps, ref: Ref<HTMLDivElement>) => 
       <div className={clsx(styles.container, { [styles.isCartOpen]: isCartOpen })}>
         <CartSliderHeader onCartClose={() => setIsCartOpen(false)} onEditClose={onEditClose} />
         <div className={styles.itemContainer}>
-          <GiftWithPurchase />
-          <CartSliderEmptyMessage />
-          {/* TO-DO: Implement <CartItems> here */}
-          <div className={styles.items}>
-            items
-            <br />
-            items
-            <br />
-            items
-            <br />
-          </div>
-          <CartSliderOrderSummary />
-          <PaymentInformation />
+          {hasCartLines ? (
+            <>
+              <GiftWithPurchase />
+              <CartLineItems lines={lines} totalQuantity={totalQuantity} />
+              <CartSliderOrderSummary />
+              <PaymentInformation />
+            </>
+          ) : (
+            <CartSliderEmptyMessage />
+          )}
         </div>
         <CartSliderStickyCheckout />
       </div>
