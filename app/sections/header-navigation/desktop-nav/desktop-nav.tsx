@@ -5,8 +5,9 @@ import { useMemo, useRef, useState } from 'react'
 import Backdrop from '~/components/backdrop'
 import DesktopMegaLink from '~/sections/header-navigation/desktop-mega-link'
 
-import styles from './styles.module.css'
 import { DesktopNavProps } from './types'
+
+import styles from './styles.module.css'
 
 const DesktopNav = ({ menu, navImages }: DesktopNavProps) => {
   const [hoveredMenuTitle, setHoveredMenuTitle] = useState<string | null>(null)
@@ -14,9 +15,9 @@ const DesktopNav = ({ menu, navImages }: DesktopNavProps) => {
 
   const megaMenuTop = useMemo(() => {
     const element = navigation.current
-    return (element?.offsetTop || 0) + (element?.offsetHeight || 0) - 1
+    return (element?.offsetTop || 0) + (element?.offsetHeight || 0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigation.current])
+  }, [navigation.current, hoveredMenuTitle])
 
   return (
     <>

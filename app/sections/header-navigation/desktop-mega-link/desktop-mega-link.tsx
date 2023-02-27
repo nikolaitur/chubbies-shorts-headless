@@ -29,10 +29,9 @@ const DesktopMegaLink = ({
       className={clsx(styles.navItem, styles[visualClassName], {
         [styles.featured]: title === 'Featured',
       })}
-      onMouseEnter={() => handleHover(title)}
       onMouseLeave={() => handleHover(null)}
     >
-      <h6>{visualTitle}</h6>
+      <h6 onMouseEnter={() => handleHover(title)}>{visualTitle}</h6>
       <div
         style={{ top: `${megaMenuTop}px` }}
         className={clsx(styles.megaMenu, { [styles.megaMenuVisible]: isHovered })}

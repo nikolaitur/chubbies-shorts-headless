@@ -6,12 +6,21 @@
   align-content: center;
   align-items: center;
   justify-content: center;
-  padding: $space-0 $space-3;
   cursor: pointer;
   position: relative;
   border-bottom: $border-width-2 solid transparent;
   z-index: 109;
   @include body-bold-md;
+
+  h6 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    padding: $space-0 $space-3;
+  }
 
   &.hide_on_tablet {
     display: none;
@@ -32,6 +41,7 @@
   display: flex;
   position: fixed;
   left: $space-0;
+  top: calc(72px + 53px);
   width: 100vw;
   z-index: 108;
   background-color: $backgrounds-white;
@@ -98,7 +108,9 @@
 
 @include media-query(xl) {
   .navItem {
-    padding: $space-0 $space-4-5;
+    h6 {
+      padding: $space-0 $space-4-5;
+    }
 
     &.hide_on_tablet {
       display: flex;
