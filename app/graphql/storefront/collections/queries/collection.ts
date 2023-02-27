@@ -3,7 +3,7 @@ import { MEDIA_IMAGE_FRAGMENT } from '../../global/fragments'
 export const COLLECTION_QUERY = /* gql */ `#graphql
   ${MEDIA_IMAGE_FRAGMENT}
 
-  query Collection($handle: String!) {
+  query CollectionQuery($handle: String!) {
     collection(handle: $handle) {
       id
       title
@@ -20,7 +20,7 @@ export const COLLECTION_QUERY = /* gql */ `#graphql
                 type
                 reference {
                   ... on MediaImage {
-                    ...MediaImage
+                    ...MediaImageFragment
                   }
                 }
               }
@@ -42,7 +42,7 @@ export const COLLECTION_QUERY = /* gql */ `#graphql
               media: field(key: "image") {
                 reference {
                   ... on MediaImage {
-                    ...MediaImage
+                    ...MediaImageFragment
                   }
                 }
               }
@@ -108,7 +108,7 @@ export const COLLECTION_QUERY = /* gql */ `#graphql
           hoverMedia: metafield(namespace: "product", key: "collection_hover_media") {
             reference {
               ... on MediaImage {
-                ...MediaImage
+                ...MediaImageFragment
               }
             }
           }
@@ -131,7 +131,7 @@ export const COLLECTION_QUERY = /* gql */ `#graphql
                 collectionThumbnail: metafield(namespace: "variant", key: "collection_thumbnail") {
                   reference {
                     ... on MediaImage {
-                      ...MediaImage
+                      ...MediaImageFragment
                     }
                   }
                 }

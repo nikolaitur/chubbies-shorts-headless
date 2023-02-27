@@ -36,14 +36,14 @@ const CartSlider = ({ ...props }: CartSliderProps, ref: Ref<HTMLDivElement>) => 
             <>
               <GiftWithPurchase />
               <CartLineItems lines={lines} totalQuantity={totalQuantity} />
-              <CartSliderOrderSummary />
+              <CartSliderOrderSummary cart={cart} />
               <PaymentInformation />
             </>
           ) : (
             <CartSliderEmptyMessage />
           )}
         </div>
-        <CartSliderStickyCheckout />
+        <CartSliderStickyCheckout cart={cart} />
       </div>
       <Backdrop isShown={isCartOpen} onClick={() => setIsCartOpen(false)} />
     </div>

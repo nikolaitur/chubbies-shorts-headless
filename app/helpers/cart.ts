@@ -194,3 +194,47 @@ export async function cartDiscountCodesUpdate({
 
   return cartDiscountCodesUpdate
 }
+
+export const getCartCompareAtPrice = (lines: CartType['lines']) =>
+  lines.edges
+    ?.reduce((total, line) => {
+      const {
+        node: { cost, quantity },
+      } = line || {}
+
+      const totalCompareAtAmountPerQuantity =
+        parseFloat(cost?.compareAtAmountPerQuantity?.amount ?? '0') * quantity
+
+      const totalAmountPerQuantity = parseFloat(cost?.amountPerQuantity?.amount ?? '0') * quantity
+
+      const amount = totalCompareAtAmountPerQuantity ?? totalAmountPerQuantity
+
+      return total + amount
+    }, 0)
+    .toString()
+
+export const getComputedAmount = (
+  value1: number | string,
+  value2: number | string,
+  operator: 'add' | 'subtract' | 'multiply' | 'divide',
+) => {
+  const parsedValue1 = typeof value1 === 'number' ? value1 : parseFloat(value1)
+  const parsedValue2 = typeof value2 === 'number' ? value2 : parseFloat(value2)
+
+  switch (operator) {
+    case 'add':
+      return (parsedValue1 + parsedValue2).toString()
+
+    case 'subtract':
+      return (parsedValue1 - parsedValue2).toString()
+
+    case 'multiply':
+      return (parsedValue1 * parsedValue2).toString()
+
+    case 'divide':
+      return (parsedValue1 / parsedValue2).toString()
+
+    default:
+      return '0'
+  }
+}

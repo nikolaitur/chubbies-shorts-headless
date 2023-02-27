@@ -29,6 +29,9 @@
   align-items: center;
   position: relative;
 }
+.cartIcon:hover :global(.cart-modal) {
+  display: initial;
+}
 
 .hidden {
   visibility: hidden;

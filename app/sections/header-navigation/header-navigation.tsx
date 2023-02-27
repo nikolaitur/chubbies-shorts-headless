@@ -27,7 +27,6 @@ const HeaderNavigation = ({ menu, navImages }: HeaderNavigationProps) => {
 
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false)
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
-  const [showCartModal, setShowCartModal] = useState<boolean>(false)
 
   return (
     <div className={styles.content}>
@@ -65,15 +64,12 @@ const HeaderNavigation = ({ menu, navImages }: HeaderNavigationProps) => {
             {/*TODO: Should be done in account functionality*/}
             <ChubbiesAccountIcon />
             {/*TODO: Should be done in cart functionality*/}
-            <button
-              className={styles.cartIcon}
-              onMouseEnter={() => setShowCartModal(true)}
-              onMouseLeave={() => setShowCartModal(false)}
-              onClick={() => setIsCartOpen(isCartOpen ? false : true)}
-            >
-              <ChubbiesBagIcon />
-              <CartModal isShown={showCartModal} />
-            </button>
+            <div className={styles.cartIcon}>
+              <button onClick={() => setIsCartOpen(isCartOpen ? false : true)}>
+                <ChubbiesBagIcon />
+              </button>
+              <CartModal />
+            </div>
           </div>
         </div>
         {/*Mobile Next line search bar*/}

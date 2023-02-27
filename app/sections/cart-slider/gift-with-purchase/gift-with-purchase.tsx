@@ -11,28 +11,6 @@ import styles from './styles.module.css'
 export type GiftWithPurchaseProps = HTMLAttributes<HTMLDivElement>
 
 const GiftWithPurchase = ({ ...props }: GiftWithPurchaseProps, ref: Ref<HTMLDivElement>) => {
-  // Test data
-  const slides = [
-    {
-      id: 1,
-      sizes: true,
-      selected: false,
-      disabled: false,
-    },
-    {
-      id: 2,
-      sizes: false,
-      selected: true,
-      disabled: false,
-    },
-    {
-      id: 3,
-      sizes: false,
-      selected: false,
-      disabled: true,
-    },
-  ]
-
   return (
     <div className={styles.gwp} ref={ref} {...props}>
       <Accordion horizontalPadding>
@@ -40,22 +18,16 @@ const GiftWithPurchase = ({ ...props }: GiftWithPurchaseProps, ref: Ref<HTMLDivE
           <AccordionButton className={styles.button}>Claim Your Free Gift</AccordionButton>
           <AccordionPanel className={styles.panel}>
             <Carousel
-              slidesLength={slides.length}
+              slidesLength={0}
               options={{
                 navigation: {
                   enabled: true,
                 },
               }}
             >
-              {slides?.map((slide, index) => (
-                <CarouselSlide key={slide?.id} index={index}>
-                  <GiftWithPurchaseCard
-                    selected={slide.selected}
-                    disabled={slide.disabled}
-                    sizes={slide.sizes}
-                  />
-                </CarouselSlide>
-              ))}
+              <CarouselSlide index={0}>
+                <GiftWithPurchaseCard />
+              </CarouselSlide>
             </Carousel>
           </AccordionPanel>
         </AccordionItem>

@@ -1,32 +1,65 @@
+import { Link } from '@remix-run/react'
+import { Cart } from '@shopify/hydrogen/storefront-api-types'
 import ButtonCheckout from '@solo-brands/ui-library.ui.atomic.button-checkout'
 import OrderSummaryItem from '@solo-brands/ui-library.ui.shared.order-summary-item'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
+import { getCartCompareAtPrice, getComputedAmount } from '~/helpers'
 import GiftCouponCode from '../gift-coupon-code'
 import styles from './styles.module.css'
 
-export type CartSliderOrderSummaryProps = HTMLAttributes<HTMLDivElement>
+export type CartSliderOrderSummaryProps = HTMLAttributes<HTMLDivElement> & {
+  cart: Cart | null
+}
 
 const CartSliderOrderSummary = (
-  { ...props }: CartSliderOrderSummaryProps,
+  { cart, ...props }: CartSliderOrderSummaryProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  // TO-DO: Destructure logic here
+  const { cost, checkoutUrl, totalQuantity, lines } = cart ?? {}
+  const { subtotalAmount, totalAmount } = cost ?? {}
+
+  const hasQuantity = Boolean(totalQuantity)
+
+  const totalCompareAtPrice = lines ? getCartCompareAtPrice(lines) : '0'
+
+  const compareAtPrice =
+    parseFloat(totalCompareAtPrice) > 0
+      ? {
+          amount: totalCompareAtPrice,
+          currencyCode: totalAmount?.currencyCode ?? 'USD',
+        }
+      : undefined
+
+  const totalDiscountPrice = getComputedAmount(
+    totalCompareAtPrice,
+    totalAmount?.amount ?? 0,
+    'subtract',
+  )
+
+  const totalDiscount =
+    parseFloat(totalDiscountPrice) > 0
+      ? {
+          amount: totalDiscountPrice,
+          currencyCode: totalAmount?.currencyCode ?? 'USD',
+        }
+      : undefined
 
   return (
     <div className={styles.orderSummary} ref={ref} {...props}>
       <p className={styles.title}>Order Summary</p>
-      <OrderSummaryItem title="Subtotal" price={{ amount: '1395.0', currencyCode: 'USD' }} />
+      <OrderSummaryItem
+        title="Subtotal"
+        price={{ amount: subtotalAmount?.amount || '0', currencyCode: 'USD' }}
+      />
       {/* TO-DO: Update OrderSummaryItem to have "description" text for "FREE SHIPPING" */}
       <OrderSummaryItem
         title="Shipping"
         variant="message-positive"
         price={{ amount: '0', currencyCode: 'USD' }}
       />
-      <OrderSummaryItem
-        title="Discount"
-        variant="discount"
-        price={{ amount: '100', currencyCode: 'USD' }}
-      />
+      {totalDiscount && (
+        <OrderSummaryItem title="Discount" variant="discount" price={totalDiscount} />
+      )}
       {/* TO-DO: Update OrderSummaryItem for coupon codes with close icon*/}
       <OrderSummaryItem
         title="Gift/Coupon Code"
@@ -37,14 +70,21 @@ const CartSliderOrderSummary = (
       <OrderSummaryItem
         title="Total"
         variant="total"
-        compareAtPrice={{ amount: '2000.0', currencyCode: 'USD' }}
-        discount={{ amount: '500.0', currencyCode: 'USD' }}
-        message="Order now and save $10!"
-        price={{ amount: '1395.0', currencyCode: 'USD' }}
+        compareAtPrice={compareAtPrice}
+        discount={totalDiscount}
+        price={totalAmount ?? { amount: '0', currencyCode: 'USD' }}
       />
-      <ButtonCheckout withIcon size="sm" className={styles.button}>
-        CHECKOUT
-      </ButtonCheckout>
+      <Link to={checkoutUrl || ''} className={styles.button}>
+        <ButtonCheckout
+          variant="primary"
+          size="md"
+          className={styles.button}
+          disabled={!hasQuantity}
+          withIcon
+        >
+          Checkout
+        </ButtonCheckout>
+      </Link>
       <GiftCouponCode />
     </div>
   )

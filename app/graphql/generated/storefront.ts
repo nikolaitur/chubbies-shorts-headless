@@ -6820,6 +6820,126 @@ export type CartLinesUpdateMutation = {
   } | null
 }
 
+export type CollectionQueryVariables = Exact<{
+  handle: Scalars['String']
+}>
+
+export type CollectionQuery = {
+  collection?: {
+    id: string
+    title: string
+    handle: string
+    sections?: {
+      data?: {
+        nodes: Array<{
+          type: string
+          id: string
+          fields: Array<{
+            key: string
+            value?: string | null
+            type: string
+            reference?: {
+              image?: {
+                url: any
+                width?: number | null
+                height?: number | null
+                altText?: string | null
+              } | null
+            } | null
+          }>
+        }>
+      } | null
+    } | null
+    collectionBanners?: {
+      data?: {
+        collectionCards: Array<{
+          id: string
+          title?: { value?: string | null } | null
+          cta?: { value?: string | null } | null
+          media?: {
+            reference?: {
+              image?: {
+                url: any
+                width?: number | null
+                height?: number | null
+                altText?: string | null
+              } | null
+            } | null
+          } | null
+        }>
+      } | null
+    } | null
+    filterGroup?: {
+      data?: {
+        filterGroup: Array<{
+          id: string
+          title?: { value?: string | null } | null
+          filters?: {
+            data?: { nodes: Array<{ id: string; title: string; handle: string }> } | null
+          } | null
+        }>
+      } | null
+    } | null
+    products: {
+      nodes: Array<{
+        id: string
+        title: string
+        handle: string
+        media: { nodes: Array<{ src: any; alt?: string | null }> }
+        productCardTitle?: { value: string } | null
+        displayTags?: {
+          data?: {
+            tags: Array<{
+              id: string
+              tagMessage?: { value?: string | null } | null
+              textHexColor?: { value?: string | null } | null
+              bgHexColor?: { value?: string | null } | null
+            }>
+          } | null
+        } | null
+        hoverMedia?: {
+          reference?: {
+            image?: {
+              url: any
+              width?: number | null
+              height?: number | null
+              altText?: string | null
+            } | null
+          } | null
+        } | null
+        variants: {
+          nodes: Array<{
+            id: string
+            priceV2: { amount: any; currencyCode: CurrencyCode }
+            compareAtPriceV2?: { amount: any; currencyCode: CurrencyCode } | null
+            selectedOptions: Array<{ name: string; value: string }>
+            collectionThumbnail?: {
+              reference?: {
+                image?: {
+                  url: any
+                  width?: number | null
+                  height?: number | null
+                  altText?: string | null
+                } | null
+              } | null
+            } | null
+            variantColor?: {
+              data?: {
+                id: string
+                name?: { value?: string | null } | null
+                hex?: { value?: string | null } | null
+                secondColorHex?: { value?: string | null } | null
+                dividerColorHex?: { value?: string | null } | null
+              } | null
+            } | null
+            thumbnail?: { src: any; alt?: string | null } | null
+          }>
+        }
+      }>
+    }
+  } | null
+}
+
 export type MediaImageFragment = {
   image?: {
     url: any

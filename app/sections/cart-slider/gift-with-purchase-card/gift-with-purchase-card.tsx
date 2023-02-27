@@ -1,4 +1,5 @@
 // import Carousel from '@solo-brands/ui-library.ui.atomic.carousel'
+import { Image } from '@shopify/hydrogen'
 import { CurrencyCode } from '@shopify/hydrogen/storefront-api-types'
 import { CheckIcon, LockIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import Price from '@solo-brands/ui-library.ui.atomic.price'
@@ -15,7 +16,7 @@ export type GiftWithPurchaseCardProps = HTMLAttributes<HTMLDivElement> & {
 }
 
 const GiftWithPurchaseCard = (
-  { disabled = false, selected = false, sizes = false, ...props }: GiftWithPurchaseCardProps,
+  { disabled = false, selected = true, sizes = false, ...props }: GiftWithPurchaseCardProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   return (
@@ -32,7 +33,15 @@ const GiftWithPurchaseCard = (
         </div>
       )}
       <div className={styles.content}>
-        <div className={styles.image}>hello</div>
+        <div className={styles.imageContainer}>
+          <Image
+            className={styles.image}
+            data={{
+              altText: 'test',
+              url: 'https://cdn.shopify.com/s/files/1/0077/0432/products/ChubbiesIconsKoozie2Pack_SD_949213-02_6770_2400.webp?v=1669065020',
+            }}
+          />
+        </div>
         {sizes ? <Sizes /> : <DescriptionAndPrice />}
       </div>
       {disabled && <div className={styles.disabledOverlay} />}

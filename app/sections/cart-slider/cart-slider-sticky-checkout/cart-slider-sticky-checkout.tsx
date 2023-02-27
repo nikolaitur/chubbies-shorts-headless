@@ -1,31 +1,73 @@
-import { CurrencyCode } from '@shopify/hydrogen/storefront-api-types'
+import { Link } from '@remix-run/react'
+import { Cart } from '@shopify/hydrogen/storefront-api-types'
 import ButtonCheckout from '@solo-brands/ui-library.ui.atomic.button-checkout'
 import Price from '@solo-brands/ui-library.ui.atomic.price'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
+import { getCartCompareAtPrice, getComputedAmount } from '~/helpers'
 import styles from './styles.module.css'
 
-export type CartSliderStickyCheckoutProps = HTMLAttributes<HTMLDivElement>
+export type CartSliderStickyCheckoutProps = HTMLAttributes<HTMLDivElement> & {
+  cart: Cart | null
+}
 
 const CartSliderStickyCheckout = (
-  { ...props }: CartSliderStickyCheckoutProps,
+  { cart, ...props }: CartSliderStickyCheckoutProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  // TO-DO: Restructure logic here
+  const { cost, checkoutUrl, totalQuantity, lines } = cart ?? {}
+  const { totalAmount } = cost ?? {}
+
+  const hasQuantity = Boolean(totalQuantity)
+
+  const totalCompareAtPrice = lines ? getCartCompareAtPrice(lines) : '0'
+
+  const compareAtPrice =
+    parseFloat(totalCompareAtPrice) > 0
+      ? {
+          amount: totalCompareAtPrice,
+          currencyCode: totalAmount?.currencyCode ?? 'USD',
+        }
+      : undefined
+
+  const totalDiscountPrice = getComputedAmount(
+    totalCompareAtPrice,
+    totalAmount?.amount ?? 0,
+    'subtract',
+  )
+
+  const totalDiscount =
+    parseFloat(totalDiscountPrice) > 0
+      ? {
+          amount: totalDiscountPrice,
+          currencyCode: totalAmount?.currencyCode ?? 'USD',
+        }
+      : undefined
 
   return (
     <div className={styles.checkout} ref={ref} {...props}>
       <div className={styles.details}>
         <p className={styles.title}>
-          My Cart <span>(4)</span>
+          My Cart <span>({totalQuantity})</span>
         </p>
         <div className={styles.priceContainer}>
-          <Price amount="845.0" currencyCode={'USD' as CurrencyCode} />
+          <Price
+            amount={totalAmount?.amount ?? '0'}
+            currencyCode={totalAmount?.currencyCode ?? 'USD'}
+          />
           <p className={styles.message}>+ free 1-day shipping</p>
         </div>
       </div>
-      <ButtonCheckout withIcon size="sm" className={styles.button}>
-        CHECKOUT
-      </ButtonCheckout>
+      <Link to={checkoutUrl || ''} className={styles.button}>
+        <ButtonCheckout
+          variant="primary"
+          size="md"
+          className={styles.button}
+          disabled={!hasQuantity}
+          withIcon
+        >
+          CHECKOUT
+        </ButtonCheckout>
+      </Link>
     </div>
   )
 }
