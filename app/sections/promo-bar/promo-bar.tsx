@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { forwardRef, Ref, useEffect, useMemo, useState } from 'react'
+import { CSSProperties, forwardRef, Ref, useEffect, useMemo, useState } from 'react'
 
 import Announcement from './components/announcements'
 import RightMenu from './components/right-menu'
@@ -14,6 +14,7 @@ const PromoBar = (
 ) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [backgroundColor, setBackgroundColor] = useState<string | null>(null)
+  const [announcementHeight, setAnnouncementHeight] = useState<number>(0)
 
   const validAnnouncements = useMemo(() => {
     return announcements?.filter(({ end_date, start_date }) => {
@@ -47,44 +48,50 @@ const PromoBar = (
   }, [validAnnouncements, currentIndex])
 
   useEffect(() => {
-    const announcementSection = document.querySelector('.announcement-bar') as HTMLDivElement
-    const currentAnnouncementText = document.querySelector(
-      `.announcement-text-${currentIndex}`,
-    ) as HTMLDivElement
-    const currentAnnouncementCountdown = document.querySelector(
-      `.announcement-countdown-${currentIndex}`,
-    ) as HTMLDivElement
-    const minHeight = 53
-    const offset = 20
-    const maxHeight =
-      currentAnnouncementText?.offsetHeight + currentAnnouncementCountdown?.offsetHeight ||
-      currentAnnouncementText?.offsetHeight
+    const handleSetHeight = () => {
+      const announcements = document.querySelectorAll(
+        '.announcement-content',
+      ) as NodeListOf<HTMLDivElement>
 
-    const adjustedHeight = Math.round(maxHeight - minHeight)
+      const height = [] as number[]
 
-    if (maxHeight >= 48) {
-      announcementSection.style.height = `${adjustedHeight + minHeight + offset}px`
-    } else {
-      announcementSection.style.height = `${minHeight}px`
+      announcements.forEach(announcement => {
+        const announcementHeight = announcement?.offsetHeight
+
+        height.push(announcementHeight)
+      })
+
+      const maxHeight = Math.max(...height)
+
+      if (maxHeight !== announcementHeight) {
+        setAnnouncementHeight(maxHeight)
+      }
     }
-  }, [currentIndex])
+
+    setTimeout(() => handleSetHeight(), 300)
+
+    window.addEventListener('resize', handleSetHeight)
+
+    return () => window.removeEventListener('resize', handleSetHeight)
+  }, [announcementHeight])
 
   return (
     <div
-      className={clsx(styles.section, `announcement-bar`)}
-      // @ts-expect-error Default styles handled by SCSS, but backgroundColor can be null here
-      style={{ backgroundColor }}
+      className={clsx(styles.section, 'announcement-bar')}
+      style={{ backgroundColor, height: `${announcementHeight}px` } as CSSProperties}
       ref={ref}
       {...props}
     >
-      {validAnnouncements?.map((announcement, idx) => (
-        <Announcement
-          key={`announcement-key-${idx + 1}`}
-          announcement={announcement}
-          index={idx}
-          isActive={idx === currentIndex}
-        />
-      ))}
+      <div className={styles.container}>
+        {validAnnouncements?.map((announcement, idx) => (
+          <Announcement
+            key={`announcement-key-${idx + 1}`}
+            announcement={announcement}
+            index={idx}
+            isActive={idx === currentIndex}
+          />
+        ))}
+      </div>
       <RightMenu data={menuLinks} />
     </div>
   )

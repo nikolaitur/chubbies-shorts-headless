@@ -1,6 +1,12 @@
 .content {
   background-color: rgb(255, 255, 255);
   border-bottom: 1px solid #D2D4D7;
+  position: sticky;
+  z-index: 100;
+}
+
+.container {
+  position: relative;
 }
 
 .mobileNav {

@@ -7,8 +7,7 @@ import { GLOBAL_SETTINGS_QUERY } from '~/graphql/storefront/global/queries/globa
 import { MainFrameMenusQuery } from '~/graphql/storefront/global/queries/mainFrameMenus'
 import CartSlider from '~/sections/cart-slider'
 import Footer from '~/sections/footer'
-//TODO: Rename <HeaderNavigation> back to <Header> when the coast is clear
-import HeaderNavigation from '~/sections/header-navigation'
+import Header from '~/sections/header'
 import PromoBar from '~/sections/promo-bar'
 
 export async function loader({ context }: LoaderArgs) {
@@ -57,20 +56,6 @@ export async function loader({ context }: LoaderArgs) {
       ids: navCollectionIds,
     },
   })
-  /*
-  headerNavMenu?.items?.forEach(item => {
-    item?.items?.forEach(innerItem => {
-      if (innerItem.resourceId?.includes('/Collection/')) {
-        const collectionImage = navCollectionImages.nodes?.find(
-          collection => collection?.id === innerItem.resourceId,
-        )
-        if (collectionImage) {
-          //@ts-expect-error how do we add a new property to MenuItem?
-          innerItem.image = collectionImage?.navigation_image?.reference?.image
-        }
-      }
-    })
-  })*/
 
   //retrieve images for the mega menu
   return json({
@@ -96,8 +81,8 @@ export default function MainFrame() {
   return (
     <CartProvider>
       <PromoBar announcements={promoBarAnnouncements?.references?.nodes} menuLinks={promoBarMenu} />
-      {/*/@ts-expect-error TODO: navImages types looks like correct, but I can`t resolve TS error*/}
-      <HeaderNavigation menu={headerNavMenu} navImages={navCollectionImages?.nodes} />
+      {/*/@ts-expect-error Incorrect type from useLoaderData*/}
+      <Header menu={headerNavMenu} navImages={navCollectionImages?.nodes} />
       <Outlet />
       <Footer menu={footerMenu} legalLinks={legalLinksMenu} />
       <CartSlider />

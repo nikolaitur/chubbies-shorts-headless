@@ -7,7 +7,6 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  position: relative;
   border-bottom: $border-width-2 solid transparent;
   z-index: 109;
   @include body-bold-md;
@@ -39,9 +38,9 @@
 
 .megaMenu {
   display: flex;
-  position: fixed;
+  position: absolute;
   left: $space-0;
-  top: calc(72px + 53px);
+  top: 100%;
   width: 100vw;
   z-index: 108;
   background-color: $backgrounds-white;
@@ -50,13 +49,10 @@
   column-gap: $space-8;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-20px);
-  transition: background-color 0.5s ease-out, visibility 0.5s ease-out, opacity 0.5s ease-out, transform 0.3s ease;
 
   &.megaMenuVisible {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
   }
 }
 

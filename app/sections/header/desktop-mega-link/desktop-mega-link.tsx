@@ -9,13 +9,11 @@ import styles from './styles.module.css'
 const DesktopMegaLink = ({
   item,
   handleHover,
-  megaMenuTop = 72,
   isHovered,
   navImages,
 }: {
   item: MenuItemFragment
   handleHover: Dispatch<SetStateAction<string | null>>
-  megaMenuTop?: number
   isHovered: boolean
   navImages?: (NavCollectionFragment | null | undefined)[] | null | undefined
 }) => {
@@ -32,10 +30,7 @@ const DesktopMegaLink = ({
       onMouseLeave={() => handleHover(null)}
     >
       <h6 onMouseEnter={() => handleHover(title)}>{visualTitle}</h6>
-      <div
-        style={{ top: `${megaMenuTop}px` }}
-        className={clsx(styles.megaMenu, { [styles.megaMenuVisible]: isHovered })}
-      >
+      <div className={clsx(styles.megaMenu, { [styles.megaMenuVisible]: isHovered })}>
         {items?.map(subItem => {
           const media = navImages?.find(image => image?.id === subItem.resourceId)?.navigation_image
             ?.reference?.image

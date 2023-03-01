@@ -24,7 +24,7 @@ const Announcements = (
     <ClientOnly>
       {() => (
         <div
-          className={clsx(styles.announcement, `announcement-content-${index}`, {
+          className={clsx(styles.announcement, 'announcement-content', {
             [styles.isActive]: isActive,
             [styles.isLink]: link !== null,
           })}

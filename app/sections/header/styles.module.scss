@@ -3,6 +3,12 @@
 .content {
   background-color: $backgrounds-white;
   border-bottom: $border-width-1 solid $borders-divider-muted;
+  position: sticky;
+  z-index: 100;
+}
+// Need to for next fix
+.container {
+  position: relative;
 }
 
 .mobileNav {

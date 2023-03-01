@@ -6954,29 +6954,14 @@ export type CollectionNavImagesVariables = Exact<{
 }>
 
 export type CollectionNavImages = {
-  nodes: Array<{
-    id: string
-    navigation_image?: {
-      reference?: {
-        id: string
-        image?: {
-          altText?: string | null
-          height?: number | null
-          id?: string | null
-          originalSrc: any
-          url: any
-          width?: number | null
-        } | null
-      } | null
-    } | null
-  } | null>
+  nodes: NavCollectionFragment[] | null | undefined
 }
 
 export type NavCollectionFragment = {
   id: string
   navigation_image?: {
     reference?: {
-      id: string
+      id?: string
       image?: {
         altText?: string | null
         height?: number | null

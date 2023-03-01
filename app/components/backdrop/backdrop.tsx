@@ -5,17 +5,9 @@ import { BackdropProps } from '~/components/backdrop/types'
 
 import styles from './styles.module.css'
 
-const Backdrop = (
-  { isShown = false, top = 0, ...props }: BackdropProps,
-  ref: Ref<HTMLDivElement>,
-) => {
+const Backdrop = ({ isShown = false, ...props }: BackdropProps, ref: Ref<HTMLDivElement>) => {
   return (
-    <div
-      style={{ top: `${top}px` }}
-      className={clsx(styles.backdrop, { [styles.isShown]: isShown })}
-      ref={ref}
-      {...props}
-    />
+    <div className={clsx(styles.backdrop, { [styles.isShown]: isShown })} ref={ref} {...props} />
   )
 }
 

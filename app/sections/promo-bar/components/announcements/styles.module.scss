@@ -10,9 +10,12 @@
   text-align: center;
   line-height: 100%;
   transform: translateY(10px);
+  padding: $space-3 $space-6;
   opacity: 0;
   visibility: hidden;
   color: var(--color);
+  height: fit-content;
+  margin: auto;
   transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out;
 }
 

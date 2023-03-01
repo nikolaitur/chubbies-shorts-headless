@@ -3,5 +3,5 @@ import { MenuFragment, NavCollectionFragment } from '~/graphql/generated'
 
 export type HeaderNavigationProps = HTMLAttributes<HTMLElement> & {
   menu?: MenuFragment | null
-  navImages?: (NavCollectionFragment | null | undefined)[] | null | undefined
+  navImages?: NavCollectionFragment[] | null
 }

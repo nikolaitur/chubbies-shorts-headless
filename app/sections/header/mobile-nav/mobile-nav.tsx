@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { MenuFragment, NavCollectionFragment } from '~/graphql/generated'
-import MobileAccordionMenu from '~/sections/header-navigation/mobile-accordion-menu'
-import MobileMenu from '~/sections/header-navigation/mobile-menu'
+import MobileAccordionMenu from '~/sections/header/mobile-accordion-menu'
+import MobileMenu from '~/sections/header/mobile-menu'
 import OverlayModal from '../overlay-modal/overlay-modal'
 
 const MobileNav = ({
