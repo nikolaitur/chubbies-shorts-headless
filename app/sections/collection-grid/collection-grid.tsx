@@ -8,10 +8,11 @@ import CollectionPageTitle from '~/components/collection-page-title'
 import Container from '~/components/container'
 import ProductCard from '~/components/product-card'
 import Section from '~/components/section'
+import { CollectionQuery } from '~/graphql/generated'
 import CollectionBanner from './collection-banner'
 import styles from './styles.module.css'
 
-const CollectionGrid = () => {
+const CollectionGrid = ({ collection }: { collection: CollectionQuery['collection'] }) => {
   const [isOpen, setIsOpen] = useState(false)
   const options = [
     {
