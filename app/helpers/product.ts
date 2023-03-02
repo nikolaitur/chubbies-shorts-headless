@@ -200,7 +200,7 @@ export const fetchPdpProductData = async (
   return product
 }
 
-export const fetchPdpProductGroupData = async (
+export const fetchProductGroupData = async (
   storefront: Storefront,
   variables: Partial<Pick<PpdProductGroupQueryVariables, 'productGroupId'>>,
 ): Promise<PpdProductGroupQuery['collection']> => {

@@ -4,7 +4,7 @@ import { Inseam, PdpProduct, PpdLoaderData } from '~/global-types'
 import { SelectedOptionInput } from '~/graphql/generated'
 import {
   fetchPdpProductData,
-  fetchPdpProductGroupData,
+  fetchProductGroupData,
   getColorOptions,
   getColorOptionsByGroup,
   getInseamOptions,
@@ -34,7 +34,7 @@ export async function loader({ params, request, context: { storefront } }: Loade
 
   // split queries to prevent throttled requests
   const product = await fetchPdpProductData(storefront, { handle: productHandle, selectedOptions })
-  const productGroup = await fetchPdpProductGroupData(storefront, {
+  const productGroup = await fetchProductGroupData(storefront, {
     productGroupId: product?.productGroup?.value,
   })
 

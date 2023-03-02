@@ -7572,6 +7572,64 @@ export type PpdProductGroupQuery = {
   } | null
 }
 
+export type ProductCardsVariables = Exact<{
+  productIds: Array<Scalars['ID']> | Scalars['ID']
+}>
+
+export type ProductCards = {
+  nodes: Array<{
+    id: string
+    product_group?: { value: string } | null
+    inseam_length?: { value: string } | null
+    swatch?: { value: string } | null
+  } | null>
+}
+
+export type ProductGroupsVariables = Exact<{
+  productGroupIds: Array<Scalars['ID']> | Scalars['ID']
+}>
+
+export type ProductGroups = {
+  nodes: Array<{
+    products: {
+      nodes: Array<{
+        handle: string
+        id: string
+        variants: {
+          nodes: Array<{
+            id: string
+            availableForSale: boolean
+            selectedOptions: Array<{ name: string; value: string }>
+          }>
+        }
+        color?: {
+          reference?: {
+            id: string
+            type: string
+            fields: Array<{
+              key: string
+              value?: string | null
+              reference?:
+                | {
+                    image?: {
+                      url: any
+                      width?: number | null
+                      height?: number | null
+                      altText?: string | null
+                    } | null
+                  }
+                | { fields: Array<{ key: string; value?: string | null }> }
+                | null
+            }>
+          } | null
+        } | null
+        colorGroup?: { reference?: { name?: { value?: string | null } | null } | null } | null
+        inseam?: { value: string } | null
+      }>
+    }
+  } | null>
+}
+
 export type GetProductsWithIdsVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID']
 }>
