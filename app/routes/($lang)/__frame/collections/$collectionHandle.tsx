@@ -1,25 +1,19 @@
-import { useLoaderData } from '@remix-run/react'
-import { LoaderArgs } from '@shopify/remix-oxygen'
-import { CollectionQuery } from '~/graphql/generated'
-import { COLLECTION_QUERY } from '~/graphql/storefront/collections/queries'
-import CollectionGrid from '~/sections/collection-grid'
-// Collection loader
-export async function loader({ params, context: { storefront } }: LoaderArgs) {
-  const { collectionHandle } = params
-  const collectionQuery = await storefront.query(COLLECTION_QUERY, {
-    variables: {
-      handle: collectionHandle,
-    },
-    cache: storefront.CacheShort(),
-  })
+import { useMatches } from '@remix-run/react'
+import { retrieveRecsForPlacement } from '~/helpers'
 
-  return collectionQuery
+const CollectionPage = () => {
+  //Demonstration of retrieving Nosto recommendations for a given placement
+  const matches = useMatches()
+  const nosto = matches[0]?.data?.nosto
+  const bestSellers = retrieveRecsForPlacement('best-sellers', nosto)
+
+  return (
+    <>
+      {/* Temporarily remove CollectionGrid */}
+      {/* TODO - Investigate issue with CollectionGrid breaking pdp styles */}
+      {/* <CollectionGrid /> */}
+    </>
+  )
 }
 
-const CollectionsPage = () => {
-  const collection = useLoaderData<typeof loader>() as CollectionQuery['collection']
-
-  return <CollectionGrid collection={collection} />
-}
-
-export default CollectionsPage
+export default CollectionPage
