@@ -1,5 +1,7 @@
 import { useMatches } from '@remix-run/react'
+import { ClientOnly } from 'remix-utils'
 import { retrieveRecsForPlacement } from '~/helpers'
+import CollectionGrid from '~/sections/collection-grid'
 
 const CollectionPage = () => {
   //Demonstration of retrieving Nosto recommendations for a given placement
@@ -9,9 +11,9 @@ const CollectionPage = () => {
 
   return (
     <>
-      {/* Temporarily remove CollectionGrid */}
+      {/* Temporarily add <ClientOnly> */}
       {/* TODO - Investigate issue with CollectionGrid breaking pdp styles */}
-      {/* <CollectionGrid /> */}
+      <ClientOnly>{() => <CollectionGrid />}</ClientOnly>
     </>
   )
 }

@@ -8,6 +8,8 @@ const CollectionBanner = ({ className }: CollectionBannerProps) => {
   const backgroundImage = {
     alt: 'test',
     src: 'https://via.placeholder.com/160 ',
+    height: 400,
+    width: 1080,
   }
   return (
     <div className={clsx(styles.collectionBanner, className)}>

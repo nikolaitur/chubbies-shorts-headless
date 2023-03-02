@@ -11,15 +11,12 @@ import {
   getSizeOptions,
 } from '~/helpers'
 import ProductBox from '~/sections/product-box'
+import { ClientOnly } from 'remix-utils'
 
 const ProductPage = () => {
   const { product } = useLoaderData() as PpdLoaderData
 
-  return (
-    <>
-      <ProductBox product={product} />
-    </>
-  )
+  return <ClientOnly>{() => <ProductBox product={product} />}</ClientOnly>
 }
 
 export default ProductPage

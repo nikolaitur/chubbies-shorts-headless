@@ -42,7 +42,6 @@ const CollectionGrid = () => {
   return (
     <Section>
       <Container className={styles.container}>
-        <CollectionBanner className={styles.collectionBanner}></CollectionBanner>
         {/* TODO: Change breadcrumb path on logic */}
         <BreadCrumbs path={'/home/sport-shorts/retro-tracksuit-shorts'}></BreadCrumbs>
         <div className={styles.grid}>
