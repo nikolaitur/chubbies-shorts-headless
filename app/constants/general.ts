@@ -11,3 +11,5 @@ export const PRODUCT_ROUTE_ID = 'routes/($lang)/__frame/products/$productHandle'
 export const UNIT_MEASUREMENT_SYMBOL: { [key: string]: string } = {
   INCHES: '"',
 }
+
+export const MIN_ANNOUNCEMENT_HEIGHT = 53

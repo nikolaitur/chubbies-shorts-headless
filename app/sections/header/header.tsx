@@ -18,6 +18,7 @@ import Backdrop from '~/components/backdrop/backdrop'
 import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
 import CartModal from '~/sections/header/cart-modal/cart-modal'
 
+import { MIN_ANNOUNCEMENT_HEIGHT } from '~/constants'
 import { HeaderNavigationProps } from './types'
 
 import styles from './styles.module.css'
@@ -29,20 +30,20 @@ const Header = ({ menu, navImages }: HeaderNavigationProps) => {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false)
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
   const [hoveredMenuTitle, setHoveredMenuTitle] = useState<string | null>(null)
-  const [announcementHeight, setAnnouncementHeight] = useState<number>(0)
+  const [announcementHeight, setAnnouncementHeight] = useState<number>(MIN_ANNOUNCEMENT_HEIGHT)
 
   useEffect(() => {
     const handleSetHeight = () => {
       const announcement = document.querySelector('.announcement-bar') as HTMLDivElement
 
-      const height = announcement?.offsetHeight
+      const height = announcement?.offsetHeight || 0
 
-      if (height !== announcementHeight) {
+      if (height > MIN_ANNOUNCEMENT_HEIGHT && height !== announcementHeight) {
         setAnnouncementHeight(height)
       }
     }
 
-    setTimeout(() => handleSetHeight(), 300)
+    setTimeout(() => handleSetHeight(), 1000)
 
     window.addEventListener('resize', handleSetHeight)
 

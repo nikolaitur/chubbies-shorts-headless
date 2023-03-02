@@ -5,6 +5,7 @@ import Announcement from './components/announcements'
 import RightMenu from './components/right-menu'
 
 import { PromoBarProps } from './types'
+import { MIN_ANNOUNCEMENT_HEIGHT } from '~/constants'
 
 import styles from './styles.module.css'
 
@@ -14,7 +15,7 @@ const PromoBar = (
 ) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [backgroundColor, setBackgroundColor] = useState<string | null>(null)
-  const [announcementHeight, setAnnouncementHeight] = useState<number>(0)
+  const [announcementHeight, setAnnouncementHeight] = useState<number>(MIN_ANNOUNCEMENT_HEIGHT)
 
   const validAnnouncements = useMemo(() => {
     return announcements?.filter(({ end_date, start_date }) => {
@@ -63,12 +64,12 @@ const PromoBar = (
 
       const maxHeight = Math.max(...height)
 
-      if (maxHeight !== announcementHeight) {
+      if (maxHeight > MIN_ANNOUNCEMENT_HEIGHT && maxHeight !== announcementHeight) {
         setAnnouncementHeight(maxHeight)
       }
     }
 
-    setTimeout(() => handleSetHeight(), 300)
+    setTimeout(() => handleSetHeight(), 1000)
 
     window.addEventListener('resize', handleSetHeight)
 
