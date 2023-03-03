@@ -33,9 +33,9 @@ const Header = ({ menu, navImages }: HeaderNavigationProps) => {
   const [announcementHeight, setAnnouncementHeight] = useState<number>(MIN_ANNOUNCEMENT_HEIGHT)
 
   useEffect(() => {
-    const handleSetHeight = () => {
-      const announcement = document.querySelector('.announcement-bar') as HTMLDivElement
+    const announcement = document.querySelector('.announcement-bar') as HTMLDivElement
 
+    const handleSetHeight = () => {
       const height = announcement?.offsetHeight || 0
 
       if (height > MIN_ANNOUNCEMENT_HEIGHT && height !== announcementHeight) {
@@ -43,11 +43,11 @@ const Header = ({ menu, navImages }: HeaderNavigationProps) => {
       }
     }
 
-    setTimeout(() => handleSetHeight(), 1000)
+    const resizeObserver = new ResizeObserver(handleSetHeight)
 
-    window.addEventListener('resize', handleSetHeight)
+    resizeObserver.observe(announcement)
 
-    return () => window.removeEventListener('resize', handleSetHeight)
+    return () => resizeObserver.unobserve(announcement)
   }, [announcementHeight])
 
   return (

@@ -1,4 +1,5 @@
 import { Outlet, useLoaderData } from '@remix-run/react'
+import { ClientOnly } from 'remix-utils'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
 import { CartProvider } from '~/components/cart-context/cart-context'
 import type { CollectionNavImages, GlobalSettings, MainFrameMenus } from '~/graphql/generated'
@@ -80,11 +81,20 @@ export default function MainFrame() {
 
   return (
     <CartProvider>
-      <PromoBar announcements={promoBarAnnouncements?.references?.nodes} menuLinks={promoBarMenu} />
-      {/*/@ts-expect-error Incorrect type from useLoaderData*/}
-      <Header menu={headerNavMenu} navImages={navCollectionImages?.nodes} />
+      <ClientOnly>
+        {() => (
+          <PromoBar
+            announcements={promoBarAnnouncements?.references?.nodes}
+            menuLinks={promoBarMenu}
+          />
+        )}
+      </ClientOnly>
+      <ClientOnly>
+        {/*/@ts-expect-error Incorrect type from useLoaderData*/}
+        {() => <Header menu={headerNavMenu} navImages={navCollectionImages?.nodes} />}
+      </ClientOnly>
       <Outlet />
-      <Footer menu={footerMenu} legalLinks={legalLinksMenu} />
+      <ClientOnly>{() => <Footer menu={footerMenu} legalLinks={legalLinksMenu} />}</ClientOnly>
       <CartSlider />
     </CartProvider>
   )
