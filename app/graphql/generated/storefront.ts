@@ -7329,6 +7329,7 @@ export type ProductGroupFragment = {
           selectedOptions: Array<{ name: string; value: string }>
         }>
       }
+      options: Array<{ name: string; values: Array<string> }>
       color?: {
         reference?: {
           id: string
@@ -7544,6 +7545,7 @@ export type PpdProductGroupQuery = {
             selectedOptions: Array<{ name: string; value: string }>
           }>
         }
+        options: Array<{ name: string; values: Array<string> }>
         color?: {
           reference?: {
             id: string

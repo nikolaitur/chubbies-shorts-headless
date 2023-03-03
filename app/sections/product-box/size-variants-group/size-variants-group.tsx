@@ -9,12 +9,12 @@ import styles from './styles.module.css'
 import { SizeVariantsGroupProps } from './types'
 
 const SizeVariantsGroup = ({ size = 'xl', ...props }: SizeVariantsGroupProps) => {
-  const { pathname } = useLocation()
+  const { pathname, state } = useLocation()
   const matches = useMatches()
   const [searchParams] = useSearchParams()
   const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
-  const { sizeOptions } = data.product
-  const currentSize = searchParams.get(SIZE_OPTION_NAME)
+  const { sizeOptions } = data.product ?? {}
+  const selectedSize = searchParams.get(SIZE_OPTION_NAME)
 
   if (!sizeOptions) return null
 
@@ -23,7 +23,7 @@ const SizeVariantsGroup = ({ size = 'xl', ...props }: SizeVariantsGroupProps) =>
       <VariantInfo
         size={'sm'}
         optionName={SIZE_OPTION_NAME}
-        optionValue={getSizeTextDisplay(currentSize ?? sizeOptions[0].name)}
+        optionValue={getSizeTextDisplay(selectedSize ?? sizeOptions[0].name)}
       />
       <div className={styles.sizeOptions}>
         {sizeOptions.map(({ name, exists, availableForSale }, index) => (
@@ -31,14 +31,17 @@ const SizeVariantsGroup = ({ size = 'xl', ...props }: SizeVariantsGroupProps) =>
             key={index}
             prefetch="render"
             to={{ pathname, search: `?${SIZE_OPTION_NAME}=${name}` }}
+            state={state}
             replace
             preventScrollReset
           >
             <VariantSelector
+              className={styles.variantSelector}
               option={getSizeTextDisplay(name)}
               size={size}
-              selected={currentSize === name}
-              disabled={!exists || !availableForSale}
+              selected={selectedSize === name}
+              disabled={exists && !availableForSale}
+              unavailableAlt={!exists}
             />
           </Link>
         ))}

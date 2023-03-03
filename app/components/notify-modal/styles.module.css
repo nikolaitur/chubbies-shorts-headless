@@ -1,0 +1,55 @@
+.modal {
+  max-width: calc(100% - 32px);
+  padding: 40px 24px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 8px;
+  text-align: center;
+  z-index: 101;
+}
+@media screen and (min-width: 769px) {
+  .modal {
+    max-width: 480px;
+  }
+}
+
+.heading {
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 110%;
+  font-size: 32px;
+  letter-spacing: 0%;
+}
+
+.text {
+  color: #595d61;
+  margin-bottom: 32px;
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 18px;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.submitButton {
+  text-transform: uppercase;
+}
+
+.nevermindButton {
+  color: #46484B;
+  font-family: futura-pt, sans-serif;
+  font-weight: 600;
+  line-height: 120%;
+  font-size: 16px;
+  letter-spacing: 0%;
+  text-decoration: underline;
+}

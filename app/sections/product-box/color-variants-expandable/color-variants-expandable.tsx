@@ -1,13 +1,15 @@
-import { Link, useLocation } from '@remix-run/react'
-import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector/dist/swatch-selector'
+import { Link, useLocation, useMatches } from '@remix-run/react'
 import clsx from 'clsx'
 import { useState } from 'react'
+import { generateColorState } from '~/helpers'
+import ProductBoxSwatchSelector from '../product-box-swatch-selector'
 import styles from './styles.module.css'
 import { ColorVariantsExpandableProps } from './types'
 
 const ColorVariantsExpandable = ({ colorOptions, size = 'md' }: ColorVariantsExpandableProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const location = useLocation()
+  const matches = useMatches()
 
   const columnCount = 7
   const initialColorsToShow = colorOptions.slice(0, columnCount)
@@ -17,14 +19,16 @@ const ColorVariantsExpandable = ({ colorOptions, size = 'md' }: ColorVariantsExp
   return (
     <div className={styles.wrapper}>
       <div className={styles.grid}>
-        {colorsToShow.map(({ image, handle, selected }, index) => (
+        {colorsToShow.map(({ handle, ...option }, index) => (
           <Link
             key={index}
             className={styles.link}
             prefetch="render"
             to={{ pathname: `/products/${handle}`, search: location.search }}
+            state={generateColorState(location.state, colorOptions)}
+            replace
           >
-            <SwatchSelector size={size} image={image} selected={selected} />
+            <ProductBoxSwatchSelector size={size} colorOption={option} />
           </Link>
         ))}
       </div>

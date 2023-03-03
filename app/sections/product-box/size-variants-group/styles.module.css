@@ -17,3 +17,7 @@
   height: 0;
   display: none;
 }
+
+.variantSelector:disabled {
+  pointer-events: none;
+}

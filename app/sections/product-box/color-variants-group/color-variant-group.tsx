@@ -1,7 +1,8 @@
+import { useLocation, useMatches } from '@remix-run/react'
 import VariantInfo from '@solo-brands/ui-library.ui.atomic.variant-info'
-import { useMatches } from 'react-router'
 import { PRODUCT_ROUTE_ID } from '~/constants'
 import { PdpRouteData } from '~/global-types'
+import { moveInitialColorFirst } from '~/helpers'
 import ColorVariantsCarousel from '../color-variants-carousel'
 import ColorVariantsExpandable from '../color-variants-expandable'
 import styles from './styles.module.css'
@@ -14,9 +15,8 @@ const ColorVariantsGroup = ({
 }: ColorVariantsGroupProps) => {
   const matches = useMatches()
   const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
-  const { colorOptionsByGroup } = data.product
+  const { colorOptionsByGroup } = data.product ?? {}
   const groups = Object.keys(colorOptionsByGroup ?? {})
-
   if (!colorOptionsByGroup) return null
 
   return (
@@ -42,6 +42,8 @@ const ColorVariantsGroup = ({
 
 const ColorGroup = ({ groupName, colorOptions, size, variant }: ColorGroupProps) => {
   const selectedColorName = colorOptions.find(option => option.selected)?.name
+  const { state } = useLocation()
+  colorOptions.sort(moveInitialColorFirst(state))
   return (
     <div className={styles.groupWrapper}>
       <VariantInfo size={'sm'} optionName={groupName} optionValue={selectedColorName ?? ''} />

@@ -3,9 +3,10 @@ import Carousel, {
   CarouselSlide,
   useCarouselState,
 } from '@solo-brands/ui-library.ui.atomic.carousel'
-import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector'
 import clsx from 'clsx'
 import { useEffect } from 'react'
+import { generateColorState } from '~/helpers'
+import ProductBoxSwatchSelector from '../product-box-swatch-selector'
 import styles from './styles.module.css'
 import { ColorVariantsCarouselInnerProps, ColorVariantsCarouselProps } from './types'
 
@@ -47,23 +48,25 @@ const ColorVariantsCarouselInner = ({ colorOptions, size }: ColorVariantsCarouse
 
   return (
     <>
-      {colorOptions.map(({ image, handle, selected }, index) => (
-        <CarouselSlide key={`${handle}-${index}`} index={index}>
-          <Link
-            className={styles.link}
-            prefetch="render"
-            to={{ pathname: `/products/${handle}`, search: location.search }}
-            preventScrollReset
-          >
-            <SwatchSelector
-              className={styles.swatchSelector}
-              size={size}
-              image={image}
-              selected={selected}
-            />
-          </Link>
-        </CarouselSlide>
-      ))}
+      {colorOptions.map(({ handle, color, ...option }, index) => {
+        return (
+          <CarouselSlide key={`${handle}-${index}`} index={index}>
+            <Link
+              className={styles.link}
+              prefetch="render"
+              to={{
+                pathname: `/products/${handle}`,
+                search: location.search,
+              }}
+              state={generateColorState(location.state, colorOptions)}
+              replace
+              preventScrollReset
+            >
+              <ProductBoxSwatchSelector size={size} colorOption={option} />
+            </Link>
+          </CarouselSlide>
+        )
+      })}
       {hasRemainingSlides && (
         <span className={styles.remainingSlidesCount}>+{remainingSlidesCount}</span>
       )}

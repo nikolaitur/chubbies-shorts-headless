@@ -1,4 +1,5 @@
 import { useLoaderData } from '@remix-run/react'
+import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
 import { Inseam, PdpProduct, PpdLoaderData } from '~/global-types'
 import { SelectedOptionInput } from '~/graphql/generated'
@@ -59,7 +60,7 @@ export async function loader({ params, request, context: { storefront } }: Loade
   const inseamOptions = getInseamOptions(parsedInseam, colorId, productsFromProductGroup)
   const colorOptions = getColorOptions(colorId, parsedInseam, productsFromProductGroup)
   const colorOptionsByGroup = getColorOptionsByGroup(colorOptions)
-  const sizeOptions = getSizeOptions(product)
+  const sizeOptions = getSizeOptions(product.variants.nodes as ProductVariant[], options)
 
   // return what is only needed
   const newProduct: PdpProduct = {

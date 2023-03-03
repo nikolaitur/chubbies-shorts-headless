@@ -1,0 +1,5 @@
+.swatchSelector {
+  &:disabled {
+    pointer-events: none;
+  }
+}

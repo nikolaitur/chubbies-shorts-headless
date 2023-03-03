@@ -11,7 +11,8 @@ import { InseamVariantsGroupProps } from './types'
 const InseamVariantsGroup = ({ size = 'xl', ...props }: InseamVariantsGroupProps) => {
   const matches = useMatches()
   const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
-  const { inseamOptions } = data.product
+  const { inseamOptions, selectedVariant } = data.product ?? {}
+
   const location = useLocation()
 
   if (!inseamOptions) return null
@@ -26,17 +27,20 @@ const InseamVariantsGroup = ({ size = 'xl', ...props }: InseamVariantsGroupProps
       <div className={styles.groupWrapper}>
         <VariantInfo size={'sm'} optionName="Inseam" optionValue={inseamDisplayText} />
         <div className={styles.inseamOptions}>
-          {inseamOptions.map(({ value, unit, handle, selected }, index) => (
+          {inseamOptions.map(({ value, unit, exists, handle, selected }, index) => (
             <Link
               key={index}
               prefetch="render"
               to={{ pathname: `/products/${handle}`, search: location.search }}
+              state={location.state}
               preventScrollReset
+              replace
             >
               <VariantSelector
                 size={size}
                 option={`${value}${UNIT_MEASUREMENT_SYMBOL[unit ?? '']}`}
                 selected={selected}
+                unavailableAlt={!exists}
               />
             </Link>
           ))}

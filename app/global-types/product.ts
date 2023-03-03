@@ -1,3 +1,4 @@
+import { Maybe } from '@shopify/hydrogen/storefront-api-types'
 import { PpdProductQuery, ProductGroupFragment } from '~/graphql/generated'
 import { ImageData, MetaobjectFieldV2 } from './general'
 
@@ -14,13 +15,15 @@ export type PdpProduct = Omit<
 
 export type ColorOption = {
   id: string
-  name: string
-  color?: string
+  name?: Maybe<string>
+  exists: boolean
+  color?: Maybe<string>
   image?: ImageData
-  family: string
-  group?: string
-  handle: string
+  family?: Maybe<string>
+  group: string | null
+  handle?: string
   selected: boolean
+  sizeOptions: SizeOption[] | null
 }
 
 export type ColorFields = {
@@ -38,7 +41,8 @@ export type Inseam = {
 export type InseamOption = {
   value: number
   unit: string
-  handle: string
+  exists?: boolean
+  handle?: string
   selected: boolean
 }
 
@@ -52,7 +56,7 @@ export type ProductGroupProducts = ProductGroupFragment['products']['nodes']
 
 export type PdpRouteData = {
   data: {
-    product: PdpProduct
+    product?: PdpProduct
   }
 }
 

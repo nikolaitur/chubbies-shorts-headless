@@ -14,8 +14,8 @@ import { ProductInfosProps } from './types'
 const ProductInfos = (props: ProductInfosProps) => {
   const matches = useMatches()
   const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
-  const { title, collectionTitle, description, selectedVariant, variants } = data.product
-  const [firstVariant] = variants.nodes
+  const { title, collectionTitle, description, selectedVariant, variants } = data.product ?? {}
+  const [firstVariant] = variants?.nodes ?? []
 
   const { price, compareAtPrice } = getDisplayPrices(
     firstVariant as ProductVariant,
@@ -25,7 +25,7 @@ const ProductInfos = (props: ProductInfosProps) => {
   return (
     <div className={styles.wrapper} {...props}>
       <div className={styles.collectionTitleWrapper}>
-        {collectionTitle && <p>{collectionTitle}</p>}
+        {collectionTitle && <p className={styles.collectionTitle}>{collectionTitle}</p>}
         <ButtonIcon size="sm" variant="minimal" icon={<HeartIcon />}></ButtonIcon>
       </div>
 

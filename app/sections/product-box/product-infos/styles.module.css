@@ -32,6 +32,13 @@
   justify-content: space-between;
 }
 
+.collectionTitle {
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 18px;
+}
+
 .description {
   color: #595d61;
   font-family: futura-pt, sans-serif;

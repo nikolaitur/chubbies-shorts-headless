@@ -1,0 +1,47 @@
+@use './../../styles/abstracts' as *;
+
+.modal {
+  max-width: calc(100% - ($space-4 * 2));
+  padding: $space-10 $space-6;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: $border-radius-modal;
+  text-align: center;
+  z-index: 101;
+
+  @include media-query(md) {
+    max-width: 480px;
+  }
+}
+
+.heading {
+  margin-bottom: $space-4;
+  text-transform: uppercase;
+
+  @include headings-lg;
+}
+
+.text {
+  color: $text-neutral-subdued;
+  margin-bottom: $space-8;
+
+  @include body-regular-lg;
+}
+
+.form {
+  display: grid;
+  gap: $space-4;
+}
+
+.submitButton {
+  text-transform: uppercase;
+}
+
+.nevermindButton {
+  color: $text-link-neutral--default;
+
+  @include textlink-md;
+}

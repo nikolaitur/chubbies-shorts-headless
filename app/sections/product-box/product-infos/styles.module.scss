@@ -32,6 +32,10 @@
   justify-content: space-between;
 }
 
+.collectionTitle {
+  @include body-regular-lg;
+}
+
 .description {
   color: $text-neutral-subdued;
   @include body-regular-md;

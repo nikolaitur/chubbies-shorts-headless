@@ -187,6 +187,10 @@ export const PRODUCT_GROUP_FRAGMENT = /* gql */ `#graphql
             ...ProductGroupVariantsFragment
           }
         }
+        options {
+          name
+          values
+        }
         ...ColorMetafieldFragment
         ...ColorGroupMetafieldFragment
         ...InseamMetafieldFragment

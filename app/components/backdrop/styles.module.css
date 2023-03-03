@@ -6,9 +6,10 @@
   right: 0;
   background: rgba(0, 0, 0, 0.5);
   transition: background-color 0.3s ease-out, visibility 0.3s ease-out, opacity 0.3s ease-out;
-  z-index: 99;
+  z-index: 100;
   opacity: 0;
   visibility: hidden;
+  cursor: pointer;
 }
 .backdrop.isShown {
   opacity: 1;

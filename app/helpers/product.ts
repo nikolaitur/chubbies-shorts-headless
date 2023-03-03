@@ -1,5 +1,6 @@
+import type { Location } from '@remix-run/react'
 import { Storefront } from '@shopify/hydrogen'
-import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
+import { ProductOption, ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { PRODUCT_SIZES } from '~/constants'
 import {
   ColorFields,
@@ -11,6 +12,7 @@ import {
   SizeOption,
 } from '~/global-types'
 import {
+  ColorFragment,
   MetaobjectField,
   PpdProductGroupQuery,
   PpdProductGroupQueryVariables,
@@ -27,6 +29,19 @@ export const getInseamOptions = (
 ): InseamOption[] | null => {
   if (!inseam || !products) return null
 
+  // Go through each products in the product group and find the unique inseam options
+  const uniqueInseamOptions = products.reduce((options: Inseam[], product) => {
+    const currentInseam = product.inseam?.value
+    if (!currentInseam) return options
+
+    const parsedCurrentInseam: Inseam = JSON.parse(currentInseam)
+    const isInseamExists = options.some(option => option.value === parsedCurrentInseam.value)
+
+    if (isInseamExists) return options
+
+    return [...options, parsedCurrentInseam]
+  }, [])
+
   // filter products based on selected color
   const productsByColorId = products.filter(product => {
     const currentColorId = product.color?.reference?.id
@@ -36,27 +51,22 @@ export const getInseamOptions = (
     return colorId === currentColorId
   })
 
-  // Go through each products in the product group and find the unique inseams
-  const uniqueInseamOptions = productsByColorId.reduce((options: InseamOption[], product) => {
-    const currentInseam = product.inseam?.value
+  // create a new data shape that will return inseam options with more details
+  const inseamOptions = uniqueInseamOptions.reduce((newOptions: InseamOption[], option) => {
+    const currentProduct = getProductByInseam(option, productsByColorId)
+    const firstProductByInseam = getProductByInseam(option, products)
 
-    if (!currentInseam) return options
-
-    const parsedCurrentInseam: Inseam = JSON.parse(currentInseam)
-    const isInseamExists = options.some(option => option.value === parsedCurrentInseam.value)
-
-    if (isInseamExists) return options
-
-    const data: InseamOption = {
-      ...parsedCurrentInseam,
-      selected: parsedCurrentInseam.value === inseam.value,
-      handle: product.handle,
+    const data = {
+      ...option,
+      exists: Boolean(currentProduct),
+      selected: option.value === inseam.value,
+      handle: currentProduct?.handle ?? firstProductByInseam?.handle,
     }
 
-    return [...options, data]
+    return [...newOptions, data]
   }, [])
 
-  const sortedInseamOptions = uniqueInseamOptions.sort((a, z) => {
+  const sortedInseamOptions = inseamOptions.sort((a, z) => {
     return a.value - z.value
   })
 
@@ -70,8 +80,39 @@ export const getColorOptions = (
 ) => {
   if (!colorId || !inseam || !products) return null
 
+  // Sort products by inseam value, this is for the functionality below:
+  // If the user clicks on a color that doesn't exist with current inseam, it will redirect to the next ascending inseam value
+  const sortedProducts = products.sort((a, z) => {
+    const parsedInseamA = JSON.parse(a.inseam?.value ?? '0')
+    const parsedInseamZ = JSON.parse(z.inseam?.value ?? '1')
+
+    return parsedInseamA.value - parsedInseamZ.value
+  })
+
+  // Go through each products in the product group and find the unique color options
+  const uniqueColorOptions = sortedProducts.reduce(
+    (options: Array<ColorFragment & { group: string | null }>, product) => {
+      const flattenedColor = product.color?.reference
+      const colorGroup = product.colorGroup?.reference?.name?.value
+
+      if (!flattenedColor) return options
+
+      const isColorExists = options.some(option => option.id === flattenedColor.id)
+
+      if (isColorExists) return options
+
+      const data = {
+        ...flattenedColor,
+        group: colorGroup ?? null,
+      }
+
+      return [...options, data]
+    },
+    [],
+  )
+
   // filter products based on selected inseam
-  const productsByInseam = products.filter(product => {
+  const productsByInseam = sortedProducts.filter(product => {
     const currentInseam: Inseam | null = JSON.parse(product.inseam?.value ?? 'null')
 
     if (!currentInseam) return false
@@ -79,44 +120,43 @@ export const getColorOptions = (
     return inseam.value === currentInseam.value
   })
 
-  // Go through each products by current inseam in the product group and find the unique colors
-  const uniqueColorOptions = productsByInseam.reduce((options: any[], product) => {
-    const currentColor = product.color?.reference
-
-    if (!currentColor) return options
+  // create a new data shape that will return inseam options with more details
+  const colorOptions = uniqueColorOptions.reduce((newOptions: ColorOption[], option) => {
+    const { id, group } = option
+    const currentProduct = getProductByColorId(id, productsByInseam)
+    const firstProductByColor = getProductByColorId(id, sortedProducts)
 
     const flattenedColorFields = flattenMetaobjectFields(
-      currentColor.fields as MetaobjectField[],
+      option.fields as MetaobjectField[],
     ) as ColorFields
 
     const { family, image: colorImage, color: hexColor, storefront_name } = flattenedColorFields
-    const currentColorName = storefront_name.value
+    const { variants, options } = currentProduct ?? {}
+    const hasVariantsAndOptions = variants && options
 
-    const isColorExists = options.some(option => option.name === currentColorName)
-
-    if (isColorExists) return options
-
-    const currentColorId = currentColor.id
     const flattenedFamilyFields = family.reference?.fields
     const familyValue = flattenedFamilyFields?.find(field => field.key === 'storefront_name')?.value
     const flattenedImage = colorImage.reference?.image
-    const colorGroup = product.colorGroup?.reference?.name?.value ?? null
 
     const data = {
-      id: currentColorId,
-      name: currentColorName,
+      id,
+      name: storefront_name.value,
+      exists: Boolean(currentProduct),
       color: hexColor?.value,
       image: flattenedImage,
       family: familyValue,
-      group: colorGroup,
-      handle: product.handle,
-      selected: colorId === currentColorId,
+      group,
+      handle: currentProduct?.handle ?? firstProductByColor?.handle,
+      selected: colorId === id,
+      sizeOptions: hasVariantsAndOptions
+        ? getSizeOptions(variants.nodes as ProductVariant[], options)
+        : null,
     }
 
-    return [...options, data]
+    return [...newOptions, data]
   }, [])
 
-  return uniqueColorOptions
+  return colorOptions
 }
 
 export const getColorOptionsByGroup = (colorOptions: ColorOption[] | null) => {
@@ -144,8 +184,10 @@ export const getColorOptionsByGroup = (colorOptions: ColorOption[] | null) => {
   return colorOptionsByGroup
 }
 
-export const getSizeOptions = (product: PpdProductQuery['product']) => {
-  const { variants, options } = product ?? {}
+export const getSizeOptions = (
+  variants: ProductVariant[],
+  options: Omit<ProductOption, 'id'>[],
+) => {
   // get all available sizes of current product
   const availableSizes = options?.find(option => option.name.toLowerCase() === 'size')?.values
 
@@ -154,7 +196,7 @@ export const getSizeOptions = (product: PpdProductQuery['product']) => {
   // create a new data shape the will return size options with more details
   const sizeOptions = PRODUCT_SIZES.reduce((options: SizeOption[], size) => {
     const isSizeExist = availableSizes.includes(size)
-    const currentVariant = variants.nodes.find(variant => {
+    const currentVariant = variants.find(variant => {
       const currentVariantSize = variant.selectedOptions.find(
         option => option.name.toLowerCase() === 'size',
       )?.value
@@ -234,4 +276,41 @@ export const getDisplayPrices = (
   })()
 
   return { price, compareAtPrice }
+}
+
+export const getProductByInseam = (inseam: Inseam, products: ProductGroupProducts) => {
+  return products.find(product => {
+    const parsedInseam: Inseam = JSON.parse(product.inseam?.value ?? ' null')
+
+    return parsedInseam?.value === inseam.value
+  })
+}
+
+export const getProductByColorId = (colorId: string, products: ProductGroupProducts) => {
+  return products.find(product => {
+    const currentColorId = product.color?.reference?.id
+
+    return currentColorId === colorId
+  })
+}
+
+export const generateColorState = (state: Location['state'], colorOptions: ColorOption[]) => {
+  const selectedColorOption = colorOptions.find(option => option.selected)
+  if (state?.firstColor) {
+    return state
+  } else {
+    return { firstColor: selectedColorOption?.id }
+  }
+}
+
+export const moveInitialColorFirst = (state: Location['state']) => {
+  return (a: ColorOption, z: ColorOption) => {
+    if (state?.firstColor) {
+      if (a.id === state?.firstColor) return -1
+      return 1
+    } else {
+      if (a.selected) return -1
+      return 1
+    }
+  }
 }
