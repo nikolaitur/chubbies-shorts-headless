@@ -20,4 +20,10 @@
       color: $alert-warning-default;
     }
   }
+
+  @include media-query(md) {
+    &.mobile_only {
+      display: none;
+    }
+  }
 }

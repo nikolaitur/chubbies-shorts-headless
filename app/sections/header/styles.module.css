@@ -2,7 +2,7 @@
   background-color: rgb(255, 255, 255);
   border-bottom: 1px solid #D2D4D7;
   position: sticky;
-  z-index: 103;
+  z-index: 100;
 }
 
 .container {
@@ -76,7 +76,6 @@
   .searchDesktop {
     display: block;
     width: 100%;
-    min-width: 150px;
   }
   .logo {
     height: 40px;

@@ -6,8 +6,41 @@
   height: 100%;
 }
 
+.link {
+  white-space: nowrap;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  padding: $space-0 $space-3;
+  cursor: pointer;
+  @include body-bold-md;
+  position: relative;
+  z-index: 109;
+
+  &.hide_on_tablet {
+    display: none;
+  }
+}
+
 @include media-query(md) {
   .container {
     display: flex;
+  }
+
+  .link {
+    &.mobile_only {
+      display: none;
+    }
+  }
+}
+
+@include media-query(xl) {
+  .link {
+    padding: $space-0 $space-4-5;
+
+    &.hide_on_tablet {
+      display: flex;
+    }
   }
 }

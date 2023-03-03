@@ -6,5 +6,5 @@ export type DesktopNavProps = HTMLAttributes<HTMLElement> & {
   menu?: MenuFragment | null
   hoveredMenuTitle: string | null
   setHoveredMenuTitle: Dispatch<SetStateAction<string | null>>
-  navImages?: (NavCollectionFragment | null)[] | null
+  navImages?: (NavCollectionFragment | null | undefined)[] | null | undefined
 }
