@@ -69,11 +69,11 @@ const PromoBar = (
       }
     }
 
-    setTimeout(() => handleSetHeight(), 1000)
+    const resizeObserver = new ResizeObserver(handleSetHeight)
 
-    window.addEventListener('resize', handleSetHeight)
+    resizeObserver.observe(document.body)
 
-    return () => window.removeEventListener('resize', handleSetHeight)
+    return () => resizeObserver.unobserve(document.body)
   }, [announcementHeight])
 
   return (

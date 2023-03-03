@@ -16,16 +16,16 @@ const DesktopMegaLink = ({
   item: MenuItemFragment
   handleHover: Dispatch<SetStateAction<string | null>>
   isHovered: boolean
-  navImages?: (NavCollectionFragment | null | undefined)[] | null | undefined
+  navImages?: (NavCollectionFragment | null)[] | null
 }) => {
-  const { title, items } = item
+  const { title, items, url } = item
   const visualTitle = title?.split(' | #')[0]
   const visualClassName = title?.split(' | #')[1]
 
-  return (
+  return items?.length ? (
     <div
       key={title}
-      className={clsx(styles.navItem, styles[visualClassName], {
+      className={clsx(styles.navItem, styles.link, styles[visualClassName], {
         [styles.featured]: title === 'Featured',
       })}
       onMouseLeave={() => handleHover(null)}
@@ -67,6 +67,13 @@ const DesktopMegaLink = ({
         })}
       </div>
     </div>
+  ) : (
+    <InternalLink
+      to={url}
+      className={clsx(styles.navItem, styles.simpleLink, styles[visualClassName])}
+    >
+      {visualTitle}
+    </InternalLink>
   )
 }
 

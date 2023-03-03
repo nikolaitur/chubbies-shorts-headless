@@ -21,8 +21,3 @@
 .menuItem.featured span {
   color: #9D6005;
 }
-@media screen and (min-width: 769px) {
-  .menuItem.mobile_only {
-    display: none;
-  }
-}

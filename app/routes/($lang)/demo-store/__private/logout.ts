@@ -11,6 +11,7 @@ export async function doLogout(context: AppLoadContext) {
   session.unset('customerAccessToken')
 
   // The only file where I have to explicitly type cast i18n to pass typecheck
+  // @ts-expect-error @shopify/remix-oxygen type problem
   return redirect(`${context.storefront.i18n.pathPrefix}/account/login`, {
     headers: {
       'Set-Cookie': await session.commit(),
@@ -19,6 +20,7 @@ export async function doLogout(context: AppLoadContext) {
 }
 
 export async function loader({ context }: LoaderArgs) {
+  // @ts-expect-error @shopify/remix-oxygen type problem
   return redirect(context.storefront.i18n.pathPrefix)
 }
 
