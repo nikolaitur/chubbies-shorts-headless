@@ -1,7 +1,7 @@
-import { Link } from '@remix-run/react'
 import clsx from 'clsx'
 
 import DesktopMegaLink from '~/sections/header/desktop-mega-link'
+import InternalLink from '~/components/internal-link'
 
 import { DesktopNavProps } from './types'
 
@@ -28,9 +28,13 @@ const DesktopNav = ({
           item={item}
         />
       ) : (
-        <Link to={url} key={item.title} className={clsx(styles.link, styles[visualClassName])}>
+        <InternalLink
+          to={url}
+          key={item.title}
+          className={clsx(styles.link, styles[visualClassName])}
+        >
           {visualTitle}
-        </Link>
+        </InternalLink>
       )
     })}
   </div>

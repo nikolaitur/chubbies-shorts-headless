@@ -1,7 +1,8 @@
 import { forwardRef, Ref } from 'react'
-import { Link } from '@remix-run/react'
 
 import LocaleSelector from '../locale-selector'
+import InternalLink from '~/components/internal-link'
+
 import { RightMenuProps } from './types'
 
 import styles from './styles.module.css'
@@ -17,9 +18,9 @@ const RightMenu = ({ data }: RightMenuProps, ref: Ref<HTMLDivElement>) => (
         if (!url) return null
 
         return (
-          <Link key={`nav-link-${idx + 1}`} to={url} title={title}>
+          <InternalLink key={`nav-link-${idx + 1}`} to={url} title={title}>
             {title}
-          </Link>
+          </InternalLink>
         )
       })}
     </div>

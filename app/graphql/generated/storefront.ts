@@ -6954,7 +6954,7 @@ export type CollectionNavImagesVariables = Exact<{
 }>
 
 export type CollectionNavImages = {
-  nodes: NavCollectionFragment[] | null | undefined
+  nodes?: NavCollectionFragment[] | null
 }
 
 export type NavCollectionFragment = {

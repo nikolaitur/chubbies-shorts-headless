@@ -13,7 +13,7 @@ const MobileNav = ({
   menu?: MenuFragment | null
   isNavOpen: boolean
   closeNav: () => void
-  navImages?: (NavCollectionFragment | null | undefined)[] | null | undefined
+  navImages?: (NavCollectionFragment | null)[] | null
 }) => {
   const [openedSubMenu, setOpenedSubMenu] = useState<string | null>(null)
 

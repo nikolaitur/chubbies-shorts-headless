@@ -1,8 +1,9 @@
-import { Link } from '@remix-run/react'
 import { Image } from '@shopify/storefront-kit-react'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction } from 'react'
 import { MenuItemFragment, NavCollectionFragment } from '~/graphql/generated'
+
+import InternalLink from '~/components/internal-link'
 
 import styles from './styles.module.css'
 
@@ -46,18 +47,18 @@ const DesktopMegaLink = ({
                   draggable="false"
                 />
               )}
-              <Link
-                to={subItem.url || ''}
+              <InternalLink
+                to={subItem.url}
                 className={clsx(styles.subItemTitle, styles.subItemLink)}
               >
                 {subItem.title}
-              </Link>
+              </InternalLink>
               <div className={styles.megaList}>
                 {subItem.items.map(link => {
                   return (
-                    <Link className={styles.subItemLink} key={link.title} to={link.url || ''}>
+                    <InternalLink className={styles.subItemLink} key={link.title} to={link.url}>
                       {link.title}
-                    </Link>
+                    </InternalLink>
                   )
                 })}
               </div>

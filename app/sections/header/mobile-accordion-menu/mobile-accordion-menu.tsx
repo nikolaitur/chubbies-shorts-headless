@@ -1,4 +1,3 @@
-import { Link } from '@remix-run/react'
 import { Image } from '@shopify/hydrogen'
 import Accordion, {
   AccordionButton,
@@ -8,6 +7,7 @@ import Accordion, {
 import clsx from 'clsx'
 
 import { MenuItemFragment, NavCollectionFragment } from '~/graphql/generated'
+import InternalLink from '~/components/internal-link'
 
 import styles from './styles.module.css'
 
@@ -16,7 +16,7 @@ const MobileAccordionMenu = ({
   navImages,
 }: {
   item?: MenuItemFragment | null
-  navImages?: (NavCollectionFragment | null | undefined)[] | null | undefined
+  navImages?: (NavCollectionFragment | null)[] | null
 }) => {
   if (!item) return null
 
@@ -38,7 +38,7 @@ const MobileAccordionMenu = ({
                   <div className={styles.accordionTitle}>
                     {media?.url && (
                       <Image
-                        data={{ altText: media?.altText, url: media.url }}
+                        data={media}
                         className={styles.media}
                         width="100"
                         height="100"
@@ -52,9 +52,9 @@ const MobileAccordionMenu = ({
                   <div className={styles.accordionContent}>
                     {accordionItem?.items?.map(({ url, title }) => {
                       return url ? (
-                        <Link className={styles.menuItem} to={url}>
+                        <InternalLink className={styles.menuItem} to={url}>
                           {title}
-                        </Link>
+                        </InternalLink>
                       ) : (
                         <div className={styles.menuItem}>{title}</div>
                       )

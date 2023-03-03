@@ -1,8 +1,10 @@
-import { Link } from '@remix-run/react'
 import clsx from 'clsx'
 import { MenuFragment } from '~/graphql/generated'
+
 import FooterResources from '~/sections/footer/footer-resources'
 import FooterSocialLinks from '~/sections/footer/footer-social-links'
+import InternalLink from '~/components/internal-link'
+
 import styles from './styles.module.css'
 
 const FooterNav = ({ navigation }: { navigation?: MenuFragment | null }) => (
@@ -20,9 +22,9 @@ const FooterNav = ({ navigation }: { navigation?: MenuFragment | null }) => (
           <div className={styles.links}>
             {navItem.items.map(link =>
               link.url ? (
-                <Link className={styles.link} key={link.title} to={link.url}>
+                <InternalLink className={styles.link} key={link.title} to={link.url}>
                   {link.title}
-                </Link>
+                </InternalLink>
               ) : null,
             )}
           </div>

@@ -1,9 +1,11 @@
-import { Link } from '@remix-run/react'
 import { CaretRightIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import clsx from 'clsx'
 
-import styles from './styles.module.css'
+import InternalLink from '~/components/internal-link'
+
 import { MobileMenuTypes } from './types'
+
+import styles from './styles.module.css'
 
 const MobileMenu = ({ item, onOpen }: MobileMenuTypes) => {
   const { title, url } = item || {}
@@ -28,9 +30,9 @@ const MobileMenu = ({ item, onOpen }: MobileMenuTypes) => {
     )
   } else {
     return (
-      <Link className={clsx(styles.menuItem, styles[visualClassName])} to={url || ''}>
+      <InternalLink className={clsx(styles.menuItem, styles[visualClassName])} to={url}>
         {visualTitle}
-      </Link>
+      </InternalLink>
     )
   }
 }

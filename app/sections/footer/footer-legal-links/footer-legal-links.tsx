@@ -1,5 +1,7 @@
-import { Link } from '@remix-run/react'
 import { MenuFragment } from '~/graphql/generated'
+
+import InternalLink from '~/components/internal-link'
+
 import styles from './styles.module.css'
 
 const FooterLegalLinks = ({ legalLinks }: { legalLinks?: MenuFragment | null }) => {
@@ -9,9 +11,9 @@ const FooterLegalLinks = ({ legalLinks }: { legalLinks?: MenuFragment | null }) 
       <div className={styles.links}>
         {legalLinks?.items?.map(({ url, title }) =>
           url ? (
-            <Link key={title} to={url}>
+            <InternalLink key={title} to={url}>
               {title}
-            </Link>
+            </InternalLink>
           ) : null,
         )}
       </div>
