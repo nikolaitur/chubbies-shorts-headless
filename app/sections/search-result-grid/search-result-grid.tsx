@@ -1,11 +1,10 @@
+import Button from '@solo-brands/ui-library.ui.atomic.button'
+import { ChevronDownIcon, FilterIcon } from '@solo-brands/ui-library.ui.atomic.icon'
+import CollectionFilters from '~/components/collection-filters'
+import CollectionPageTitle from '~/components/collection-page-title'
 import Container from '~/components/container'
 import Section from '~/components/section'
 import styles from './styles.module.css'
-import Button from '@solo-brands/ui-library.ui.atomic.button'
-import { FilterIcon, ChevronDownIcon } from '@solo-brands/ui-library.ui.atomic.icon'
-import CollectionPageTitle from '~/components/collection-page-title'
-import CollectionFilters from '~/components/collection-filters'
-import ProductCard from '~/components/product-card'
 
 const SearchResultGrid = () => {
   const title = 'sample'
@@ -34,8 +33,8 @@ const SearchResultGrid = () => {
               </div>
             </div>
             <div className={styles.productsGrid}>
-              <ProductCard />
-              <ProductCard />
+              {/*<ProductCard />
+              <ProductCard />*/}
             </div>
           </div>
         </div>

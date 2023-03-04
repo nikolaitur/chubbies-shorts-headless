@@ -8,10 +8,11 @@ import CollectionPageTitle from '~/components/collection-page-title'
 import Container from '~/components/container'
 import ProductCard from '~/components/product-card'
 import Section from '~/components/section'
+import { ProductCardQuery } from '~/graphql/generated'
 import CollectionBanner from './collection-banner'
 import styles from './styles.module.css'
 
-const CollectionGrid = () => {
+const CollectionGrid = ({ products }: { products?: ProductCardQuery['nodes'] | null }) => {
   const [isOpen, setIsOpen] = useState(false)
   const options = [
     {
@@ -77,8 +78,9 @@ const CollectionGrid = () => {
               </div>
             </div>
             <div className={styles.productsGrid}>
-              <ProductCard />
-              <ProductCard />
+              {products?.map(product => (
+                <ProductCard key={product?.id} product={product} />
+              ))}
             </div>
           </div>
         </div>

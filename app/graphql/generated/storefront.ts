@@ -6954,14 +6954,29 @@ export type CollectionNavImagesVariables = Exact<{
 }>
 
 export type CollectionNavImages = {
-  nodes?: NavCollectionFragment[] | null
+  nodes: Array<{
+    id: string
+    navigation_image?: {
+      reference?: {
+        id: string
+        image?: {
+          altText?: string | null
+          height?: number | null
+          id?: string | null
+          originalSrc: any
+          url: any
+          width?: number | null
+        } | null
+      } | null
+    } | null
+  } | null>
 }
 
 export type NavCollectionFragment = {
   id: string
   navigation_image?: {
     reference?: {
-      id?: string
+      id: string
       image?: {
         altText?: string | null
         height?: number | null
@@ -7574,17 +7589,46 @@ export type PpdProductGroupQuery = {
   } | null
 }
 
-export type ProductCardsVariables = Exact<{
+export type ProductCardQueryVariables = Exact<{
   productIds: Array<Scalars['ID']> | Scalars['ID']
 }>
 
-export type ProductCards = {
+export type ProductCardQuery = {
   nodes: Array<{
     id: string
+    title: string
+    handle: string
     product_group?: { value: string } | null
     inseam_length?: { value: string } | null
     swatch?: { value: string } | null
+    display_name?: { value: string } | null
+    variants: { nodes: Array<{ selectedOptions: Array<{ name: string; value: string }> }> }
+    featuredImage?: {
+      id?: string | null
+      width?: number | null
+      height?: number | null
+      url: any
+      altText?: string | null
+    } | null
   } | null>
+}
+
+export type ProductCardFragment = {
+  id: string
+  title: string
+  handle: string
+  product_group?: { value: string } | null
+  inseam_length?: { value: string } | null
+  swatch?: { value: string } | null
+  display_name?: { value: string } | null
+  variants: { nodes: Array<{ selectedOptions: Array<{ name: string; value: string }> }> }
+  featuredImage?: {
+    id?: string | null
+    width?: number | null
+    height?: number | null
+    url: any
+    altText?: string | null
+  } | null
 }
 
 export type ProductGroupsVariables = Exact<{

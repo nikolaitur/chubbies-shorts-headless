@@ -70,9 +70,20 @@ export type SearchspringResponse = {
 }
 
 export type SearchSpringProduct = {
+  brand: string
+  id: string
+  imageUrl: string
+  intellisuggestData: string
+  intellisuggestSignature: string
+  name: string
+  price: string
+  product_type_unigram: string
+  sku: string
+  thumbnailImageUrl: string
   uid: string
   ss_product_group?: string
   ss_swatch?: string
   ss_inseam_length?: number
   ss_product_id?: string
+  url: string
 }

@@ -1,28 +1,34 @@
 import { useLoaderData } from '@remix-run/react'
 import { defer, LoaderArgs } from '@shopify/remix-oxygen'
 import { ClientOnly } from 'remix-utils'
-import mockSearchspringResponse from '~/data/search-spring/collection/proposed'
 import { SearchspringResponse } from '~/global-types/searchspring'
-import { ProductCards } from '~/graphql/generated'
+import { ProductCardQuery } from '~/graphql/generated'
 import { PRODUCT_CARDS_QUERY } from '~/graphql/storefront/products/queries/productCards'
 import { fetchProductGroupData } from '~/helpers'
 import {
   extractProductIds,
+  fetchSearchspringResults,
   gatherUniqueProductGroupIds,
   removeRedundantProducts,
 } from '~/helpers/searchspring'
 import CollectionGrid from '~/sections/collection-grid'
 
-export async function loader({ params, context: { storefront } }: LoaderArgs) {
+export async function loader({ params, request, context: { storefront } }: LoaderArgs) {
   /*
   Fetch the collection products from searchspring
   We need some changes to the Searchspring index based on our new product data structure
-  
-  TODO: Replace with a Searchspring API call when Chubbies index is updated
+
   TODO: Investigate caching results from Searchspring
-  TODO: Consume query params to control filtering and sorting
+  TODO: Add Searchspring cookie creation 
+  TODO: Pass buyer IP to HTTP_X_FORWARDED_FOR header
   */
-  const { results }: SearchspringResponse = mockSearchspringResponse
+  const url = new URL(request.url)
+  const { searchParams } = url
+  const { collectionHandle } = params
+  const { results }: SearchspringResponse = await fetchSearchspringResults({
+    searchParams,
+    collectionHandle,
+  })
   //Any product that appears after the first occurance of a product with the same ProductGroup and Swatch is removed.
   const filteredResults = removeRedundantProducts(results)
   //Extract IDs for each unique product group that appears in the Searchspring result set
@@ -31,7 +37,7 @@ export async function loader({ params, context: { storefront } }: LoaderArgs) {
   const productIds = extractProductIds(filteredResults)
   //Fetch the product data necessary to render product cards
   //TODO: Deal with pagination to only fetch what is rendered
-  const products = storefront.query<ProductCards>(PRODUCT_CARDS_QUERY, {
+  const products = storefront.query<ProductCardQuery>(PRODUCT_CARDS_QUERY, {
     variables: {
       productIds,
     },
@@ -70,7 +76,8 @@ const CollectionPage = () => {
     <>
       {/* Temporarily add <ClientOnly> */}
       {/* TODO - Investigate issue with CollectionGrid breaking pdp styles */}
-      <ClientOnly>{() => <CollectionGrid />}</ClientOnly>
+      {/* @ts-expect-error gotta fix dis */}
+      <ClientOnly>{() => <CollectionGrid products={products.nodes} />}</ClientOnly>
     </>
   )
 }
