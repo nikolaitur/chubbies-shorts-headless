@@ -8,8 +8,9 @@ import {
 } from '@solo-brands/ui-library.ui.atomic.icon'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
-import Link from '~/components/link'
+import { Image } from '@shopify/hydrogen'
 
+import Link from '~/components/link'
 import Backdrop from '~/components/backdrop/backdrop'
 import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
 import Logo from '~/components/logo'
@@ -23,7 +24,7 @@ import { HeaderNavigationProps } from './types'
 
 import styles from './styles.module.css'
 
-const Header = ({ menu, navImages }: HeaderNavigationProps) => {
+const Header = ({ menu, navImages, brandLogo }: HeaderNavigationProps) => {
   const { isCartOpen } = useCartState()
   const { setIsCartOpen } = useCartActions()
 
@@ -73,9 +74,11 @@ const Header = ({ menu, navImages }: HeaderNavigationProps) => {
               />
             </div>
             {/*LOGO*/}
-            <Link to="/" className={styles.logoLink}>
-              <Logo className={styles.logo} />
-            </Link>
+            {brandLogo?.url && (
+              <Link to="/" className={styles.logoLink}>
+                <Image data={brandLogo} className={styles.logo} draggable="false" />
+              </Link>
+            )}
             {/*Desktop Navigation*/}
             <DesktopNav
               hoveredMenuTitle={hoveredMenuTitle}

@@ -7014,6 +7014,11 @@ export type GlobalSettings = {
     footerMenuHandle?: { value?: string | null } | null
     legalLinksMenuHandle?: { value?: string | null } | null
     headerNavMenuHandle?: { value?: string | null } | null
+    brandLogo?: {
+      reference?: {
+        image?: Image
+      } | null
+    } | null
   } | null
 }
 

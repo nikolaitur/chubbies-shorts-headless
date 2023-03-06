@@ -32,7 +32,9 @@ export async function loader({ context }: LoaderArgs) {
     footerMenuHandle,
     legalLinksMenuHandle,
     headerNavMenuHandle,
+    brandLogo,
   } = globalSettings || {}
+
   const { promoBarMenu, footerMenu, legalLinksMenu, headerNavMenu } =
     await storefront.query<MainFrameMenus>(MainFrameMenusQuery, {
       variables: {
@@ -43,6 +45,7 @@ export async function loader({ context }: LoaderArgs) {
       },
       cache: mainFrameCacheStrategy,
     })
+
   const navCollectionIds = headerNavMenu?.items?.reduce<string[]>((acc, item) => {
     item?.items?.forEach(innerItem => {
       if (innerItem.resourceId?.includes('/Collection/')) {
@@ -65,6 +68,7 @@ export async function loader({ context }: LoaderArgs) {
     footerMenu,
     legalLinksMenu,
     navCollectionImages,
+    brandLogo,
   })
 }
 
@@ -76,13 +80,19 @@ export default function MainFrame() {
     legalLinksMenu,
     promoBarAnnouncements,
     navCollectionImages,
+    brandLogo,
   } = useLoaderData<typeof loader>()
 
   return (
     <CartProvider>
       <PromoBar announcements={promoBarAnnouncements?.references?.nodes} menuLinks={promoBarMenu} />
-      {/*/@ts-expect-error Incorrect type from useLoaderData*/}
-      <Header menu={headerNavMenu} navImages={navCollectionImages?.nodes} />
+      <Header
+        menu={headerNavMenu}
+        //@ts-expect-error Incorrect type from useLoaderData
+        brandLogo={brandLogo?.reference?.image}
+        //@ts-expect-error Incorrect type from useLoaderData
+        navImages={navCollectionImages?.nodes}
+      />
       <Outlet />
       <Footer menu={footerMenu} legalLinks={legalLinksMenu} />
       <CartSlider />

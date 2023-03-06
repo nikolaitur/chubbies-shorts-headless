@@ -49,6 +49,7 @@
 
 .logo {
   height: 28px;
+  width: 94px;
 }
 
 .searchMobile {
@@ -80,6 +81,7 @@
   }
   .logo {
     height: 40px;
+    width: 135px;
   }
 }
 @media screen and (min-width: 1281px) {
