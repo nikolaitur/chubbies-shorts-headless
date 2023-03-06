@@ -57,11 +57,11 @@ export const meta: MetaFunction = data => ({
 })
 
 export async function loader({ context, request, params }: LoaderArgs) {
-  const { storefront } = context
+  const { storefront, session, env } = context
 
-  const cartId = await context.session.get('cartId')
+  const cartId = await session.get('cartId')
 
-  const cart = cartId ? await getCart(context.storefront, cartId) : undefined
+  const cart = cartId ? await getCart(storefront, cartId) : undefined
 
   //Placeholder for customer info
   const customer = {}
@@ -69,7 +69,7 @@ export async function loader({ context, request, params }: LoaderArgs) {
 
   const destination = request.headers.get('sec-fetch-dest')
   /* Generate Nosto Session  */
-  const nostoAPIKey = context.env.NOSTO_API_APPS_TOKEN
+  const nostoAPIKey = env.NOSTO_API_APPS_TOKEN
   const nostoSessionID = await getNostoSessionID(request, nostoAPIKey)
   headers.push(createNostoCookie(nostoSessionID))
 
@@ -83,6 +83,7 @@ export async function loader({ context, request, params }: LoaderArgs) {
     {
       cart,
       nosto: recommendedProducts,
+      selectedLocale: storefront.i18n,
     },
     {
       headers: new Headers(headers),

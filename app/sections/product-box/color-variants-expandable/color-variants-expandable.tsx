@@ -1,6 +1,7 @@
-import { Link, useLocation } from '@remix-run/react'
+import { useLocation, useMatches } from '@remix-run/react'
 import clsx from 'clsx'
 import { useState } from 'react'
+import Link from '~/components/link'
 import { generateColorState } from '~/helpers'
 import ProductBoxSwatchSelector from '../product-box-swatch-selector'
 import styles from './styles.module.css'

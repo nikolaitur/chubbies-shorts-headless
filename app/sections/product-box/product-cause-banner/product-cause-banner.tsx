@@ -1,6 +1,6 @@
-import { Link } from '@remix-run/react'
 import { Image } from '@shopify/hydrogen'
 import { CSSProperties } from 'react'
+import Link from '~/components/link'
 import RichText from '~/components/rich-text'
 import { MetaobjectField } from '~/graphql/generated'
 import { flattenMetaobjectFields } from '~/helpers'

@@ -1,5 +1,5 @@
-import { Link } from '@remix-run/react'
 import Button from '@solo-brands/ui-library.ui.atomic.button'
+import Link from '~/components/link'
 import styles from './styles.module.css'
 
 const CartSliderEmptyMessage = () => (

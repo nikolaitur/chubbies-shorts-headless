@@ -6,8 +6,8 @@ import Accordion, {
 } from '@solo-brands/ui-library.ui.atomic.accordion'
 import clsx from 'clsx'
 
+import Link from '~/components/link'
 import { MenuItemFragment, NavCollectionFragment } from '~/graphql/generated'
-import InternalLink from '~/components/internal-link'
 
 import styles from './styles.module.css'
 
@@ -52,9 +52,9 @@ const MobileAccordionMenu = ({
                   <div className={styles.accordionContent}>
                     {accordionItem?.items?.map(({ url, title }) => {
                       return url ? (
-                        <InternalLink className={styles.menuItem} to={url}>
+                        <Link className={styles.menuItem} to={url}>
                           {title}
-                        </InternalLink>
+                        </Link>
                       ) : (
                         <div className={styles.menuItem}>{title}</div>
                       )

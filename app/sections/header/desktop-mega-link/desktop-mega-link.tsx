@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { Dispatch, SetStateAction } from 'react'
 import { MenuItemFragment, NavCollectionFragment } from '~/graphql/generated'
 
-import InternalLink from '~/components/internal-link'
+import Link from '~/components/link'
 
 import styles from './styles.module.css'
 
@@ -47,18 +47,15 @@ const DesktopMegaLink = ({
                   draggable="false"
                 />
               )}
-              <InternalLink
-                to={subItem.url}
-                className={clsx(styles.subItemTitle, styles.subItemLink)}
-              >
+              <Link to={subItem.url} className={clsx(styles.subItemTitle, styles.subItemLink)}>
                 {subItem.title}
-              </InternalLink>
+              </Link>
               <div className={styles.megaList}>
                 {subItem.items.map(link => {
                   return (
-                    <InternalLink className={styles.subItemLink} key={link.title} to={link.url}>
+                    <Link className={styles.subItemLink} key={link.title} to={link.url}>
                       {link.title}
-                    </InternalLink>
+                    </Link>
                   )
                 })}
               </div>
@@ -68,12 +65,9 @@ const DesktopMegaLink = ({
       </div>
     </div>
   ) : (
-    <InternalLink
-      to={url}
-      className={clsx(styles.navItem, styles.simpleLink, styles[visualClassName])}
-    >
+    <Link to={url} className={clsx(styles.navItem, styles.simpleLink, styles[visualClassName])}>
       {visualTitle}
-    </InternalLink>
+    </Link>
   )
 }
 

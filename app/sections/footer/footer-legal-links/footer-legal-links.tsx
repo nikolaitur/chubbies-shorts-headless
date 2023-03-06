@@ -1,6 +1,6 @@
 import { MenuFragment } from '~/graphql/generated'
 
-import InternalLink from '~/components/internal-link'
+import Link from '~/components/link'
 
 import styles from './styles.module.css'
 
@@ -11,9 +11,9 @@ const FooterLegalLinks = ({ legalLinks }: { legalLinks?: MenuFragment | null }) 
       <div className={styles.links}>
         {legalLinks?.items?.map(({ url, title }) =>
           url ? (
-            <InternalLink key={title} to={url}>
+            <Link key={title} to={url}>
               {title}
-            </InternalLink>
+            </Link>
           ) : null,
         )}
       </div>

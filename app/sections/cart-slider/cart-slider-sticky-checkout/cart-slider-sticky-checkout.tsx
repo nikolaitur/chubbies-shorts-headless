@@ -1,8 +1,8 @@
-import { Link } from '@remix-run/react'
 import { Cart } from '@shopify/hydrogen/storefront-api-types'
 import ButtonCheckout from '@solo-brands/ui-library.ui.atomic.button-checkout'
 import Price from '@solo-brands/ui-library.ui.atomic.price'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
+import Link from '~/components/link'
 import { getCartCompareAtPrice, getComputedAmount } from '~/helpers'
 import styles from './styles.module.css'
 

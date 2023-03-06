@@ -1,8 +1,8 @@
-import { Link } from '@remix-run/react'
 import Counter from '@solo-brands/ui-library.ui.atomic.counter'
 import clsx from 'clsx'
 import { CSSProperties, forwardRef, Ref } from 'react'
 import { ClientOnly } from 'remix-utils'
+import Link from '~/components/link'
 import { AnnouncementProps } from './types'
 
 import styles from './styles.module.css'

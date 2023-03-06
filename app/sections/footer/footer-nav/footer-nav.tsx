@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import { MenuFragment } from '~/graphql/generated'
 
+import InternalLink from '~/components/link'
 import FooterResources from '~/sections/footer/footer-resources'
 import FooterSocialLinks from '~/sections/footer/footer-social-links'
-import InternalLink from '~/components/internal-link'
 
 import styles from './styles.module.css'
 

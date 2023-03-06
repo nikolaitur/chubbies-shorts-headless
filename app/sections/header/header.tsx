@@ -1,4 +1,3 @@
-import { Link } from '@remix-run/react'
 import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon'
 import Container from '@solo-brands/ui-library.ui.atomic.container'
 import {
@@ -9,14 +8,15 @@ import {
 } from '@solo-brands/ui-library.ui.atomic.icon'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
+import Link from '~/components/link'
 
+import Backdrop from '~/components/backdrop/backdrop'
+import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
 import Logo from '~/components/logo'
+import CartModal from '~/sections/header/cart-modal/cart-modal'
 import DesktopNav from '~/sections/header/desktop-nav'
 import MobileNav from '~/sections/header/mobile-nav'
 import SearchBar from '~/sections/header/search-bar'
-import Backdrop from '~/components/backdrop/backdrop'
-import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
-import CartModal from '~/sections/header/cart-modal/cart-modal'
 
 import { MIN_ANNOUNCEMENT_HEIGHT } from '~/constants'
 import { HeaderNavigationProps } from './types'

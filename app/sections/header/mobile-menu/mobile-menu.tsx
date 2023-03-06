@@ -1,7 +1,7 @@
 import { CaretRightIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import clsx from 'clsx'
 
-import InternalLink from '~/components/internal-link'
+import Link from '~/components/link'
 
 import { MobileMenuTypes } from './types'
 
@@ -28,9 +28,9 @@ const MobileMenu = ({ item, onOpen }: MobileMenuTypes) => {
     )
   } else {
     return (
-      <InternalLink className={styles.menuItem} to={url}>
+      <Link className={styles.menuItem} to={url}>
         {visualTitle}
-      </InternalLink>
+      </Link>
     )
   }
 }

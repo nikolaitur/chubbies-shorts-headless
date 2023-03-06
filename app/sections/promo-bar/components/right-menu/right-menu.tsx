@@ -1,7 +1,7 @@
 import { forwardRef, Ref } from 'react'
 
+import Link from '~/components/link'
 import LocaleSelector from '../locale-selector'
-import InternalLink from '~/components/internal-link'
 
 import { RightMenuProps } from './types'
 
@@ -18,9 +18,9 @@ const RightMenu = ({ data }: RightMenuProps, ref: Ref<HTMLDivElement>) => (
         if (!url) return null
 
         return (
-          <InternalLink key={`nav-link-${idx + 1}`} to={url} title={title}>
+          <Link key={`nav-link-${idx + 1}`} to={url} title={title}>
             {title}
-          </InternalLink>
+          </Link>
         )
       })}
     </div>

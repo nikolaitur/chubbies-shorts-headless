@@ -1,4 +1,4 @@
-import { useFetcher, useSearchParams } from '@remix-run/react'
+import { useFetcher, useMatches, useSearchParams } from '@remix-run/react'
 import ButtonAddToCart from '@solo-brands/ui-library.ui.atomic.button-add-to-cart'
 import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
@@ -22,7 +22,9 @@ const ATCButton = ({ defaultVariant, selectedVariant, additionalLines = [] }: AT
   const [searchParams] = useSearchParams()
   const isATCActive = useRef(false)
   const atcButtonRef = useRef<HTMLButtonElement>(null)
+  const [root] = useMatches()
 
+  const selectedLocale = root?.data?.selectedLocale
   const { price, compareAtPrice } = getDisplayPrices(defaultVariant, selectedVariant)
 
   const isAdding = fetcher.state === 'loading' || fetcher.state === 'submitting'
@@ -88,6 +90,8 @@ const ATCButton = ({ defaultVariant, selectedVariant, additionalLines = [] }: AT
       <fetcher.Form action="/api/cart" method="post">
         <input type="hidden" name="cartAction" value={CartAction.ADD_TO_CART} />
         <input type="hidden" name="lines" value={JSON.stringify(lines)} />
+        <input type="hidden" name="countryCode" value={selectedLocale.country} />
+        {/* TODO: input for analytics data */}
 
         <ButtonAddToCart
           type={!shouldNotAddToCart ? 'submit' : 'button'}

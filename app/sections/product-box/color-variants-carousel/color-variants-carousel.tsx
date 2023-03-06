@@ -1,10 +1,11 @@
-import { Link, useLocation } from '@remix-run/react'
+import { useLocation } from '@remix-run/react'
 import Carousel, {
   CarouselSlide,
   useCarouselState,
 } from '@solo-brands/ui-library.ui.atomic.carousel'
 import clsx from 'clsx'
 import { useEffect } from 'react'
+import Link from '~/components/link'
 import { generateColorState } from '~/helpers'
 import ProductBoxSwatchSelector from '../product-box-swatch-selector'
 import styles from './styles.module.css'
