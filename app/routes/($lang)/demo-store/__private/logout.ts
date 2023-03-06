@@ -20,7 +20,6 @@ export async function doLogout(context: AppLoadContext) {
 
 export async function loader({ context }: LoaderArgs) {
   // @ts-expect-error - Hydrogen team to update i18n type
-  // @ts-expect-error @shopify/remix-oxygen type problem
   return redirect(context.storefront.i18n.pathPrefix)
 }
 

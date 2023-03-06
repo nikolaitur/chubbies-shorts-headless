@@ -2978,10 +2978,10 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.button-add-to-cart@^1.0.7":
-  version "1.0.7"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.button-add-to-cart/-/@solo-brands-ui-library.ui.atomic.button-add-to-cart-1.0.7.tgz#af7756080699cf26679322cd6291d996213a0f3e"
-  integrity sha1-r3dWCAaZzyZnkyLNYpHZliE6Dz4=
+"@solo-brands/ui-library.ui.atomic.button-add-to-cart@1.0.8":
+  version "1.0.8"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.button-add-to-cart/-/@solo-brands-ui-library.ui.atomic.button-add-to-cart-1.0.8.tgz#a507b240f6e9fe5f93f64d5ac28484834a333f87"
+  integrity sha1-pQeyQPbp/l+T9k1awoSEg0ozP4c=
   dependencies:
     "@shopify/hydrogen-react" "^2022.10.3"
     "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"

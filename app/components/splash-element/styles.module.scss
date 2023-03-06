@@ -1,0 +1,126 @@
+.wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 3px;
+  outline: 90px solid transparent;
+  pointer-events: none;
+  z-index: -1;
+
+  &.blastoff {
+    .splasher {
+      &.left {
+        animation: blastoff-left 0.64s cubic-bezier(1, -0.01, 0.61, 0.88) 0s;
+        background-color: #30b364;
+      }
+
+      &.right {
+        animation: blastoff-right 0.64s cubic-bezier(1, -0.01, 0.61, 0.88) 0s;
+        background-color: #30b364;
+      }
+    }
+
+    .splash {
+      animation: kaboom 0.64s ease 0.48s;
+    }
+  }
+}
+
+.splasher {
+  transition: all 0.2s ease-in-out;
+  background-color: #0069d7;
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  margin-top: -13px;
+  border-radius: 13px;
+
+  &.left {
+    left: 0;
+  }
+
+  &.right {
+    right: 0;
+  }
+}
+
+.splashes {
+  position: absolute;
+  top: 40%;
+  z-index: 3;
+
+  &.left {
+    left: -32px;
+  }
+
+  &.right {
+    right: -32px;
+  }
+}
+
+.splash {
+  display: block;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: green;
+  border-radius: 50%;
+  transition: all 0.34s ease 0.48s;
+  opacity: 0;
+}
+
+@keyframes blastoff-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  70% {
+    transform: translate3d(-12px, 0, 0) scale(1);
+    opacity: 1;
+  }
+  90% {
+    transform: translate3d(-32px, 0, 0) scale(0.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(-56px, 0, 0) scale(0.05);
+    opacity: 0;
+  }
+}
+
+@keyframes blastoff-right {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  70% {
+    transform: translate3d(12px, 0, 0) scale(1);
+    opacity: 1;
+  }
+  90% {
+    transform: translate3d(32px, 0, 0) scale(0.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(56px, 0, 0) scale(0.05);
+    opacity: 0;
+  }
+}
+
+@keyframes kaboom {
+  0% {
+    opacity: 0;
+  }
+
+  1% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
