@@ -1,4 +1,4 @@
-import { Link, useLocation, useMatches } from '@remix-run/react'
+import { Link, useLocation } from '@remix-run/react'
 import clsx from 'clsx'
 import { useState } from 'react'
 import { generateColorState } from '~/helpers'
@@ -9,17 +9,21 @@ import { ColorVariantsExpandableProps } from './types'
 const ColorVariantsExpandable = ({ colorOptions, size = 'md' }: ColorVariantsExpandableProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const location = useLocation()
-  const matches = useMatches()
 
   const columnCount = 7
-  const initialColorsToShow = colorOptions.slice(0, columnCount)
+  const shouldSliceColorOptions = colorOptions.length > columnCount
+  const slicedColorOptions = shouldSliceColorOptions ? colorOptions.slice(0, columnCount) : null
   const remainingColorsCount = colorOptions.length - columnCount
-  const colorsToShow = isExpanded ? colorOptions : initialColorsToShow
+  const colorsToShow = (() => {
+    if (!shouldSliceColorOptions || isExpanded) return colorOptions
+
+    return slicedColorOptions
+  })()
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.grid}>
-        {colorsToShow.map(({ handle, ...option }, index) => (
+        {colorsToShow?.map(({ handle, ...option }, index) => (
           <Link
             key={index}
             className={styles.link}
@@ -32,12 +36,14 @@ const ColorVariantsExpandable = ({ colorOptions, size = 'md' }: ColorVariantsExp
           </Link>
         ))}
       </div>
-      <button
-        className={clsx(styles.expandButton, styles[size])}
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
-        {isExpanded ? '-' : `+${remainingColorsCount}`}
-      </button>
+      {shouldSliceColorOptions && (
+        <button
+          className={clsx(styles.expandButton, styles[size])}
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          {isExpanded ? '-' : `+${remainingColorsCount}`}
+        </button>
+      )}
     </div>
   )
 }

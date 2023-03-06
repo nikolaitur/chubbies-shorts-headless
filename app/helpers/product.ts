@@ -224,20 +224,23 @@ export const getSizeTextDisplay = (size: string) => {
 export const fetchPdpProductData = async (
   storefront: Storefront,
   variables: Partial<Pick<PpdProductQueryVariables, 'handle' | 'selectedOptions'>>,
-): Promise<PpdProductQuery['product']> => {
-  const { product } = (await storefront.query(PDP_PRODUCT_QUERY, {
-    variables: {
-      country: storefront.i18n.country,
-      language: storefront.i18n.language,
-      ...variables,
+) => {
+  const { product }: { product: PpdProductQuery['product'] } = await storefront.query(
+    PDP_PRODUCT_QUERY,
+    {
+      variables: {
+        country: storefront.i18n.country,
+        language: storefront.i18n.language,
+        ...variables,
+      },
+      cache: storefront.CacheCustom({
+        sMaxAge: 1,
+        staleWhileRevalidate: 59,
+        maxAge: 59,
+        staleIfError: 600,
+      }),
     },
-    cache: storefront.CacheCustom({
-      sMaxAge: 1,
-      staleWhileRevalidate: 59,
-      maxAge: 59,
-      staleIfError: 600,
-    }),
-  })) as PpdProductQuery
+  )
 
   return product
 }
@@ -245,18 +248,21 @@ export const fetchPdpProductData = async (
 export const fetchProductGroupData = async (
   storefront: Storefront,
   variables: Partial<Pick<PpdProductGroupQueryVariables, 'productGroupId'>>,
-): Promise<PpdProductGroupQuery['collection']> => {
-  const { collection } = (await storefront.query(PDP_PRODUCT_GROUP_QUERY, {
-    variables: {
-      ...variables,
+) => {
+  const { collection }: { collection: PpdProductGroupQuery['collection'] } = await storefront.query(
+    PDP_PRODUCT_GROUP_QUERY,
+    {
+      variables: {
+        ...variables,
+      },
+      cache: storefront.CacheCustom({
+        sMaxAge: 1,
+        staleWhileRevalidate: 59,
+        maxAge: 59,
+        staleIfError: 600,
+      }),
     },
-    cache: storefront.CacheCustom({
-      sMaxAge: 1,
-      staleWhileRevalidate: 59,
-      maxAge: 59,
-      staleIfError: 600,
-    }),
-  })) as PpdProductGroupQuery
+  )
 
   return collection
 }

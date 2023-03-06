@@ -2,3 +2,18 @@
   display: grid;
   gap: 32px;
 }
+
+@media screen and (min-width: 769px) {
+  .mobileColorVariants {
+    display: none;
+  }
+}
+
+.desktopColorVariants {
+  display: none;
+}
+@media screen and (min-width: 769px) {
+  .desktopColorVariants {
+    display: grid;
+  }
+}

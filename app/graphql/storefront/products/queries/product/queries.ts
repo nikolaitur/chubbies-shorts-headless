@@ -51,6 +51,12 @@ export const PDP_PRODUCT_QUERY = /* gql */ `#graphql
           ... on Collection {
             title
             description
+            productTitle: metafield(namespace: "custom", key: "product_title") {
+              value
+            }
+            productGroupDescription: metafield(namespace: "custom", key: "product_group_description") {
+              value
+            }
           }
         }
       }

@@ -7,7 +7,8 @@ const ProductVariants = () => {
   return (
     <div className={styles.wrapper}>
       <InseamVariantsGroup />
-      <ColorVariantGroup />
+      <ColorVariantGroup className={styles.desktopColorVariants} variant="expandable" />
+      <ColorVariantGroup className={styles.mobileColorVariants} />
       <SizeVariantsGroup />
     </div>
   )

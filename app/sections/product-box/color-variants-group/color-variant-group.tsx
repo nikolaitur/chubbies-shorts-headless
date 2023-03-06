@@ -1,5 +1,6 @@
 import { useLocation, useMatches } from '@remix-run/react'
 import VariantInfo from '@solo-brands/ui-library.ui.atomic.variant-info'
+import clsx from 'clsx'
 import { PRODUCT_ROUTE_ID } from '~/constants'
 import { PdpRouteData } from '~/global-types'
 import { moveInitialColorFirst } from '~/helpers'
@@ -9,6 +10,7 @@ import styles from './styles.module.css'
 import { ColorGroupProps, ColorVariantsGroupProps } from './types'
 
 const ColorVariantsGroup = ({
+  className,
   size = 'xl',
   variant = 'inline',
   ...props
@@ -20,7 +22,7 @@ const ColorVariantsGroup = ({
   if (!colorOptionsByGroup) return null
 
   return (
-    <div className={styles.wrapper} {...props}>
+    <div className={clsx(styles.wrapper, className)} {...props}>
       {groups.map((group, index) => {
         const colorOptions = colorOptionsByGroup?.[group]
 
@@ -41,16 +43,17 @@ const ColorVariantsGroup = ({
 }
 
 const ColorGroup = ({ groupName, colorOptions, size, variant }: ColorGroupProps) => {
-  const selectedColorName = colorOptions.find(option => option.selected)?.name
   const { state } = useLocation()
-  colorOptions.sort(moveInitialColorFirst(state))
+  const selectedColorName = colorOptions.find(option => option.selected)?.name
+  const sortedColorOptions = colorOptions.sort(moveInitialColorFirst(state))
+
   return (
     <div className={styles.groupWrapper}>
       <VariantInfo size={'sm'} optionName={groupName} optionValue={selectedColorName ?? ''} />
       {variant !== 'expandable' ? (
-        <ColorVariantsCarousel colorOptions={colorOptions} size={size} variant={variant} />
+        <ColorVariantsCarousel colorOptions={sortedColorOptions} size={size} variant={variant} />
       ) : (
-        <ColorVariantsExpandable colorOptions={colorOptions} size={size} />
+        <ColorVariantsExpandable colorOptions={sortedColorOptions} size={size} />
       )}
     </div>
   )

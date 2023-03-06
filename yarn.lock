@@ -2978,14 +2978,14 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.button-add-to-cart@^1.0.6":
-  version "1.0.6"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.button-add-to-cart/-/@solo-brands-ui-library.ui.atomic.button-add-to-cart-1.0.6.tgz#90f48b130aeae0619e70a2343725c2aff5a2eda1"
-  integrity sha1-kPSLEwrq4GGecKI0NyXCr/Wi7aE=
+"@solo-brands/ui-library.ui.atomic.button-add-to-cart@^1.0.7":
+  version "1.0.7"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.button-add-to-cart/-/@solo-brands-ui-library.ui.atomic.button-add-to-cart-1.0.7.tgz#af7756080699cf26679322cd6291d996213a0f3e"
+  integrity sha1-r3dWCAaZzyZnkyLNYpHZliE6Dz4=
   dependencies:
     "@shopify/hydrogen-react" "^2022.10.3"
     "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
-    "@solo-brands/ui-library.ui.atomic.price" "1.0.4"
+    "@solo-brands/ui-library.ui.atomic.price" "1.0.5"
     "@solo-brands/ui-library.ui.atomic.spinner" "1.0.9"
     core-js "^3.0.0"
     styled-components "5.3.6"
@@ -3009,16 +3009,7 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.button-icon@1.0.9":
-  version "1.0.9"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.button-icon/-/@solo-brands-ui-library.ui.atomic.button-icon-1.0.9.tgz#e39c4fa2fe497e08dea0e69aa2e70aacd13bca22"
-  integrity sha1-45xPov5JfgjeoOaaoucKrNE7yiI=
-  dependencies:
-    "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
-    core-js "^3.0.0"
-    styled-components "5.3.6"
-
-"@solo-brands/ui-library.ui.atomic.button@1.0.10", "@solo-brands/ui-library.ui.atomic.button@^1.0.8":
+"@solo-brands/ui-library.ui.atomic.button@1.0.10":
   version "1.0.10"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.button/-/@solo-brands-ui-library.ui.atomic.button-1.0.10.tgz#497d16c52588e108edc8b5dbaa5cc66532f1ef64"
   integrity sha1-SX0WxSWI4QjtyLXbqlzGZTLx72Q=
@@ -3027,24 +3018,22 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.carousel@0.0.21":
-  version "0.0.21"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.carousel/-/@solo-brands-ui-library.ui.atomic.carousel-0.0.21.tgz#31d1e8ca620784ddd6f4092be86d74ed2582d49a"
-  integrity sha1-MdHoymIHhN3W9Akr6G107SWC1Jo=
+"@solo-brands/ui-library.ui.atomic.button@1.0.8":
+  version "1.0.8"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.button/-/@solo-brands-ui-library.ui.atomic.button-1.0.8.tgz#efd54bb478bb1abf36f1d5c54f5e445cf41e090d"
+  integrity sha1-79VLtHi7Gr828dXFT15EXPQeCQ0=
   dependencies:
-    "@solo-brands/ui-library.ui.atomic.button-icon" "1.0.10"
-    "@solo-brands/ui-library.ui.atomic.icon" "1.0.9"
-    "@solo-brands/ui-library.ui.atomic.slider-indicator" "1.0.4"
+    "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.carousel@^0.0.20":
-  version "0.0.20"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.carousel/-/@solo-brands-ui-library.ui.atomic.carousel-0.0.20.tgz#e0682ecbd62e86c37cf2641f9d772714db2c4fce"
-  integrity sha1-4Gguy9YuhsN88mQfnXcnFNssT84=
+"@solo-brands/ui-library.ui.atomic.carousel@0.0.22", "@solo-brands/ui-library.ui.atomic.carousel@^0.0.22":
+  version "0.0.22"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.carousel/-/@solo-brands-ui-library.ui.atomic.carousel-0.0.22.tgz#d5f4b0621f82331589a0743e38d39a1aba2f2f44"
+  integrity sha1-1fSwYh+CMxWJoHQ+ONOaGrovL0Q=
   dependencies:
-    "@solo-brands/ui-library.ui.atomic.button-icon" "1.0.9"
-    "@solo-brands/ui-library.ui.atomic.icon" "1.0.8"
+    "@solo-brands/ui-library.ui.atomic.button-icon" "1.0.10"
+    "@solo-brands/ui-library.ui.atomic.icon" "1.0.9"
     "@solo-brands/ui-library.ui.atomic.slider-indicator" "1.0.4"
     core-js "^3.0.0"
     styled-components "5.3.6"
@@ -3116,15 +3105,6 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.icon@1.0.8":
-  version "1.0.8"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.icon/-/@solo-brands-ui-library.ui.atomic.icon-1.0.8.tgz#b7a2a589c3fe8f8a4dba9356295aea98e3a94582"
-  integrity sha1-t6KlicP+j4pNupNWKVrqmOOpRYI=
-  dependencies:
-    "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
-    core-js "^3.0.0"
-    styled-components "5.3.6"
-
 "@solo-brands/ui-library.ui.atomic.icon@1.0.9", "@solo-brands/ui-library.ui.atomic.icon@^1.0.7":
   version "1.0.9"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.icon/-/@solo-brands-ui-library.ui.atomic.icon-1.0.9.tgz#a763238ad932a2324c3790c7c7e32ae8c67545be"
@@ -3181,10 +3161,20 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.price@1.0.4", "@solo-brands/ui-library.ui.atomic.price@^1.0.4":
+"@solo-brands/ui-library.ui.atomic.price@1.0.4":
   version "1.0.4"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.price/-/@solo-brands-ui-library.ui.atomic.price-1.0.4.tgz#7d8b979d79b08bdb5a6062b72c44ea86d3b78b76"
   integrity sha1-fYuXnXmwi9taYGK3LETqhtO3i3Y=
+  dependencies:
+    "@shopify/hydrogen-react" "^2022.10.3"
+    "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.atomic.price@1.0.5", "@solo-brands/ui-library.ui.atomic.price@^1.0.5":
+  version "1.0.5"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.price/-/@solo-brands-ui-library.ui.atomic.price-1.0.5.tgz#3f630f3b5dd68dd46afd60592d9d0018d021335a"
+  integrity sha1-P2MPO13WjdRq/WBZLZ0AGNAhM1o=
   dependencies:
     "@shopify/hydrogen-react" "^2022.10.3"
     "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
@@ -3346,12 +3336,12 @@
     styled-components "5.3.6"
     type-fest "3.5.4"
 
-"@solo-brands/ui-library.ui.shared.gallery-nav@^1.0.21":
-  version "1.0.22"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.shared.gallery-nav/-/@solo-brands-ui-library.ui.shared.gallery-nav-1.0.22.tgz#4541c04fcb5a80094c8cf0fb65b0a3e03a1673dd"
-  integrity sha1-RUHAT8tagAlMjPD7ZbCj4DoWc90=
+"@solo-brands/ui-library.ui.shared.gallery-nav@^1.0.23":
+  version "1.0.23"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.shared.gallery-nav/-/@solo-brands-ui-library.ui.shared.gallery-nav-1.0.23.tgz#13cb3a821925ddc17b25ada5a9f8ab603c894b78"
+  integrity sha1-E8s6ghkl3cF7Ja2lqfirYDyJS3g=
   dependencies:
-    "@solo-brands/ui-library.ui.atomic.carousel" "0.0.21"
+    "@solo-brands/ui-library.ui.atomic.carousel" "0.0.22"
     "@solo-brands/ui-library.ui.atomic.gallery-thumbnail" "1.0.2"
     core-js "^3.0.0"
     styled-components "5.3.6"

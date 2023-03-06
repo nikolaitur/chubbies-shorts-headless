@@ -7432,7 +7432,12 @@ export type PpdProductQuery = {
     displayName?: { value: string } | null
     productGroup?: {
       value: string
-      reference?: { title: string; description: string } | null
+      reference?: {
+        title: string
+        description: string
+        productTitle?: { value: string } | null
+        productGroupDescription?: { value: string } | null
+      } | null
     } | null
     infoBlocks?: {
       references?: {
@@ -7648,6 +7653,7 @@ export type ProductGroups = {
             selectedOptions: Array<{ name: string; value: string }>
           }>
         }
+        options: Array<{ name: string; values: Array<string> }>
         color?: {
           reference?: {
             id: string

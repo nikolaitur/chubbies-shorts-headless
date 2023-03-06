@@ -5,6 +5,7 @@ import { HeartIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import Price from '@solo-brands/ui-library.ui.atomic.price'
 import ProductTitle from '@solo-brands/ui-library.ui.atomic.product-title'
 import Ratings from '@solo-brands/ui-library.ui.atomic.ratings'
+import RichText from '~/components/rich-text'
 import { PRODUCT_ROUTE_ID } from '~/constants'
 import { PdpRouteData } from '~/global-types'
 import { getDisplayPrices } from '~/helpers'
@@ -38,8 +39,11 @@ const ProductInfos = (props: ProductInfosProps) => {
         </div>
       </div>
 
-      {/* TODO - Metafield Rich Text Description from Shopify */}
-      {description && <p className={styles.description}>{description}</p>}
+      {description && (
+        <div className={styles.richTextWrapper}>
+          <RichText source={description} />
+        </div>
+      )}
 
       <Ratings variant="number-only" size="sm" ratings={4.5} reviewsCount={300} />
 

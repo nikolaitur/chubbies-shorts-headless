@@ -1,6 +1,7 @@
 import { useLoaderData } from '@remix-run/react'
 import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
+import { ClientOnly } from 'remix-utils'
 import { Inseam, PdpProduct, PpdLoaderData } from '~/global-types'
 import { SelectedOptionInput } from '~/graphql/generated'
 import {
@@ -12,7 +13,6 @@ import {
   getSizeOptions,
 } from '~/helpers'
 import ProductBox from '~/sections/product-box'
-import { ClientOnly } from 'remix-utils'
 
 const ProductPage = () => {
   const { product } = useLoaderData() as PpdLoaderData
@@ -35,9 +35,12 @@ export async function loader({ params, request, context: { storefront } }: Loade
 
   // split queries to prevent throttled requests
   const product = await fetchPdpProductData(storefront, { handle: productHandle, selectedOptions })
-  const productGroup = await fetchProductGroupData(storefront, {
-    productGroupId: product?.productGroup?.value,
-  })
+  const productGroupId = product?.productGroup?.value
+  const productGroup = productGroupId
+    ? await fetchProductGroupData(storefront, {
+        productGroupId,
+      })
+    : null
 
   if (!product) {
     throw json({ message: 'Product does not exist' }, { status: 404, statusText: 'Not Found' })
@@ -53,7 +56,12 @@ export async function loader({ params, request, context: { storefront } }: Loade
     displayName,
     ...restProduct
   } = product
-  const { title: collectionTitle, description } = productBoxProductGroup?.reference ?? {}
+  const {
+    title: collectionTitle,
+    description,
+    productTitle,
+    productGroupDescription,
+  } = productBoxProductGroup?.reference ?? {}
   const productsFromProductGroup = productGroup?.products.nodes
   const parsedInseam: Inseam | null = JSON.parse(inseam?.value ?? 'null')
   const colorId = color?.reference?.id
@@ -66,8 +74,8 @@ export async function loader({ params, request, context: { storefront } }: Loade
   const newProduct: PdpProduct = {
     ...restProduct,
     title: displayName?.value ?? title,
-    collectionTitle,
-    description,
+    collectionTitle: productTitle?.value ?? collectionTitle,
+    description: productGroupDescription?.value ?? description,
     inseamOptions,
     colorOptionsByGroup,
     sizeOptions,
