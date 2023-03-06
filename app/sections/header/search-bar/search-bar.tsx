@@ -1,10 +1,10 @@
 // TODO: Will be done in Search Page and search functionality
 import { CloseIcon, SearchIcon } from '@solo-brands/ui-library.ui.atomic.icon'
-import { ChangeEventHandler, forwardRef, Ref, useState } from 'react'
+import { ChangeEventHandler, forwardRef, HTMLAttributes, Ref, useState } from 'react'
 
 import styles from './styles.module.css'
 
-const SearchBar = ({ onClose }: { onClose: () => void }, ref: Ref<HTMLDivElement>) => {
+const SearchBar = ({ ...props }: HTMLAttributes<HTMLElement>, ref: Ref<HTMLDivElement>) => {
   const [inputValue, setInputValue] = useState('')
 
   const onChangeHandler: ChangeEventHandler<HTMLInputElement> = event => {
@@ -13,7 +13,6 @@ const SearchBar = ({ onClose }: { onClose: () => void }, ref: Ref<HTMLDivElement
 
   const onClearHandler = () => {
     setInputValue('')
-    onClose()
   }
 
   return (

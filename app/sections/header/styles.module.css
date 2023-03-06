@@ -2,7 +2,8 @@
   background-color: rgb(255, 255, 255);
   border-bottom: 1px solid #D2D4D7;
   position: sticky;
-  z-index: 103;
+  top: 0px;
+  z-index: 99;
 }
 
 .container {
@@ -63,6 +64,7 @@
 @media screen and (min-width: 481px) {
   .content {
     border-bottom: none;
+    top: var(--top);
   }
   .mobileNav {
     height: 72px;
@@ -84,6 +86,10 @@
     width: 135px;
   }
 }
+.backdrop {
+  z-index: 98;
+}
+
 @media screen and (min-width: 1281px) {
   .positionBlock .mobileNavIcon {
     display: none;

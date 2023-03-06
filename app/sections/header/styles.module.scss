@@ -4,7 +4,8 @@
   background-color: $backgrounds-white;
   border-bottom: $border-width-1 solid $borders-divider-muted;
   position: sticky;
-  z-index: 103;
+  top: $space-0;
+  z-index: 99;
 }
 
 .container {
@@ -71,6 +72,7 @@
 @include media-query(sm) {
   .content {
     border-bottom: none;
+    top: var(--top);
   }
   .mobileNav {
     height: 72px;
@@ -98,10 +100,8 @@
   }
 }
 
-@include media-query(md) {
-}
-
-@include media-query(lg) {
+.backdrop {
+  z-index: 98;
 }
 
 @include media-query(xl) {
