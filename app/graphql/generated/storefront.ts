@@ -245,6 +245,60 @@ export type AvailableShippingRates = {
   shippingRates?: Maybe<Array<ShippingRate>>
 }
 
+/** Represents a cart line common fields. */
+export type BaseCartLine = {
+  /** An attribute associated with the cart line. */
+  attribute?: Maybe<Attribute>
+  /** The attributes associated with the cart line. Attributes are represented as key-value pairs. */
+  attributes: Array<Attribute>
+  /** The cost of the merchandise that the buyer will pay for at checkout. The costs are subject to change and changes will be reflected at checkout. */
+  cost: CartLineCost
+  /** The discounts that have been applied to the cart line. */
+  discountAllocations: Array<CartDiscountAllocation>
+  /**
+   * The estimated cost of the merchandise that the buyer will pay for at checkout. The estimated costs are subject to change and changes will be reflected at checkout.
+   * @deprecated Use `cost` instead.
+   */
+  estimatedCost: CartLineEstimatedCost
+  /** A globally-unique identifier. */
+  id: Scalars['ID']
+  /** The merchandise that the buyer intends to purchase. */
+  merchandise: Merchandise
+  /** The quantity of the merchandise that the customer intends to purchase. */
+  quantity: Scalars['Int']
+  /** The selling plan associated with the cart line and the effect that each selling plan has on variants when they're purchased. */
+  sellingPlanAllocation?: Maybe<SellingPlanAllocation>
+}
+
+/** Represents a cart line common fields. */
+export type BaseCartLineAttributeArgs = {
+  key: Scalars['String']
+}
+
+/**
+ * An auto-generated type for paginating through multiple BaseCartLines.
+ *
+ */
+export type BaseCartLineConnection = {
+  /** A list of edges. */
+  edges: Array<BaseCartLineEdge>
+  /** A list of the nodes contained in BaseCartLineEdge. */
+  nodes: Array<BaseCartLine>
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo
+}
+
+/**
+ * An auto-generated type which holds one BaseCartLine and a cursor during pagination.
+ *
+ */
+export type BaseCartLineEdge = {
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']
+  /** The item at the end of BaseCartLineEdge. */
+  node: BaseCartLine
+}
+
 /** An online store blog. */
 export type Blog = HasMetafields &
   Node &
@@ -446,7 +500,7 @@ export type Cart = Node & {
   /** A globally-unique identifier. */
   id: Scalars['ID']
   /** A list of lines containing information about the items the customer intends to purchase. */
-  lines: CartLineConnection
+  lines: BaseCartLineConnection
   /** A note that is associated with the cart. For example, the note can be a personalized message to the buyer. */
   note?: Maybe<Scalars['String']>
   /** The total number of items in the cart. */
@@ -529,8 +583,6 @@ export type CartBuyerIdentity = {
   email?: Maybe<Scalars['String']>
   /** The phone number of the buyer that is interacting with the cart. */
   phone?: Maybe<Scalars['String']>
-  /** The purchasing company associated with the cart. */
-  purchasingCompany?: Maybe<PurchasingCompany>
 }
 
 /**
@@ -620,7 +672,7 @@ export type CartCustomDiscountAllocation = CartDiscountAllocation & {
 /** Information about the options available for one or more line items to be delivered to a specific address. */
 export type CartDeliveryGroup = {
   /** A list of cart lines for the delivery group. */
-  cartLines: CartLineConnection
+  cartLines: BaseCartLineConnection
   /** The destination address for the delivery group. */
   deliveryAddress: MailingAddress
   /** The delivery options available for the delivery group. */
@@ -764,46 +816,34 @@ export type CartInput = {
 }
 
 /** Represents information about the merchandise in the cart. */
-export type CartLine = Node & {
-  /** An attribute associated with the cart line. */
-  attribute?: Maybe<Attribute>
-  /** The attributes associated with the cart line. Attributes are represented as key-value pairs. */
-  attributes: Array<Attribute>
-  /** The cost of the merchandise that the buyer will pay for at checkout. The costs are subject to change and changes will be reflected at checkout. */
-  cost: CartLineCost
-  /** The discounts that have been applied to the cart line. */
-  discountAllocations: Array<CartDiscountAllocation>
-  /**
-   * The estimated cost of the merchandise that the buyer will pay for at checkout. The estimated costs are subject to change and changes will be reflected at checkout.
-   * @deprecated Use `cost` instead.
-   */
-  estimatedCost: CartLineEstimatedCost
-  /** A globally-unique identifier. */
-  id: Scalars['ID']
-  /** The merchandise that the buyer intends to purchase. */
-  merchandise: Merchandise
-  /** The quantity of the merchandise that the customer intends to purchase. */
-  quantity: Scalars['Int']
-  /** The selling plan associated with the cart line and the effect that each selling plan has on variants when they're purchased. */
-  sellingPlanAllocation?: Maybe<SellingPlanAllocation>
-}
+export type CartLine = BaseCartLine &
+  Node & {
+    /** An attribute associated with the cart line. */
+    attribute?: Maybe<Attribute>
+    /** The attributes associated with the cart line. Attributes are represented as key-value pairs. */
+    attributes: Array<Attribute>
+    /** The cost of the merchandise that the buyer will pay for at checkout. The costs are subject to change and changes will be reflected at checkout. */
+    cost: CartLineCost
+    /** The discounts that have been applied to the cart line. */
+    discountAllocations: Array<CartDiscountAllocation>
+    /**
+     * The estimated cost of the merchandise that the buyer will pay for at checkout. The estimated costs are subject to change and changes will be reflected at checkout.
+     * @deprecated Use `cost` instead.
+     */
+    estimatedCost: CartLineEstimatedCost
+    /** A globally-unique identifier. */
+    id: Scalars['ID']
+    /** The merchandise that the buyer intends to purchase. */
+    merchandise: Merchandise
+    /** The quantity of the merchandise that the customer intends to purchase. */
+    quantity: Scalars['Int']
+    /** The selling plan associated with the cart line and the effect that each selling plan has on variants when they're purchased. */
+    sellingPlanAllocation?: Maybe<SellingPlanAllocation>
+  }
 
 /** Represents information about the merchandise in the cart. */
 export type CartLineAttributeArgs = {
   key: Scalars['String']
-}
-
-/**
- * An auto-generated type for paginating through multiple CartLines.
- *
- */
-export type CartLineConnection = {
-  /** A list of edges. */
-  edges: Array<CartLineEdge>
-  /** A list of the nodes contained in CartLineEdge. */
-  nodes: Array<CartLine>
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo
 }
 
 /** The cost of the merchandise line that the buyer will pay at checkout. */
@@ -816,17 +856,6 @@ export type CartLineCost = {
   subtotalAmount: MoneyV2
   /** The total cost of the merchandise line. */
   totalAmount: MoneyV2
-}
-
-/**
- * An auto-generated type which holds one CartLine and a cursor during pagination.
- *
- */
-export type CartLineEdge = {
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String']
-  /** The item at the end of CartLineEdge. */
-  node: CartLine
 }
 
 /** The estimated cost of the merchandise line that the buyer will pay at checkout. */
@@ -1654,44 +1683,6 @@ export type CommentEdge = {
   cursor: Scalars['String']
   /** The item at the end of CommentEdge. */
   node: Comment
-}
-
-/** Represents information about a company which is also a customer of the shop. */
-export type Company = {
-  /** The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company was created in Shopify. */
-  createdAt: Scalars['DateTime']
-  /** A unique externally-supplied identifier for the company. */
-  externalId?: Maybe<Scalars['String']>
-  /** The name of the company. */
-  name: Scalars['String']
-  /** The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company was last modified. */
-  updatedAt: Scalars['DateTime']
-}
-
-/** A company's main point of contact. */
-export type CompanyContact = {
-  /** The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company contact was created in Shopify. */
-  createdAt: Scalars['DateTime']
-  /** The company contact's locale (language). */
-  locale?: Maybe<Scalars['String']>
-  /** The company contact's job title. */
-  title?: Maybe<Scalars['String']>
-  /** The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company contact was last modified. */
-  updatedAt: Scalars['DateTime']
-}
-
-/** A company's location. */
-export type CompanyLocation = {
-  /** The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company location was created in Shopify. */
-  createdAt: Scalars['DateTime']
-  /** A unique externally-supplied identifier for the company. */
-  externalId?: Maybe<Scalars['String']>
-  /** The preferred locale of the company location. */
-  locale?: Maybe<Scalars['String']>
-  /** The name of the company location. */
-  name: Scalars['String']
-  /** The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) at which the company location was last modified. */
-  updatedAt: Scalars['DateTime']
 }
 
 /** A country. */
@@ -5789,16 +5780,6 @@ export enum ProductVariantSortKeys {
   Title = 'TITLE',
 }
 
-/** Represents information about the buyer that is interacting with the cart. */
-export type PurchasingCompany = {
-  /** The company associated to the order or draft order. */
-  company: Company
-  /** The company contact associated to the order or draft order. */
-  contact?: Maybe<CompanyContact>
-  /** The company location associated to the order or draft order. */
-  location: CompanyLocation
-}
-
 /** The schema’s entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 export type QueryRoot = {
   /** Fetch a specific Article by its ID. */
@@ -7016,7 +6997,12 @@ export type GlobalSettings = {
     headerNavMenuHandle?: { value?: string | null } | null
     brandLogo?: {
       reference?: {
-        image?: Image
+        image?: {
+          url: any
+          width?: number | null
+          height?: number | null
+          altText?: string | null
+        } | null
       } | null
     } | null
   } | null
@@ -7508,6 +7494,20 @@ export type PpdProductQuery = {
       } | null
     } | null
     inseam?: { value: string } | null
+    inseamImage?: {
+      reference?: {
+        mediaImage?: {
+          reference?: {
+            image?: {
+              url: any
+              width?: number | null
+              height?: number | null
+              altText?: string | null
+            } | null
+          } | null
+        } | null
+      } | null
+    } | null
     selectedVariant?: {
       id: string
       availableForSale: boolean

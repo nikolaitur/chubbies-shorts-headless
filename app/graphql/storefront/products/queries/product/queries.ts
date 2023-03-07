@@ -54,7 +54,10 @@ export const PDP_PRODUCT_QUERY = /* gql */ `#graphql
             productTitle: metafield(namespace: "custom", key: "product_title") {
               value
             }
-            productGroupDescription: metafield(namespace: "custom", key: "product_group_description") {
+            productGroupDescription: metafield(
+              namespace: "custom"
+              key: "product_group_description"
+            ) {
               value
             }
           }
@@ -71,6 +74,19 @@ export const PDP_PRODUCT_QUERY = /* gql */ `#graphql
       }
       inseam: metafield(namespace: "custom", key: "inseam_length") {
         value
+      }
+      inseamImage: metafield(namespace: "custom", key: "inseam_image") {
+        reference {
+          ... on Metaobject {
+            mediaImage: field(key: "inseam_image") {
+              reference {
+                ... on MediaImage {
+                  ...MediaImageFragment
+                }
+              }
+            }
+          }
+        }
       }
       selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions) {
         ...PdpProductVariantsFragment

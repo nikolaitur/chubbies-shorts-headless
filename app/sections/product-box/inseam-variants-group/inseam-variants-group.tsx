@@ -1,7 +1,7 @@
 import { useLocation } from '@remix-run/react'
+import { Image } from '@shopify/hydrogen'
 import VariantInfo from '@solo-brands/ui-library.ui.atomic.variant-info'
 import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
-import inseamIllustration from 'public/images/inseam-illustration.svg'
 import { useMatches } from 'react-router'
 import Link from '~/components/link'
 import { PRODUCT_ROUTE_ID, UNIT_MEASUREMENT_SYMBOL } from '~/constants'
@@ -11,10 +11,11 @@ import { InseamVariantsGroupProps } from './types'
 
 const InseamVariantsGroup = ({ size = 'xl', ...props }: InseamVariantsGroupProps) => {
   const matches = useMatches()
-  const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
-  const { inseamOptions, selectedVariant } = data.product ?? {}
-
   const location = useLocation()
+
+  const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
+  const { inseamOptions, inseamImage } = data.product ?? {}
+  const flattenedImage = inseamImage?.reference?.mediaImage?.reference?.image
 
   if (!inseamOptions) return null
 
@@ -47,11 +48,11 @@ const InseamVariantsGroup = ({ size = 'xl', ...props }: InseamVariantsGroupProps
           ))}
         </div>
       </div>
-      <div className={styles.illustrationWrapper}>
-        {/* <Image> from Hydrogen doesn't work with static asset file */}
-        {/* eslint-disable-next-line hydrogen/prefer-image-component */}
-        <img src={inseamIllustration} width={100} height={100} alt="Inseam Illustration" />
-      </div>
+      {flattenedImage && (
+        <div className={styles.illustrationWrapper}>
+          <Image data={flattenedImage} />
+        </div>
+      )}
     </div>
   )
 }
