@@ -7,7 +7,7 @@
   bottom: 0;
   left: initial;
   z-index: 100;
-  width: 375px;
+  width: 100%;
   background-color: $backgrounds_light;
   transition: 0.15s ease-out;
   display: flex;
@@ -17,6 +17,10 @@
 
   &.isCartOpen {
     transform: translateX(0);
+  }
+
+  @include media-query(sm) {
+    width: 375px;
   }
 
   @include media-query(md) {
