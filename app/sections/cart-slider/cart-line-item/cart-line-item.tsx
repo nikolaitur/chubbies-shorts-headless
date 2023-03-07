@@ -2,6 +2,7 @@ import { useFetcher } from '@remix-run/react'
 import { CartLine } from '@shopify/hydrogen/storefront-api-types'
 import CartItem from '@solo-brands/ui-library.ui.shared.cart-item'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
+import { ClientOnly } from 'remix-utils'
 import { CartAction } from '~/global-types'
 
 export type Size = 'md' | 'sm'
@@ -72,16 +73,20 @@ const CartLineItem = ({ line, ...props }: CartLineItemProps, ref: Ref<HTMLDivEle
   }
 
   return (
-    <div ref={ref} {...props}>
-      <CartItem
-        size="sm"
-        line={line}
-        qtySelectorProps={qtySelectorProps}
-        state={fetcher.state}
-        onClickDeleteHandler={handleRemove}
-        lineDescription={lineDescription}
-      />
-    </div>
+    <ClientOnly>
+      {() => (
+        <div ref={ref} {...props}>
+          <CartItem
+            size="sm"
+            line={line}
+            qtySelectorProps={qtySelectorProps}
+            state={fetcher.state}
+            onClickDeleteHandler={handleRemove}
+            lineDescription={lineDescription}
+          />
+        </div>
+      )}
+    </ClientOnly>
   )
 }
 
