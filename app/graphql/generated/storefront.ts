@@ -7608,10 +7608,10 @@ export type ProductCardQuery = {
     id: string
     title: string
     handle: string
-    product_group?: { value: string } | null
-    inseam_length?: { value: string } | null
-    swatch?: { value: string } | null
-    display_name?: { value: string } | null
+    productGroup?: { value: string } | null
+    inseamLength?: { value: string } | null
+    color?: { value: string } | null
+    displayName?: { value: string } | null
     variants: { nodes: Array<{ selectedOptions: Array<{ name: string; value: string }> }> }
     featuredImage?: {
       id?: string | null

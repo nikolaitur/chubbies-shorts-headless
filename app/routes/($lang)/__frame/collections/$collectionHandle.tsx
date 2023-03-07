@@ -11,13 +11,22 @@ import {
   gatherUniqueProductGroupIds,
   removeRedundantProducts,
 } from '~/helpers/searchspring'
-import CollectionGrid from '~/sections/collection-grid'
+import CollectionGrid, { CollectionGridProps } from '~/sections/collection-grid'
+import { COLLECTION_QUERY } from '~/graphql/storefront/collections/queries'
 
+// Collection loader
 export async function loader({ params, request, context: { storefront } }: LoaderArgs) {
+  // Fetch Collection Data from storefront
+  const collectionQuery = await storefront.query(COLLECTION_QUERY, {
+    variables: {
+      handle: params.collectionHandle,
+    },
+    storefrontApiVersion: 'unstable',
+    cache: storefront.CacheShort(),
+  })
   /*
   Fetch the collection products from searchspring
   We need some changes to the Searchspring index based on our new product data structure
-
   TODO: Investigate caching results from Searchspring
   TODO: Add Searchspring cookie creation 
   TODO: Pass buyer IP to HTTP_X_FORWARDED_FOR header
@@ -30,6 +39,7 @@ export async function loader({ params, request, context: { storefront } }: Loade
     collectionHandle,
   })
   //Any product that appears after the first occurance of a product with the same ProductGroup and Swatch is removed.
+  //Remove null ProductGroup
   const filteredResults = removeRedundantProducts(results)
   //Extract IDs for each unique product group that appears in the Searchspring result set
   const productGroupIds = gatherUniqueProductGroupIds(filteredResults)
@@ -42,6 +52,7 @@ export async function loader({ params, request, context: { storefront } }: Loade
       productIds,
     },
   })
+
   //Fetch the info on all product groups that appear in the Searchspring result set.
   //Because this is an expensive query, we only want to call it once per product group.
   //In order to improve our cache hit rate we will share the same query across our collection, search and product pages.
@@ -55,11 +66,12 @@ export async function loader({ params, request, context: { storefront } }: Loade
   return defer({
     products: await products,
     productGroups,
+    collection: collectionQuery as CollectionGridProps['collection'],
   })
 }
 
 const CollectionPage = () => {
-  const { products, productGroups } = useLoaderData<typeof loader>()
+  const { products, collection } = useLoaderData<typeof loader>()
   /* 
     ProductGroups here is a promise, so we need to wrap it in a Suspense component.
     This allows us to begin rendering the collection page while the productGroups query is still in flight.
@@ -67,17 +79,19 @@ const CollectionPage = () => {
     <ProductCard>
       <Suspense fallback={<></>}>
         <Await resolve={productGroups}>
-          {productGroups => <ProductCardSwatches productGroups={productGroups} />
+          { && (productGroups => <ProductCardSwatches productGroups={productGroups} />)}
         </Await>
       </Suspense>
     </ProductCard>
   */
+
   return (
     <>
       {/* Temporarily add <ClientOnly> */}
       {/* TODO - Investigate issue with CollectionGrid breaking pdp styles */}
-      {/* @ts-expect-error gotta fix dis */}
-      <ClientOnly>{() => <CollectionGrid products={products.nodes} />}</ClientOnly>
+      <ClientOnly>
+        {() => <CollectionGrid collection={collection} products={products} />}
+      </ClientOnly>
     </>
   )
 }

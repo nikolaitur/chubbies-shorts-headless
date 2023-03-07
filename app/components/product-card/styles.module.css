@@ -17,12 +17,39 @@
     height: 540px;
   }
 }
+.imageWrapper:hover .image {
+  visibility: hidden;
+}
+.imageWrapper:hover .hoverImage {
+  visibility: visible;
+}
+.imageWrapper:hover .quickShop {
+  visibility: visible;
+}
 
 .image {
+  visibility: visible;
   height: 100%;
   width: 100%;
   position: absolute;
   object-fit: cover;
+}
+
+.hoverImage {
+  visibility: hidden;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+}
+
+.tagArea {
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  left: 0;
+  gap: 8px;
 }
 
 .tag {
@@ -30,15 +57,69 @@
   background-color: #9D6005;
   border-radius: 0px;
   color: white;
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
   font-family: futura-pt, sans-serif;
   font-weight: 600;
   line-height: 100%;
   font-size: 14px;
   text-transform: none;
+}
+.tag.tagPrimary {
+  background-color: #9D6005;
+}
+.tag.tagSecondary {
+  background-color: rgb(255, 255, 255);
+}
+
+.favorite {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  right: 12px;
+}
+
+.quickShop {
+  width: 100%;
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+}
+.quickShop .quickCart {
+  width: 100%;
+  padding: 16px;
+  display: none;
+  background-color: rgb(255, 255, 255);
+  gap: 16px;
+  position: relative;
+}
+.quickShop .quickCart .quickClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.quickShop .quickCart .quickCartVariants {
+  display: grid;
+  gap: 8px;
+}
+.quickShop .quickCart .quickCartVariantSelector {
+  display: flex;
+  gap: 8px;
+}
+.quickShop .quickButton {
+  display: block;
+  margin-bottom: 12px;
+}
+.quickShop.active {
+  visibility: visible;
+}
+.quickShop.active .quickCart {
+  display: grid;
+}
+.quickShop.active .quickButton {
+  display: none;
 }
 
 .colorVariants {
@@ -46,7 +127,7 @@
   gap: 8px;
 }
 
-.sizeVariants {
+.inseamOptions {
   display: flex;
   gap: 8px;
 }

@@ -1,0 +1,7 @@
+.inseamVariants {
+  display: flex;
+  gap: 6px;
+  & * {
+    flex-grow: 1;
+  }
+}

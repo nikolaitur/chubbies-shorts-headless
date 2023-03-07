@@ -23,7 +23,7 @@ export const generateSearchspringFormat = (productCards: ProductCards) => {
 //Any product that appears after the first occurance of a product with the same ProductGroup and Swatch is removed.
 export const removeRedundantProducts = (results: SearchspringResponse['results']) => {
   return results.reduce((acc, curr) => {
-    if (!productSetContainsMatch(acc, curr)) acc.push(curr)
+    if (!productSetContainsMatch(acc, curr) && productHasProductGroup(curr)) acc.push(curr)
     return acc
   }, [] as SearchspringResponse['results'])
 }
@@ -38,6 +38,10 @@ export const gatherUniqueProductGroupIds = (results: SearchspringResponse['resul
 
 export const extractProductIds = (results: SearchspringResponse['results']) => {
   return results.map(product => `gid://shopify/Product/${product.uid}`)
+}
+
+const productHasProductGroup = (product: SearchSpringProduct) => {
+  return product.ss_product_group && product.ss_product_group !== null
 }
 
 const productSetContainsMatch = (

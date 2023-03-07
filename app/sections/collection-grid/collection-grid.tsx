@@ -8,12 +8,14 @@ import CollectionPageTitle from '~/components/collection-page-title'
 import Container from '~/components/container'
 import ProductCard from '~/components/product-card'
 import Section from '~/components/section'
-import { ProductCardQuery } from '~/graphql/generated'
 import CollectionBanner from './collection-banner'
 import styles from './styles.module.css'
+import { CollectionGridProps } from './types'
 
-const CollectionGrid = ({ products }: { products?: ProductCardQuery['nodes'] | null }) => {
+const CollectionGrid = ({ products, collection }: CollectionGridProps) => {
   const [isOpen, setIsOpen] = useState(false)
+
+  const { title, description, handle, image } = collection ?? {}
   const options = [
     {
       value: 'option_1',
@@ -40,19 +42,19 @@ const CollectionGrid = ({ products }: { products?: ProductCardQuery['nodes'] | n
   const handleSortByOpen = () => {
     setIsOpen(!isOpen)
   }
+
   return (
     <Section>
       <Container className={styles.container}>
-        {/* TODO: Change breadcrumb path on logic */}
-        <BreadCrumbs path={'/home/sport-shorts/retro-tracksuit-shorts'}></BreadCrumbs>
+        <BreadCrumbs path={`/home/${handle}`}></BreadCrumbs>
         <div className={styles.grid}>
           <div className={styles.sidebar}>
             <CollectionFilters className={styles.filters} />
           </div>
           <div className={styles.resultsGrid}>
-            <CollectionBanner className={styles.collectionPromoBanner}></CollectionBanner>
+            <CollectionBanner className={styles.collectionBanner} image={image}></CollectionBanner>
             <div className={styles.gridHeader}>
-              <CollectionPageTitle title="Title" description={'test'} />
+              <CollectionPageTitle title={title} description={description} />
               <div className={styles.searchButtons}>
                 <div className={styles.filterButton}>
                   <Button variant="secondary" size="sm" iconLeft={<FilterIcon />}>
@@ -78,7 +80,7 @@ const CollectionGrid = ({ products }: { products?: ProductCardQuery['nodes'] | n
               </div>
             </div>
             <div className={styles.productsGrid}>
-              {products?.map(product => (
+              {products?.nodes?.map(product => (
                 <ProductCard key={product?.id} product={product} />
               ))}
             </div>

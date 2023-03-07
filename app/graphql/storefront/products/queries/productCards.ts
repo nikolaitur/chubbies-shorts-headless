@@ -8,16 +8,23 @@ export const PRODUCT_CARDS_QUERY = /* gql */ `#graphql
     id
     title
     handle
-    product_group:metafield(namespace:"custom",key:"product_group") {
+    
+    productGroup: metafield(namespace: "custom", key: "product_group") {
+      value
+      reference {
+        ... on Collection {
+          title
+          description
+        }
+      }
+    }
+    inseam_length:metafield(namespace: "custom",key: "inseam_length") {
       value
     }
-    inseam_length:metafield(namespace:"custom",key:"inseam_length") {
+    color:metafield(namespace: "custom",key: "swatch") {
       value
     }
-    swatch:metafield(namespace:"custom",key:"swatch") {
-      value
-    }
-    display_name:metafield(namespace:"custom",key:"display_name") {
+    display_name:metafield(namespace: "custom",key: "display_name") {
       value
     }
     variants(first:7){

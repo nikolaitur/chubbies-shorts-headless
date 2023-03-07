@@ -117,6 +117,7 @@ export const PDP_PRODUCT_GROUP_QUERY = /* gql */ `#graphql
     $language: LanguageCode
   ) @inContext(country: $country, language: $language) {
     collection(id:$productGroupId) {
+      id
       ...ProductGroupFragment
     }
   }

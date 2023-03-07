@@ -16,13 +16,42 @@
   @include media-query(xl) {
     height: 540px;
   }
+  &:hover {
+    .image {
+      visibility: hidden;
+    }
+    .hoverImage {
+      visibility: visible;
+    }
+    .quickShop {
+      visibility: visible;
+    }
+  }
 }
 
 .image {
+  visibility: visible;
   height: 100%;
   width: 100%;
   position: absolute;
   object-fit: cover;
+}
+
+.hoverImage {
+  visibility: hidden;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+}
+
+.tagArea {
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  top: $space-3;
+  left: 0;
+  gap: $space-2;
 }
 
 .tag {
@@ -30,11 +59,71 @@
   background-color: $tag-primary-bg;
   border-radius: $border-radius-tag;
   color: white;
+  @include product-tag-tag-md;
+  &.tagPrimary {
+    background-color: $tag-primary-bg;
+  }
+  &.tagSecondary {
+    background-color: $tag-secondary-bg; // MISSING STYLE TOKEN
+  }
+}
+
+.favorite {
   position: absolute;
   z-index: 1;
-  top: 0;
+  top: $space-3;
+  right: $space-3;
+}
+
+.quickShop {
+  width: 100%;
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
   left: 0;
-  @include product-tag-tag-md;
+
+  display: flex;
+  justify-content: center;
+
+  .quickCart {
+    width: 100%;
+    padding: $space-4;
+    display: none;
+    background-color: $backgrounds-white;
+    gap: $space-4;
+    position: relative;
+    .quickClose {
+      position: absolute;
+      top: $space-2-5;
+      right: $space-2-5;
+    }
+
+    .quickCartVariants {
+      display: grid;
+      gap: $space-2;
+    }
+
+    .quickCartVariantSelector {
+      display: flex;
+      gap: $space-2;
+    }
+  }
+
+  .quickButton {
+    display: block;
+    margin-bottom: $space-3;
+  }
+
+  &.active {
+    visibility: visible;
+    .quickCart {
+      display: grid;
+    }
+    .quickButton {
+      display: none;
+    }
+  }
 }
 
 .colorVariants {
@@ -42,7 +131,7 @@
   gap: $space-2;
 }
 
-.sizeVariants {
+.inseamOptions {
   display: flex;
   gap: $space-2;
 }
