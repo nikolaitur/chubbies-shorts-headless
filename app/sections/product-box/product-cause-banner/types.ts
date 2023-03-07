@@ -7,10 +7,10 @@ export type ProductCauseBannerProps = HTMLAttributes<HTMLDivElement> & {
 }
 
 export type ProductCauseBannerFlattenedFields = {
-  background_image: MetaobjectFieldV2
-  background_opacity: MetaobjectFieldV2
-  body_text: MetaobjectFieldV2
-  cause_logo: MetaobjectFieldV2
-  cta_link: MetaobjectFieldV2
-  cta_text: MetaobjectFieldV2
+  background_image?: MetaobjectFieldV2
+  background_opacity?: MetaobjectFieldV2
+  body_text?: MetaobjectFieldV2
+  cause_logo?: MetaobjectFieldV2
+  cta_link?: MetaobjectFieldV2
+  cta_text?: MetaobjectFieldV2
 }

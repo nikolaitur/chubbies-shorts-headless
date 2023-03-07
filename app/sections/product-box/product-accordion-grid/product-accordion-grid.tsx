@@ -18,13 +18,14 @@ const ProductAccordionGrid = ({ fields, ...props }: ProductAccordionGridProps) =
     fields as MetaobjectField[],
   ) as ProductAccordionGridFlattenedFields
 
-  const { title, cards } = flattenedFields
-  const flattenedCards = cards.references?.nodes
+  const { title, cards, closed_on_page_load } = flattenedFields
+  const flattenedCards = cards?.references?.nodes
+  const isExpandedByDefault = !JSON.parse(closed_on_page_load?.value ?? 'false')
 
   return (
     <Accordion {...props}>
-      <AccordionItem>
-        <AccordionButton>{title.value}</AccordionButton>
+      <AccordionItem isExpandedDefault={isExpandedByDefault}>
+        <AccordionButton>{title?.value}</AccordionButton>
         <AccordionPanel className={styles.panel}>
           {flattenedCards?.map((card, index) => {
             const flattenedCardFields = flattenMetaobjectFields(
@@ -33,10 +34,10 @@ const ProductAccordionGrid = ({ fields, ...props }: ProductAccordionGridProps) =
             ) as CardFlattenedFields
 
             const { image, text } = flattenedCardFields
-            const iconData = image.reference?.image
+            const iconData = image?.reference?.image
 
             return (
-              <AccordionPanelContent key={`${text}-${index}`} icon={iconData} text={text.value} />
+              <AccordionPanelContent key={`${text}-${index}`} icon={iconData} text={text?.value} />
             )
           })}
         </AccordionPanel>

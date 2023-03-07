@@ -6,6 +6,7 @@ export type ProductAccordionProps = {
 }
 
 export type ProductAccordionFlattenedFields = {
-  body_text: MetaobjectFieldV2
-  display_title: MetaobjectFieldV2
+  body_text?: MetaobjectFieldV2
+  display_title?: MetaobjectFieldV2
+  closed_on_page_load?: MetaobjectFieldV2
 }
