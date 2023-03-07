@@ -3,7 +3,8 @@ import { RemixBrowser } from '@remix-run/react'
 import { StrictMode } from 'react'
 import { hydrateRoot } from 'react-dom/client'
 import builderConfig from '../builderConfig.json'
-import HeroBanner from './sections/hero-banner'
+import HeroBanner from './sections/hero-banner/hero-banner'
+import MediaBanner from './sections/media-banner/media-banner'
 
 builder.init(builderConfig.apiKey)
 
@@ -54,6 +55,40 @@ Builder.registerComponent(HeroBanner, {
       type: 'text',
       defaultValue: 'SHOP NOW',
     },
+  ],
+})
+
+Builder.registerComponent(MediaBanner, {
+  name: 'MediaBanner',
+  inputs: [
+    {
+      name: 'mediaItems',
+      type: 'list',
+      subFields: [
+        {
+          name: 'image',
+          type: 'file',
+          friendlyName: 'Media Image',
+          allowedFileTypes: ['jpeg', 'jpg', 'png', 'svg'],
+          required: true,
+        },
+        {
+          name: 'heading',
+          friendlyName: 'Heading Text',
+          type: 'text',
+        },
+        {
+          name: 'link_text',
+          friendlyName: 'Link Text',
+          type: 'text',
+        },
+        {
+          name: 'link_url',
+          friendlyName: 'Link Url',
+          type: 'url',
+        }
+      ]
+    }
   ],
 })
 //TODO: Remove document.getElementById('root')! when Xiphe/remix-island is no longer needed (facebook/react#24430)

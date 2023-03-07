@@ -1,0 +1,93 @@
+@use '../../styles/abstracts' as *;
+
+.mediaGrid {
+  display: grid;
+  gap: $space-4;
+  margin: $space-4 auto;
+
+  &.twoItems {
+    max-width: 1400px;
+    grid-template-columns: 1fr;
+
+    @include media-query(lg) {
+      .heading {
+        @include headings-xxl;
+      }
+    }
+  }
+
+  &.threeItems {
+    max-width: 1400px;
+    grid-template-columns: 1fr;
+  }
+
+  &.fourItems {
+    grid-template-columns: 1fr 1fr;
+    max-width: 1280px;
+  }
+
+  &.hidden {
+    display: none !important;
+  }
+
+  @include media-query(lg) {
+    display: flex !important;
+    justify-content: center;
+    gap: $space-8;
+    margin: 18px auto;
+  }
+}
+
+.mediaItem {
+  position: relative;
+  &.rect .imageWrapper {
+    padding-bottom: 75%;
+  }
+
+  &.square .imageWrapper {
+    padding-bottom: 100%;
+  }
+
+  @include media-query(lg) {
+    flex-grow: 1;
+  }
+}
+
+.mediaBannerImage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contentWrapper {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.textContent {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: $space-6 $space-12;
+}
+
+.textContent {
+  display: grid;
+  gap: $space-2-5;
+  color: rgb(255, 255, 255);
+}
+
+.heading {
+  @include headings-lg;
+}
+
+.link {
+  @include headings-sm;
+}

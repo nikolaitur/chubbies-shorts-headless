@@ -1,0 +1,99 @@
+.mediaGrid {
+  display: grid;
+  gap: 16px;
+  margin: 16px auto;
+}
+.mediaGrid.twoItems {
+  max-width: 1400px;
+  grid-template-columns: 1fr;
+}
+@media screen and (min-width: 1025px) {
+  .mediaGrid.twoItems .heading {
+    font-family: futura-pt, sans-serif;
+    font-weight: 700;
+    line-height: 110%;
+    font-size: 48px;
+    letter-spacing: 0%;
+  }
+}
+.mediaGrid.threeItems {
+  max-width: 1400px;
+  grid-template-columns: 1fr;
+}
+.mediaGrid.fourItems {
+  grid-template-columns: 1fr 1fr;
+  max-width: 1280px;
+}
+.mediaGrid.hidden {
+  display: none !important;
+}
+@media screen and (min-width: 1025px) {
+  .mediaGrid {
+    display: flex !important;
+    justify-content: center;
+    gap: 32px;
+    margin: 18px auto;
+  }
+}
+
+.mediaItem {
+  position: relative;
+}
+.mediaItem.rect .imageWrapper {
+  padding-bottom: 75%;
+}
+.mediaItem.square .imageWrapper {
+  padding-bottom: 100%;
+}
+@media screen and (min-width: 1025px) {
+  .mediaItem {
+    flex-grow: 1;
+  }
+}
+
+.mediaBannerImage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contentWrapper {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.textContent {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 24px 48px;
+}
+
+.textContent {
+  display: grid;
+  gap: 10px;
+  color: rgb(255, 255, 255);
+}
+
+.heading {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 110%;
+  font-size: 32px;
+  letter-spacing: 0%;
+}
+
+.link {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 110%;
+  font-size: 18px;
+  letter-spacing: 0%;
+}

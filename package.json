@@ -55,7 +55,7 @@
     "@solo-brands/ui-library.ui.shared.gallery-nav": "^1.0.23",
     "@solo-brands/ui-library.ui.shared.order-summary-item": "^1.0.13",
     "@solo-brands/ui-library.ui.shared.payment-information": "^1.0.0",
-    "@solobrands/token-library": "^1.1.84",
+    "@solobrands/token-library": "^1.1.110",
     "@types/styled-components": "^5.1.26",
     "add": "^2.0.6",
     "clsx": "^1.2.1",
