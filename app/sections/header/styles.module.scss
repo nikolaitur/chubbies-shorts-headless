@@ -41,9 +41,11 @@
   align-items: center;
   position: relative;
 
-  &:hover {
-    :global(.cart-modal) {
-      display: initial;
+  @include media-query(lg) {
+    &:hover {
+      :global(.cart-modal) {
+        display: initial;
+      }
     }
   }
 }

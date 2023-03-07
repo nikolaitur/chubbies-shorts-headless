@@ -1,3 +1,4 @@
+import { Image } from '@shopify/hydrogen'
 import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon'
 import Container from '@solo-brands/ui-library.ui.atomic.container'
 import {
@@ -8,12 +9,10 @@ import {
 } from '@solo-brands/ui-library.ui.atomic.icon'
 import clsx from 'clsx'
 import { CSSProperties, useEffect, useState } from 'react'
-import { Image } from '@shopify/hydrogen'
 
-import Link from '~/components/link'
 import Backdrop from '~/components/backdrop/backdrop'
 import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
-import Logo from '~/components/logo'
+import Link from '~/components/link'
 import CartModal from '~/sections/header/cart-modal/cart-modal'
 import DesktopNav from '~/sections/header/desktop-nav'
 import MobileNav from '~/sections/header/mobile-nav'
@@ -22,11 +21,19 @@ import SearchBar from '~/sections/header/search-bar'
 import { MIN_ANNOUNCEMENT_HEIGHT } from '~/constants'
 import { HeaderNavigationProps } from './types'
 
+import { useMatches } from '@remix-run/react'
+import NavIndicator from './nav-indicator/nav-indicator'
 import styles from './styles.module.css'
 
 const Header = ({ menu, navImages, brandLogo }: HeaderNavigationProps) => {
   const { isCartOpen } = useCartState()
   const { setIsCartOpen } = useCartActions()
+
+  const [root] = useMatches()
+
+  const cart = root.data.cart ?? {}
+
+  const { totalQuantity } = cart
 
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false)
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
@@ -130,6 +137,7 @@ const Header = ({ menu, navImages, brandLogo }: HeaderNavigationProps) => {
                   <ChubbiesBagIcon />
                 </button>
                 <CartModal />
+                <NavIndicator count={totalQuantity} />
               </div>
             </div>
           </div>

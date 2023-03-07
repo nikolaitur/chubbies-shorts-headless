@@ -36,8 +36,10 @@
   align-items: center;
   position: relative;
 }
-.cartIcon:hover :global(.cart-modal) {
-  display: initial;
+@media screen and (min-width: 1025px) {
+  .cartIcon:hover :global(.cart-modal) {
+    display: initial;
+  }
 }
 
 .hidden {

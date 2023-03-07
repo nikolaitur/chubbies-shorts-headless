@@ -1,0 +1,16 @@
+@use '../../../styles/abstracts/index' as *;
+
+.indicator {
+  height: 20px;
+  width: 20px;
+  border-radius: $rounded-pill;
+  position: absolute;
+  top: -4px;
+  right: -10px;
+  background-color: $button-primary-bg--default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-neutral-white;
+  @include product-tag-tag-md;
+}

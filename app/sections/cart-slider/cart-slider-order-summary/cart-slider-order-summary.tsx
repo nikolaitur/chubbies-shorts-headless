@@ -77,7 +77,7 @@ const CartSliderOrderSummary = (
       <Link to={checkoutUrl || ''} className={styles.button}>
         <ButtonCheckout
           variant="primary"
-          size="md"
+          size="sm"
           className={styles.button}
           disabled={!hasQuantity}
           withIcon
