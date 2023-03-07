@@ -1,10 +1,11 @@
 @use '../../../../styles/abstracts' as *;
 
 .section {
-  visibility: hidden;
+  display: none;
   position: absolute;
   align-self: center;
   right: $space-6;
+  padding-left: $space-20;
 }
 
 .wrapper {
@@ -15,6 +16,6 @@
 
 @include media-query(xl) {
   .section {
-    visibility: visible;
+    display: block;
   }
 }

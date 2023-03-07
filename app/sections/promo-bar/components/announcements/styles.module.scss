@@ -2,13 +2,10 @@
 
 .announcement {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: absolute;
   @include inset(0);
-  text-align: center;
-  line-height: 100%;
   transform: translateY(10px);
   padding: $space-3 $space-6;
   opacity: 0;
@@ -17,10 +14,30 @@
   height: fit-content;
   margin: auto;
   transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out;
+
+  &.isActive {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &.withPadding {
+    // TODO: Why using of var here cause extended margin top/bot value?
+    //right: var(--rightPosition);
+    // TODO: Remove in case margins problem resolved
+    right: 470px;
+    justify-content: flex-end;
+  }
 }
 
-.isActive {
-  transform: translateY(0);
-  opacity: 1;
-  visibility: visible;
+.content {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: $space-3;
+  width: fit-content;
+  text-align: center;
+  color: $text-neutral-white;
+  @include textlink-sm;
 }

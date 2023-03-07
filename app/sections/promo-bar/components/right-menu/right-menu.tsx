@@ -1,4 +1,5 @@
 import { forwardRef, Ref } from 'react'
+import clsx from 'clsx'
 
 import Link from '~/components/link'
 import LocaleSelector from '../locale-selector'
@@ -8,7 +9,7 @@ import { RightMenuProps } from './types'
 import styles from './styles.module.css'
 
 const RightMenu = ({ data }: RightMenuProps, ref: Ref<HTMLDivElement>) => (
-  <div className={styles.section} ref={ref}>
+  <div className={clsx(styles.section, 'right-announcement-menu')} ref={ref}>
     <div className={styles.wrapper}>
       {/*TODO: In localization*/}
       <LocaleSelector />

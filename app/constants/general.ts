@@ -12,4 +12,4 @@ export const UNIT_MEASUREMENT_SYMBOL: { [key: string]: string } = {
   INCHES: '"',
 }
 
-export const MIN_ANNOUNCEMENT_HEIGHT = 53
+export const MIN_ANNOUNCEMENT_HEIGHT = 44
