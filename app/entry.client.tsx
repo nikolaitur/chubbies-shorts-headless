@@ -86,9 +86,9 @@ Builder.registerComponent(MediaBanner, {
           name: 'link_url',
           friendlyName: 'Link Url',
           type: 'url',
-        }
-      ]
-    }
+        },
+      ],
+    },
   ],
 })
 //TODO: Remove document.getElementById('root')! when Xiphe/remix-island is no longer needed (facebook/react#24430)
