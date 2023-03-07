@@ -24,13 +24,10 @@ const CartSlider = ({ ...props }: CartSliderProps, ref: Ref<HTMLDivElement>) => 
   const { lines, totalQuantity } = cart
   const hasCartLines = Boolean(totalQuantity)
 
-  // TO-DO: Line item edit logic
-  const onEditClose = () => {}
-
   return (
     <div className={styles.cartSlider} ref={ref} {...props}>
       <div className={clsx(styles.container, { [styles.isCartOpen]: isCartOpen })}>
-        <CartSliderHeader onCartClose={() => setIsCartOpen(false)} onEditClose={onEditClose} />
+        <CartSliderHeader onCartClose={() => setIsCartOpen(false)} />
         <div className={styles.itemContainer}>
           {hasCartLines ? (
             <>

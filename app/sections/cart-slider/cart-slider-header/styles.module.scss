@@ -3,19 +3,16 @@
 .cartSliderHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
   gap: $space-2;
   padding: $space-3 $space-4;
   background-color: $backgrounds-white;
 }
 
-.editButton {
-  visibility: hidden;
-  pointer-events: none;
-  &.isEditEnabled {
-    visibility: visible;
-    pointer-events: initial;
-  }
+.button {
+  position: absolute;
+  right: $space-0;
 }
 
 .title {
