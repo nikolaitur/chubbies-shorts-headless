@@ -17,9 +17,9 @@
   text-align: center;
 }
 
-.title {
+.icon, .title {
   color: $text-neutral-default;
-  @include headings-lg;
+  @include headings-md;
 }
 
 .description {
