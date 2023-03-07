@@ -22,6 +22,7 @@ import { MIN_ANNOUNCEMENT_HEIGHT } from '~/constants'
 import { HeaderNavigationProps } from './types'
 
 import { useMatches } from '@remix-run/react'
+import { ClientOnly } from 'remix-utils'
 import NavIndicator from './nav-indicator/nav-indicator'
 import styles from './styles.module.css'
 
@@ -82,82 +83,86 @@ const Header = ({ menu, navImages, brandLogo }: HeaderNavigationProps) => {
   }, [isSearchOpen])
 
   return (
-    <>
-      <div
-        style={{ '--top': `${announcementHeight}px` } as CSSProperties}
-        className={styles.content}
-      >
-        <Container fullWidth={true} className={styles.container}>
-          <div className={styles.mobileNav}>
-            {/*Left (mobile icons group)*/}
-            <div className={styles.positionBlock}>
-              <ButtonIcon
-                className={clsx(styles.icon, styles.mobileNavIcon)}
-                onClick={() => setIsNavOpen(true)}
-                variant="minimal"
-                size="xl"
-                icon={<BurgerMenuIcon />}
-              />
-              <ButtonIcon
-                className={clsx(
-                  styles.icon,
-                  { [styles.hidden]: !isScrollingDown || isSearchOpen },
-                  styles.searchIcon,
+    <ClientOnly>
+      {() => (
+        <>
+          <div
+            style={{ '--top': `${announcementHeight}px` } as CSSProperties}
+            className={styles.content}
+          >
+            <Container fullWidth={true} className={styles.container}>
+              <div className={styles.mobileNav}>
+                {/*Left (mobile icons group)*/}
+                <div className={styles.positionBlock}>
+                  <ButtonIcon
+                    className={clsx(styles.icon, styles.mobileNavIcon)}
+                    onClick={() => setIsNavOpen(true)}
+                    variant="minimal"
+                    size="xl"
+                    icon={<BurgerMenuIcon />}
+                  />
+                  <ButtonIcon
+                    className={clsx(
+                      styles.icon,
+                      { [styles.hidden]: !isScrollingDown || isSearchOpen },
+                      styles.searchIcon,
+                    )}
+                    onClick={() => setIsSearchOpen(true)}
+                    variant="minimal"
+                    size="xl"
+                    icon={<MagnifyingIcon />}
+                  />
+                </div>
+                {/*LOGO*/}
+                {brandLogo?.url && (
+                  <Link to="/" className={styles.logoLink}>
+                    <Image data={brandLogo} className={styles.logo} draggable="false" />
+                  </Link>
                 )}
-                onClick={() => setIsSearchOpen(true)}
-                variant="minimal"
-                size="xl"
-                icon={<MagnifyingIcon />}
-              />
-            </div>
-            {/*LOGO*/}
-            {brandLogo?.url && (
-              <Link to="/" className={styles.logoLink}>
-                <Image data={brandLogo} className={styles.logo} draggable="false" />
-              </Link>
-            )}
-            {/*Desktop Navigation*/}
-            <DesktopNav
-              hoveredMenuTitle={hoveredMenuTitle}
-              setHoveredMenuTitle={setHoveredMenuTitle}
-              menu={menu}
-              navImages={navImages}
-            />
-            {/*Desktop Large Search*/}
-            <div className={styles.searchDesktop}>
-              <SearchBar />
-            </div>
-            {/*Right action icons block*/}
-            <div className={styles.positionBlock}>
-              {/*TODO: Should be done in account functionality*/}
-              <ChubbiesAccountIcon />
-              {/*TODO: Should be done in cart functionality*/}
-              <div className={styles.cartIcon}>
-                <button onClick={() => setIsCartOpen(!isCartOpen)}>
-                  <ChubbiesBagIcon />
-                </button>
-                <CartModal />
-                <NavIndicator count={totalQuantity} />
+                {/*Desktop Navigation*/}
+                <DesktopNav
+                  hoveredMenuTitle={hoveredMenuTitle}
+                  setHoveredMenuTitle={setHoveredMenuTitle}
+                  menu={menu}
+                  navImages={navImages}
+                />
+                {/*Desktop Large Search*/}
+                <div className={styles.searchDesktop}>
+                  <SearchBar />
+                </div>
+                {/*Right action icons block*/}
+                <div className={styles.positionBlock}>
+                  {/*TODO: Should be done in account functionality*/}
+                  <ChubbiesAccountIcon />
+                  {/*TODO: Should be done in cart functionality*/}
+                  <div className={styles.cartIcon}>
+                    <button onClick={() => setIsCartOpen(!isCartOpen)}>
+                      <ChubbiesBagIcon />
+                    </button>
+                    <CartModal />
+                    <NavIndicator count={totalQuantity} />
+                  </div>
+                </div>
               </div>
-            </div>
+              {/*Mobile Next line search bar*/}
+              {(!isScrollingDown || isSearchOpen) && (
+                <div className={styles.searchMobile}>
+                  <SearchBar />
+                </div>
+              )}
+              {/*Mobile Burger Navigation*/}
+              <MobileNav
+                navImages={navImages}
+                menu={menu}
+                isNavOpen={isNavOpen}
+                closeNav={() => setIsNavOpen(false)}
+              />
+            </Container>
           </div>
-          {/*Mobile Next line search bar*/}
-          {(!isScrollingDown || isSearchOpen) && (
-            <div className={styles.searchMobile}>
-              <SearchBar />
-            </div>
-          )}
-          {/*Mobile Burger Navigation*/}
-          <MobileNav
-            navImages={navImages}
-            menu={menu}
-            isNavOpen={isNavOpen}
-            closeNav={() => setIsNavOpen(false)}
-          />
-        </Container>
-      </div>
-      <Backdrop className={styles.backdrop} isShown={!!hoveredMenuTitle} />
-    </>
+          <Backdrop className={styles.backdrop} isShown={!!hoveredMenuTitle} />
+        </>
+      )}
+    </ClientOnly>
   )
 }
 export default Header
