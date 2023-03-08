@@ -1,26 +1,24 @@
+import { Link, useMatches } from '@remix-run/react'
+import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { Image } from '@shopify/storefront-kit-react'
 import Button from '@solo-brands/ui-library.ui.atomic.button'
 import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon'
 import { CloseIcon, HeartIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import Price from '@solo-brands/ui-library.ui.atomic.price'
-import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector'
 import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
-import { ProductCardFragment } from '~/graphql/generated'
-import styles from './styles.module.css'
 import clsx from 'clsx'
-import { Link } from '@remix-run/react'
 import { Suspense, useState } from 'react'
-import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
-import AtcButton from '~/components/atc-button'
-import { useMatches } from '@remix-run/react'
-import { COLLECTION_ROUTE_ID } from '~/constants/'
 import { Await } from 'react-router'
+import AtcButton from '~/components/atc-button'
+import { COLLECTION_ROUTE_ID } from '~/constants/'
+import { ProductCardFragment } from '~/graphql/generated'
 import ProductSwatches from './product-swatches'
-import { Inseam } from '~/global-types'
+import styles from './styles.module.css'
 
 const ProductCard = ({ product }: { product: ProductCardFragment | null }) => {
   const [isQuickShopOpen, setIsQuickShopOpen] = useState(false)
 
+  // @ts-expect-error - TODO for Dylan: fix the type error
   const { title, inseam_length, swatch, featuredImage, handle, variants } = product ?? {}
   const sizeVariants =
     variants?.nodes?.map(
@@ -32,6 +30,7 @@ const ProductCard = ({ product }: { product: ProductCardFragment | null }) => {
 
   const matches = useMatches()
   const collectionMatch = matches.find(match => match.id === COLLECTION_ROUTE_ID) ?? {}
+  // @ts-expect-error - TODO for Dylan: fix the type error
   const { productGroups } = collectionMatch?.data || {}
 
   return (

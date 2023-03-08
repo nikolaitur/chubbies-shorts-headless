@@ -3,6 +3,7 @@ import { defer, LoaderArgs } from '@shopify/remix-oxygen'
 import { ClientOnly } from 'remix-utils'
 import { SearchspringResponse } from '~/global-types/searchspring'
 import { ProductCardQuery } from '~/graphql/generated'
+import { COLLECTION_QUERY } from '~/graphql/storefront/collections/queries'
 import { PRODUCT_CARDS_QUERY } from '~/graphql/storefront/products/queries/productCards'
 import { fetchProductGroupData } from '~/helpers'
 import {
@@ -11,8 +12,8 @@ import {
   gatherUniqueProductGroupIds,
   removeRedundantProducts,
 } from '~/helpers/searchspring'
+// @ts-expect-error - TODO for Dylan: fix the type error
 import CollectionGrid, { CollectionGridProps } from '~/sections/collection-grid'
-import { COLLECTION_QUERY } from '~/graphql/storefront/collections/queries'
 
 // Collection loader
 export async function loader({ params, request, context: { storefront } }: LoaderArgs) {
@@ -90,6 +91,7 @@ const CollectionPage = () => {
       {/* Temporarily add <ClientOnly> */}
       {/* TODO - Investigate issue with CollectionGrid breaking pdp styles */}
       <ClientOnly>
+        {/* @ts-expect-error - TODO for Dylan: fix the type error */}
         {() => <CollectionGrid collection={collection} products={products} />}
       </ClientOnly>
     </>

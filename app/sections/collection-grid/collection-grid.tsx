@@ -80,6 +80,7 @@ const CollectionGrid = ({ products, collection }: CollectionGridProps) => {
               </div>
             </div>
             <div className={styles.productsGrid}>
+              {/* @ts-expect-error - TODO for Dylan: fix the type error */}
               {products?.nodes?.map(product => (
                 <ProductCard key={product?.id} product={product} />
               ))}

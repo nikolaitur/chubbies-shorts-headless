@@ -6810,114 +6810,13 @@ export type CollectionQuery = {
     id: string
     title: string
     handle: string
-    sections?: {
-      data?: {
-        nodes: Array<{
-          type: string
-          id: string
-          fields: Array<{
-            key: string
-            value?: string | null
-            type: string
-            reference?: {
-              image?: {
-                url: any
-                width?: number | null
-                height?: number | null
-                altText?: string | null
-              } | null
-            } | null
-          }>
-        }>
-      } | null
+    description: string
+    image?: {
+      src: any
+      altText?: string | null
+      width?: number | null
+      height?: number | null
     } | null
-    collectionBanners?: {
-      data?: {
-        collectionCards: Array<{
-          id: string
-          title?: { value?: string | null } | null
-          cta?: { value?: string | null } | null
-          media?: {
-            reference?: {
-              image?: {
-                url: any
-                width?: number | null
-                height?: number | null
-                altText?: string | null
-              } | null
-            } | null
-          } | null
-        }>
-      } | null
-    } | null
-    filterGroup?: {
-      data?: {
-        filterGroup: Array<{
-          id: string
-          title?: { value?: string | null } | null
-          filters?: {
-            data?: { nodes: Array<{ id: string; title: string; handle: string }> } | null
-          } | null
-        }>
-      } | null
-    } | null
-    products: {
-      nodes: Array<{
-        id: string
-        title: string
-        handle: string
-        media: { nodes: Array<{ src: any; alt?: string | null }> }
-        productCardTitle?: { value: string } | null
-        displayTags?: {
-          data?: {
-            tags: Array<{
-              id: string
-              tagMessage?: { value?: string | null } | null
-              textHexColor?: { value?: string | null } | null
-              bgHexColor?: { value?: string | null } | null
-            }>
-          } | null
-        } | null
-        hoverMedia?: {
-          reference?: {
-            image?: {
-              url: any
-              width?: number | null
-              height?: number | null
-              altText?: string | null
-            } | null
-          } | null
-        } | null
-        variants: {
-          nodes: Array<{
-            id: string
-            priceV2: { amount: any; currencyCode: CurrencyCode }
-            compareAtPriceV2?: { amount: any; currencyCode: CurrencyCode } | null
-            selectedOptions: Array<{ name: string; value: string }>
-            collectionThumbnail?: {
-              reference?: {
-                image?: {
-                  url: any
-                  width?: number | null
-                  height?: number | null
-                  altText?: string | null
-                } | null
-              } | null
-            } | null
-            variantColor?: {
-              data?: {
-                id: string
-                name?: { value?: string | null } | null
-                hex?: { value?: string | null } | null
-                secondColorHex?: { value?: string | null } | null
-                dividerColorHex?: { value?: string | null } | null
-              } | null
-            } | null
-            thumbnail?: { src: any; alt?: string | null } | null
-          }>
-        }
-      }>
-    }
   } | null
 }
 
@@ -7559,6 +7458,7 @@ export type PpdProductGroupQueryVariables = Exact<{
 
 export type PpdProductGroupQuery = {
   collection?: {
+    id: string
     products: {
       nodes: Array<{
         handle: string
@@ -7608,10 +7508,13 @@ export type ProductCardQuery = {
     id: string
     title: string
     handle: string
-    productGroup?: { value: string } | null
-    inseamLength?: { value: string } | null
+    productGroup?: {
+      value: string
+      reference?: { title: string; description: string } | null
+    } | null
+    inseam_length?: { value: string } | null
     color?: { value: string } | null
-    displayName?: { value: string } | null
+    display_name?: { value: string } | null
     variants: { nodes: Array<{ selectedOptions: Array<{ name: string; value: string }> }> }
     featuredImage?: {
       id?: string | null
@@ -7627,9 +7530,9 @@ export type ProductCardFragment = {
   id: string
   title: string
   handle: string
-  product_group?: { value: string } | null
+  productGroup?: { value: string; reference?: { title: string; description: string } | null } | null
   inseam_length?: { value: string } | null
-  swatch?: { value: string } | null
+  color?: { value: string } | null
   display_name?: { value: string } | null
   variants: { nodes: Array<{ selectedOptions: Array<{ name: string; value: string }> }> }
   featuredImage?: {

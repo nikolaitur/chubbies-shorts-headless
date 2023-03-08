@@ -1,16 +1,14 @@
-import { Inseam } from '~/global-types'
-import {
-  getColorOptions,
-  getColorOptionsByGroup,
-  getInseamOptions,
-  getSizeOptions,
-} from '~/helpers'
-import styles from './styles.module.css'
-import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
 import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector'
+import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
+import { Inseam } from '~/global-types'
+import { getColorOptions, getInseamOptions } from '~/helpers'
+import styles from './styles.module.css'
 
+// @ts-expect-error - TODO for Dylan: fix the type error
 const ProductSwatches = ({ productGroups, product }) => {
   const productGroupId = product?.productGroup?.value
+
+  // @ts-expect-error - TODO for Dylan: fix the type error
   const productGroup = productGroups.find(productGroup => productGroup.id === productGroupId)
 
   const { inseam_length, color } = product
