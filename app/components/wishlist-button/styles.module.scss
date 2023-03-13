@@ -1,0 +1,11 @@
+.button {
+  path {
+    transition: 0.2s ease-out;
+  }
+
+  &.filled {
+    path {
+      fill: currentColor;
+    }
+  }
+}

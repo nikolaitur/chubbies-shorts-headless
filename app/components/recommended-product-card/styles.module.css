@@ -1,0 +1,92 @@
+.card {
+  position: relative;
+}
+.card.xs {
+  width: 168px;
+}
+.card.xs .imageBlock {
+  height: 221px;
+}
+.card.sm {
+  width: 316px;
+}
+.card.sm .imageBlock {
+  height: 415px;
+}
+.card.md {
+  width: 392px;
+}
+.card.md .imageBlock {
+  height: 514px;
+}
+.card.lg {
+  width: 409px;
+}
+.card.lg .imageBlock {
+  height: 540px;
+}
+
+.imageBlock {
+  position: relative;
+}
+
+.tagWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wishlistButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.contentBlock {
+  padding-top: 10px;
+  position: relative;
+  z-index: 3;
+  background-color: white;
+  pointer-events: none;
+}
+
+.link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.pricesWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.bagButton {
+  margin-left: auto;
+  pointer-events: initial;
+}
+@media screen and (min-width: 769px) {
+  .bagButton {
+    display: none;
+  }
+}

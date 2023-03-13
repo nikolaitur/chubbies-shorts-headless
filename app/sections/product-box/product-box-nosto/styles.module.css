@@ -1,0 +1,20 @@
+.title {
+  height: 51px;
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  color: rgb(0, 0, 0);
+  border-top: 1px solid #D2D4D7;
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 18px;
+}
+
+.nosto {
+  padding-top: 8px;
+}
+.nosto ~ :global(.carousel-pagination) {
+  margin-top: 32px;
+  padding-bottom: 24px;
+}

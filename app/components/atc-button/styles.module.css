@@ -1,6 +1,7 @@
 .atcButton {
   width: 100%;
   position: relative;
+  text-transform: uppercase;
   transition: all 0.2s ease-in-out;
 }
 .atcButton.success {

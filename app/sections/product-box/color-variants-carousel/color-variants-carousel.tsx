@@ -5,9 +5,9 @@ import Carousel, {
 } from '@solo-brands/ui-library.ui.atomic.carousel'
 import clsx from 'clsx'
 import { useEffect } from 'react'
+import ColorVariantSelector from '~/components/color-variant-selector'
 import Link from '~/components/link'
 import { generateColorState } from '~/helpers'
-import ProductBoxSwatchSelector from '../product-box-swatch-selector'
 import styles from './styles.module.css'
 import { ColorVariantsCarouselInnerProps, ColorVariantsCarouselProps } from './types'
 
@@ -63,7 +63,7 @@ const ColorVariantsCarouselInner = ({ colorOptions, size }: ColorVariantsCarouse
               replace
               preventScrollReset
             >
-              <ProductBoxSwatchSelector size={size} colorOption={option} />
+              <ColorVariantSelector size={size} colorOption={option} />
             </Link>
           </CarouselSlide>
         )

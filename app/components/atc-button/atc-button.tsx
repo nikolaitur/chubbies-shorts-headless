@@ -1,8 +1,7 @@
-import { useFetcher, useMatches, useSearchParams } from '@remix-run/react'
+import { useFetcher, useMatches } from '@remix-run/react'
 import ButtonAddToCart from '@solo-brands/ui-library.ui.atomic.button-add-to-cart'
 import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
-import { SIZE_OPTION_NAME } from '~/constants'
 import { CartAction } from '~/global-types'
 import { getDisplayPrices } from '~/helpers'
 import { useCartActions, useCartState } from '../cart-context/cart-context'
@@ -12,24 +11,33 @@ import WaitlistModal from '../waitlist-modal'
 import styles from './styles.module.css'
 import { ATCButtonProps } from './types'
 
-const ATCButton = ({ defaultVariant, selectedVariant, additionalLines = [] }: ATCButtonProps) => {
+const ATCButton = ({
+  varaint = 'default',
+  defaultVariant,
+  selectedSize,
+  selectedVariant,
+  additionalLines = [],
+  ...props
+}: ATCButtonProps) => {
   const [isOOSModalShown, setIsOOSModalShown] = useState(false)
   const [isWaitlistModalShown, setIsWaitlistModalShown] = useState(false)
   const [shouldTriggerSplash, setShouldTriggerSplash] = useState(false)
-  const { isCartOpen } = useCartState()
-  const { setIsCartOpen } = useCartActions()
-  const fetcher = useFetcher()
-  const [searchParams] = useSearchParams()
+
   const isATCActive = useRef(false)
   const atcButtonRef = useRef<HTMLButtonElement>(null)
+
+  const fetcher = useFetcher()
   const [root] = useMatches()
+
+  const { isCartOpen } = useCartState()
+  const { setIsCartOpen } = useCartActions()
 
   const selectedLocale = root?.data?.selectedLocale
   const { price, compareAtPrice } = getDisplayPrices(defaultVariant, selectedVariant)
 
   const isAdding = fetcher.state === 'loading' || fetcher.state === 'submitting'
   const hasSelectedVariant = Boolean(selectedVariant)
-  const hasSelectedSize = Boolean(searchParams.get(SIZE_OPTION_NAME))
+  const hasSelectedSize = Boolean(selectedSize)
   const isOutOfStock = hasSelectedVariant && !selectedVariant?.availableForSale
   const isNotYetReleased = hasSelectedSize && !hasSelectedVariant
   const shouldNotAddToCart = isOutOfStock || isNotYetReleased || !hasSelectedVariant || isAdding
@@ -52,11 +60,17 @@ const ATCButton = ({ defaultVariant, selectedVariant, additionalLines = [] }: AT
     : [...additionalLines]
 
   const displayText = (() => {
-    if (!hasSelectedSize) return 'Select Size'
-    if (isNotYetReleased) return 'Notify Me When Released'
-    if (isOutOfStock) return 'Notify Me When Restocked'
+    if (varaint === 'product-card') {
+      if (!hasSelectedSize || isNotYetReleased || isOutOfStock) return 'Select Size'
 
-    return 'Add To Cart'
+      return 'Add To Cart'
+    } else {
+      if (!hasSelectedSize) return 'Select Size'
+      if (isNotYetReleased) return 'Notify Me When Released'
+      if (isOutOfStock) return 'Notify Me When Restocked'
+
+      return 'Add To Cart'
+    }
   })()
 
   const handleClick = () => {
@@ -106,6 +120,7 @@ const ATCButton = ({ defaultVariant, selectedVariant, additionalLines = [] }: AT
           onClick={handleClick}
           appendElement={<SplashElement shouldTrigger={shouldTriggerSplash} />}
           ref={atcButtonRef}
+          {...props}
         />
       </fetcher.Form>
       {isOOSModalShown && <OutOfStockModal onClose={() => setIsOOSModalShown(false)} />}

@@ -1,0 +1,21 @@
+@use '../../../styles/abstracts' as *;
+
+.title {
+  height: 51px;
+  display: flex;
+  align-items: center;
+  padding: $space-2 0;
+  color: $text-neutral-default;
+  border-top: $border-width-1 solid $borders-divider-muted;
+
+  @include body-bold-lg;
+}
+
+.nosto {
+  padding-top: $space-2;
+
+  ~ :global(.carousel-pagination) {
+    margin-top: $space-8;
+    padding-bottom: $space-6;
+  }
+}

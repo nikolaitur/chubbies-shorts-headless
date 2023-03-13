@@ -1,0 +1,40 @@
+@use '../../styles/abstracts' as *;
+
+.wrapper {
+  display: grid;
+  gap: $space-2;
+
+  &.product-box {
+    .sizeOptions {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+
+      > a {
+        scroll-snap-align: start;
+      }
+
+      &::-webkit-scrollbar {
+        height: 0;
+        display: none;
+      }
+    }
+  }
+
+  &.product-card {
+    .sizeOptions {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.sizeOptions {
+  display: flex;
+  align-items: center;
+  gap: $space-1-5;
+}
+
+.variantSelector {
+  &:disabled {
+    pointer-events: none;
+  }
+}

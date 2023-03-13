@@ -1,9 +1,9 @@
-import { useLocation, useMatches } from '@remix-run/react'
+import { useLocation } from '@remix-run/react'
 import clsx from 'clsx'
 import { useState } from 'react'
+import ColorVariantSelector from '~/components/color-variant-selector'
 import Link from '~/components/link'
 import { generateColorState } from '~/helpers'
-import ProductBoxSwatchSelector from '../product-box-swatch-selector'
 import styles from './styles.module.css'
 import { ColorVariantsExpandableProps } from './types'
 
@@ -33,7 +33,7 @@ const ColorVariantsExpandable = ({ colorOptions, size = 'md' }: ColorVariantsExp
             state={generateColorState(location.state, colorOptions)}
             replace
           >
-            <ProductBoxSwatchSelector size={size} colorOption={option} />
+            <ColorVariantSelector size={size} colorOption={option} />
           </Link>
         ))}
       </div>

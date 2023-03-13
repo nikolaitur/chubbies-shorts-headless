@@ -1,0 +1,28 @@
+@use '../../styles/abstracts' as *;
+
+.wrapper {
+  display: grid;
+  gap: $space-4;
+  padding: $space-4;
+  position: absolute;
+  background-color: white;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  transform: translateY(100px);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s ease-out;
+
+  &.xs {
+    padding: $space-2;
+  }
+
+  &.isShown,
+  &.hasSelectedSize {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+}

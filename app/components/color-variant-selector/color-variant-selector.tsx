@@ -1,8 +1,8 @@
 import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector'
 import styles from './styles.module.css'
-import { ProductBoxSwatchSelectorProps } from './types'
+import { ColorVariantSelectorProps } from './types'
 
-const ProductBoxSwatchSelector = ({ colorOption, size }: ProductBoxSwatchSelectorProps) => {
+const ColorVariantSelector = ({ colorOption, size }: ColorVariantSelectorProps) => {
   const { image, selected, exists } = colorOption
 
   /*
@@ -29,4 +29,4 @@ const ProductBoxSwatchSelector = ({ colorOption, size }: ProductBoxSwatchSelecto
   )
 }
 
-export default ProductBoxSwatchSelector
+export default ColorVariantSelector

@@ -4,6 +4,7 @@ import { Formik } from 'formik'
 import { useFetcher } from 'react-router-dom'
 import * as yup from 'yup'
 import Backdrop from '../backdrop'
+import Portal from '../portal'
 import styles from './styles.module.css'
 import { NotifyModalProps } from './types'
 
@@ -19,7 +20,7 @@ const NotifyModal = ({ action, heading, text, submitButtonText, onClose }: Notif
   const fetcher = useFetcher()
 
   return (
-    <>
+    <Portal>
       <div className={styles.modal}>
         <h2 className={styles.heading}>{heading}</h2>
         <p className={styles.text}>{text}</p>
@@ -51,7 +52,7 @@ const NotifyModal = ({ action, heading, text, submitButtonText, onClose }: Notif
         </Formik>
       </div>
       <Backdrop onClick={onClose} isShown />
-    </>
+    </Portal>
   )
 }
 

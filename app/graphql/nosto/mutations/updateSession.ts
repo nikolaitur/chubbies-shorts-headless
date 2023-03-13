@@ -17,13 +17,13 @@ export const UPDATE_SESSION_MUTATION = /* gql */ `#graphql
   ${NOSTO_RECOMMENDATIONS_FRAGMENT}
   ${NOSTO_OTHER_PAGE_FRAGMENT}
 
-  mutation UpdateNostoSession(
+  mutation UpdateSessionMutation(
     $productPage: Boolean!
     $homePage: Boolean!
     $categoryPage: Boolean!
     $otherPage: Boolean!
     $searchPage: Boolean!
-    $cartPage: Boolean!
+    # $cartPage: Boolean! - unused variable causing query error
     $isPreview: Boolean!
     $CID: String!
     $productID: String!

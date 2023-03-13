@@ -20,7 +20,7 @@ const CartLineItem = ({ line, ...props }: CartLineItemProps, ref: Ref<HTMLDivEle
   const prevQuantity = Math.max(0, quantity - 1)
   const nextQuantity = quantity + 1
 
-  const productLength = JSON.parse(inseamLength?.value)
+  const productLength = JSON.parse(inseamLength?.value ?? 'null')
 
   const lineDescription = `${displayName?.value || productTitle} - ${
     productLength?.value

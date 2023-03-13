@@ -1,4 +1,5 @@
 import { Link as RemixLink, useMatches, type LinkProps as RemixLinkProps } from '@remix-run/react'
+import { forwardRef, Ref } from 'react'
 
 type LinkProps = Omit<RemixLinkProps, 'className'> & {
   className?: RemixLinkProps['className']
@@ -18,7 +19,7 @@ const SHOPIFY_DOMAIN = 'chubbies.myshopify.com'
  * in the pathname and instead rely on a domain, cookie, or header.
  */
 
-const Link = (props: LinkProps) => {
+const Link = (props: LinkProps, ref: Ref<HTMLAnchorElement>) => {
   const { to, className, ...resOfProps } = props
   const [root] = useMatches()
   const { pathPrefix = '' } = root.data?.selectedLocale || {}
@@ -38,10 +39,10 @@ const Link = (props: LinkProps) => {
       transformedTo = to
     }
   }
-  return <RemixLink to={transformedTo} className={className} {...resOfProps} />
+  return <RemixLink to={transformedTo} className={className} ref={ref} {...resOfProps} />
 }
 
-export default Link
+export default forwardRef(Link)
 
 const prefixPathname = ({ pathname, pathPrefix }: { pathname: string; pathPrefix: string }) => {
   if (pathPrefix && !pathname?.startsWith(pathPrefix)) return `${pathPrefix}${pathname}`

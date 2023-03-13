@@ -86,6 +86,7 @@ const ProductCard = ({ product }: { product: ProductCardFragment | null }) => {
               </div>
             </div>
             <AtcButton
+              selectedSize={selectedSize ?? null}
               defaultVariant={selectedVariant as ProductVariant}
               selectedVariant={selectedVariant as ProductVariant}
             />

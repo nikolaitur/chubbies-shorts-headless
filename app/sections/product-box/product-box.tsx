@@ -1,8 +1,10 @@
+import { useSearchParams } from '@remix-run/react'
 import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { UnionToIntersection } from 'type-fest'
 import ATCButton from '~/components/atc-button'
 import Container from '~/components/container'
 import Section from '~/components/section'
+import { SIZE_OPTION_NAME } from '~/constants'
 import { PdpMediaFragment } from '~/graphql/generated'
 import ProductGallery from './product-gallery'
 import ProductInfoBlocks from './product-info-blocks'
@@ -12,10 +14,13 @@ import styles from './styles.module.css'
 import { ProductBoxProps } from './types'
 
 const ProductBox = ({ product, ...props }: ProductBoxProps) => {
+  const [searchParams] = useSearchParams()
+
   const { infoBlocks, media, selectedVariant, variants } = product ?? {}
   const flattenedMedia = media?.nodes as UnionToIntersection<PdpMediaFragment>[]
   const flattenedInfoBlocks = infoBlocks?.references?.nodes
   const firstVariant = variants.nodes[0]
+  const selectedSize = searchParams.get(SIZE_OPTION_NAME)
 
   return (
     <Section {...props}>
@@ -26,6 +31,7 @@ const ProductBox = ({ product, ...props }: ProductBoxProps) => {
             <ProductInfos />
             <ProductVariants />
             <ATCButton
+              selectedSize={selectedSize}
               defaultVariant={firstVariant as ProductVariant}
               selectedVariant={selectedVariant as ProductVariant}
             />

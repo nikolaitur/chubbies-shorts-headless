@@ -1,6 +1,6 @@
 import ColorVariantGroup from '../color-variants-group'
 import InseamVariantsGroup from '../inseam-variants-group'
-import SizeVariantsGroup from '../size-variants-group'
+import ProductBoxSizeVariantsGroup from '../product-box-size-variants-group'
 import styles from './styles.module.css'
 
 const ProductVariants = () => {
@@ -9,7 +9,7 @@ const ProductVariants = () => {
       <InseamVariantsGroup />
       <ColorVariantGroup className={styles.desktopColorVariants} variant="expandable" />
       <ColorVariantGroup className={styles.mobileColorVariants} />
-      <SizeVariantsGroup />
+      <ProductBoxSizeVariantsGroup />
     </div>
   )
 }

@@ -1,0 +1,28 @@
+.wrapper {
+  display: grid;
+  gap: 8px;
+}
+.wrapper.product-box .sizeOptions {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+.wrapper.product-box .sizeOptions > a {
+  scroll-snap-align: start;
+}
+.wrapper.product-box .sizeOptions::-webkit-scrollbar {
+  height: 0;
+  display: none;
+}
+.wrapper.product-card .sizeOptions {
+  flex-wrap: wrap;
+}
+
+.sizeOptions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.variantSelector:disabled {
+  pointer-events: none;
+}

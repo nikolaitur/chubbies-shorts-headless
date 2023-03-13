@@ -1,0 +1,5 @@
+.variantSelector {
+  &:disabled {
+    pointer-events: none;
+  }
+}

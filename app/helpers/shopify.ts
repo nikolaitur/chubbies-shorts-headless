@@ -1,6 +1,5 @@
 import { Storefront } from '@shopify/hydrogen'
 import { MetaobjectField, Product } from '@shopify/storefront-kit-react/storefront-api-types'
-import { PRODUCT_FROM_IDS_QUERY } from '~/graphql/storefront/products/queries/productsFromIds'
 
 export const flattenMetaobjectFields = (fields: MetaobjectField[]) =>
   fields.reduce((flattenedFields, { key, ...field }) => {
@@ -12,7 +11,7 @@ export const flattenMetaobjectFields = (fields: MetaobjectField[]) =>
     }
   }, {})
 
-export const getProductIdWithHandle = async (handle: string, storefront: Storefront) => {
+export const getProductIdByHandle = async (handle: string, storefront: Storefront) => {
   const { product } = await storefront.query<{ product: Product }>(
     `query Product($handle: String!) {
       product(handle: $handle) {
@@ -26,14 +25,4 @@ export const getProductIdWithHandle = async (handle: string, storefront: Storefr
     },
   )
   return product?.id?.split('/')[4]
-}
-
-export const getProductDataWithIds = async (ids: string[], storefront: Storefront) => {
-  const res = await storefront.query<{ nodes: Product[] }>(PRODUCT_FROM_IDS_QUERY, {
-    variables: {
-      ids,
-    },
-    cache: storefront.CacheNone(),
-  })
-  return res
 }

@@ -1,5 +1,5 @@
 import { cssBundleHref } from '@remix-run/css-bundle'
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import { Storefront } from '@shopify/hydrogen'
 import { Cart } from '@shopify/hydrogen-react/storefront-api-types'
 import { json, type LinksFunction, type LoaderArgs, type MetaFunction } from '@shopify/remix-oxygen'
@@ -11,8 +11,8 @@ import { ThemeProvider } from 'styled-components'
 import {
   createNostoCookie,
   generateNostoEventPayload,
+  getEnrichedNostoPlacements,
   getNostoSessionID,
-  getProductDataForRecs,
   updateNostoSession,
 } from '~/helpers'
 import favicon from '../public/favicon.svg'
@@ -60,29 +60,35 @@ export async function loader({ context, request, params }: LoaderArgs) {
   const { storefront, session, env } = context
 
   const cartId = await session.get('cartId')
-
   const cart = cartId ? await getCart(storefront, cartId) : undefined
 
-  //Placeholder for customer info
+  // Placeholder for customer info
   const customer = {}
   const headers: HeadersInit = []
 
   const destination = request.headers.get('sec-fetch-dest')
-  /* Generate Nosto Session  */
+
+  // Generate Nosto Session
   const nostoAPIKey = env.NOSTO_API_APPS_TOKEN
   const nostoSessionID = await getNostoSessionID(request, nostoAPIKey)
   headers.push(createNostoCookie(nostoSessionID))
 
-  //TODO: [CHU-184] Remove await when Remix bug is fixed
-  const recommendedProducts = await generateNostoEventPayload(storefront, request, params)
-    .then(payload => updateNostoSession(payload, nostoAPIKey, nostoSessionID))
-    .then(placements => getProductDataForRecs(storefront, placements))
+  const nostoEventPayload = await generateNostoEventPayload(storefront, request.url, params)
+  const initialNostoPlacements = await updateNostoSession(
+    nostoEventPayload,
+    nostoAPIKey,
+    nostoSessionID,
+  )
+  const enrichedNostoPlacements = await getEnrichedNostoPlacements(
+    storefront,
+    initialNostoPlacements,
+  )
 
   //TODO: [CHU-184] Change to defer when Remix bug is fixed this is fixed
   return json(
     {
       cart,
-      nosto: recommendedProducts,
+      nostoPlacements: enrichedNostoPlacements,
       selectedLocale: storefront.i18n,
     },
     {
@@ -100,14 +106,13 @@ export const Head = createHead(() => (
 ))
 
 export default function App() {
-  const data = useLoaderData<typeof loader>()
-
   return (
     <>
       <Head />
       <ThemeProvider theme={theme}>
         <BaseStyles />
         <Outlet />
+        <div id="portal" />
       </ThemeProvider>
       <ScrollRestoration />
       <Scripts />

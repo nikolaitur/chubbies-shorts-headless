@@ -28,3 +28,7 @@ export const parseCookie = (request: Request, name: string) => {
 }
 
 export const capitalizeWord = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
+
+export const checkIfTouchDevice = () =>
+  // @ts-expect-error - navigator type error
+  'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0

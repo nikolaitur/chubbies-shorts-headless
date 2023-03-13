@@ -6,7 +6,7 @@ import {
   INSEAM_METAFIELD_FRAGMENT,
   PRODUCT_GROUP_FRAGMENT,
   PRODUCT_GROUP_VARIANTS_FRAGMENT,
-} from './product/fragments'
+} from './pdp/fragments'
 
 export const PRODUCT_GROUPS_QUERY = /* gql */ `#graphql
 ${COLOR_FRAGMENT}

@@ -7019,7 +7019,52 @@ export type MenuItemFragment = {
   }>
 }
 
-export type ProductMiniCardFragment = { title: string; id: string }
+export type NostoRecommendedProductsQueryVariables = Exact<{
+  ids: Array<Scalars['ID']> | Scalars['ID']
+}>
+
+export type NostoRecommendedProductsQuery = {
+  nodes: Array<{
+    title: string
+    handle: string
+    id: string
+    variants: {
+      nodes: Array<{
+        id: string
+        availableForSale: boolean
+        sku?: string | null
+        title: string
+        selectedOptions: Array<{ name: string; value: string }>
+        image?: {
+          id?: string | null
+          url: any
+          altText?: string | null
+          width?: number | null
+          height?: number | null
+        } | null
+        price: { amount: any; currencyCode: CurrencyCode }
+        compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+        product: { title: string; handle: string }
+      }>
+    }
+    displayName?: { value: string } | null
+    productGroup?: {
+      value: string
+      reference?: {
+        title: string
+        description: string
+        productTitle?: { value: string } | null
+      } | null
+    } | null
+    featuredImage?: {
+      altText?: string | null
+      height?: number | null
+      width?: number | null
+      url: any
+    } | null
+    options: Array<{ name: string; values: Array<string> }>
+  } | null>
+}
 
 type PdpMediaFragment_ExternalVideo_ = {
   mediaContentType: MediaContentType
@@ -7589,9 +7634,3 @@ export type ProductGroups = {
     }
   } | null>
 }
-
-export type GetProductsWithIdsVariables = Exact<{
-  ids: Array<Scalars['ID']> | Scalars['ID']
-}>
-
-export type GetProductsWithIds = { nodes: Array<{ title: string; id: string } | null> }

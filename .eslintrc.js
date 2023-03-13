@@ -9,5 +9,6 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'eslint-comments/no-unlimited-disable': 'off', // this is for codegen
     'eslint-comments/disable-enable-pair': 'off', // this is for codegen
+    'no-console': ['error', { allow: ['error'] }],
   },
 }
