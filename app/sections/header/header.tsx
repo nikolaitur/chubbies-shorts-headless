@@ -3,7 +3,6 @@ import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon'
 import Container from '@solo-brands/ui-library.ui.atomic.container'
 import {
   BurgerMenuIcon,
-  ChubbiesAccountIcon,
   ChubbiesBagIcon,
   MagnifyingIcon,
 } from '@solo-brands/ui-library.ui.atomic.icon'
@@ -23,6 +22,7 @@ import { HeaderNavigationProps } from './types'
 
 import { useMatches } from '@remix-run/react'
 import { ClientOnly } from 'remix-utils'
+import AccountButton from './account-button'
 import NavIndicator from './nav-indicator/nav-indicator'
 import styles from './styles.module.css'
 
@@ -133,7 +133,7 @@ const Header = ({ menu, navImages, brandLogo }: HeaderNavigationProps) => {
                 {/*Right action icons block*/}
                 <div className={styles.positionBlock}>
                   {/*TODO: Should be done in account functionality*/}
-                  <ChubbiesAccountIcon />
+                  <AccountButton />
                   {/*TODO: Should be done in cart functionality*/}
                   <div className={styles.cartIcon}>
                     <button onClick={() => setIsCartOpen(!isCartOpen)}>

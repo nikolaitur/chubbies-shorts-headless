@@ -1,0 +1,131 @@
+@use '../../../styles/abstracts' as *;
+
+.accountModal {
+  width: 100%;
+  position: fixed;
+  @include inset(0);
+  background-color: white;
+  color: $text-neutral-default;
+  transform: translateX(100%);
+  transition: 0.2s ease-out;
+  z-index: 100;
+
+  &.isShown {
+    transform: translateX(0);
+  }
+
+  @include media-query(lg) {
+    width: 370px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: initial;
+    bottom: initial;
+    border-radius: $border-radius-modal;
+    box-shadow: $shadow-modal;
+    transform: translateY(-20px);
+    opacity: 0;
+    visibility: hidden;
+
+    &.isShown {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: $space-3 $space-4;
+
+  @include media-query(lg) {
+    display: none;
+  }
+}
+
+.block {
+  display: block;
+  padding: $space-4;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0; // missing token
+  }
+
+  &.withArrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.rewardDetails {
+  display: grid;
+  gap: $space-4;
+  justify-items: center;
+  text-align: center;
+}
+
+.rewardPointsDetails {
+  display: grid;
+  gap: $space-2;
+}
+
+.rewardPoints {
+  @include headings-xxxl;
+}
+
+.rewardDetailsFooter {
+  display: grid;
+  gap: $space-2;
+}
+
+.welcomeTitle {
+  @include headings-sm;
+}
+
+.welcomeText {
+  margin-bottom: $space-2;
+}
+
+.buttonGroup {
+  margin-top: $space-4;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+
+  button {
+    width: 100%;
+  }
+}
+
+.blockTitle,
+.rewardsTitle,
+.rewardPointsTitle {
+  @include headings-xs;
+}
+
+.rewardsTitle,
+.rewardPointsTitle {
+  color: $alert-warning-default;
+}
+
+.rewardsText {
+  margin-bottom: $space-1;
+}
+
+.linkText,
+.signoutButton {
+  color: $text-link-primary--default;
+  @include textlink-md;
+}
+
+.greenText {
+  color: $alert-success-default;
+  @include body-bold-md;
+}
+
+.signoutButton {
+  color: $text-link-neutral--default;
+}

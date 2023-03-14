@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { useEffect, useRef } from 'react'
-import { checkIfTouchDevice } from '~/helpers'
+import { useRef } from 'react'
+import { useOverlayController } from '~/hooks'
 import ATCButton from '../atc-button'
 import SizeVariantsGroup from '../size-variants-group'
 import styles from './styles.module.css'
@@ -20,43 +20,12 @@ const VariantOverlay = ({
   const variantOverlayRef = useRef<HTMLDivElement>(null)
   const isComponentSizeXS = size === 'xs'
 
-  // extracted the logic for showing and hiding overlay for reusability
-  // stateless logic for smoother transition
-  useEffect(() => {
-    const hoverController = hoverControllerRef?.current
-    const clickController = clickControllerRef?.current
-    const variantOverlay = variantOverlayRef.current
-    const isTouchDevice = checkIfTouchDevice()
-
-    if (!variantOverlay) return
-
-    const showOverlay = () => {
-      variantOverlay.classList.add(styles.isShown)
-    }
-
-    const hideOverlay = () => {
-      variantOverlay.classList.remove(styles.isShown)
-    }
-
-    const toggleOverlay = () => {
-      variantOverlay.classList.toggle(styles.isShown)
-    }
-
-    if (!isTouchDevice) {
-      hoverController?.addEventListener('mouseenter', showOverlay)
-      hoverController?.addEventListener('mouseleave', hideOverlay)
-    }
-    clickController?.addEventListener('click', toggleOverlay)
-
-    return () => {
-      if (!isTouchDevice) {
-        hoverController?.removeEventListener('mouseenter', showOverlay)
-        hoverController?.removeEventListener('mouseleave', hideOverlay)
-      }
-
-      clickController?.removeEventListener('click', toggleOverlay)
-    }
-  }, [])
+  useOverlayController({
+    className: styles.isShown,
+    overlayRef: variantOverlayRef,
+    hoverControllerRef,
+    toggleControllerRef: clickControllerRef,
+  })
 
   return (
     <div
