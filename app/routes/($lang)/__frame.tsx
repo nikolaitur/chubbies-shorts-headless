@@ -33,7 +33,6 @@ export async function loader({ context }: LoaderArgs) {
     legalLinksMenuHandle,
     headerNavMenuHandle,
     brandLogo,
-    shippingEstimates,
     cartBlocksAboveCartItems,
   } = globalSettings || {}
 
@@ -71,7 +70,6 @@ export async function loader({ context }: LoaderArgs) {
     legalLinksMenu,
     navCollectionImages,
     brandLogo,
-    shippingEstimates,
     cartBlocksAboveCartItems,
   })
 }
