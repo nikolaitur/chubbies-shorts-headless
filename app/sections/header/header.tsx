@@ -26,12 +26,7 @@ import AccountButton from './account-button'
 import NavIndicator from './nav-indicator/nav-indicator'
 import styles from './styles.module.css'
 
-const Header = ({
-  cartBlocksAboveCartItems,
-  menu,
-  navImages,
-  brandLogo,
-}: HeaderNavigationProps) => {
+const Header = ({ menu, navImages, brandLogo }: HeaderNavigationProps) => {
   const { isCartOpen } = useCartState()
   const { setIsCartOpen } = useCartActions()
 
@@ -144,7 +139,7 @@ const Header = ({
                     <button onClick={() => setIsCartOpen(!isCartOpen)}>
                       <ChubbiesBagIcon />
                     </button>
-                    <CartModal cartBlocksAboveCartItems={cartBlocksAboveCartItems} />
+                    <CartModal />
                     <NavIndicator count={totalQuantity} />
                   </div>
                 </div>

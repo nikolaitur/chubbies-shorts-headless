@@ -1,9 +1,7 @@
 import type {
-  Attribute,
   Cart as CartType,
   CartBuyerIdentityInput,
   CartInput,
-  CartLineEdge,
   CartLineInput,
   CartLineUpdateInput,
   CartUserError,
@@ -197,8 +195,8 @@ export async function cartDiscountCodesUpdate({
   return cartDiscountCodesUpdate
 }
 
-export const getCartCompareAtPrice = (lines: CartLineEdge[]) =>
-  lines
+export const getCartCompareAtPrice = (lines: CartType['lines']) =>
+  lines.edges
     ?.reduce((total, line) => {
       const {
         node: { cost, quantity },
@@ -238,19 +236,5 @@ export const getComputedAmount = (
 
     default:
       return '0'
-  }
-}
-
-export const getCartLineAttributes = (attributes: Attribute[]) => {
-  const GWP_KEY = '_isGwpProduct'
-
-  const getSpecificCustomAttribute = (key: string) => {
-    return attributes?.find(attr => attr?.key === key)?.value || null
-  }
-
-  const isGwpProduct = getSpecificCustomAttribute(GWP_KEY)
-
-  return {
-    isGwpProduct,
   }
 }

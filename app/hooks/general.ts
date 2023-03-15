@@ -1,4 +1,3 @@
-import { useFetchers } from '@remix-run/react'
 import { RefObject, useEffect, useState } from 'react'
 import { checkIfTouchDevice } from '~/helpers'
 
@@ -20,22 +19,6 @@ export const useMatchMedia = (breakpoint: string, initialValue = false) => {
   }, [breakpoint])
 
   return isMatch
-}
-
-export function useCartFetchers(actionNames: string[]) {
-  const fetchers = useFetchers()
-  const cartFetchers = []
-
-  for (const fetcher of fetchers) {
-    const formData = fetcher.submission?.formData
-
-    const currentCartAction = formData?.get('cartAction') as string
-
-    if (formData && actionNames.includes(currentCartAction)) {
-      cartFetchers.push(fetcher)
-    }
-  }
-  return cartFetchers
 }
 
 export type OverlayControllerOptions = {

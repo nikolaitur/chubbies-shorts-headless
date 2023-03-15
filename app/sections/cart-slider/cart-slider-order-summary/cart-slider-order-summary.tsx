@@ -3,7 +3,7 @@ import ButtonCheckout from '@solo-brands/ui-library.ui.atomic.button-checkout'
 import OrderSummaryItem from '@solo-brands/ui-library.ui.shared.order-summary-item'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
 import Link from '~/components/link'
-import { getCartCompareAtPrice, getCartLineAttributes, getComputedAmount } from '~/helpers'
+import { getCartCompareAtPrice, getComputedAmount } from '~/helpers'
 import GiftCouponCode from '../gift-coupon-code'
 import styles from './styles.module.css'
 
@@ -20,11 +20,7 @@ const CartSliderOrderSummary = (
 
   const hasQuantity = Boolean(totalQuantity)
 
-  const filteredLines = lines?.edges?.filter(
-    edge => !getCartLineAttributes(edge?.node?.attributes)?.isGwpProduct,
-  )
-
-  const totalCompareAtPrice = filteredLines ? getCartCompareAtPrice(filteredLines) : '0'
+  const totalCompareAtPrice = lines ? getCartCompareAtPrice(lines) : '0'
 
   const compareAtPrice =
     parseFloat(totalCompareAtPrice) > 0

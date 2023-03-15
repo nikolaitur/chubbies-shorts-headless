@@ -8,14 +8,11 @@ import { forwardRef, Ref } from 'react'
 import { ClientOnly } from 'remix-utils'
 import { useCartActions } from '~/components/cart-context/cart-context'
 import Link from '~/components/link'
-import CartBlocksAboveCartItems from '~/sections/cart-slider/cart-blocks-above-cart-items'
+import GiftWithPurchase from '~/sections/cart-slider/gift-with-purchase'
 import styles from './styles.module.css'
 import { CartModalProps } from './types'
 
-const CartModal = (
-  { isShown = false, cartBlocksAboveCartItems, ...props }: CartModalProps,
-  ref: Ref<HTMLDivElement>,
-) => {
+const CartModal = ({ isShown = false, ...props }: CartModalProps, ref: Ref<HTMLDivElement>) => {
   const [root] = useMatches()
   const { setIsCartOpen } = useCartActions()
 
@@ -23,8 +20,6 @@ const CartModal = (
 
   const { totalQuantity, checkoutUrl } = cart
   const hasQuantity = Boolean(totalQuantity)
-
-  const flattenedCartBlocksAboveCartItems = cartBlocksAboveCartItems?.references?.nodes
 
   return (
     <ClientOnly>
@@ -76,9 +71,7 @@ const CartModal = (
             </div>
           </div>
           <div className={styles.gwp}>
-            <CartBlocksAboveCartItems
-              cartBlocksAboveCartItems={flattenedCartBlocksAboveCartItems}
-            />
+            <GiftWithPurchase />
           </div>
         </div>
       )}

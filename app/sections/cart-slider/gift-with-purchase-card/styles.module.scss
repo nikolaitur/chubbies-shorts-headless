@@ -4,10 +4,9 @@
   border: $border-width-1-5 solid $borders-divider-muted;
   border-radius: $border-radius-base;
   padding: $space-2-5;
-  min-height: 98px;
+  min-height: 100px;
   width: 284px;
   position: relative;
-  transition: border-color 0.15s ease-out;
 
   &.isSelected {
     border-color: $alert-success-default;
@@ -41,18 +40,6 @@
   justify-content: center;
   z-index: 2;
   border-radius: $rounded-pill;
-  transition: background-color 0.15s ease-out;
-
-  svg {
-    height: 16px;
-    width: 16px;
-  }
-
-  > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 
   &.isSelected {
     background-color: $alert-success-default;
@@ -74,7 +61,6 @@
 
 .details {
   display: grid;
-  text-align: left;
 }
 
 .sizes {
@@ -92,30 +78,6 @@
   height: 100%;
   width: 100%;
   background-color: $base-colors-neutral-black;
-  background-color: rgba(0, 0, 0, 0);
-  visibility: hidden;
-  pointer-events: none;
-  z-index: 1;
-  transition: opacity 0.15s ease-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &.isShown {
-    background-color: rgba(0, 0, 0, $opacity-2);
-    visibility: visible;
-    pointer-events: initial;
-  }
-}
-
-.priceContainer {
-  display: flex;
-  align-items: center;
-  gap: $space-2;
-  margin-top: $space-1;
-}
-
-.freeText {
-  color: $price-neutral-default;
-  @include product-price-default-sm;
+  opacity: $opacity-2;
+  z-index: 0;
 }
