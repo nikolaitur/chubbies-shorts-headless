@@ -52,26 +52,36 @@ const CartSliderOrderSummary = (
     <div className={styles.orderSummary} ref={ref} {...props}>
       <p className={styles.title}>Order Summary</p>
       <OrderSummaryItem
+        brand="chubbies"
         title="Subtotal"
         price={{ amount: subtotalAmount?.amount || '0', currencyCode: 'USD' }}
       />
       {/* TO-DO: Update OrderSummaryItem to have "description" text for "FREE SHIPPING" */}
       <OrderSummaryItem
+        brand="chubbies"
         title="Shipping"
+        description="Calculated at next step"
         variant="message-positive"
         price={{ amount: '0', currencyCode: 'USD' }}
       />
-      {totalDiscount && (
-        <OrderSummaryItem title="Discount" variant="discount" price={totalDiscount} />
-      )}
+      {/* {totalDiscount && (
+        <OrderSummaryItem
+          brand="chubbies"
+          title="Discount"
+          variant="discount"
+          price={totalDiscount}
+        />
+      )} */}
       {/* TO-DO: Update OrderSummaryItem for coupon codes with close icon*/}
-      <OrderSummaryItem
+      {/* <OrderSummaryItem
+        brand="chubbies"
         title="Gift/Coupon Code"
         variant="discount"
         price={{ amount: '100', currencyCode: 'USD' }}
-      />
+      /> */}
       <div className={styles.divider} />
       <OrderSummaryItem
+        brand="chubbies"
         title="Total"
         variant="total"
         compareAtPrice={compareAtPrice}
