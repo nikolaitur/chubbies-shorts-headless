@@ -3052,6 +3052,17 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
+"@solo-brands/ui-library.ui.atomic.carousel@^0.0.30":
+  version "0.0.30"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.carousel/-/@solo-brands-ui-library.ui.atomic.carousel-0.0.30.tgz#7e0a87a7bae3a6652e9f5c59280093e2651ee08e"
+  integrity sha1-fgqHp7rjpmUun1xZKACT4mUe4I4=
+  dependencies:
+    "@solo-brands/ui-library.ui.atomic.button-icon" "1.0.12"
+    "@solo-brands/ui-library.ui.atomic.icon" "1.0.11"
+    "@solo-brands/ui-library.ui.atomic.slider-indicator" "1.0.5"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
 "@solo-brands/ui-library.ui.atomic.container@^1.0.4":
   version "1.0.5"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.container/-/@solo-brands-ui-library.ui.atomic.container-1.0.5.tgz#476da2b7ad0151c21dd7a8d76cfb76abfe82ef39"
@@ -3241,7 +3252,17 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.product-image@1.0.7":
+"@solo-brands/ui-library.ui.atomic.price@1.0.6":
+  version "1.0.6"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.price/-/@solo-brands-ui-library.ui.atomic.price-1.0.6.tgz#c1be859beff64ccdc5140f00f02745d6b8f9544c"
+  integrity sha1-wb6Fm+/2TM3FFA8A8CdF1rj5VEw=
+  dependencies:
+    "@shopify/hydrogen-react" "^2022.10.3"
+    "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.atomic.product-image@^1.0.7":
   version "1.0.7"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.product-image/-/@solo-brands-ui-library.ui.atomic.product-image-1.0.7.tgz#eb1d549651a56a1feb6d7a8b672d530d4cbdd325"
   integrity sha1-6x1UllGlah/rbXqLZy1TDUy90yU=
@@ -3361,14 +3382,14 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.variant-selector@^1.0.5":
-  version "1.0.5"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.variant-selector/-/@solo-brands-ui-library.ui.atomic.variant-selector-1.0.5.tgz#4006b45a5d1488ff6efef3ff5ee4a3bf043988f7"
-  integrity sha1-QAa0Wl0UiP9u/vP/XuSjvwQ5iPc=
+"@solo-brands/ui-library.ui.atomic.variant-selector@^1.0.7":
+  version "1.0.7"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.variant-selector/-/@solo-brands-ui-library.ui.atomic.variant-selector-1.0.7.tgz#0d4e6c94ce4cb73737531054d24de15042c8116a"
+  integrity sha1-DU5slM5Mtzc3UxBU0k3hUELIEWo=
   dependencies:
     "@shopify/hydrogen-react" "^2022.10.3"
     "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
-    "@solo-brands/ui-library.ui.atomic.price" "1.0.4"
+    "@solo-brands/ui-library.ui.atomic.price" "1.0.6"
     core-js "^3.0.0"
     styled-components "5.3.6"
 

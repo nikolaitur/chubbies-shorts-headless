@@ -33,6 +33,7 @@ export async function loader({ context }: LoaderArgs) {
     legalLinksMenuHandle,
     headerNavMenuHandle,
     brandLogo,
+    cartBlocksAboveCartItems,
   } = globalSettings || {}
 
   const { promoBarMenu, footerMenu, legalLinksMenu, headerNavMenu } =
@@ -69,6 +70,7 @@ export async function loader({ context }: LoaderArgs) {
     legalLinksMenu,
     navCollectionImages,
     brandLogo,
+    cartBlocksAboveCartItems,
   })
 }
 
@@ -81,6 +83,7 @@ export default function MainFrame() {
     promoBarAnnouncements,
     navCollectionImages,
     brandLogo,
+    cartBlocksAboveCartItems,
   } = useLoaderData<typeof loader>()
 
   return (
@@ -92,10 +95,11 @@ export default function MainFrame() {
         brandLogo={brandLogo?.reference?.image}
         //@ts-expect-error Incorrect type from useLoaderData
         navImages={navCollectionImages?.nodes}
+        cartBlocksAboveCartItems={cartBlocksAboveCartItems}
       />
       <Outlet />
       <Footer menu={footerMenu} legalLinks={legalLinksMenu} />
-      <CartSlider />
+      <CartSlider cartBlocksAboveCartItems={cartBlocksAboveCartItems} />
     </CartProvider>
   )
 }
