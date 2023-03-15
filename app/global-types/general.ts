@@ -1,6 +1,7 @@
 import { I18nBase } from '@shopify/hydrogen'
 import {
   Cart,
+  Customer,
   Image,
   Maybe,
   MetafieldReference,
@@ -23,4 +24,6 @@ export type RootLoaderData = {
   cart?: Cart
   nostoPlacements?: NostoPlacement[] | null
   selectedLocale: I18nBase
+  customer: Customer | null
+  isAuthenticated: boolean
 }

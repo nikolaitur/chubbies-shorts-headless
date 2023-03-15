@@ -1,0 +1,90 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  @include drawer;
+  border-radius: $border-radius-modal;
+  background-color: white;
+
+  &.isShown {
+    transform: translateX(0);
+  }
+
+  @include media-query(md) {
+    max-width: 620px;
+    bottom: initial;
+    right: initial;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 20px));
+    opacity: 0;
+    visibility: hidden;
+
+    &.isShown {
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: $space-3;
+  margin-bottom: $space-2;
+}
+
+.body {
+  display: grid;
+  gap: $space-4;
+
+  @include media-query(md) {
+    padding: 0 $space-12 $space-12;
+  }
+}
+
+.title,
+.info {
+  display: none;
+
+  @include media-query(md) {
+    display: block;
+  }
+}
+
+.form {
+  display: grid;
+  gap: $space-4;
+}
+
+.title {
+  margin-bottom: $space-2;
+  @include product-title-md;
+  text-align: center;
+}
+
+.text {
+  @include body-regular-md;
+  text-align: center;
+}
+
+.signUpLink,
+.forgotPasswordButton {
+  @include textlink-md;
+  color: $text-link-primary--default;
+}
+
+.passwordFieldWrapper {
+  display: grid;
+  gap: $space-1;
+}
+
+.forgotPasswordButtonWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.signInButton {
+  width: 100%;
+  text-transform: uppercase;
+}

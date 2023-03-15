@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import { useRef } from 'react'
 import { useOverlayController } from '~/hooks'
 import ATCButton from '../atc-button'
 import SizeVariantsGroup from '../size-variants-group'
@@ -14,25 +13,22 @@ const VariantOverlay = ({
   size = 'md',
   variant = 'primary',
   hoverControllerRef,
-  clickControllerRef,
+  toggleControllerRef,
   onSelectSize,
 }: VariantOverlayProps) => {
-  const variantOverlayRef = useRef<HTMLDivElement>(null)
   const isComponentSizeXS = size === 'xs'
 
-  useOverlayController({
-    className: styles.isShown,
-    overlayRef: variantOverlayRef,
+  const { isShown } = useOverlayController({
     hoverControllerRef,
-    toggleControllerRef: clickControllerRef,
+    toggleControllerRef,
   })
 
   return (
     <div
       className={clsx(styles.wrapper, styles[variant], styles[size], {
         [styles.hasSelectedSize]: Boolean(selectedSize),
+        [styles.isShown]: isShown,
       })}
-      ref={variantOverlayRef}
     >
       {sizeOptions && (
         <SizeVariantsGroup

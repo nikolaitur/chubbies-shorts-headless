@@ -1,0 +1,177 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  @include drawer;
+  display: grid;
+  align-content: start;
+  background-color: white;
+
+  &.isShown {
+    transform: translateX(0);
+  }
+
+  @include media-query(md) {
+    max-width: 730px;
+    max-height: 80vh;
+    bottom: initial;
+    right: initial;
+    top: 50%;
+    left: 50%;
+    border-radius: $border-radius-modal;
+    transform: translate(-50%, calc(-50% + 20px));
+    opacity: 0;
+    visibility: hidden;
+
+    &.isShown {
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  @include media-query(md) {
+    grid-template-columns: 300px 1fr;
+  }
+
+  @include media-query(lg) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.imageBlock {
+  height: 142px;
+  position: relative;
+  padding: $space-4;
+  display: flex;
+  align-items: center;
+
+  @include media-query(md) {
+    height: auto;
+    align-items: flex-end;
+    padding: $space-8;
+  }
+
+  &:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    @include inset(0);
+    background: #000a14;
+    opacity: 0.6;
+    z-index: 0;
+  }
+}
+
+.imageBlockText {
+  position: relative;
+  z-index: 1;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  @include inset(0);
+  object-fit: cover;
+  z-index: -1;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: $space-3;
+  margin-bottom: $space-2;
+
+  &.desktop {
+    display: none;
+
+    @include media-query(md) {
+      display: flex;
+    }
+  }
+
+  &.mobile {
+    @include media-query(md) {
+      display: none;
+    }
+  }
+}
+
+.heading {
+  @include headings-md;
+  color: $text-neutral-white;
+
+  @include media-query(md) {
+    @include headings-xl;
+    margin-bottom: $space-2;
+  }
+}
+
+.checklist {
+  @include body-semi-sm;
+  color: $text-neutral-white;
+
+  @include media-query(md) {
+    @include body-semi-lg;
+  }
+}
+
+.body {
+  padding: $space-4;
+  display: grid;
+  gap: $space-4;
+
+  @include media-query(md) {
+    padding: 0 $space-8 $space-8;
+  }
+}
+
+.titleBlock {
+  display: none;
+
+  @include media-query(md) {
+    display: block;
+  }
+}
+
+.title {
+  @include product-title-md;
+  text-align: center;
+  padding-bottom: $space-2;
+}
+
+.text {
+  @include body-regular-md;
+  text-align: center;
+}
+
+.link {
+  @include textlink-md;
+  color: $text-link-primary--default;
+}
+
+.form {
+  display: grid;
+  gap: $space-4;
+}
+
+.nameFieldWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: $space-4;
+}
+
+.terms {
+  text-align: center;
+  @include body-regular-sm;
+  color: $text-neutral-subdued;
+
+  .link {
+    @include body-regular-sm;
+  }
+}
+
+.joinButton {
+  width: 100%;
+}

@@ -17,6 +17,7 @@ import {
 } from '~/helpers'
 import favicon from '../public/favicon.svg'
 import { CART_QUERY } from './graphql/storefront/cart/queries'
+import { fetchCustomer } from './helpers/account'
 
 import appStyles from './styles/app.css'
 
@@ -59,14 +60,17 @@ export const meta: MetaFunction = data => ({
 export async function loader({ context, request, params }: LoaderArgs) {
   const { storefront, session, env } = context
 
+  const headers: HeadersInit = []
+  const destination = request.headers.get('sec-fetch-dest')
+
+  // account
+  const customerAccessToken: string = await session.get('customerAccessToken')
+  const isAuthenticated = Boolean(customerAccessToken)
+  const customer = await fetchCustomer(context, customerAccessToken)
+
+  // cart
   const cartId = await session.get('cartId')
   const cart = cartId ? await getCart(storefront, cartId) : undefined
-
-  // Placeholder for customer info
-  const customer = {}
-  const headers: HeadersInit = []
-
-  const destination = request.headers.get('sec-fetch-dest')
 
   // Generate Nosto Session
   const nostoAPIKey = env.NOSTO_API_APPS_TOKEN
@@ -88,6 +92,8 @@ export async function loader({ context, request, params }: LoaderArgs) {
   return json(
     {
       cart,
+      isAuthenticated,
+      customer,
       nostoPlacements: enrichedNostoPlacements,
       selectedLocale: storefront.i18n,
     },

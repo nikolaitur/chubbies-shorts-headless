@@ -22,7 +22,7 @@ const RecommendedProductCardInner = ({
   size = 'md',
 }: Omit<RecommendedProductCardProps, 'product'>) => {
   const hoverControllerRef = useRef<HTMLDivElement>(null)
-  const clickControllerRef = useRef<HTMLButtonElement>(null)
+  const toggleControllerRef = useRef<HTMLButtonElement>(null)
   const { product, selectedSize, selectedVariant, sizeOptions } = useProductState()
   const { onSelectSize } = useProductActions()
   const { handle, title, featuredImage, variants, displayName, productGroup } = product
@@ -66,7 +66,7 @@ const RecommendedProductCardInner = ({
           selectedVariant={selectedVariant as ProductVariant}
           selectedSize={selectedSize}
           hoverControllerRef={hoverControllerRef}
-          clickControllerRef={clickControllerRef}
+          toggleControllerRef={toggleControllerRef}
           onSelectSize={onSelectSize}
         />
         {featuredImage && <Image className={styles.image} data={featuredImage} />}
@@ -83,7 +83,7 @@ const RecommendedProductCardInner = ({
               size="xs"
               icon={<AddToBagIcon />}
               variant="minimal"
-              ref={clickControllerRef}
+              ref={toggleControllerRef}
             />
           </div>
         </div>

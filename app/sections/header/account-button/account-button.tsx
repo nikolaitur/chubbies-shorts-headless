@@ -1,6 +1,6 @@
 import { ChubbiesAccountIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import { useRef } from 'react'
-import AccountModal from '../account-modal'
+import AccountNavigation from '../account-navigation'
 import styles from './styles.module.css'
 import { AccountButtonProps } from './types'
 
@@ -13,8 +13,7 @@ const AccountButton = (props: AccountButtonProps) => {
       <button className={styles.accountButton} ref={toggleControllerRef} {...props}>
         <ChubbiesAccountIcon />
       </button>
-      <AccountModal
-        className={styles.accountModal}
+      <AccountNavigation
         hoverControllerRef={hoverControllerRef}
         toggleControllerRef={toggleControllerRef}
       />

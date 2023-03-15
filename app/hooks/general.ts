@@ -22,44 +22,46 @@ export const useMatchMedia = (breakpoint: string, initialValue = false) => {
 }
 
 export type OverlayControllerOptions = {
-  className: string
-  overlayRef: RefObject<HTMLElement>
   hoverControllerRef?: RefObject<HTMLElement> | null
-  toggleControllerRef?: RefObject<HTMLElement> | null
+  openControllerRef?: RefObject<HTMLElement> | null
   closeControllerRef?: RefObject<HTMLElement> | null
+  toggleControllerRef?: RefObject<HTMLElement> | null
 }
 
-export const useOverlayController = (options: OverlayControllerOptions) => {
-  useEffect(() => {
-    const { className, overlayRef, hoverControllerRef, closeControllerRef, toggleControllerRef } =
-      options
+export const useOverlayController = (
+  options: OverlayControllerOptions,
+  dependencies: any[] = [],
+) => {
+  const [isShown, setIsShown] = useState(false)
 
+  const showOverlay = () => {
+    setIsShown(true)
+  }
+
+  const hideOverlay = () => {
+    setIsShown(false)
+  }
+
+  const toggleOverlay = () => {
+    setIsShown(!isShown)
+  }
+
+  useEffect(() => {
+    const { hoverControllerRef, openControllerRef, closeControllerRef, toggleControllerRef } =
+      options
+    const openController = openControllerRef?.current
     const hoverController = hoverControllerRef?.current
     const toggleController = toggleControllerRef?.current
     const closeController = closeControllerRef?.current
-    const overlay = overlayRef.current
     const isTouchDevice = checkIfTouchDevice()
-
-    if (!overlay) return
-
-    const showOverlay = () => {
-      overlay.classList.add(className)
-    }
-
-    const hideOverlay = () => {
-      overlay.classList.remove(className)
-    }
-
-    const toggleOverlay = () => {
-      overlay.classList.toggle(className)
-    }
 
     if (!isTouchDevice) {
       hoverController?.addEventListener('mouseenter', showOverlay)
       hoverController?.addEventListener('mouseleave', hideOverlay)
     }
-    toggleController?.addEventListener('click', toggleOverlay)
+    openController?.addEventListener('click', showOverlay)
     closeController?.addEventListener('click', hideOverlay)
+    toggleController?.addEventListener('click', toggleOverlay)
 
     return () => {
       if (!isTouchDevice) {
@@ -67,8 +69,21 @@ export const useOverlayController = (options: OverlayControllerOptions) => {
         hoverController?.removeEventListener('mouseleave', hideOverlay)
       }
 
-      toggleController?.removeEventListener('click', toggleOverlay)
+      openController?.removeEventListener('click', showOverlay)
       closeController?.removeEventListener('click', hideOverlay)
+      toggleController?.removeEventListener('click', toggleOverlay)
     }
+  }, [...dependencies])
+
+  return { isShown, showOverlay, hideOverlay, toggleOverlay }
+}
+
+export const useIsMounted = () => {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
   }, [])
+
+  return isMounted
 }

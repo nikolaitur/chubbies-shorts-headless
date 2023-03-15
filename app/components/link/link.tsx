@@ -1,7 +1,7 @@
 import { Link as RemixLink, useMatches, type LinkProps as RemixLinkProps } from '@remix-run/react'
 import { forwardRef, Ref } from 'react'
 
-type LinkProps = Omit<RemixLinkProps, 'className'> & {
+export type LinkProps = Omit<RemixLinkProps, 'className'> & {
   className?: RemixLinkProps['className']
 }
 

@@ -4,7 +4,7 @@ import { SizeOption } from '~/global-types'
 
 export type VariantOverlayProps = HTMLAttributes<HTMLDivElement> & {
   hoverControllerRef?: RefObject<HTMLElement>
-  clickControllerRef?: RefObject<HTMLElement>
+  toggleControllerRef?: RefObject<HTMLElement>
   sizeOptions: SizeOption[] | null
   size?: 'md' | 'sm' | 'xs'
   variant?: 'primary' | 'secondary'

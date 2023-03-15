@@ -1,3 +1,4 @@
+export * from './account'
 export * from './cart'
 export * from './collection'
 export * from './general'
