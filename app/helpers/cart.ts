@@ -196,7 +196,7 @@ export async function cartDiscountCodesUpdate({
 }
 
 export const getCartCompareAtPrice = (lines: CartType['lines']) =>
-  lines.edges
+  lines?.edges
     ?.reduce((total, line) => {
       const {
         node: { cost, quantity },

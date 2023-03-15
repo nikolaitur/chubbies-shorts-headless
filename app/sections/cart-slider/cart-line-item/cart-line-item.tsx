@@ -4,6 +4,7 @@ import CartItem from '@solo-brands/ui-library.ui.shared.cart-item'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
 import { ClientOnly } from 'remix-utils'
 import { CartAction } from '~/global-types'
+import { dataLayerRemoveFromCart } from '~/utils/dataLayer'
 
 export type Size = 'md' | 'sm'
 
@@ -58,6 +59,24 @@ const CartLineItem = ({ line, ...props }: CartLineItemProps, ref: Ref<HTMLDivEle
     const formData = new FormData()
     formData.append('cartAction', CartAction.REMOVE_FROM_CART)
     formData.append('linesIds', `["${id}"]`)
+
+    const ecommerce = {
+      ecommerce: {
+        items: [
+          {
+            price: 199,
+            quantity,
+            item_id: merchandise.sku,
+            item_name: merchandise?.product?.title,
+            item_brand: 'Chubbies',
+            item_variant: merchandise.id,
+          },
+        ],
+        currency: 'USD',
+      },
+    }
+
+    dataLayerRemoveFromCart({ ecommerce })
 
     try {
       fetcher.submit(formData, { method: 'post', action: '/api/cart' })

@@ -19,7 +19,11 @@ export async function loader({ params }: LoaderArgs) {
 
   if (page) return page
 
-  return {}
+  return {
+    analytics: {
+      shopId: 'gid://shopify/Shop/1',
+    },
+  }
 }
 
 // this gives full compatibility to BuilderContent type and Remix starter

@@ -1,5 +1,6 @@
-import { useLoaderData } from '@remix-run/react'
+import { useLoaderData, useMatches } from '@remix-run/react'
 import { defer, LoaderArgs } from '@shopify/remix-oxygen'
+import { useEffect } from 'react'
 import { ClientOnly } from 'remix-utils'
 import { SearchspringResponse } from '~/global-types/searchspring'
 import { ProductCardQuery } from '~/graphql/generated'
@@ -14,6 +15,7 @@ import {
 } from '~/helpers/searchspring'
 // @ts-expect-error - TODO for Dylan: fix the type error
 import CollectionGrid, { CollectionGridProps } from '~/sections/collection-grid'
+import { dataLayerViewItemList } from '~/utils/dataLayer'
 
 // Collection loader
 export async function loader({ params, request, context: { storefront } }: LoaderArgs) {
@@ -29,7 +31,7 @@ export async function loader({ params, request, context: { storefront } }: Loade
   Fetch the collection products from searchspring
   We need some changes to the Searchspring index based on our new product data structure
   TODO: Investigate caching results from Searchspring
-  TODO: Add Searchspring cookie creation 
+  TODO: Add Searchspring cookie creation
   TODO: Pass buyer IP to HTTP_X_FORWARDED_FOR header
   */
   const url = new URL(request.url)
@@ -54,6 +56,8 @@ export async function loader({ params, request, context: { storefront } }: Loade
     },
   })
 
+  const collection = collectionQuery as CollectionGridProps['collection']
+
   //Fetch the info on all product groups that appear in the Searchspring result set.
   //Because this is an expensive query, we only want to call it once per product group.
   //In order to improve our cache hit rate we will share the same query across our collection, search and product pages.
@@ -67,13 +71,38 @@ export async function loader({ params, request, context: { storefront } }: Loade
   return defer({
     products: await products,
     productGroups,
-    collection: collectionQuery as CollectionGridProps['collection'],
+    collection,
+    analytics: {
+      ecommerce: {
+        items: (await products).nodes.map((item, index) => {
+          return {
+            index: index + 1,
+            price: 199,
+            item_id: item?.id,
+            item_name: item?.display_name?.value,
+            item_brand: 'Chubbies',
+            item_list_id: 'shop_by_style',
+            item_variant: '41-123',
+            item_category: 'Classic Lined Stretch Swim Trunks',
+            item_list_name: 'Swim Trunks Category Page',
+          }
+        }),
+        currency: 'USD',
+      },
+    },
   })
 }
 
 const CollectionPage = () => {
   const { products, collection } = useLoaderData<typeof loader>()
-  /* 
+
+  const [root, locale, frame] = useMatches()
+
+  useEffect(() => {
+    dataLayerViewItemList({ ecommerce: frame?.data?.analytics })
+  }, [frame?.data?.analytics])
+
+  /*
     ProductGroups here is a promise, so we need to wrap it in a Suspense component.
     This allows us to begin rendering the collection page while the productGroups query is still in flight.
     That way, user can see available product cards while the swatches are still loading.

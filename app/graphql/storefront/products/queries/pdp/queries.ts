@@ -30,6 +30,7 @@ export const PDP_PRODUCT_QUERY = /* gql */ `#graphql
     $selectedOptions: [SelectedOptionInput!]!
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
+      id
       handle
       title
       media(first: 20) {

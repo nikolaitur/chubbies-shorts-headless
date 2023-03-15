@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
 import { CartAction } from '~/global-types'
 import { getDisplayPrices } from '~/helpers'
+import { dataLayerATC } from '~/utils/dataLayer'
 import { useCartActions, useCartState } from '../cart-context/cart-context'
 import OutOfStockModal from '../out-of-stock-modal'
 import SplashElement from '../splash-element'
@@ -25,9 +26,9 @@ const ATCButton = ({
 
   const isATCActive = useRef(false)
   const atcButtonRef = useRef<HTMLButtonElement>(null)
+  const [root, locale, frame] = useMatches()
 
   const fetcher = useFetcher()
-  const [root] = useMatches()
 
   const { isCartOpen } = useCartState()
   const { setIsCartOpen } = useCartActions()
@@ -82,6 +83,8 @@ const ATCButton = ({
       if (hasSelectedSize) {
         isATCActive.current = true
         setShouldTriggerSplash(true)
+
+        dataLayerATC({ ecommerce: frame?.data?.analytics })
 
         setTimeout(() => {
           setShouldTriggerSplash(false)

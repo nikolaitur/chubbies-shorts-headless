@@ -8,7 +8,7 @@ export const PRODUCT_CARDS_QUERY = /* gql */ `#graphql
     id
     title
     handle
-    
+
     productGroup: metafield(namespace: "custom", key: "product_group") {
       value
       reference {

@@ -73,6 +73,7 @@ export const useOverlayController = (
       closeController?.removeEventListener('click', hideOverlay)
       toggleController?.removeEventListener('click', toggleOverlay)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...dependencies])
 
   return { isShown, showOverlay, hideOverlay, toggleOverlay }

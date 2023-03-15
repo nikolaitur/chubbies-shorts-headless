@@ -7,7 +7,7 @@ export const COLLECTION_QUERY = /* gql */ `#graphql
       handle
       description
       image {
-        src 
+        src
         altText
         width
         height

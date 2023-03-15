@@ -15,11 +15,13 @@ import {
   getNostoSessionID,
   updateNostoSession,
 } from '~/helpers'
+
 import favicon from '../public/favicon.svg'
 import { CART_QUERY } from './graphql/storefront/cart/queries'
 import { fetchCustomer } from './helpers/account'
 
 import appStyles from './styles/app.css'
+import ThirdPartyScripts from './thirdPartyScripts'
 
 // @ts-expect-error - TODO: find a way to correct the types of this
 export const links: LinksFunction = () => {
@@ -115,6 +117,7 @@ export default function App() {
   return (
     <>
       <Head />
+      <ThirdPartyScripts />
       <ThemeProvider theme={theme}>
         <BaseStyles />
         <Outlet />

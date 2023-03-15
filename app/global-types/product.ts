@@ -6,6 +6,7 @@ export type PdpProduct = Omit<
   NonNullable<PpdProductQuery['product']>,
   'inseam' | 'options' | 'color' | 'colorGroup' | 'productGroup' | 'displayName'
 > & {
+  id?: string
   collectionTitle?: string
   description?: string
   inseamOptions: InseamOption[] | null
