@@ -1,0 +1,35 @@
+@use '../../styles/abstracts' as *;
+
+.productShippingEstimate {
+  p {
+    @include body-regular-md;
+  }
+
+  span {
+    display: inline-block;
+    position: relative;
+    color: #24779c;
+    font-weight: bold;
+
+    &:before,
+    &:after {
+      content: '';
+      height: 4px;
+      position: absolute;
+      display: block;
+      bottom: -4px;
+      border-radius: 4px;
+    }
+
+    &:before {
+      width: 100%;
+      background: #e6e8eb;
+    }
+
+    &:after {
+      left: 0;
+      width: calc(100% * (1 - var(--passed-percent)));
+      background: #007e45;
+    }
+  }
+}

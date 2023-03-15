@@ -6943,6 +6943,17 @@ export type GlobalSettings = {
         } | null
       } | null
     } | null
+    shippingEstimates?: {
+      references?: {
+        nodes: Array<{
+          id: string
+          internal_name?: { value?: string | null } | null
+          delivery_estimate_days?: { value?: number | null } | null
+          holiday_dates?: { value?: string | null } | null
+          saturday_delivery?: { value?: boolean | null } | null
+          saturday_shipping?: { value?: boolean | null } | null
+          section_content?: { value?: string | null } | null
+          cutoff_time?: { value?: number | null } | null
     cartBlocksAboveCartItems?: {
       references?: {
         nodes: Array<{

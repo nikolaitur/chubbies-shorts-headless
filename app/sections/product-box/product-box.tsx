@@ -3,6 +3,7 @@ import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { UnionToIntersection } from 'type-fest'
 import ATCButton from '~/components/atc-button'
 import Container from '~/components/container'
+import DeliveryCountdown from '~/components/delivery-countdown/delivery-countdown'
 import Section from '~/components/section'
 import { SIZE_OPTION_NAME } from '~/constants'
 import { PdpMediaFragment } from '~/graphql/generated'
@@ -35,6 +36,7 @@ const ProductBox = ({ product, ...props }: ProductBoxProps) => {
               defaultVariant={firstVariant as ProductVariant}
               selectedVariant={selectedVariant as ProductVariant}
             />
+            <DeliveryCountdown />
             {flattenedInfoBlocks && <ProductInfoBlocks infoBlocks={flattenedInfoBlocks} />}
           </div>
         </div>
