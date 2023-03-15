@@ -77,12 +77,14 @@ const CartLineItem = ({ line, ...props }: CartLineItemProps, ref: Ref<HTMLDivEle
       {() => (
         <div ref={ref} {...props}>
           <CartItem
+            brand="chubbies"
             size="sm"
             line={line}
             qtySelectorProps={qtySelectorProps}
             state={fetcher.state}
             onClickDeleteHandler={handleRemove}
             lineDescription={lineDescription}
+            imageAspectRatio="3:4"
           />
         </div>
       )}

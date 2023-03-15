@@ -53,7 +53,7 @@
     "@solo-brands/ui-library.ui.atomic.variant-info": "^1.0.4",
     "@solo-brands/ui-library.ui.atomic.variant-selector": "^1.0.5",
     "@solo-brands/ui-library.ui.shared.bread-crumbs": "^0.0.7",
-    "@solo-brands/ui-library.ui.shared.cart-item": "^1.0.20",
+    "@solo-brands/ui-library.ui.shared.cart-item": "^2.0.5",
     "@solo-brands/ui-library.ui.shared.gallery-nav": "^1.0.31",
     "@solo-brands/ui-library.ui.shared.order-summary-item": "^1.0.13",
     "@solo-brands/ui-library.ui.shared.payment-information": "^1.0.0",
