@@ -1,6 +1,7 @@
 import { Outlet, useLoaderData } from '@remix-run/react'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
 import { CartProvider } from '~/components/cart-context/cart-context'
+import { MainFrameLoaderType } from '~/global-types'
 import type { CollectionNavImages, GlobalSettings, MainFrameMenus } from '~/graphql/generated'
 import { COLLECTION_NAV_IMAGES } from '~/graphql/storefront/global/queries/collectionNavImage'
 import { GLOBAL_SETTINGS_QUERY } from '~/graphql/storefront/global/queries/globalSettings'
@@ -33,6 +34,7 @@ export async function loader({ context }: LoaderArgs) {
     legalLinksMenuHandle,
     headerNavMenuHandle,
     brandLogo,
+    cartBlocksAboveCartItems,
     shippingEstimates,
   } = globalSettings || {}
 
@@ -70,6 +72,7 @@ export async function loader({ context }: LoaderArgs) {
     legalLinksMenu,
     navCollectionImages,
     brandLogo,
+    cartBlocksAboveCartItems,
     shippingEstimates,
   })
 }
@@ -83,7 +86,8 @@ export default function MainFrame() {
     promoBarAnnouncements,
     navCollectionImages,
     brandLogo,
-  } = useLoaderData<typeof loader>()
+    cartBlocksAboveCartItems,
+  } = useLoaderData() as MainFrameLoaderType
 
   return (
     <CartProvider>
@@ -94,10 +98,11 @@ export default function MainFrame() {
         brandLogo={brandLogo?.reference?.image}
         //@ts-expect-error Incorrect type from useLoaderData
         navImages={navCollectionImages?.nodes}
+        cartBlocksAboveCartItems={cartBlocksAboveCartItems}
       />
       <Outlet />
       <Footer menu={footerMenu} legalLinks={legalLinksMenu} />
-      <CartSlider />
+      <CartSlider cartBlocksAboveCartItems={cartBlocksAboveCartItems} />
     </CartProvider>
   )
 }

@@ -9,6 +9,7 @@ import {
   MetaobjectField,
 } from '@shopify/hydrogen/storefront-api-types'
 import { UnionToIntersection } from 'type-fest'
+import { CollectionNavImages, GlobalSettings, MainFrameMenus } from '~/graphql/generated'
 import { NostoPlacement } from './nosto'
 
 export type MetafieldReferenceV2 = UnionToIntersection<MetafieldReference>
@@ -26,4 +27,17 @@ export type RootLoaderData = {
   selectedLocale: I18nBase
   customer: Customer | null
   isAuthenticated: boolean
+}
+
+export type MainFrameLoaderType = {
+  promoBarMenu: MainFrameMenus['promoBarMenu']
+  headerNavMenu: MainFrameMenus['headerNavMenu']
+  footerMenu: MainFrameMenus['footerMenu']
+  legalLinksMenu: MainFrameMenus['legalLinksMenu']
+  promoBarAnnouncements: NonNullable<GlobalSettings['globalSettings']>['promoBarAnnouncements']
+  navCollectionImages: CollectionNavImages
+  brandLogo: NonNullable<GlobalSettings['globalSettings']>['brandLogo']
+  cartBlocksAboveCartItems: NonNullable<
+    GlobalSettings['globalSettings']
+  >['cartBlocksAboveCartItems']
 }

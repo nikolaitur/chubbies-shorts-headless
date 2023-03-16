@@ -4,6 +4,7 @@ import CartItem from '@solo-brands/ui-library.ui.shared.cart-item'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
 import { ClientOnly } from 'remix-utils'
 import { CartAction } from '~/global-types'
+import { getCartLineAttributes } from '~/helpers'
 import { dataLayerRemoveFromCart } from '~/utils/dataLayer'
 
 export type Size = 'md' | 'sm'
@@ -13,10 +14,12 @@ export type CartLineItemProps = HTMLAttributes<HTMLDivElement> & {
 }
 
 const CartLineItem = ({ line, ...props }: CartLineItemProps, ref: Ref<HTMLDivElement>) => {
-  const { id, quantity = 0, merchandise } = line || {}
+  const { id, quantity = 0, merchandise, attributes } = line || {}
   const { product, title } = merchandise || {}
   // @ts-expect-error TODO: add types for metafield query
   const { displayName, inseamLength, title: productTitle } = product || {}
+
+  const isGwpProduct = Boolean(getCartLineAttributes(attributes)?.isGwpProduct)
 
   const prevQuantity = Math.max(0, quantity - 1)
   const nextQuantity = quantity + 1
@@ -24,8 +27,8 @@ const CartLineItem = ({ line, ...props }: CartLineItemProps, ref: Ref<HTMLDivEle
   const productLength = JSON.parse(inseamLength?.value ?? 'null')
 
   const lineDescription = `${displayName?.value || productTitle} - ${
-    productLength?.value
-  }" - ${title}`
+    productLength ? `${productLength?.value}" -` : ''
+  } ${title}`
 
   const fetcher = useFetcher()
 
@@ -90,6 +93,8 @@ const CartLineItem = ({ line, ...props }: CartLineItemProps, ref: Ref<HTMLDivEle
     handleDecrease,
     handleIncrease,
   }
+
+  if (isGwpProduct) return null
 
   return (
     <ClientOnly>

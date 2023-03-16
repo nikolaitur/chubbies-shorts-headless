@@ -74,7 +74,8 @@ export async function action({ request, context }: ActionArgs) {
       const lineIds = formData.get('linesIds')
         ? (JSON.parse(String(formData.get('linesIds'))) as CartType['id'][])
         : ([] as CartType['id'][])
-      invariant(lineIds.length, 'No lines to remove')
+
+      //invariant(lineIds?.length, 'No lines to remove')
 
       result = await cartRemove({
         cartId,
@@ -86,6 +87,37 @@ export async function action({ request, context }: ActionArgs) {
 
       break
     }
+
+    case CartAction.HANDLE_GWP: {
+      const lines = formData.get('lines')
+        ? (JSON.parse(String(formData.get('lines'))) as CartLineInput[])
+        : ([] as CartLineInput[])
+
+      //invariant(lines.length, 'No lines to add')
+
+      const lineIds = formData.get('linesIds')
+        ? (JSON.parse(String(formData.get('linesIds'))) as CartType['id'][])
+        : ([] as CartType['id'][])
+
+      if (lineIds?.length) {
+        await cartRemove({
+          cartId,
+          lineIds,
+          storefront,
+        })
+      }
+
+      result = await cartAdd({
+        cartId,
+        lines,
+        storefront,
+      })
+
+      cartId = result.cart.id
+
+      break
+    }
+
     case CartAction.UPDATE_CART: {
       const updateLines = formData.get('lines')
         ? (JSON.parse(String(formData.get('lines'))) as CartLineUpdateInput[])

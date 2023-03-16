@@ -6848,6 +6848,31 @@ export type MediaImageFragment = {
   } | null
 }
 
+export type ProductCardFragment = {
+  id: string
+  title: string
+  handle: string
+  productGroup?: { value: string; reference?: { title: string; description: string } | null } | null
+  inseam_length?: { value: string } | null
+  color?: { value: string } | null
+  display_name?: { value: string } | null
+  variants: {
+    nodes: Array<{
+      id: string
+      price: { currencyCode: CurrencyCode; amount: any }
+      compareAtPrice?: { currencyCode: CurrencyCode; amount: any } | null
+      selectedOptions: Array<{ name: string; value: string }>
+    }>
+  }
+  featuredImage?: {
+    id?: string | null
+    width?: number | null
+    height?: number | null
+    url: any
+    altText?: string | null
+  } | null
+}
+
 export type CollectionNavImagesVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID']
 }>
@@ -6933,6 +6958,64 @@ export type GlobalSettings = {
         saturday_shipping?: { value?: string | null } | null
         section_content?: { value?: string | null } | null
         cutoff_time?: { value?: string | null } | null
+      } | null
+    } | null
+    cartBlocksAboveCartItems?: {
+      references?: {
+        nodes: Array<{
+          id: string
+          type: string
+          fields: Array<{
+            key: string
+            value?: string | null
+            references?: {
+              nodes: Array<{
+                id: string
+                fields: Array<{
+                  key: string
+                  value?: string | null
+                  reference?:
+                    | {
+                        image?: {
+                          url: any
+                          width?: number | null
+                          height?: number | null
+                          altText?: string | null
+                        } | null
+                      }
+                    | {
+                        id: string
+                        title: string
+                        handle: string
+                        productGroup?: {
+                          value: string
+                          reference?: { title: string; description: string } | null
+                        } | null
+                        inseam_length?: { value: string } | null
+                        color?: { value: string } | null
+                        display_name?: { value: string } | null
+                        variants: {
+                          nodes: Array<{
+                            id: string
+                            price: { currencyCode: CurrencyCode; amount: any }
+                            compareAtPrice?: { currencyCode: CurrencyCode; amount: any } | null
+                            selectedOptions: Array<{ name: string; value: string }>
+                          }>
+                        }
+                        featuredImage?: {
+                          id?: string | null
+                          width?: number | null
+                          height?: number | null
+                          url: any
+                          altText?: string | null
+                        } | null
+                      }
+                    | null
+                }>
+              }>
+            } | null
+          }>
+        }>
       } | null
     } | null
   } | null
@@ -7603,7 +7686,14 @@ export type ProductCardQuery = {
     inseam_length?: { value: string } | null
     color?: { value: string } | null
     display_name?: { value: string } | null
-    variants: { nodes: Array<{ selectedOptions: Array<{ name: string; value: string }> }> }
+    variants: {
+      nodes: Array<{
+        id: string
+        price: { currencyCode: CurrencyCode; amount: any }
+        compareAtPrice?: { currencyCode: CurrencyCode; amount: any } | null
+        selectedOptions: Array<{ name: string; value: string }>
+      }>
+    }
     featuredImage?: {
       id?: string | null
       width?: number | null
@@ -7612,24 +7702,6 @@ export type ProductCardQuery = {
       altText?: string | null
     } | null
   } | null>
-}
-
-export type ProductCardFragment = {
-  id: string
-  title: string
-  handle: string
-  productGroup?: { value: string; reference?: { title: string; description: string } | null } | null
-  inseam_length?: { value: string } | null
-  color?: { value: string } | null
-  display_name?: { value: string } | null
-  variants: { nodes: Array<{ selectedOptions: Array<{ name: string; value: string }> }> }
-  featuredImage?: {
-    id?: string | null
-    width?: number | null
-    height?: number | null
-    url: any
-    altText?: string | null
-  } | null
 }
 
 export type ProductGroupsVariables = Exact<{
