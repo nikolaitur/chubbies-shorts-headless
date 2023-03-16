@@ -583,6 +583,12 @@ export type CartBuyerIdentity = {
   email?: Maybe<Scalars['String']>
   /** The phone number of the buyer that is interacting with the cart. */
   phone?: Maybe<Scalars['String']>
+  /**
+   * A set of wallet preferences tied to the buyer that is interacting with the cart.
+   * Preferences can be used to populate relevant payment fields in the checkout flow.
+   *
+   */
+  walletPreferences: Array<Scalars['String']>
 }
 
 /**
@@ -608,6 +614,12 @@ export type CartBuyerIdentityInput = {
   email?: InputMaybe<Scalars['String']>
   /** The phone number of the buyer that is interacting with the cart. */
   phone?: InputMaybe<Scalars['String']>
+  /**
+   * A set of wallet preferences tied to the buyer that is interacting with the cart.
+   * Preferences can be used to populate relevant payment fields in the checkout flow.
+   *
+   */
+  walletPreferences?: InputMaybe<Array<Scalars['String']>>
 }
 
 /** Return type for `cartBuyerIdentityUpdate` mutation. */
@@ -1347,6 +1359,8 @@ export enum CheckoutErrorCode {
   NotSupported = 'NOT_SUPPORTED',
   /** The input value needs to be blank. */
   Present = 'PRESENT',
+  /** Product is not published for this customer. */
+  ProductNotAvailable = 'PRODUCT_NOT_AVAILABLE',
   /** Shipping rate expired. */
   ShippingRateExpired = 'SHIPPING_RATE_EXPIRED',
   /** Throttled during checkout. */
@@ -2991,6 +3005,11 @@ export type DeliveryAddress = MailingAddress
  *
  */
 export type DeliveryAddressInput = {
+  /**
+   * The ID of a customer address that is associated with the buyer that is interacting with the cart.
+   *
+   */
+  customerAddressId?: InputMaybe<Scalars['ID']>
   /** A delivery address preference of a buyer that is interacting with the cart. */
   deliveryAddress?: InputMaybe<MailingAddressInput>
 }
@@ -6904,6 +6923,18 @@ export type GlobalSettings = {
         } | null
       } | null
     } | null
+    shippingEstimates?: {
+      reference?: {
+        id: string
+        internal_name?: { value?: string | null } | null
+        delivery_estimate_days?: { value?: string | null } | null
+        holiday_dates?: { value?: string | null } | null
+        saturday_delivery?: { value?: string | null } | null
+        saturday_shipping?: { value?: string | null } | null
+        section_content?: { value?: string | null } | null
+        cutoff_time?: { value?: string | null } | null
+      } | null
+    } | null
   } | null
 }
 
@@ -6917,6 +6948,17 @@ export type AnnouncementContent = {
   start_date?: { value?: string | null } | null
   end_date?: { value?: string | null } | null
   countdown?: { value?: string | null } | null
+}
+
+export type ShippingEstimatesContent = {
+  id: string
+  internal_name?: { value?: string | null } | null
+  delivery_estimate_days?: { value?: string | null } | null
+  holiday_dates?: { value?: string | null } | null
+  saturday_delivery?: { value?: string | null } | null
+  saturday_shipping?: { value?: string | null } | null
+  section_content?: { value?: string | null } | null
+  cutoff_time?: { value?: string | null } | null
 }
 
 export type MainFrameMenusVariables = Exact<{
@@ -7316,6 +7358,7 @@ export type PpdProductQueryVariables = Exact<{
 
 export type PpdProductQuery = {
   product?: {
+    id: string
     handle: string
     title: string
     media: {

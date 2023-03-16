@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { UnionToIntersection } from 'type-fest'
 import ATCButton from '~/components/atc-button'
 import Container from '~/components/container'
+import DeliveryCountdown from '~/components/delivery-countdown/delivery-countdown'
 import Section from '~/components/section'
 import { SIZE_OPTION_NAME } from '~/constants'
 import { PdpMediaFragment } from '~/graphql/generated'
@@ -43,6 +44,7 @@ const ProductBox = ({ product, ...props }: ProductBoxProps) => {
               selectedVariant={selectedVariant as ProductVariant}
               withPrice={undefined}
             />
+            <DeliveryCountdown />
             {flattenedInfoBlocks && <ProductInfoBlocks infoBlocks={flattenedInfoBlocks} />}
           </div>
         </div>

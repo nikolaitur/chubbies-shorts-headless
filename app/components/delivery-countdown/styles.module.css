@@ -1,0 +1,29 @@
+.productShippingEstimate p {
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 16px;
+}
+.productShippingEstimate span {
+  display: inline-block;
+  position: relative;
+  color: #24779c;
+  font-weight: bold;
+}
+.productShippingEstimate span:before, .productShippingEstimate span:after {
+  content: "";
+  height: 4px;
+  position: absolute;
+  display: block;
+  bottom: -4px;
+  border-radius: 4px;
+}
+.productShippingEstimate span:before {
+  width: 100%;
+  background: #e6e8eb;
+}
+.productShippingEstimate span:after {
+  left: 0;
+  width: calc(100% * (1 - var(--passed-percent)));
+  background: #007e45;
+}
