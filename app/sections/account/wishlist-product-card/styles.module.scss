@@ -1,0 +1,56 @@
+@use '../../../styles/abstracts' as *;
+
+.card {
+  display: grid;
+  gap: $space-2-5;
+}
+
+.imageWrapper {
+  position: relative;
+  height: 216px;
+
+  @include media-query(md) {
+    height: 405px;
+  }
+
+  @include media-query(xl) {
+    height: 540px;
+  }
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+}
+
+.favorite {
+  position: absolute;
+  right: $space-0;
+  margin: $space-3;
+
+  svg {
+    fill: $base-colors-neutral-black;
+  }
+}
+
+.title {
+  @include product-title-md;
+}
+
+.subTitle {
+  @include body-regular-lg;
+  color: $text-neutral-subdued;
+}
+
+.addToCart {
+  text-align: center;
+  // missing token
+  padding: 30px;
+}
+
+.cardFooter {
+  color: $alert-success-default;
+  @include body-bold-sm;
+}

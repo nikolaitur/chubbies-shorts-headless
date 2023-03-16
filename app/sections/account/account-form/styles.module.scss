@@ -1,0 +1,59 @@
+@use '../../../styles/abstracts' as *;
+
+.form {
+  display: grid;
+  grid-gap: $space-6;
+}
+
+.wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.deleteButton {
+  @include textlink-sm;
+  text-transform: uppercase;
+  color: $text-link-neutral--default;
+}
+
+.fieldGrid {
+  display: grid;
+  grid-gap: $space-6;
+  @include media-query(md) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: $space-4;
+  }
+}
+
+.stateFieldGrid {
+  display: grid;
+}
+
+.dropdown button {
+  background-color: $input-bg;
+  color: $input-placeholder;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.actionButtons {
+  display: grid;
+  grid-gap: $space-6;
+  text-transform: uppercase;
+
+  button:first-child {
+    grid-row: 2 / 2;
+  }
+
+  @include media-query(md) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: $space-4;
+
+    button:first-child {
+      grid-row: 1 / 1;
+    }
+  }
+}

@@ -1,5 +1,13 @@
-const AccountPage = () => {
-  return <div>AccountPage</div>
-}
+const AccountsPage = () => (
+  <div>
+    Account Page
+    {/* <AccountsDefaultPage />
+    <AccountsOrder />
+    <AccountsRewardSummary />
+    <AddressForm />
+    <AddressBox />
+    <AccountsGridNav /> */}
+  </div>
+)
 
-export default AccountPage
+export default AccountsPage

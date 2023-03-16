@@ -1,0 +1,126 @@
+.orderInfo,
+.productCost div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.orderInfo {
+  padding-bottom: 24px;
+}
+
+.ordernumber {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 18px;
+  color: rgb(0, 0, 0);
+}
+
+.orderDate {
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 18px;
+  color: #595d61;
+}
+
+.link {
+  font-family: futura-pt, sans-serif;
+  font-weight: 600;
+  line-height: 100%;
+  font-size: 16px;
+  letter-spacing: 0%;
+  text-decoration: underline;
+  color: #46484B;
+}
+
+.orderDetails {
+  display: grid;
+  grid-gap: 24px;
+  margin-top: 12px;
+  border-top: 1px solid #D2D4D7;
+}
+@media screen and (min-width: 769px) {
+  .orderDetails {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.orderDetails,
+.productInfo {
+  padding: 32px 0;
+}
+
+.title {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: rgb(0, 0, 0);
+}
+
+.details {
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 14px;
+  color: #595d61;
+}
+
+.productInfo {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 16px;
+  display: grid;
+  grid-gap: 32px;
+  border: 1px #D2D4D7;
+  border-style: solid none solid none;
+}
+@media screen and (min-width: 769px) {
+  .productInfo {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+.productDetails {
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (min-width: 769px) {
+  .productDetails {
+    align-items: center;
+  }
+}
+
+.productCost {
+  padding: 24px 0;
+  color: rgb(0, 0, 0);
+}
+@media screen and (min-width: 769px) {
+  .productCost {
+    max-width: 313px;
+    margin-left: auto;
+  }
+}
+
+.textBoldMd {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 16px;
+}
+
+.total {
+  margin-top: 12px;
+  padding-top: 24px;
+  border-top: 1px solid #D2D4D7;
+}
+.total span:last-child {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 16px;
+}

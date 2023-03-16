@@ -1,0 +1,31 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: $space_12;
+  border: $border-width-2-5 solid $borders-divider-subdued;
+}
+
+.addressInfo {
+  display: grid;
+  width: 154px;
+  grid-gap: $space-2-5;
+  color: $text-neutral-default;
+}
+
+.name {
+  @include body-bold-md;
+}
+
+.address {
+  @include body-regular-md;
+}
+
+.editButton {
+  @include textlink-md;
+  display: flex;
+  align-self: baseline;
+  color: $text-link-neutral--default;
+}

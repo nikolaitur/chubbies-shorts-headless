@@ -1,0 +1,12 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  display: grid;
+  justify-content: center;
+  grid-gap: $space-6;
+  grid-template-columns: repeat(2, 135px);
+
+  @include media-query(md) {
+    grid-template-columns: repeat(4, 200px);
+  }
+}

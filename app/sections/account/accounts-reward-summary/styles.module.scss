@@ -1,0 +1,38 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-transform: uppercase;
+}
+
+.textContent {
+  text-align: center;
+  gap: $space-1-5;
+  color: $text-neutral-default;
+}
+
+.title {
+  @include body-bold-md;
+  color: $text-secondary-default;
+}
+
+.points {
+  @include body-bold-lg;
+  color: $text-secondary-default;
+}
+
+.textBoldLg {
+  @include body-bold-lg;
+}
+
+.textSemiSm {
+  @include body-semi-sm;
+}
+
+.link {
+  @include textlink-sm;
+  color: $text-link-neutral--default;
+  padding-top: $space-4;
+}

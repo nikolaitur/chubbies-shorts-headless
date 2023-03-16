@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 48px;
+  border: 3px solid #acb0b4;
+}
+
+.addressInfo {
+  display: grid;
+  width: 154px;
+  grid-gap: 10px;
+  color: rgb(0, 0, 0);
+}
+
+.name {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 16px;
+}
+
+.address {
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 16px;
+}
+
+.editButton {
+  font-family: futura-pt, sans-serif;
+  font-weight: 600;
+  line-height: 120%;
+  font-size: 16px;
+  letter-spacing: 0%;
+  text-decoration: underline;
+  display: flex;
+  align-self: baseline;
+  color: #46484B;
+}

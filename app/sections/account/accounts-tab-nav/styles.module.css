@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  list-style: none;
+  overflow: auto;
+}
+@media screen and (min-width: 769px) {
+  .wrapper {
+    justify-content: center;
+  }
+}

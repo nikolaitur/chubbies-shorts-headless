@@ -1,0 +1,62 @@
+.form {
+  display: grid;
+  grid-gap: 24px;
+}
+
+.wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.deleteButton {
+  font-family: futura-pt, sans-serif;
+  font-weight: 600;
+  line-height: 120%;
+  font-size: 14px;
+  letter-spacing: 0%;
+  text-decoration: underline;
+  text-transform: uppercase;
+  color: #46484B;
+}
+
+.fieldGrid {
+  display: grid;
+  grid-gap: 24px;
+}
+@media screen and (min-width: 769px) {
+  .fieldGrid {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 16px;
+  }
+}
+
+.stateFieldGrid {
+  display: grid;
+}
+
+.dropdown button {
+  background-color: rgb(255, 255, 255);
+  color: #A0A2A5;
+}
+.dropdown button:focus {
+  outline: none;
+}
+
+.actionButtons {
+  display: grid;
+  grid-gap: 24px;
+  text-transform: uppercase;
+}
+.actionButtons button:first-child {
+  grid-row: 2/2;
+}
+@media screen and (min-width: 769px) {
+  .actionButtons {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 16px;
+  }
+  .actionButtons button:first-child {
+    grid-row: 1/1;
+  }
+}

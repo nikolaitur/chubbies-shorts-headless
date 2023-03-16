@@ -1,0 +1,25 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  @include body-regular-xs;
+  display: flex;
+  justify-content: space-between;
+  color: $text-neutral-default;
+  background-color: $backgrounds-subdued;
+  border-radius: border-radius-base;
+  height: 30px;
+}
+
+.progress {
+  padding: $space-2;
+  color: $text-neutral-white;
+  background-color: $backgrounds-primary;
+  border-radius: border-radius-base;
+  width: calc(var(--percent-value) / 2);
+}
+
+.goal {
+  padding: $space-2;
+  position: absolute;
+  right: $space-0;
+}

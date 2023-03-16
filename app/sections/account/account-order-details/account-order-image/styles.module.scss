@@ -1,0 +1,23 @@
+@use '../../../../styles/abstracts' as *;
+
+.wrapper {
+  position: relative;
+}
+
+.media {
+  object-fit: cover;
+  border: $border-width-1 solid $text-neutral-subdued;
+}
+
+.counter {
+  font-size: $font-size-12;
+  text-align: center;
+  position: absolute;
+  width: $size-5;
+  height: $size-5;
+  left: 90px;
+  top: -$space-2-5;
+  background: $text-neutral-default;
+  border-radius: 99px;
+  color: $text-neutral-white;
+}

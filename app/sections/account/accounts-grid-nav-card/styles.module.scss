@@ -1,0 +1,29 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  display: grid;
+  padding: $space-6;
+  box-shadow: $shadow-modal;
+
+  @include media-query(md) {
+    padding: $space-8;
+  }
+}
+
+.media {
+  display: flex;
+  justify-self: center;
+}
+
+.title {
+  @include body-bold-sm;
+  text-align: center;
+  text-transform: uppercase;
+  color: $text-neutral-default;
+  padding-top: $space-4-5;
+
+  @include media-query(md) {
+    @include body-bold-md;
+    padding-top: $space-8;
+  }
+}

@@ -1,0 +1,76 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  margin: $space-6 $space-6;
+
+  @include media-query(md) {
+    margin: $space-12 $space-0;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+
+  @include media-query(md) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1360px;
+    margin: $space-0 auto;
+  }
+}
+
+.form {
+  display: flex;
+  gap: $space-3;
+  flex-direction: column;
+}
+
+.signInWrapper,
+.registerWrapper {
+  width: 100%;
+
+  @include media-query(md) {
+    padding: $space-0 $space-12;
+  }
+}
+
+.title {
+  @include product-title-md;
+  text-align: center;
+  text-transform: uppercase;
+  color: $text-primary-default;
+  padding-top: $space-12;
+  padding-bottom: $space-6;
+}
+
+.link {
+  @include textlink-md;
+  text-align: center;
+  color: $button-tertiary-border--default;
+}
+
+.icons {
+  display: flex;
+  column-gap: $space-6;
+  padding: $space-12 $space-0;
+  justify-content: center;
+
+  path {
+    fill: $button-primary-bg--default !important;
+  }
+
+  @include media-query(md) {
+    grid-column: 1 / 3;
+    grid-row-start: 1;
+  }
+}
+
+.registerWrapper {
+  border-top: $border-width-1 solid $borders-divider-subdued;
+
+  @include media-query(md) {
+    border-top: none;
+    border-left: $border-width-1 solid $borders-divider-subdued;
+  }
+}

@@ -1,0 +1,26 @@
+.wrapper {
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  color: rgb(0, 0, 0);
+  background-color: #D2D4D7;
+  border-radius: border-radius-base;
+  height: 30px;
+}
+
+.progress {
+  padding: 8px;
+  color: rgb(255, 255, 255);
+  background-color: #0069D7;
+  border-radius: border-radius-base;
+  width: calc(var(--percent-value) / 2);
+}
+
+.goal {
+  padding: 8px;
+  position: absolute;
+  right: 0px;
+}

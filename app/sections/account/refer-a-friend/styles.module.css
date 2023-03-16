@@ -1,0 +1,56 @@
+.wrapper {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  padding: 20px;
+}
+
+.media {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.contentInfo {
+  max-width: 720px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.subHeading {
+  font-size: 28px;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+
+.heading {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 100%;
+  padding-bottom: 20px;
+}
+
+.description {
+  font-size: 20px;
+  padding-bottom: 40px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.button {
+  margin: 40px 0;
+  width: 65%;
+  height: 50px;
+  border-radius: 3px;
+  background: #163358;
+  color: #ffffff;
+}

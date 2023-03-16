@@ -1,0 +1,21 @@
+.wrapper {
+  position: relative;
+}
+
+.media {
+  object-fit: cover;
+  border: 1px solid #595d61;
+}
+
+.counter {
+  font-size: 12px;
+  text-align: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 90px;
+  top: -10px;
+  background: rgb(0, 0, 0);
+  border-radius: 99px;
+  color: rgb(255, 255, 255);
+}

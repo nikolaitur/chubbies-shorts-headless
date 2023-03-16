@@ -1,0 +1,99 @@
+@use '../../../styles/abstracts' as *;
+
+.orderInfo,
+.productCost div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.orderInfo {
+  padding-bottom: $space-6;
+}
+
+.ordernumber {
+  @include body-bold-lg;
+  color: $text-neutral-default;
+}
+
+.orderDate {
+  @include body-regular-lg;
+  color: $text-neutral-subdued;
+}
+
+.link {
+  @include textlink-md;
+  color: $text-link-neutral--default;
+}
+
+.orderDetails {
+  display: grid;
+  grid-gap: $space-6;
+  margin-top: $space-3;
+  border-top: $border-width-1 solid $borders-divider-muted;
+
+  @include media-query(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.orderDetails,
+.productInfo {
+  padding: $space-8 0;
+}
+
+.title {
+  @include body-bold-sm;
+  text-transform: uppercase;
+  color: $text-neutral-default;
+}
+
+.details {
+  @include body-regular-sm;
+  color: $text-neutral-subdued;
+}
+
+.productInfo {
+  @include body-bold-md;
+  display: grid;
+  grid-gap: $space-8;
+  border: $border-width-1 $borders-divider-muted;
+  border-style: solid none solid none;
+
+  @include media-query(md) {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+.productDetails {
+  display: flex;
+  justify-content: space-between;
+
+  @include media-query(md) {
+    align-items: center;
+  }
+}
+
+.productCost {
+  padding: $space-6 0;
+  color: $text-neutral-default;
+
+  @include media-query(md) {
+    max-width: 313px;
+    margin-left: auto;
+  }
+}
+
+.textBoldMd {
+  @include body-bold-md;
+}
+
+.total {
+  margin-top: $space-3;
+  padding-top: $space-6;
+  border-top: $border-width-1 solid $borders-divider-muted;
+
+  span:last-child {
+    @include body-bold-md;
+  }
+}

@@ -1,0 +1,44 @@
+@use '../../../styles/abstracts' as *;
+
+.tableContainer {
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: $space-8;
+  text-transform: uppercase;
+}
+
+.tableHeadingRow {
+  border-bottom: $border-width-1 solid $table-cell-border;
+
+  th {
+    @include body-semi-md;
+    height: $size-12;
+    background-color: $table-cell-head-bg--default;
+    color: $table-cell-head-text;
+
+    @include media-query(md) {
+      text-align: left;
+    }
+  }
+}
+
+.tableDataRow {
+  @include body-regular-md;
+  height: $size-12;
+  border-bottom: $border-width-1 solid $table-cell-border;
+  background-color: $table-cell-bg--default;
+  color: $table-cell-text;
+
+  @include media-query(md) {
+    text-align: left;
+  }
+}
+
+.link {
+  @include textlink-md;
+  color: $text-link-primary--default;
+}

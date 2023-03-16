@@ -1,0 +1,64 @@
+.card {
+  display: grid;
+  gap: 10px;
+}
+
+.imageWrapper {
+  position: relative;
+  height: 216px;
+}
+@media screen and (min-width: 769px) {
+  .imageWrapper {
+    height: 405px;
+  }
+}
+@media screen and (min-width: 1281px) {
+  .imageWrapper {
+    height: 540px;
+  }
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+}
+
+.favorite {
+  position: absolute;
+  right: 0px;
+  margin: 12px;
+}
+.favorite svg {
+  fill: rgb(0, 0, 0);
+}
+
+.title {
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 150%;
+  font-size: 24px;
+  letter-spacing: 0%;
+}
+
+.subTitle {
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 18px;
+  color: #595d61;
+}
+
+.addToCart {
+  text-align: center;
+  padding: 30px;
+}
+
+.cardFooter {
+  color: #007E45;
+  font-family: futura-pt, sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 14px;
+}

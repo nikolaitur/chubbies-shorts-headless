@@ -1,0 +1,64 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  //missing tokens
+  padding: 20px;
+}
+
+.media {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.contentInfo {
+  //missing tokens
+  max-width: 720px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.subHeading {
+  //missing tokens
+  font-size: 28px;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+
+.heading {
+  //missing tokens
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 100%;
+  padding-bottom: 20px;
+}
+
+.description {
+  //missing tokens
+  font-size: 20px;
+  padding-bottom: 40px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.button {
+  //missing tokens
+  margin: 40px 0;
+  width: 65%;
+  height: 50px;
+  border-radius: 3px;
+  background: #163358;
+  color: #ffffff;
+}

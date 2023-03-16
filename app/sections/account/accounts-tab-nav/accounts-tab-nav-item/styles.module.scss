@@ -1,0 +1,20 @@
+@use '../../../../styles/abstracts' as *;
+
+.item.isActive a {
+  border-bottom: $border-width-2 solid $tab-item-border--current;
+}
+
+.link {
+  @include body-bold-md;
+  display: block;
+  white-space: nowrap;
+  width: 100%;
+  height: $size-12;
+  padding: $space-3-5 $space-4;
+  background-color: $tab-item-bg--current;
+  color: $tab-item-text--current;
+
+  &:hover {
+    border-bottom: $border-width-2 solid $tab-item-border--current;
+  }
+}
