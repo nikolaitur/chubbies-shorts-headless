@@ -87,5 +87,5 @@ export async function loader({ params, request, context: { storefront } }: Loade
   return json({
     product: newProduct,
     analytics: generatePdpAnalytics(newProduct, collectionTitle),
-  }
+  })
 }
