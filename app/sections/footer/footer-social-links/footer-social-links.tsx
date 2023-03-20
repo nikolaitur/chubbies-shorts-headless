@@ -16,16 +16,21 @@ const FooterSocialLinks = ({ className }: { className?: string }) => (
       <div className={clsx(styles.component, className)}>
         <h4 className={styles.title}>Follow Us</h4>
         <div className={styles.icons}>
-          {/*@ts-expect-error TODO: Add href to icon*/}
-          <FacebookIcon size="sm" as="a" href="https://www.facebook.com/chubbies" />
-          {/*@ts-expect-error TODO: Add href to icon*/}
-          <YoutubeIcon size="sm" as="a" href="https://www.instagram.com/chubbies/" />
-          {/*@ts-expect-error TODO: Add href to icon*/}
-          <InstagramIcon size="sm" as="a" href="https://www.youtube.com/chubbies" />
-          {/*@ts-expect-error TODO: Add href to icon*/}
-          <TiktokIcon size="sm" as="a" href="https://www.tiktok.com/@chubbiesshorts" />
-          {/*@ts-expect-error TODO: Add href to icon*/}
-          <SnapChatIcon size="sm" as="a" href="https://www.chubbiesshorts.com/pages/snapchat" />
+          <a href="https://www.facebook.com/chubbies" target="_blank" rel="noreferrer">
+            <FacebookIcon size="sm" />
+          </a>
+          <a href="https://www.instagram.com/chubbies/" target="_blank" rel="noreferrer">
+            <YoutubeIcon size="sm" />
+          </a>
+          <a href="https://www.youtube.com/chubbies/" target="_blank" rel="noreferrer">
+            <InstagramIcon size="sm" />
+          </a>
+          <a href="https://www.tiktok.com/@chubbiesshorts/" target="_blank" rel="noreferrer">
+            <TiktokIcon size="sm" />
+          </a>
+          <a href="https://www.chubbiesshorts.com/pages/snapchat/" target="_blank" rel="noreferrer">
+            <SnapChatIcon size="sm" />
+          </a>
         </div>
       </div>
     )}

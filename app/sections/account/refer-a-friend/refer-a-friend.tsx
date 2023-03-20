@@ -43,8 +43,9 @@ const ReferFriend = () => {
           </Form>
         </Formik>
         <div className={styles.icon}>
-          {/*@ts-expect-error TODO: Add href to icon*/}
-          <FacebookIcon size="lg" as="a" href="https://www.facebook.com/" /> Facebook
+          <a href="https://www.facebook.com/chubbies" target="_blank" rel="noreferrer">
+            <FacebookIcon size="lg" as="a" /> Facebook
+          </a>
         </div>
       </div>
     </div>

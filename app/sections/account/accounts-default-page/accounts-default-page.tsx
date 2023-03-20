@@ -48,16 +48,21 @@ const AccountsDefaultPage = () => (
         </Formik>
       </div>
       <div className={styles.icons}>
-        {/*@ts-expect-error TODO: Add href to icon*/}
-        <FacebookIcon size="lg" as="a" href="https://www.facebook.com/" />
-        {/*@ts-expect-error TODO: Add href to icon*/}
-        <YoutubeIcon size="lg" as="a" href="https://www.youtube.com/" />
-        {/*@ts-expect-error TODO: Add href to icon*/}
-        <InstagramIcon size="lg" as="a" href="https://www.instagram.com/" />
-        {/*@ts-expect-error TODO: Add href to icon*/}
-        <SnapChatIcon size="lg" as="a" href="https://www.snapchat.com/" />
-        {/*@ts-expect-error TODO: Add href to icon*/}
-        <TiktokIcon size="lg" as="a" href="https://www.tiktok.com/en/" />
+        <a href="https://www.facebook.com/chubbies" target="_blank" rel="noreferrer">
+          <FacebookIcon size="lg" as="a" />
+        </a>
+        <a href="https://www.instagram.com/chubbies/" target="_blank" rel="noreferrer">
+          <YoutubeIcon size="lg" as="a" />
+        </a>
+        <a href="https://www.youtube.com/chubbies/" target="_blank" rel="noreferrer">
+          <InstagramIcon size="lg" as="a" />
+        </a>
+        <a href="https://www.tiktok.com/@chubbiesshorts/" target="_blank" rel="noreferrer">
+          <SnapChatIcon size="lg" as="a" />
+        </a>
+        <a href="https://www.chubbiesshorts.com/pages/snapchat/" target="_blank" rel="noreferrer">
+          <TiktokIcon size="lg" as="a" />
+        </a>
       </div>
       <div className={styles.registerWrapper}>
         <h2 className={styles.title}>Register for a chubbies account</h2>
