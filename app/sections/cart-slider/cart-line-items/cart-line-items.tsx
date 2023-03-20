@@ -1,5 +1,6 @@
 import { Cart } from '@shopify/hydrogen/storefront-api-types'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
+import { Link } from 'react-router-dom'
 import { useCartActions } from '~/components/cart-context/cart-context'
 import CartLineItem from '../cart-line-item/cart-line-item'
 import styles from './styles.module.css'
@@ -7,15 +8,21 @@ import styles from './styles.module.css'
 export type CartLineItemsProps = HTMLAttributes<HTMLElement> & {
   lines?: Cart['lines']
   totalQuantity?: number
+  textData?: {
+    link?: string
+    text?: string
+  }
 }
 
 const CartLineItems = (
-  { lines, totalQuantity = 0, ...props }: CartLineItemsProps,
+  { lines, textData, totalQuantity = 0, ...props }: CartLineItemsProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const { setIsCartOpen } = useCartActions()
 
   const { edges } = lines ?? {}
+
+  const { link = 'Keep Shopping', text = '/' } = textData ?? {}
 
   return (
     <div className={styles.cartLineItems} ref={ref} {...props}>
@@ -23,9 +30,9 @@ const CartLineItems = (
         <div className={styles.count}>
           Items <span>({totalQuantity})</span>
         </div>
-        <button onClick={() => setIsCartOpen(false)} className={styles.link}>
-          Keep Shopping
-        </button>
+        <Link to={link} onClick={() => setIsCartOpen(false)} className={styles.link}>
+          {text}
+        </Link>
       </div>
       <div className={styles.itemList}>
         {edges?.map(({ node }) => (

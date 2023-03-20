@@ -36,6 +36,13 @@ export async function loader({ context }: LoaderArgs) {
     brandLogo,
     cartBlocksAboveCartItems,
     shippingEstimates,
+    cartTitle,
+    cartKeepShoppingText,
+    cartKeepShoppingLink,
+    cartEmptyCartEmoji,
+    cartEmptyMessage,
+    cartEmptyButtonText,
+    cartEmptyButtonCtaLink,
     outOfStockMessaging,
   } = globalSettings || {}
 
@@ -75,6 +82,15 @@ export async function loader({ context }: LoaderArgs) {
     brandLogo,
     cartBlocksAboveCartItems,
     shippingEstimates,
+    cartSettings: {
+      cartTitle,
+      cartKeepShoppingText,
+      cartKeepShoppingLink,
+      cartEmptyCartEmoji,
+      cartEmptyMessage,
+      cartEmptyButtonText,
+      cartEmptyButtonCtaLink,
+    },
     outOfStockMessaging,
   })
 }

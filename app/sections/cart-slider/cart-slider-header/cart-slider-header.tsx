@@ -6,14 +6,15 @@ import styles from './styles.module.css'
 
 export type CartSliderHeaderProps = HTMLAttributes<HTMLDivElement> & {
   onCartClose: () => void
+  title?: string
 }
 
 const CartSliderHeader = (
-  { onCartClose, ...props }: CartSliderHeaderProps,
+  { onCartClose, title = 'Your Cart', ...props }: CartSliderHeaderProps,
   ref: Ref<HTMLDivElement>,
 ) => (
   <div className={styles.cartSliderHeader} ref={ref} {...props}>
-    <div className={styles.title}>Your Cart</div>
+    <div className={styles.title}>{title}</div>
     <ButtonIcon
       className={styles.button}
       icon={<CloseIcon />}

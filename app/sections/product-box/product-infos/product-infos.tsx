@@ -8,14 +8,13 @@ import RichText from '~/components/rich-text'
 import { ROUTE_IDS } from '~/constants'
 import { LoaderData } from '~/global-types'
 import { getDisplayPrices } from '~/helpers'
-import { useYotpoBottomline } from '~/hooks'
-import { useTypedRouteLoaderData } from '~/hooks'
+import { useTypedRouteLoaderData, useYotpoBottomline } from '~/hooks'
 import styles from './styles.module.css'
 import { ProductInfosProps } from './types'
 
 const ProductInfos = (props: ProductInfosProps) => {
   const { product } = useTypedRouteLoaderData<LoaderData['product']>(ROUTE_IDS.PRODUCT) ?? {}
-  const { title, collectionTitle, description, selectedVariant, variants } = product ?? {}
+  const { title, collectionTitle, description, selectedVariant, variants, id } = product ?? {}
   const [firstVariant] = variants?.nodes ?? []
 
   const { price, compareAtPrice } = getDisplayPrices(

@@ -79,6 +79,27 @@ export const GLOBAL_SETTINGS_QUERY = /* gql */ `#graphql
           }
         }
       }
+      cartTitle: field(key: "cart_title") {
+        value
+      }
+      cartKeepShoppingText: field(key: "cart_keep_shopping_text") {
+        value
+      }
+      cartKeepShoppingLink: field(key: "cart_keep_shopping_link") {
+        value
+      }
+      cartEmptyCartEmoji: field(key: "cart_empty_cart_emoji") {
+        value
+      }
+      cartEmptyMessage: field(key: "cart_empty_message") {
+        value
+      }
+      cartEmptyButtonText: field(key: "cart_empty_button_text") {
+        value
+      }
+      cartEmptyButtonCtaLink: field(key: "cart_empty_button_cta_link") {
+        value
+      }
       outOfStockMessaging: field(key: "out_of_stock_messaging") {
         reference {
           ... on Metaobject {

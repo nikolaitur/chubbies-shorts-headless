@@ -1,4 +1,5 @@
 import Button from '@solo-brands/ui-library.ui.atomic.button'
+import { HTMLAttributes } from 'react'
 import Link from '~/components/link'
 import styles from './styles.module.css'
 
@@ -19,21 +20,36 @@ const EyesIcon = () => (
   </svg>
 )
 
-const CartSliderEmptyMessage = () => (
-  <div className={styles.content}>
-    <div className={styles.text}>
-      <p className={styles.icon}>
-        <EyesIcon />
-      </p>
-      <h1 className={styles.title}>Your Cart is Empty</h1>
-      <p className={styles.description}>Looks like you haven&apos;t added any products.</p>
+export type CartSliderEmptyMessageProps = HTMLAttributes<HTMLElement> & {
+  textData?: {
+    emoji?: string
+    message?: string
+    text?: string
+    link?: string
+  }
+}
+
+const CartSliderEmptyMessage = ({ textData }: CartSliderEmptyMessageProps) => {
+  const {
+    emoji,
+    message = "Looks like you haven't added any products",
+    text = 'View Deals',
+    link = '/',
+  } = textData ?? {}
+  return (
+    <div className={styles.content}>
+      <div className={styles.text}>
+        <p className={styles.icon}>{emoji ?? <EyesIcon />}</p>
+        <h1 className={styles.title}>Your Cart is Empty</h1>
+        <p className={styles.description}>{message}</p>
+      </div>
+      <Link to={link}>
+        <Button variant="primary" size="sm" className={styles.button}>
+          {text}
+        </Button>
+      </Link>
     </div>
-    <Link to="/">
-      <Button variant="primary" size="sm" className={styles.button}>
-        View Deals
-      </Button>
-    </Link>
-  </div>
-)
+  )
+}
 
 export default CartSliderEmptyMessage

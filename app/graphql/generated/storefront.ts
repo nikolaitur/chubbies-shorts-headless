@@ -7141,6 +7141,13 @@ export type GlobalSettingsQuery = {
         }>
       } | null
     } | null
+    cartTitle?: { value?: string | null } | null
+    cartKeepShoppingText?: { value?: string | null } | null
+    cartKeepShoppingLink?: { value?: string | null } | null
+    cartEmptyCartEmoji?: { value?: string | null } | null
+    cartEmptyMessage?: { value?: string | null } | null
+    cartEmptyButtonText?: { value?: string | null } | null
+    cartEmptyButtonCtaLink?: { value?: string | null } | null
     outOfStockMessaging?: {
       reference?: {
         fields: Array<{

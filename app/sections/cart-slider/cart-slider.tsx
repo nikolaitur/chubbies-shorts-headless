@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import { forwardRef, HTMLAttributes, Ref, useEffect } from 'react'
 import Backdrop from '~/components/backdrop'
 import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
+import { FRAME_ROUTE_ID } from '~/constants'
 import { CartBlocksAboveCartItemsSettings } from '~/global-types'
 import { dataLayerViewCart } from '~/utils/dataLayer'
 import CartBlocksAboveCartItems from './cart-blocks-above-cart-items'
@@ -40,7 +41,20 @@ const CartSlider = (
 ) => {
   const { isCartOpen } = useCartState()
   const { setIsCartOpen } = useCartActions()
-  const [root] = useMatches()
+  const [root, ...matches] = useMatches()
+
+  const frameMatch = matches.find(match => match.id === FRAME_ROUTE_ID)?.data ?? {}
+
+  const { cartSettings } = frameMatch || {}
+  const {
+    cartTitle,
+    cartKeepShoppingText,
+    cartKeepShoppingLink,
+    cartEmptyCartEmoji,
+    cartEmptyMessage,
+    cartEmptyButtonText,
+    cartEmptyButtonCtaLink,
+  } = cartSettings || {}
 
   const cart = root.data.cart ?? {}
   const { lines, totalQuantity } = cart
@@ -72,19 +86,30 @@ const CartSlider = (
   return (
     <div className={styles.cartSlider} ref={ref} {...props}>
       <div className={clsx(styles.container, { [styles.isCartOpen]: isCartOpen })}>
-        <CartSliderHeader onCartClose={() => setIsCartOpen(false)} />
+        <CartSliderHeader onCartClose={() => setIsCartOpen(false)} title={cartTitle?.value} />
         <div className={styles.itemContainer}>
           {hasCartLines ? (
             <>
               <CartBlocksAboveCartItems
                 cartBlocksAboveCartItems={flattenedCartBlocksAboveCartItems}
               />
-              <CartLineItems lines={lines} totalQuantity={totalQuantity} />
+              <CartLineItems
+                lines={lines}
+                totalQuantity={totalQuantity}
+                textData={{ link: cartKeepShoppingLink?.value, text: cartKeepShoppingText?.value }}
+              />
               <CartSliderOrderSummary cart={cart} />
               <PaymentInformation />
             </>
           ) : (
-            <CartSliderEmptyMessage />
+            <CartSliderEmptyMessage
+              textData={{
+                emoji: cartEmptyCartEmoji?.value,
+                message: cartEmptyMessage?.value,
+                text: cartEmptyButtonText?.value,
+                link: cartEmptyButtonCtaLink?.value,
+              }}
+            />
           )}
         </div>
         <CartSliderStickyCheckout cart={cart} />
