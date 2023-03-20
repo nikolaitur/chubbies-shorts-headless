@@ -254,3 +254,58 @@ export const getCartLineAttributes = (attributes: Attribute[]) => {
     isGwpProduct,
   }
 }
+
+interface CartLineItem {
+  node: {
+    merchandise: {
+      id: string
+      sku: string
+      product: {
+        title: string
+      }
+      price: {
+        amount: string
+      }
+    }
+    quantity: number
+  }
+}
+
+export const generateCartAnalytics = (lines: CartLineEdge[] | undefined) => {
+  return {
+    ecommerce: {
+      items: lines?.map((item: any, index: number) => {
+        return {
+          index: index + 1,
+          price: parseFloat(item?.node?.merchandise?.price?.amount),
+          quantity: item?.node?.quantity,
+          item_id: item?.node?.merchandise.sku,
+          item_name: item?.node?.merchandise?.product?.title,
+          item_brand: 'Chubbies',
+          item_variant: item?.node?.merchandise.id,
+        }
+      }),
+      currency: 'USD',
+      view_cart_type: 'Cart Preview',
+    },
+  }
+}
+
+export const generateCartRemoveAnalytics = (line: any | undefined) => {
+  const { quantity = 0, merchandise } = line || {}
+  return {
+    ecommerce: {
+      items: [
+        {
+          price: parseFloat(merchandise?.price?.amount),
+          quantity,
+          item_id: merchandise.sku,
+          item_name: merchandise?.product?.title,
+          item_brand: 'Chubbies',
+          item_variant: merchandise.id,
+        },
+      ],
+      currency: 'USD',
+    },
+  }
+}

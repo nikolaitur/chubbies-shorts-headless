@@ -6,7 +6,7 @@ import { SearchspringResponse } from '~/global-types/searchspring'
 import { ProductCardQuery } from '~/graphql/generated'
 import { COLLECTION_QUERY } from '~/graphql/storefront/collections/queries'
 import { PRODUCT_CARDS_QUERY } from '~/graphql/storefront/products/queries/productCards'
-import { fetchProductGroupData } from '~/helpers'
+import { fetchProductGroupData, generatePlpAnalytics } from '~/helpers'
 import {
   extractProductIds,
   fetchSearchspringResults,
@@ -72,24 +72,7 @@ export async function loader({ params, request, context: { storefront } }: Loade
     products: await products,
     productGroups,
     collection,
-    analytics: {
-      ecommerce: {
-        items: (await products).nodes.map((item, index) => {
-          return {
-            index: index + 1,
-            price: 199,
-            item_id: item?.id,
-            item_name: item?.display_name?.value,
-            item_brand: 'Chubbies',
-            item_list_id: 'shop_by_style',
-            item_variant: '41-123',
-            item_category: 'Classic Lined Stretch Swim Trunks',
-            item_list_name: 'Swim Trunks Category Page',
-          }
-        }),
-        currency: 'USD',
-      },
-    },
+    analytics: generatePlpAnalytics(await products, collection),
   })
 }
 

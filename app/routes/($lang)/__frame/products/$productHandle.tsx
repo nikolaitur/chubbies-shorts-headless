@@ -11,6 +11,7 @@ import {
   getColorOptionsByGroup,
   getInseamOptions,
   getSizeOptions,
+  generatePdpAnalytics,
 } from '~/helpers'
 import ProductBox from '~/sections/product-box'
 
@@ -85,26 +86,6 @@ export async function loader({ params, request, context: { storefront } }: Loade
 
   return json({
     product: newProduct,
-    analytics: {
-      ecommerce: {
-        currency: 'USD',
-        items: [
-          {
-            price: parseFloat(
-              newProduct?.selectedVariant
-                ? newProduct.selectedVariant.price?.amount
-                : newProduct?.variants?.nodes[0]?.price.amount,
-            ),
-            item_id: newProduct?.id,
-            item_name: newProduct?.title,
-            item_brand: 'Chubbies',
-            item_variant: newProduct?.selectedVariant
-              ? newProduct.selectedVariant.id
-              : newProduct?.variants.nodes[0].id,
-            item_category: collectionTitle,
-          },
-        ],
-      },
-    },
-  })
+    analytics: generatePdpAnalytics(newProduct, collectionTitle),
+  }
 }

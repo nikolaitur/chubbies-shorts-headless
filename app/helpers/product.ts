@@ -10,6 +10,7 @@ import {
   InseamOption,
   ProductGroupProducts,
   SizeOption,
+  PdpProduct,
 } from '~/global-types'
 import {
   ColorFragment,
@@ -318,5 +319,52 @@ export const moveInitialColorFirst = (state: Location['state']) => {
       if (a.selected) return -1
       return 1
     }
+  }
+}
+
+export const generatePlpAnalytics = (products: any | undefined, collection: any | undefined) => {
+  return {
+    ecommerce: {
+      items: products?.nodes.map((item: any, index: any) => {
+        return {
+          index: index + 1,
+          price: 199,
+          item_id: item?.id,
+          item_name: item?.display_name?.value,
+          item_brand: 'Chubbies',
+          item_list_id: collection?.collection?.id,
+          item_category: collection?.collection?.title,
+          item_list_name: collection?.collection?.handle,
+        }
+      }),
+      currency: 'USD',
+    },
+  }
+}
+
+export const generatePdpAnalytics = (
+  product: PdpProduct | undefined,
+  collectionTitle: string | undefined,
+) => {
+  return {
+    ecommerce: {
+      currency: 'USD',
+      items: [
+        {
+          price: parseFloat(
+            product?.selectedVariant
+              ? product.selectedVariant.price?.amount
+              : product?.variants?.nodes[0]?.price.amount,
+          ),
+          item_id: product?.id,
+          item_name: product?.title,
+          item_brand: 'Chubbies',
+          item_variant: product?.selectedVariant
+            ? product.selectedVariant.id
+            : product?.variants.nodes[0].id,
+          item_category: collectionTitle,
+        },
+      ],
+    },
   }
 }

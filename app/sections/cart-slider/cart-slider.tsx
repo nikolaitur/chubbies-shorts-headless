@@ -16,7 +16,7 @@ import CartSliderOrderSummary from './cart-slider-order-summary'
 import CartSliderStickyCheckout from './cart-slider-sticky-checkout'
 import PaymentInformation from './payment-information'
 import styles from './styles.module.css'
-
+import { generateCartAnalytics } from '~/helpers'
 export type CartSliderProps = HTMLAttributes<HTMLDivElement> & {
   shippingTiers: NonNullable<GlobalSettingsQuery['globalSettings']>['shippingTiers']
   cartBlocksAboveCartItems: CartBlocksAboveCartItemsSettings
@@ -67,26 +67,9 @@ const CartSlider = (
   const flattenedShipingTiers = shippingTiers?.references?.nodes
 
   useEffect(() => {
-    const ecommerce = {
-      ecommerce: {
-        items: lines?.edges?.map((item: CartLineItem, index: number) => {
-          return {
-            index: index + 1,
-            price: parseFloat(item?.node?.merchandise?.price?.amount),
-            quantity: item?.node?.quantity,
-            item_id: item?.node?.merchandise.sku,
-            item_name: item?.node?.merchandise?.product?.title,
-            item_brand: 'Chubbies',
-            item_variant: item?.node?.merchandise.id,
-          }
-        }),
-        currency: 'USD',
-        view_cart_type: 'Cart Preview',
-      },
-    }
-
-    dataLayerViewCart({ ecommerce })
-  }, [lines?.edges])
+    if (isCartOpen && lines?.edges)
+      dataLayerViewCart({ ecommerce: generateCartAnalytics(lines?.edges) })
+  }, [lines?.edges, isCartOpen])
 
   return (
     <div className={styles.cartSlider} ref={ref} {...props}>
