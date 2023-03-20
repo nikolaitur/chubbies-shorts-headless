@@ -5,6 +5,7 @@ import { hydrateRoot } from 'react-dom/client'
 import builderConfig from '../builderConfig.json'
 import HeroBanner from './sections/hero-banner/hero-banner'
 import MediaBanner from './sections/media-banner/media-banner'
+import SocialMediaPosts from './sections/social-media-posts/social-media-posts'
 
 builder.init(builderConfig.apiKey)
 
@@ -91,6 +92,32 @@ Builder.registerComponent(MediaBanner, {
     },
   ],
 })
+
+Builder.registerComponent(SocialMediaPosts, {
+  name: 'SocialMediaPosts',
+  inputs: [
+    {
+      name: 'heading',
+      friendlyName: 'Heading Text',
+      type: 'text',
+      defaultValue: '#ChubbiesInTheWild',
+    },
+    {
+      name: 'description',
+      friendlyName: 'Description Text',
+      type: 'longText',
+      defaultValue:
+        'Show us what you’re up to! Tag & mention @Chubbies on your Instagram post to be featured here.',
+    },
+    {
+      name: 'nostoHtml',
+      friendlyName: 'HTML',
+      type: 'longText',
+      defaultValue: '<div class="nosto_element" id="homepage-tab-3"></div>',
+    },
+  ],
+})
+
 //TODO: Remove document.getElementById('root')! when Xiphe/remix-island is no longer needed (facebook/react#24430)
 hydrateRoot(
   document.getElementById('root')!,

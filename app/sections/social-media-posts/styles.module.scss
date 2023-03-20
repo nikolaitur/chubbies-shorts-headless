@@ -1,0 +1,25 @@
+@use '../../styles/abstracts' as *;
+
+.contentWrapper {
+  text-align: center;
+  padding-top: 32px;
+  padding-bottom: 32px;
+
+  @include media-query(lg) {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
+
+.heading {
+  @include headings-lg;
+}
+
+.description {
+  @include body-regular-xl;
+  margin-top: 10px;
+}
+
+.nostoHtml {
+  margin-top: 20px;
+}

@@ -22,6 +22,12 @@ const ThirdPartyScripts = () => {
     (window,document,'GladlyHelpApp','PROD');window.gladlyConfig = {appId: 'chubbies.com'}`,
         }}
       ></script>
+
+      <script
+        type="text/javascript"
+        src="//connect.nosto.com/include/shopify-770432"
+        defer
+      ></script>
     </>
   )
 }
