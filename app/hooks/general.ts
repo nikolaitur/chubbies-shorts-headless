@@ -105,3 +105,44 @@ export const useIsMounted = () => {
 
   return isMounted
 }
+
+export const useYotpoBottomline = (productId?: string) => {
+  const [reviews, setReviews] = useState<{ averageScore: number; totalReviews: number } | null>(
+    null,
+  )
+  const appId = 'wokUWszpyYRe1oBhrtdV6mU4xPuHYSXJz57szBwQ'
+  const legacyProductId = productId && productId.replace('gid://shopify/Product/', '')
+  useEffect(() => {
+    if (legacyProductId) {
+      fetch(`https://api.yotpo.com/products/${appId}/${legacyProductId}/bottomline`)
+        .then((response): Promise<YotpoBottomlineResponse> => response.json())
+        .then(data => {
+          const { average_score, total_reviews } = data?.response?.bottomline || {}
+          if (average_score && total_reviews) {
+            setReviews(prev => ({
+              ...prev,
+              averageScore: average_score,
+              totalReviews: total_reviews,
+            }))
+          }
+        })
+    }
+  }, [legacyProductId])
+  return {
+    averageScore: reviews?.averageScore || 0,
+    totalReviews: reviews?.totalReviews || 0,
+  }
+}
+
+export type YotpoBottomlineResponse = {
+  status: {
+    code: number
+    message: string
+  }
+  response: {
+    bottomline: {
+      average_score: number
+      total_reviews: number
+    }
+  }
+}

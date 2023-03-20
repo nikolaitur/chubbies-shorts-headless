@@ -8,6 +8,7 @@ import RichText from '~/components/rich-text'
 import { ROUTE_IDS } from '~/constants'
 import { LoaderData } from '~/global-types'
 import { getDisplayPrices } from '~/helpers'
+import { useYotpoBottomline } from '~/hooks'
 import { useTypedRouteLoaderData } from '~/hooks'
 import styles from './styles.module.css'
 import { ProductInfosProps } from './types'
@@ -21,6 +22,7 @@ const ProductInfos = (props: ProductInfosProps) => {
     firstVariant as ProductVariant,
     selectedVariant as ProductVariant,
   )
+  const { averageScore, totalReviews } = useYotpoBottomline(id)
 
   return (
     <div className={styles.wrapper} {...props}>
@@ -44,7 +46,7 @@ const ProductInfos = (props: ProductInfosProps) => {
         </div>
       )}
 
-      <Ratings variant="number-only" size="sm" ratings={4.5} reviewsCount={300} />
+      <Ratings variant="number-only" size="sm" ratings={averageScore} reviewsCount={totalReviews} />
 
       <div className={styles.pricesWrapperMobile}>
         {compareAtPrice && <Price size="sm" variant="compare-at" {...compareAtPrice} />}
