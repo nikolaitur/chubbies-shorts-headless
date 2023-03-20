@@ -61,6 +61,7 @@
     "@solo-brands/ui-library.ui.shared.gallery-nav": "^1.0.31",
     "@solo-brands/ui-library.ui.shared.order-summary-item": "^2.0.3",
     "@solo-brands/ui-library.ui.shared.payment-information": "^1.0.0",
+    "@solo-brands/ui-library.ui.shared.shipping-message-card": "^2.0.8",
     "@solobrands/token-library": "^1.1.113",
     "@types/react-gtm-module": "^2.0.1",
     "@types/styled-components": "^5.1.26",

@@ -44,6 +44,7 @@ export async function loader({ context }: LoaderArgs) {
     cartEmptyButtonText,
     cartEmptyButtonCtaLink,
     outOfStockMessaging,
+    shippingTiers,
   } = globalSettings || {}
 
   const { promoBarMenu, footerMenu, legalLinksMenu, headerNavMenu } =
@@ -92,6 +93,7 @@ export async function loader({ context }: LoaderArgs) {
       cartEmptyButtonCtaLink,
     },
     outOfStockMessaging,
+    shippingTiers,
   })
 }
 
@@ -105,6 +107,7 @@ export default function MainFrame() {
     navCollectionImages,
     brandLogo,
     cartBlocksAboveCartItems,
+    shippingTiers,
   } = (useLoaderData() as LoaderData['frame']) ?? {}
 
   return (
@@ -118,7 +121,10 @@ export default function MainFrame() {
       />
       <Outlet />
       <Footer menu={footerMenu} legalLinks={legalLinksMenu} />
-      <CartSlider cartBlocksAboveCartItems={cartBlocksAboveCartItems} />
+      <CartSlider
+        cartBlocksAboveCartItems={cartBlocksAboveCartItems}
+        shippingTiers={shippingTiers}
+      />
     </CartProvider>
   )
 }

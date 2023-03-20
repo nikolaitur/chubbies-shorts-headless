@@ -5,9 +5,11 @@ import Backdrop from '~/components/backdrop'
 import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
 import { FRAME_ROUTE_ID } from '~/constants'
 import { CartBlocksAboveCartItemsSettings } from '~/global-types'
+import { GlobalSettingsQuery } from '~/graphql/generated'
 import { dataLayerViewCart } from '~/utils/dataLayer'
 import CartBlocksAboveCartItems from './cart-blocks-above-cart-items'
 import CartLineItems from './cart-line-items'
+import CartShippingTiers from './cart-shipping-tiers'
 import CartSliderEmptyMessage from './cart-slider-empty-message'
 import CartSliderHeader from './cart-slider-header'
 import CartSliderOrderSummary from './cart-slider-order-summary'
@@ -16,6 +18,7 @@ import PaymentInformation from './payment-information'
 import styles from './styles.module.css'
 
 export type CartSliderProps = HTMLAttributes<HTMLDivElement> & {
+  shippingTiers: NonNullable<GlobalSettingsQuery['globalSettings']>['shippingTiers']
   cartBlocksAboveCartItems: CartBlocksAboveCartItemsSettings
 }
 
@@ -36,7 +39,7 @@ interface CartLineItem {
 }
 
 const CartSlider = (
-  { cartBlocksAboveCartItems, ...props }: CartSliderProps,
+  { cartBlocksAboveCartItems, shippingTiers, ...props }: CartSliderProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const { isCartOpen } = useCartState()
@@ -61,6 +64,8 @@ const CartSlider = (
   const hasCartLines = Boolean(totalQuantity)
 
   const flattenedCartBlocksAboveCartItems = cartBlocksAboveCartItems?.references?.nodes
+  const flattenedShipingTiers = shippingTiers?.references?.nodes
+
   useEffect(() => {
     const ecommerce = {
       ecommerce: {
@@ -88,18 +93,12 @@ const CartSlider = (
       <div className={clsx(styles.container, { [styles.isCartOpen]: isCartOpen })}>
         <CartSliderHeader onCartClose={() => setIsCartOpen(false)} title={cartTitle?.value} />
         <div className={styles.itemContainer}>
+          <CartShippingTiers shippingTiers={flattenedShipingTiers} />
+          <CartBlocksAboveCartItems cartBlocksAboveCartItems={flattenedCartBlocksAboveCartItems} />
           {hasCartLines ? (
             <>
-              <CartBlocksAboveCartItems
-                cartBlocksAboveCartItems={flattenedCartBlocksAboveCartItems}
-              />
-              <CartLineItems
-                lines={lines}
-                totalQuantity={totalQuantity}
-                textData={{ link: cartKeepShoppingLink?.value, text: cartKeepShoppingText?.value }}
-              />
+              <CartLineItems lines={lines} totalQuantity={totalQuantity} />
               <CartSliderOrderSummary cart={cart} />
-              <PaymentInformation />
             </>
           ) : (
             <CartSliderEmptyMessage
@@ -111,6 +110,7 @@ const CartSlider = (
               }}
             />
           )}
+          <PaymentInformation />
         </div>
         <CartSliderStickyCheckout cart={cart} />
       </div>

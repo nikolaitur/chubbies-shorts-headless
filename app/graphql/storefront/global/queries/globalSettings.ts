@@ -79,6 +79,15 @@ export const GLOBAL_SETTINGS_QUERY = /* gql */ `#graphql
           }
         }
       }
+      shippingTiers: field(key: "cart_shipping_tiers") {
+        references(first: 10) {
+          nodes {
+            ... on Metaobject {
+              ...shippingTiersFragment
+            }
+          }
+        }
+      }
       cartTitle: field(key: "cart_title") {
         value
       }
@@ -107,9 +116,9 @@ export const GLOBAL_SETTINGS_QUERY = /* gql */ `#graphql
           }
         }
       }
+      
     }
   }
-
   fragment AnnouncementContent on Metaobject {
     id
     title: field(key: "title") {
@@ -158,6 +167,30 @@ export const GLOBAL_SETTINGS_QUERY = /* gql */ `#graphql
       value
     }
     cutoff_time: field(key: "cutoff_time") {
+      value
+    }
+  }
+  fragment shippingTiersFragment on Metaobject {
+    id
+    internalName: field(key: "internal_name") {
+      value
+    }
+    primaryMessage: field(key: "primary_message") {
+      value
+    }
+    secondaryMessage: field(key: "secondary_message") {
+      value
+    }
+    completionMessage: field(key: "completion_message") {
+      value
+    }
+    emoji: field(key: "emoji") {
+      value
+    }
+    tierAmount: field(key: "tier_amount") {
+      value
+    }
+    cartFooterSuccessMessage: field(key: "cart_footer_success_message") {
       value
     }
   }

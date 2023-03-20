@@ -2,6 +2,7 @@ import { Cart } from '@shopify/hydrogen/storefront-api-types'
 import ButtonCheckout from '@solo-brands/ui-library.ui.atomic.button-checkout'
 import OrderSummaryItem from '@solo-brands/ui-library.ui.shared.order-summary-item'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
+import { useCartState } from '~/components/cart-context/cart-context'
 import Link from '~/components/link'
 import { getCartCompareAtPrice, getCartLineAttributes, getComputedAmount } from '~/helpers'
 import GiftCouponCode from '../gift-coupon-code'
@@ -17,6 +18,7 @@ const CartSliderOrderSummary = (
 ) => {
   const { cost, checkoutUrl, totalQuantity, lines } = cart ?? {}
   const { subtotalAmount, totalAmount } = cost ?? {}
+  const { freeShippingText } = useCartState()
 
   const hasQuantity = Boolean(totalQuantity)
 
@@ -56,14 +58,15 @@ const CartSliderOrderSummary = (
         title="Subtotal"
         price={{ amount: subtotalAmount?.amount || '0', currencyCode: 'USD' }}
       />
-      {/* TO-DO: Update OrderSummaryItem to have "description" text for "FREE SHIPPING" */}
-      <OrderSummaryItem
-        brand="chubbies"
-        title="Shipping"
-        description="Calculated at next step"
-        variant="message-positive"
-        price={{ amount: '0', currencyCode: 'USD' }}
-      />
+      {freeShippingText && (
+        <OrderSummaryItem
+          brand="chubbies"
+          title="Shipping"
+          description={freeShippingText ?? 'Calculated at next step'}
+          variant="message-positive"
+          price={{ amount: '0', currencyCode: 'USD' }}
+        />
+      )}
       {/* {totalDiscount && (
         <OrderSummaryItem
           brand="chubbies"

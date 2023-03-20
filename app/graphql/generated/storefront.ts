@@ -7141,6 +7141,20 @@ export type GlobalSettingsQuery = {
         }>
       } | null
     } | null
+    shippingTiers?: {
+      references?: {
+        nodes: Array<{
+          id: string
+          internalName?: { value?: string | null } | null
+          primaryMessage?: { value?: string | null } | null
+          secondaryMessage?: { value?: string | null } | null
+          completionMessage?: { value?: string | null } | null
+          emoji?: { value?: string | null } | null
+          tierAmount?: { value?: string | null } | null
+          cartFooterSuccessMessage?: { value?: string | null } | null
+        }>
+      } | null
+    } | null
     cartTitle?: { value?: string | null } | null
     cartKeepShoppingText?: { value?: string | null } | null
     cartKeepShoppingLink?: { value?: string | null } | null
@@ -7200,6 +7214,17 @@ export type ShippingEstimatesContent = {
   saturday_shipping?: { value?: string | null } | null
   section_content?: { value?: string | null } | null
   cutoff_time?: { value?: string | null } | null
+}
+
+export type ShippingTiersFragment = {
+  id: string
+  internalName?: { value?: string | null } | null
+  primaryMessage?: { value?: string | null } | null
+  secondaryMessage?: { value?: string | null } | null
+  completionMessage?: { value?: string | null } | null
+  emoji?: { value?: string | null } | null
+  tierAmount?: { value?: string | null } | null
+  cartFooterSuccessMessage?: { value?: string | null } | null
 }
 
 export type MainFrameMenusVariables = Exact<{

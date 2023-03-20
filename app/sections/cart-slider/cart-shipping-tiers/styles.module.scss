@@ -1,0 +1,7 @@
+@use '../../../styles/abstracts' as *;
+
+.shippingTiers {
+  padding: $space-2 $space-3;
+  margin-bottom: $space-4;
+  background-color: $backgrounds-white;
+}

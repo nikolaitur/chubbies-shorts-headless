@@ -3251,6 +3251,26 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
+"@solo-brands/ui-library.ui.atomic.progress-bar-with-icon@2.0.1":
+  version "2.0.1"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.progress-bar-with-icon/-/@solo-brands-ui-library.ui.atomic.progress-bar-with-icon-2.0.1.tgz#304f4a98a1add4cbf03ac999c9cfeef70a0d29f5"
+  integrity sha1-ME9KmKGt1MvwOsmZyc/u9woNKfU=
+  dependencies:
+    "@solo-brands/ui-library.helpers.general" "1.0.0"
+    "@solo-brands/ui-library.ui.atomic.icon" "1.0.11"
+    "@solo-brands/ui-library.ui.atomic.progress-bar" "1.0.6"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.atomic.progress-bar@1.0.6":
+  version "1.0.6"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.progress-bar/-/@solo-brands-ui-library.ui.atomic.progress-bar-1.0.6.tgz#da1df4dabb3850bf86356d6a5837d85025d8406f"
+  integrity sha1-2h302rs4UL+GNW1qWDfYUCXYQG8=
+  dependencies:
+    "@solo-brands/ui-library.helpers.responsive-props" "1.0.0"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
 "@solo-brands/ui-library.ui.atomic.qty-selector@1.0.15":
   version "1.0.15"
   resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.qty-selector/-/@solo-brands-ui-library.ui.atomic.qty-selector-1.0.15.tgz#411c798465582ae08979c059c87f3c832fa4a00a"
@@ -3476,6 +3496,17 @@
     "@solo-brands/ui-library.ui.atomic.price" "1.0.6"
     "@solo-brands/ui-library.ui.atomic.price-discount" "1.0.5"
     "@solo-brands/ui-library.ui.atomic.price-message" "1.0.5"
+    core-js "^3.0.0"
+    styled-components "5.3.6"
+
+"@solo-brands/ui-library.ui.shared.shipping-message-card@^2.0.8":
+  version "2.0.8"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.shared.shipping-message-card/-/@solo-brands-ui-library.ui.shared.shipping-message-card-2.0.8.tgz#2f39a9bf8a0bcaef7359070f3b3ef06e138cc621"
+  integrity sha1-Lzmpv4oLyu9zWQcPOz7wbhOMxiE=
+  dependencies:
+    "@solo-brands/ui-library.helpers.general" "1.0.0"
+    "@solo-brands/ui-library.ui.atomic.progress-bar-with-icon" "2.0.1"
+    clsx "1.2.1"
     core-js "^3.0.0"
     styled-components "5.3.6"
 

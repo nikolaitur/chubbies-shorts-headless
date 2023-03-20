@@ -2,8 +2,8 @@ import { Cart } from '@shopify/hydrogen/storefront-api-types'
 import ButtonCheckout from '@solo-brands/ui-library.ui.atomic.button-checkout'
 import Price from '@solo-brands/ui-library.ui.atomic.price'
 import { forwardRef, HTMLAttributes, Ref } from 'react'
+import { useCartState } from '~/components/cart-context/cart-context'
 import Link from '~/components/link'
-import { getCartCompareAtPrice, getCartLineAttributes, getComputedAmount } from '~/helpers'
 import styles from './styles.module.css'
 
 export type CartSliderStickyCheckoutProps = HTMLAttributes<HTMLDivElement> & {
@@ -14,38 +14,11 @@ const CartSliderStickyCheckout = (
   { cart, ...props }: CartSliderStickyCheckoutProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const { cost, checkoutUrl, totalQuantity, lines } = cart ?? {}
+  const { cost, checkoutUrl, totalQuantity } = cart ?? {}
   const { totalAmount } = cost ?? {}
+  const { freeShippingText } = useCartState()
 
   const hasQuantity = Boolean(totalQuantity)
-
-  const filteredLines = lines?.edges?.filter(
-    edge => !getCartLineAttributes(edge?.node?.attributes)?.isGwpProduct,
-  )
-
-  const totalCompareAtPrice = filteredLines ? getCartCompareAtPrice(filteredLines) : '0'
-
-  const compareAtPrice =
-    parseFloat(totalCompareAtPrice) > 0
-      ? {
-          amount: totalCompareAtPrice,
-          currencyCode: totalAmount?.currencyCode ?? 'USD',
-        }
-      : undefined
-
-  const totalDiscountPrice = getComputedAmount(
-    totalCompareAtPrice,
-    totalAmount?.amount ?? 0,
-    'subtract',
-  )
-
-  const totalDiscount =
-    parseFloat(totalDiscountPrice) > 0
-      ? {
-          amount: totalDiscountPrice,
-          currencyCode: totalAmount?.currencyCode ?? 'USD',
-        }
-      : undefined
 
   return (
     <div className={styles.checkout} ref={ref} {...props}>
@@ -58,7 +31,7 @@ const CartSliderStickyCheckout = (
             amount={totalAmount?.amount ?? '0'}
             currencyCode={totalAmount?.currencyCode ?? 'USD'}
           />
-          <p className={styles.message}>+ free 1-day shipping</p>
+          {freeShippingText && hasQuantity && <p className={styles.message}>{freeShippingText}</p>}
         </div>
       </div>
       <Link to={checkoutUrl || ''} className={styles.button}>

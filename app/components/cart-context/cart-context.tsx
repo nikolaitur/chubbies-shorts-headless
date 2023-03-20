@@ -11,6 +11,7 @@ const CartActions = createContext<CartContextActions | null>(null) as Context<Ca
 
 const initialState = {
   isCartOpen: false,
+  freeShippingText: '',
 }
 
 const reducer = (state: typeof initialState, action: CartContextReducerAction) => {
@@ -19,6 +20,9 @@ const reducer = (state: typeof initialState, action: CartContextReducerAction) =
   switch (type) {
     case 'SET_IS_CART_OPEN':
       return { ...state, isCartOpen: payload }
+
+    case 'SET_FREE_SHIPPING_TEXT':
+      return { ...state, freeShippingText: payload }
 
     default:
       return state
@@ -32,8 +36,13 @@ export const CartProvider = ({ children }: CartContextProviderProps) => {
     dispatch({ type: 'SET_IS_CART_OPEN', payload })
   }
 
+  const setFreeShippingText = (payload: string) => {
+    dispatch({ type: 'SET_FREE_SHIPPING_TEXT', payload })
+  }
+
   const actions = {
     setIsCartOpen,
+    setFreeShippingText,
   }
 
   return (

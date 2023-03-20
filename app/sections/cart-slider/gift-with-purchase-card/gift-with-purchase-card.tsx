@@ -82,7 +82,7 @@ const GiftWithPurchaseCard = (
   const linesToRemove = existingGwpItemsFromCart?.map(line => line?.node?.id)
 
   const threshold = JSON.parse(order_amount_threshold?.value ?? '0')?.amount
-  const disabled = parseFloat(subtotalAmount?.amount) < parseFloat(threshold)
+  const disabled = parseFloat(subtotalAmount?.amount || 0) < parseFloat(threshold)
   const disableCartAction = isCartLoading || disabled || existingGwpItem || hasSizes
 
   // useEffect(() => {
