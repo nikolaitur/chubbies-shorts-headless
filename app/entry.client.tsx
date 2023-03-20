@@ -78,12 +78,12 @@ Builder.registerComponent(MediaBanner, {
           type: 'text',
         },
         {
-          name: 'link_text',
+          name: 'linkText',
           friendlyName: 'Link Text',
           type: 'text',
         },
         {
-          name: 'link_url',
+          name: 'linkUrl',
           friendlyName: 'Link Url',
           type: 'url',
         },
