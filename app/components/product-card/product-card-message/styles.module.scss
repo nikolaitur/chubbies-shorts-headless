@@ -1,0 +1,6 @@
+@use '../../../styles/abstracts' as *;
+
+.wrapper {
+  display: grid;
+  grid-gap: $space-2;
+}

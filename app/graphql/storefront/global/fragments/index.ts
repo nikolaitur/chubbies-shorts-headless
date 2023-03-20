@@ -1,3 +1,5 @@
+export * from './metaobject-field'
+
 export const MEDIA_IMAGE_FRAGMENT = /* gql */ `#graphql
   fragment MediaImageFragment on MediaImage {
     image {
@@ -31,6 +33,7 @@ export const PRODUCT_CARD_FRAGMENT = /* gql */ `#graphql
     display_name:metafield(namespace: "custom",key: "display_name") {
       value
     }
+    tags
     variants(first:7) {
       nodes {
         id

@@ -12,6 +12,8 @@ import { Await } from 'react-router'
 import AtcButton from '~/components/atc-button'
 import { COLLECTION_ROUTE_ID } from '~/constants/'
 import { ProductCardFragment } from '~/graphql/generated'
+import TagList from '../tag-list'
+import ProductCardMessage from './product-card-message'
 import ProductSwatches from './product-swatches'
 import styles from './styles.module.css'
 
@@ -19,7 +21,7 @@ const ProductCard = ({ product }: { product: ProductCardFragment | null }) => {
   const [isQuickShopOpen, setIsQuickShopOpen] = useState(false)
 
   // @ts-expect-error - TODO for Dylan: fix the type error
-  const { title, inseam_length, swatch, featuredImage, handle, variants } = product ?? {}
+  const { title, inseam_length, swatch, featuredImage, handle, variants, tags } = product ?? {}
   const sizeVariants =
     variants?.nodes?.map(
       variant => variant?.selectedOptions?.find(option => option?.name === 'Size')?.value,
@@ -41,10 +43,7 @@ const ProductCard = ({ product }: { product: ProductCardFragment | null }) => {
           {/* TODO: Add Hover Image, need metafield to wire data */}
           {/* <Image className={styles.hoverImage} data={hoverImage} /> */}
         </Link>
-        <div className={styles.tagArea}>
-          <div className={clsx(styles.tag, styles.tagPrimary)}>SALE</div>
-          <div className={clsx(styles.tag, styles.tagSecondary)}>SALE</div>
-        </div>
+        <TagList tags={tags} />
         <div className={styles.favorite}>
           <ButtonIcon
             variant="tertiary"
@@ -107,9 +106,7 @@ const ProductCard = ({ product }: { product: ProductCardFragment | null }) => {
           </Await>
         </Suspense>
       )}
-      <div className={styles.cardFooter}>
-        <span>Footer text here</span>
-      </div>
+      <ProductCardMessage tags={tags} />
     </div>
   )
 }

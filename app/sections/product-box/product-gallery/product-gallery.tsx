@@ -1,10 +1,17 @@
 import GalleryNav from '@solo-brands/ui-library.ui.shared.gallery-nav'
 import clsx from 'clsx'
 import { useEffect } from 'react'
+import TagList from '~/components/tag-list'
+import { ROUTE_IDS } from '~/constants'
+import { LoaderData } from '~/global-types'
+import { useTypedRouteLoaderData } from '~/hooks'
+
 import styles from './styles.module.css'
 import { ProductGalleryProps } from './types'
 
 const ProductGallery = ({ media, variant = 'slider', ...props }: ProductGalleryProps) => {
+  const { product } = useTypedRouteLoaderData<LoaderData['product']>(ROUTE_IDS.PRODUCT) ?? {}
+
   useEffect(() => {
     const thumbnailCarousel = document.querySelector<HTMLDivElement>('.thumbnail-carousel')
     const mainCarousel = document.querySelector<HTMLDivElement>('.main-carousel')
@@ -37,20 +44,23 @@ const ProductGallery = ({ media, variant = 'slider', ...props }: ProductGalleryP
         options={{ direction: 'vertical', syncWith: '.main-carousel' }}
         size="sm"
       />
-      <GalleryNav
-        className={clsx(styles.mainCarousel, 'main-carousel')}
-        mediaFiles={media}
-        aspectRatio="3:4"
-        options={{
-          slidesPerView: 1,
-          navigation: {
-            enabled: false,
-          },
-          syncWith: '.thumbnail-carousel',
-        }}
-        size="fluid"
-        withBorder={false}
-      />
+      <div className={styles.mainCarouselWrapper}>
+        <TagList tags={product?.tags} />
+        <GalleryNav
+          className={clsx(styles.mainCarousel, 'main-carousel')}
+          mediaFiles={media}
+          aspectRatio="3:4"
+          options={{
+            slidesPerView: 1,
+            navigation: {
+              enabled: false,
+            },
+            syncWith: '.thumbnail-carousel',
+          }}
+          size="fluid"
+          withBorder={false}
+        />
+      </div>
     </div>
   )
 }

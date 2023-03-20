@@ -2,7 +2,7 @@ import { useLoaderData } from '@remix-run/react'
 import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
 import { ClientOnly } from 'remix-utils'
-import { Inseam, PdpProduct, PpdLoaderData } from '~/global-types'
+import { Inseam, LoaderData, PdpProduct } from '~/global-types'
 import { SelectedOptionInput } from '~/graphql/generated'
 import {
   fetchPdpProductData,
@@ -15,7 +15,9 @@ import {
 import ProductBox from '~/sections/product-box'
 
 const ProductPage = () => {
-  const { product } = useLoaderData() as PpdLoaderData
+  const { product } = (useLoaderData() as LoaderData['product']) ?? {}
+
+  if (!product) return null
 
   return <ClientOnly>{() => <ProductBox product={product} />}</ClientOnly>
 }
@@ -81,7 +83,7 @@ export async function loader({ params, request, context: { storefront } }: Loade
     sizeOptions,
   }
 
-  return {
+  return json({
     product: newProduct,
     analytics: {
       ecommerce: {
@@ -104,5 +106,5 @@ export async function loader({ params, request, context: { storefront } }: Loade
         ],
       },
     },
-  }
+  })
 }

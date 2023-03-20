@@ -1,4 +1,4 @@
-import { useMatches, useSearchParams } from '@remix-run/react'
+import { useSearchParams } from '@remix-run/react'
 import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { useEffect } from 'react'
 import { UnionToIntersection } from 'type-fest'
@@ -6,9 +6,12 @@ import ATCButton from '~/components/atc-button'
 import Container from '~/components/container'
 import DeliveryCountdown from '~/components/delivery-countdown/delivery-countdown'
 import Section from '~/components/section'
-import { SIZE_OPTION_NAME } from '~/constants'
+import { ROUTE_IDS, SIZE_OPTION_NAME } from '~/constants'
+import { LoaderData } from '~/global-types'
 import { PdpMediaFragment } from '~/graphql/generated'
+import { useTypedRouteLoaderData } from '~/hooks'
 import { dataLayerViewItem } from '~/utils/dataLayer'
+import ProductBoxMessageCards from './product-box-message-cards'
 import ProductGallery from './product-gallery'
 import ProductInfoBlocks from './product-info-blocks'
 import ProductInfos from './product-infos'
@@ -18,17 +21,17 @@ import { ProductBoxProps } from './types'
 
 const ProductBox = ({ product, ...props }: ProductBoxProps) => {
   const [searchParams] = useSearchParams()
+  const { analytics } = useTypedRouteLoaderData<LoaderData['product']>(ROUTE_IDS.PRODUCT) ?? {}
 
   const { infoBlocks, media, selectedVariant, variants } = product ?? {}
   const flattenedMedia = media?.nodes as UnionToIntersection<PdpMediaFragment>[]
   const flattenedInfoBlocks = infoBlocks?.references?.nodes
   const firstVariant = variants.nodes[0]
-  const [root, locale, frame] = useMatches()
+  const selectedSize = searchParams.get(SIZE_OPTION_NAME)
 
   useEffect(() => {
-    dataLayerViewItem({ ecommerce: frame?.data?.analytics })
-  }, [frame?.data?.analytics])
-  const selectedSize = searchParams.get(SIZE_OPTION_NAME)
+    dataLayerViewItem({ ecommerce: analytics ?? {} })
+  }, [analytics])
 
   return (
     <Section {...props}>
@@ -38,6 +41,7 @@ const ProductBox = ({ product, ...props }: ProductBoxProps) => {
           <div className={styles.details}>
             <ProductInfos />
             <ProductVariants />
+            <ProductBoxMessageCards />
             <ATCButton
               selectedSize={selectedSize}
               defaultVariant={firstVariant as ProductVariant}

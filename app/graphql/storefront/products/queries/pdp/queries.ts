@@ -64,6 +64,7 @@ export const PDP_PRODUCT_QUERY = /* gql */ `#graphql
           }
         }
       }
+      tags
       infoBlocks: metafield(namespace: "custom", key: "product_info_blocks") {
         references(first: 10) {
           nodes {

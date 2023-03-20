@@ -29,6 +29,7 @@ export const NOSTO_RECOMMENDED_PRODUCTS_QUERY = /* gql */ `#graphql
             }
           }
         }
+        tags
         featuredImage {
           altText
           height

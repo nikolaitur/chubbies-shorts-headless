@@ -135,8 +135,3 @@
   display: flex;
   gap: $space-2;
 }
-
-.cardFooter {
-  color: $alert-success-default;
-  @include body-bold-sm;
-}

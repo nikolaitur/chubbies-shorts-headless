@@ -3,7 +3,6 @@ import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon/dist/button-icon'
 import MessageCard from '@solo-brands/ui-library.ui.atomic.message-card'
 import Price from '@solo-brands/ui-library.ui.atomic.price'
-import ProductTag from '@solo-brands/ui-library.ui.atomic.product-tag'
 import ProductTitle from '@solo-brands/ui-library.ui.atomic.product-title'
 import clsx from 'clsx'
 import { useRef } from 'react'
@@ -13,6 +12,7 @@ import ProductContext, {
 } from '~/global-context/product-context'
 import { getDisplayPrices } from '~/helpers'
 import Link from '../link'
+import TagList from '../tag-list'
 import VariantOverlay from '../variant-overlay'
 import WishlistButton from '../wishlist-button'
 import styles from './styles.module.css'
@@ -25,7 +25,7 @@ const RecommendedProductCardInner = ({
   const toggleControllerRef = useRef<HTMLButtonElement>(null)
   const { product, selectedSize, selectedVariant, sizeOptions } = useProductState()
   const { onSelectSize } = useProductActions()
-  const { handle, title, featuredImage, variants, displayName, productGroup } = product
+  const { handle, title, featuredImage, variants, displayName, productGroup, tags } = product
   const { title: collectionTitle, description, productTitle } = productGroup?.reference ?? {}
   const [firstVariant] = variants?.nodes ?? []
 
@@ -52,10 +52,7 @@ const RecommendedProductCardInner = ({
   return (
     <div className={clsx(styles.card, styles[size])} ref={hoverControllerRef}>
       <div className={styles.imageBlock}>
-        <div className={styles.tagWrapper}>
-          <ProductTag tag="Sale" />
-          <ProductTag tag="Best Seller" variant="secondary" />
-        </div>
+        <TagList tags={tags} />
         <WishlistButton className={styles.wishlistButton} />
 
         <VariantOverlay

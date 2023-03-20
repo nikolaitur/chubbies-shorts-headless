@@ -1,11 +1,11 @@
 import { Outlet, useLoaderData } from '@remix-run/react'
 import { json, LoaderArgs } from '@shopify/remix-oxygen'
 import { CartProvider } from '~/components/cart-context/cart-context'
-import { MainFrameLoaderType } from '~/global-types'
-import type { CollectionNavImages, GlobalSettings, MainFrameMenus } from '~/graphql/generated'
+import { ImageData, LoaderData } from '~/global-types'
+import type { CollectionNavImages, MainFrameMenus } from '~/graphql/generated'
 import { COLLECTION_NAV_IMAGES } from '~/graphql/storefront/global/queries/collectionNavImage'
-import { GLOBAL_SETTINGS_QUERY } from '~/graphql/storefront/global/queries/globalSettings'
 import { MainFrameMenusQuery } from '~/graphql/storefront/global/queries/mainFrameMenus'
+import { fetchGlobalSettings } from '~/helpers'
 import CartSlider from '~/sections/cart-slider'
 import Footer from '~/sections/footer'
 import Header from '~/sections/header'
@@ -20,13 +20,13 @@ export async function loader({ context }: LoaderArgs) {
     staleWhileRevalidate: 60,
     staleIfError: 600,
   })
-  const { globalSettings } = await storefront.query<GlobalSettings>(GLOBAL_SETTINGS_QUERY, {
-    variables: {
-      //TODO: Make this dynamic based on current locale
-      globalSettingsHandle: 'usa',
-    },
-    cache: mainFrameCacheStrategy,
-  })
+
+  const globalSettings = await fetchGlobalSettings(
+    storefront,
+    { handle: 'usa' },
+    mainFrameCacheStrategy,
+  )
+
   const {
     promoBarAnnouncements,
     promoBarMenuHandle,
@@ -36,6 +36,7 @@ export async function loader({ context }: LoaderArgs) {
     brandLogo,
     cartBlocksAboveCartItems,
     shippingEstimates,
+    outOfStockMessaging,
   } = globalSettings || {}
 
   const { promoBarMenu, footerMenu, legalLinksMenu, headerNavMenu } =
@@ -57,13 +58,13 @@ export async function loader({ context }: LoaderArgs) {
     })
     return acc
   }, [])
+
   const navCollectionImages = await storefront.query<CollectionNavImages>(COLLECTION_NAV_IMAGES, {
     variables: {
       ids: navCollectionIds,
     },
   })
 
-  //retrieve images for the mega menu
   return json({
     promoBarAnnouncements,
     promoBarMenu,
@@ -74,6 +75,7 @@ export async function loader({ context }: LoaderArgs) {
     brandLogo,
     cartBlocksAboveCartItems,
     shippingEstimates,
+    outOfStockMessaging,
   })
 }
 
@@ -87,16 +89,14 @@ export default function MainFrame() {
     navCollectionImages,
     brandLogo,
     cartBlocksAboveCartItems,
-  } = useLoaderData() as MainFrameLoaderType
+  } = (useLoaderData() as LoaderData['frame']) ?? {}
 
   return (
     <CartProvider>
       <PromoBar announcements={promoBarAnnouncements?.references?.nodes} menuLinks={promoBarMenu} />
       <Header
         menu={headerNavMenu}
-        //@ts-expect-error Incorrect type from useLoaderData
-        brandLogo={brandLogo?.reference?.image}
-        //@ts-expect-error Incorrect type from useLoaderData
+        brandLogo={brandLogo?.reference?.image as ImageData}
         navImages={navCollectionImages?.nodes}
         cartBlocksAboveCartItems={cartBlocksAboveCartItems}
       />

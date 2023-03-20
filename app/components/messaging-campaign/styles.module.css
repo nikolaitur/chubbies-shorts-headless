@@ -1,0 +1,19 @@
+.productTag {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.messageCard {
+  background-color: var(--background-color);
+}
+.messageCard svg path[stroke],
+.messageCard svg line[stroke] {
+  stroke: var(--text-color);
+}
+.messageCard svg path[fill],
+.messageCard svg line[fill] {
+  fill: var(--text-color);
+}
+.messageCard p {
+  color: var(--text-color);
+}

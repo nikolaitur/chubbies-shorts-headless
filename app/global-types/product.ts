@@ -55,12 +55,6 @@ export type SizeOption = {
 
 export type ProductGroupProducts = ProductGroupFragment['products']['nodes']
 
-export type PdpRouteData = {
-  data: {
-    product?: PdpProduct
-  }
-}
-
 export type ColorOptionsByGroup = {
   [key: string]: ColorOption[]
 }

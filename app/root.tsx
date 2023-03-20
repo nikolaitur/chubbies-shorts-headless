@@ -10,6 +10,7 @@ import { createHead } from 'remix-island'
 import { ThemeProvider } from 'styled-components'
 import {
   createNostoCookie,
+  fetchAllMessagingCampaigns,
   generateNostoEventPayload,
   getEnrichedNostoPlacements,
   getNostoSessionID,
@@ -79,6 +80,12 @@ export async function loader({ context, request, params }: LoaderArgs) {
   const nostoSessionID = await getNostoSessionID(request, nostoAPIKey)
   headers.push(createNostoCookie(nostoSessionID))
 
+  // messaging campaigns
+  const messagingCampaigns = await fetchAllMessagingCampaigns(storefront)
+  const campaignsWithTriggeringTags = messagingCampaigns.nodes.filter(
+    node => node.fields.find(field => field.key === 'triggering_tag')?.value,
+  )
+
   const nostoEventPayload = await generateNostoEventPayload(storefront, request.url, params)
   const initialNostoPlacements = await updateNostoSession(
     nostoEventPayload,
@@ -98,6 +105,7 @@ export async function loader({ context, request, params }: LoaderArgs) {
       customer,
       nostoPlacements: enrichedNostoPlacements,
       selectedLocale: storefront.i18n,
+      messagingCampaigns: campaignsWithTriggeringTags,
     },
     {
       headers: new Headers(headers),

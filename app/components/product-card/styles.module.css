@@ -131,11 +131,3 @@
   display: flex;
   gap: 8px;
 }
-
-.cardFooter {
-  color: #007E45;
-  font-family: futura-pt, sans-serif;
-  font-weight: 700;
-  line-height: 120%;
-  font-size: 14px;
-}

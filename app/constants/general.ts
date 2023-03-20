@@ -14,3 +14,10 @@ export const UNIT_MEASUREMENT_SYMBOL: { [key: string]: string } = {
 }
 
 export const MIN_ANNOUNCEMENT_HEIGHT = 44
+
+export const ROUTE_IDS = {
+  ROOT: 'root',
+  FRAME: 'routes/($lang)/__frame',
+  PRODUCT: 'routes/($lang)/__frame/products/$productHandle',
+  COLLECTION: 'routes/($lang)/__frame/collections/$collectionHandle',
+}

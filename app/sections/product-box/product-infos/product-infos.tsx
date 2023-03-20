@@ -1,4 +1,3 @@
-import { useMatches } from '@remix-run/react'
 import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon'
 import { HeartIcon } from '@solo-brands/ui-library.ui.atomic.icon'
@@ -6,16 +5,16 @@ import Price from '@solo-brands/ui-library.ui.atomic.price'
 import ProductTitle from '@solo-brands/ui-library.ui.atomic.product-title'
 import Ratings from '@solo-brands/ui-library.ui.atomic.ratings'
 import RichText from '~/components/rich-text'
-import { PRODUCT_ROUTE_ID } from '~/constants'
-import { PdpRouteData } from '~/global-types'
+import { ROUTE_IDS } from '~/constants'
+import { LoaderData } from '~/global-types'
 import { getDisplayPrices } from '~/helpers'
+import { useTypedRouteLoaderData } from '~/hooks'
 import styles from './styles.module.css'
 import { ProductInfosProps } from './types'
 
 const ProductInfos = (props: ProductInfosProps) => {
-  const matches = useMatches()
-  const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
-  const { title, collectionTitle, description, selectedVariant, variants } = data.product ?? {}
+  const { product } = useTypedRouteLoaderData<LoaderData['product']>(ROUTE_IDS.PRODUCT) ?? {}
+  const { title, collectionTitle, description, selectedVariant, variants } = product ?? {}
   const [firstVariant] = variants?.nodes ?? []
 
   const { price, compareAtPrice } = getDisplayPrices(

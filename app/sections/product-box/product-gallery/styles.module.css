@@ -6,6 +6,10 @@
   margin-right: -16px;
 }
 
+.mainCarouselWrapper {
+  position: relative;
+}
+
 .mainCarousel {
   height: 500px;
 }

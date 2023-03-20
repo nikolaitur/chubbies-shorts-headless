@@ -20,7 +20,7 @@ import {
   PpdProductQueryVariables,
 } from '~/graphql/generated'
 import { PDP_PRODUCT_GROUP_QUERY, PDP_PRODUCT_QUERY } from '~/graphql/storefront/products/queries'
-import { flattenMetaobjectFields } from './shopify'
+import { flattenMetaobjectFields } from './metaobject'
 
 export const getInseamOptions = (
   inseam: Inseam | null,

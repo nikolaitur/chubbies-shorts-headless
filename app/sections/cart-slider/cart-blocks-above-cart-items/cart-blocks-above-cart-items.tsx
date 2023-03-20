@@ -1,13 +1,11 @@
 import { Metaobject, MetaobjectField } from '@shopify/hydrogen/storefront-api-types'
 import { HTMLAttributes } from 'react'
-import { GlobalSettings } from '~/graphql/generated'
+import { CartBlocksAboveCartItemsSettings } from '~/global-types'
 import GiftWithPurchase from '../gift-with-purchase'
 
 export type CartBlocksAboveCartItems = HTMLAttributes<HTMLDivElement> & {
   cartBlocksAboveCartItems?: NonNullable<
-    NonNullable<
-      NonNullable<GlobalSettings['globalSettings']>['cartBlocksAboveCartItems']
-    >['references']
+    NonNullable<CartBlocksAboveCartItemsSettings>['references']
   >['nodes']
 }
 

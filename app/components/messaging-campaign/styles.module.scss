@@ -1,0 +1,26 @@
+// TODO: update MessageCard from UI Library to receive textColor and bgColor props
+// temporary code
+.productTag {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.messageCard {
+  background-color: var(--background-color);
+
+  svg {
+    path[stroke],
+    line[stroke] {
+      stroke: var(--text-color);
+    }
+
+    path[fill],
+    line[fill] {
+      fill: var(--text-color);
+    }
+  }
+
+  p {
+    color: var(--text-color);
+  }
+}

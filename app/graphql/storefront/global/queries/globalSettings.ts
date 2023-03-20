@@ -1,12 +1,17 @@
-import { MEDIA_IMAGE_FRAGMENT, PRODUCT_CARD_FRAGMENT } from '../../global/fragments'
+import {
+  MEDIA_IMAGE_FRAGMENT,
+  METAOBJECT_FIELDS_FRAGMENT,
+  PRODUCT_CARD_FRAGMENT,
+} from '../../global/fragments'
 
 export const GLOBAL_SETTINGS_QUERY = /* gql */ `#graphql
   ${MEDIA_IMAGE_FRAGMENT}
   ${PRODUCT_CARD_FRAGMENT}
+  ${METAOBJECT_FIELDS_FRAGMENT}
 
-  query GlobalSettings($globalSettingsHandle: String!) {
+  query GlobalSettingsQuery($handle: String!) {
     globalSettings: metaobject(
-      handle: { handle: $globalSettingsHandle, type: "global_site_settings" }
+      handle: { handle: $handle, type: "global_site_settings" }
     ) {
       promoBarAnnouncements: field(key: "header_announcements") {
         references(first: 5) {
@@ -74,8 +79,16 @@ export const GLOBAL_SETTINGS_QUERY = /* gql */ `#graphql
           }
         }
       }
+      outOfStockMessaging: field(key: "out_of_stock_messaging") {
+        reference {
+          ... on Metaobject {
+            ...MetaobjectFieldsFragment
+          }
+        }
+      }
     }
   }
+
   fragment AnnouncementContent on Metaobject {
     id
     title: field(key: "title") {
@@ -103,28 +116,28 @@ export const GLOBAL_SETTINGS_QUERY = /* gql */ `#graphql
       value
     }
   }
-fragment shippingEstimatesContent on Metaobject {
-  id
-  internal_name: field(key: "internal_name") {
-    value
+  fragment shippingEstimatesContent on Metaobject {
+    id
+    internal_name: field(key: "internal_name") {
+      value
+    }
+    delivery_estimate_days: field(key: "delivery_estimate_days") {
+      value
+    }
+    holiday_dates: field(key: "holiday_dates") {
+      value
+    }
+    saturday_delivery: field(key: "saturday_delivery") {
+      value
+    }
+    saturday_shipping: field(key: "saturday_shipping") {
+      value
+    }
+    section_content: field(key: "section_content") {
+      value
+    }
+    cutoff_time: field(key: "cutoff_time") {
+      value
+    }
   }
-  delivery_estimate_days: field(key: "delivery_estimate_days") {
-    value
-  }
-  holiday_dates: field(key: "holiday_dates") {
-    value
-  }
-  saturday_delivery: field(key: "saturday_delivery") {
-    value
-  }
-  saturday_shipping: field(key: "saturday_shipping") {
-    value
-  }
-  section_content: field(key: "section_content") {
-    value
-  }
-  cutoff_time: field(key: "cutoff_time") {
-    value
-  }
-}
 `

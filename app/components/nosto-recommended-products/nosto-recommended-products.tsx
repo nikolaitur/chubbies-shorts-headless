@@ -1,6 +1,7 @@
-import { useMatches } from '@remix-run/react'
 import Carousel, { CarouselSlide } from '@solo-brands/ui-library.ui.atomic.carousel'
-import { NostoRecommendedProduct, RootLoaderData } from '~/global-types'
+import { ROUTE_IDS } from '~/constants'
+import { LoaderData, NostoRecommendedProduct } from '~/global-types'
+import { useTypedRouteLoaderData } from '~/hooks'
 import RecommendedProductCard from '../recommended-product-card'
 import { NostoRecommendedProductsProps } from './types'
 
@@ -11,8 +12,7 @@ const NostoRecommendedProducts = ({
   variant = 'slider',
   ...props
 }: NostoRecommendedProductsProps) => {
-  const [root] = useMatches()
-  const { nostoPlacements }: RootLoaderData = root.data
+  const { nostoPlacements } = useTypedRouteLoaderData<LoaderData['root']>(ROUTE_IDS.ROOT) ?? {}
   const currentPlacement = nostoPlacements?.find(placement => placement.divId === nostoId)
   const recommendedProducts = (currentPlacement?.primary as NostoRecommendedProduct[]) ?? null
 

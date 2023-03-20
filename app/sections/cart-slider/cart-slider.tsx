@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { forwardRef, HTMLAttributes, Ref, useEffect } from 'react'
 import Backdrop from '~/components/backdrop'
 import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
-import { GlobalSettings } from '~/graphql/generated'
+import { CartBlocksAboveCartItemsSettings } from '~/global-types'
 import { dataLayerViewCart } from '~/utils/dataLayer'
 import CartBlocksAboveCartItems from './cart-blocks-above-cart-items'
 import CartLineItems from './cart-line-items'
@@ -15,9 +15,7 @@ import PaymentInformation from './payment-information'
 import styles from './styles.module.css'
 
 export type CartSliderProps = HTMLAttributes<HTMLDivElement> & {
-  cartBlocksAboveCartItems: NonNullable<
-    GlobalSettings['globalSettings']
-  >['cartBlocksAboveCartItems']
+  cartBlocksAboveCartItems: CartBlocksAboveCartItemsSettings
 }
 
 interface CartLineItem {

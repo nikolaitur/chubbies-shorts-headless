@@ -3,12 +3,12 @@ import Button from '@solo-brands/ui-library.ui.atomic.button/dist/button'
 import { CloseIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import clsx from 'clsx'
 import { useRef } from 'react'
-import { useMatches } from 'react-router'
 import { useFetcher } from 'react-router-dom'
 import { SignInModal, SignUpModal } from '~/components/account-modals'
 import Link from '~/components/link'
-import { RootLoaderData } from '~/global-types'
-import { useOverlayController } from '~/hooks'
+import { ROUTE_IDS } from '~/constants'
+import { LoaderData } from '~/global-types'
+import { useOverlayController, useTypedRouteLoaderData } from '~/hooks'
 import AccountLink from '../account-link'
 import links from './mock-data'
 import styles from './styles.module.css'
@@ -24,9 +24,9 @@ const AccountNavigation = ({
   const signInButtonRef = useRef<HTMLButtonElement>(null)
   const signUpButtonRef = useRef<HTMLButtonElement>(null)
 
-  const [root] = useMatches()
   const fetcher = useFetcher()
-  const { isAuthenticated, customer } = (root.data as RootLoaderData) ?? {}
+  const { isAuthenticated, customer } =
+    useTypedRouteLoaderData<LoaderData['root']>(ROUTE_IDS.ROOT) ?? {}
   const { firstName, email } = customer ?? {}
 
   const { isShown } = useOverlayController({

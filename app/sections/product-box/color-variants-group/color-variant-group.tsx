@@ -1,9 +1,10 @@
-import { useLocation, useMatches } from '@remix-run/react'
+import { useLocation } from '@remix-run/react'
 import VariantInfo from '@solo-brands/ui-library.ui.atomic.variant-info'
 import clsx from 'clsx'
-import { PRODUCT_ROUTE_ID } from '~/constants'
-import { PdpRouteData } from '~/global-types'
+import { ROUTE_IDS } from '~/constants'
+import { LoaderData } from '~/global-types'
 import { moveInitialColorFirst } from '~/helpers'
+import { useTypedRouteLoaderData } from '~/hooks'
 import ColorVariantsCarousel from '../color-variants-carousel'
 import ColorVariantsExpandable from '../color-variants-expandable'
 import styles from './styles.module.css'
@@ -15,9 +16,8 @@ const ColorVariantsGroup = ({
   variant = 'inline',
   ...props
 }: ColorVariantsGroupProps) => {
-  const matches = useMatches()
-  const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
-  const { colorOptionsByGroup } = data.product ?? {}
+  const { product } = useTypedRouteLoaderData<LoaderData['product']>(ROUTE_IDS.PRODUCT) ?? {}
+  const { colorOptionsByGroup } = product ?? {}
   const groups = Object.keys(colorOptionsByGroup ?? {})
   if (!colorOptionsByGroup) return null
 

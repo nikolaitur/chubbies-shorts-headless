@@ -1,9 +1,7 @@
 import { HTMLAttributes } from 'react'
-import { GlobalSettings } from '~/graphql/generated'
+import { CartBlocksAboveCartItemsSettings } from '~/global-types'
 
 export type CartModalProps = HTMLAttributes<HTMLDivElement> & {
   isShown?: boolean
-  cartBlocksAboveCartItems: NonNullable<
-    GlobalSettings['globalSettings']
-  >['cartBlocksAboveCartItems']
+  cartBlocksAboveCartItems: CartBlocksAboveCartItemsSettings
 }

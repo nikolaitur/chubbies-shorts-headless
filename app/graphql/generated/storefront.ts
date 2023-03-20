@@ -1707,6 +1707,8 @@ export type Country = {
   currency: Currency
   /** The ISO code of the country. */
   isoCode: CountryCode
+  /** The market that includes this country. */
+  market?: Maybe<Market>
   /** The name of the country. */
   name: Scalars['String']
   /** The unit system used in the country. */
@@ -3191,6 +3193,8 @@ export type ExternalVideo = Media &
     mediaContentType: MediaContentType
     /** The origin URL of the video on the respective host. */
     originUrl: Scalars['URL']
+    /** The presentation for a media. */
+    presentation?: Maybe<MediaPresentation>
     /** The preview image for the media. */
     previewImage?: Maybe<Image>
   }
@@ -3792,6 +3796,8 @@ export type Localization = {
   country: Country
   /** The language of the active localized experience. Use the `@inContext` directive to change this value. */
   language: Language
+  /** The market including the country of the active localized experience. Use the `@inContext` directive to change this value. */
+  market: Market
 }
 
 /** Represents a location where product inventory is held. */
@@ -4061,12 +4067,44 @@ export type ManualDiscountApplication = DiscountApplication & {
   value: PricingValue
 }
 
+/** A group of one or more regions of the world that a merchant is targeting for sales. To learn more about markets, refer to [the Shopify Markets conceptual overview](/docs/apps/markets). */
+export type Market = HasMetafields &
+  Node & {
+    /**
+     * A human-readable unique string for the market automatically generated from its title.
+     *
+     */
+    handle: Scalars['String']
+    /** A globally-unique identifier. */
+    id: Scalars['ID']
+    /** Returns a metafield found by namespace and key. */
+    metafield?: Maybe<Metafield>
+    /**
+     * The metafields associated with the resource matching the supplied list of namespaces and keys.
+     *
+     */
+    metafields: Array<Maybe<Metafield>>
+  }
+
+/** A group of one or more regions of the world that a merchant is targeting for sales. To learn more about markets, refer to [the Shopify Markets conceptual overview](/docs/apps/markets). */
+export type MarketMetafieldArgs = {
+  key: Scalars['String']
+  namespace: Scalars['String']
+}
+
+/** A group of one or more regions of the world that a merchant is targeting for sales. To learn more about markets, refer to [the Shopify Markets conceptual overview](/docs/apps/markets). */
+export type MarketMetafieldsArgs = {
+  identifiers: Array<HasMetafieldsIdentifier>
+}
+
 /** Represents a media interface. */
 export type Media = {
   /** A word or phrase to share the nature or contents of a media. */
   alt?: Maybe<Scalars['String']>
   /** The media content type. */
   mediaContentType: MediaContentType
+  /** The presentation for a media. */
+  presentation?: Maybe<MediaPresentation>
   /** The preview image for the media. */
   previewImage?: Maybe<Image>
 }
@@ -4126,9 +4164,32 @@ export type MediaImage = Media &
     image?: Maybe<Image>
     /** The media content type. */
     mediaContentType: MediaContentType
+    /** The presentation for a media. */
+    presentation?: Maybe<MediaPresentation>
     /** The preview image for the media. */
     previewImage?: Maybe<Image>
   }
+
+/** A media presentation. */
+export type MediaPresentation = Node & {
+  /** A JSON object representing a presentation view. */
+  asJson?: Maybe<Scalars['JSON']>
+  /** A globally-unique identifier. */
+  id: Scalars['ID']
+}
+
+/** A media presentation. */
+export type MediaPresentationAsJsonArgs = {
+  format: MediaPresentationFormat
+}
+
+/** The possible formats for a media presentation. */
+export enum MediaPresentationFormat {
+  /** A media image presentation. */
+  Image = 'IMAGE',
+  /** A model viewer presentation. */
+  ModelViewer = 'MODEL_VIEWER',
+}
 
 /**
  * A menu used for navigation within a storefront.
@@ -4269,6 +4330,7 @@ export type MetafieldParentResource =
   | Collection
   | Customer
   | Location
+  | Market
   | Order
   | Page
   | Product
@@ -4405,6 +4467,8 @@ export type Model3d = Media &
     id: Scalars['ID']
     /** The media content type. */
     mediaContentType: MediaContentType
+    /** The presentation for a media. */
+    presentation?: Maybe<MediaPresentation>
     /** The preview image for the media. */
     previewImage?: Maybe<Image>
     /** The sources for a 3d model. */
@@ -6685,6 +6749,8 @@ export type Video = Media &
     id: Scalars['ID']
     /** The media content type. */
     mediaContentType: MediaContentType
+    /** The presentation for a media. */
+    presentation?: Maybe<MediaPresentation>
     /** The preview image for the media. */
     previewImage?: Maybe<Image>
     /** The sources for a video. */
@@ -6852,6 +6918,7 @@ export type ProductCardFragment = {
   id: string
   title: string
   handle: string
+  tags: Array<string>
   productGroup?: { value: string; reference?: { title: string; description: string } | null } | null
   inseam_length?: { value: string } | null
   color?: { value: string } | null
@@ -6871,6 +6938,61 @@ export type ProductCardFragment = {
     url: any
     altText?: string | null
   } | null
+}
+
+export type MetaobjectFieldsCommonFragment = { key: string; value?: string | null }
+
+export type MetaobjectFieldsReferencesFragment = {
+  references?: {
+    nodes: Array<{
+      fields: Array<{
+        key: string
+        value?: string | null
+        reference?: { fields: Array<{ key: string; value?: string | null }> } | null
+      }>
+    }>
+  } | null
+}
+
+export type MetaobjectFieldsReferenceFragment = {
+  reference?:
+    | {
+        image?: {
+          url: any
+          width?: number | null
+          height?: number | null
+          altText?: string | null
+        } | null
+      }
+    | { fields: Array<{ key: string; value?: string | null }> }
+    | null
+}
+
+export type MetaobjectFieldsFragment = {
+  fields: Array<{
+    key: string
+    value?: string | null
+    reference?:
+      | {
+          image?: {
+            url: any
+            width?: number | null
+            height?: number | null
+            altText?: string | null
+          } | null
+        }
+      | { fields: Array<{ key: string; value?: string | null }> }
+      | null
+    references?: {
+      nodes: Array<{
+        fields: Array<{
+          key: string
+          value?: string | null
+          reference?: { fields: Array<{ key: string; value?: string | null }> } | null
+        }>
+      }>
+    } | null
+  }>
 }
 
 export type CollectionNavImagesVariables = Exact<{
@@ -6913,11 +7035,11 @@ export type NavCollectionFragment = {
   } | null
 }
 
-export type GlobalSettingsVariables = Exact<{
-  globalSettingsHandle: Scalars['String']
+export type GlobalSettingsQueryVariables = Exact<{
+  handle: Scalars['String']
 }>
 
-export type GlobalSettings = {
+export type GlobalSettingsQuery = {
   globalSettings?: {
     promoBarAnnouncements?: {
       references?: {
@@ -6987,6 +7109,7 @@ export type GlobalSettings = {
                         id: string
                         title: string
                         handle: string
+                        tags: Array<string>
                         productGroup?: {
                           value: string
                           reference?: { title: string; description: string } | null
@@ -7015,6 +7138,34 @@ export type GlobalSettings = {
               }>
             } | null
           }>
+        }>
+      } | null
+    } | null
+    outOfStockMessaging?: {
+      reference?: {
+        fields: Array<{
+          key: string
+          value?: string | null
+          reference?:
+            | {
+                image?: {
+                  url: any
+                  width?: number | null
+                  height?: number | null
+                  altText?: string | null
+                } | null
+              }
+            | { fields: Array<{ key: string; value?: string | null }> }
+            | null
+          references?: {
+            nodes: Array<{
+              fields: Array<{
+                key: string
+                value?: string | null
+                reference?: { fields: Array<{ key: string; value?: string | null }> } | null
+              }>
+            }>
+          } | null
         }>
       } | null
     } | null
@@ -7144,6 +7295,39 @@ export type MenuItemFragment = {
   }>
 }
 
+export type MessagingCampaignsQueryVariables = Exact<{ [key: string]: never }>
+
+export type MessagingCampaignsQuery = {
+  messagingCampaigns: {
+    nodes: Array<{
+      fields: Array<{
+        key: string
+        value?: string | null
+        reference?:
+          | {
+              image?: {
+                url: any
+                width?: number | null
+                height?: number | null
+                altText?: string | null
+              } | null
+            }
+          | { fields: Array<{ key: string; value?: string | null }> }
+          | null
+        references?: {
+          nodes: Array<{
+            fields: Array<{
+              key: string
+              value?: string | null
+              reference?: { fields: Array<{ key: string; value?: string | null }> } | null
+            }>
+          }>
+        } | null
+      }>
+    }>
+  }
+}
+
 export type NostoRecommendedProductsQueryVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID']
 }>
@@ -7153,6 +7337,7 @@ export type NostoRecommendedProductsQuery = {
     title: string
     handle: string
     id: string
+    tags: Array<string>
     variants: {
       nodes: Array<{
         id: string
@@ -7444,6 +7629,7 @@ export type PpdProductQuery = {
     id: string
     handle: string
     title: string
+    tags: Array<string>
     media: {
       nodes: Array<
         | ({ mediaContentType: MediaContentType; embedUrl: any; host: MediaHost } & {
@@ -7679,6 +7865,7 @@ export type ProductCardQuery = {
     id: string
     title: string
     handle: string
+    tags: Array<string>
     productGroup?: {
       value: string
       reference?: { title: string; description: string } | null

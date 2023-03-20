@@ -2,19 +2,18 @@ import { useLocation } from '@remix-run/react'
 import { Image } from '@shopify/hydrogen'
 import VariantInfo from '@solo-brands/ui-library.ui.atomic.variant-info'
 import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
-import { useMatches } from 'react-router'
 import Link from '~/components/link'
-import { PRODUCT_ROUTE_ID, UNIT_MEASUREMENT_SYMBOL } from '~/constants'
-import { PdpRouteData } from '~/global-types'
+import { ROUTE_IDS, UNIT_MEASUREMENT_SYMBOL } from '~/constants'
+import { LoaderData } from '~/global-types'
+import { useTypedRouteLoaderData } from '~/hooks'
 import styles from './styles.module.css'
 import { InseamVariantsGroupProps } from './types'
 
 const InseamVariantsGroup = ({ size = 'xl', ...props }: InseamVariantsGroupProps) => {
-  const matches = useMatches()
   const location = useLocation()
 
-  const { data } = (matches.find(match => match.id === PRODUCT_ROUTE_ID) ?? {}) as PdpRouteData
-  const { inseamOptions, inseamImage } = data.product ?? {}
+  const { product } = useTypedRouteLoaderData<LoaderData['product']>(ROUTE_IDS.PRODUCT) ?? {}
+  const { inseamOptions, inseamImage } = product ?? {}
   const flattenedImage = inseamImage?.reference?.mediaImage?.reference?.image
 
   if (!inseamOptions) return null
