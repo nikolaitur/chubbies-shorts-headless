@@ -1,4 +1,7 @@
 import { HTMLAttributes } from 'react'
-import { Product } from '~/global-types'
+import { ProductCardFragment, ProductGroupFragment } from '~/graphql/generated'
 
-export type ProductCardProps = HTMLAttributes<HTMLElement> & Product
+export type ProductCardProps = HTMLAttributes<HTMLElement> & {
+  product: ProductCardFragment
+  productGroups: Array<ProductGroupFragment>
+}

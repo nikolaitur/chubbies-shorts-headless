@@ -20,25 +20,7 @@ export type SearchspringResponse = {
   }
   resultLayout?: string
   results: SearchSpringProduct[]
-  facets?: {
-    field: string
-    label: string
-    type: string
-    collapse: number
-    step?: number
-    facet_active: number
-    active?: number[]
-    range?: number[]
-    values:
-      | {
-          active: boolean
-          type: string
-          value: string
-          label: string
-          count: number
-        }[]
-      | null
-  }[]
+  facets?: SearchSpringFacet[]
   breadcrumbs?: string[]
   filterSummary?: string[]
   merchandising?: {
@@ -67,6 +49,26 @@ export type SearchspringResponse = {
       type: string
     }[]
   }
+}
+
+export type SearchSpringFacet = {
+  field: string
+  label: string
+  type: string
+  collapse: number
+  step?: number
+  facet_active: number
+  active?: number[]
+  range?: number[]
+  values:
+    | {
+        active: boolean
+        type: string
+        value: object | string | null
+        label: string
+        count: number
+      }[]
+    | null
 }
 
 export type SearchSpringProduct = {

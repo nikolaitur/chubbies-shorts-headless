@@ -26,10 +26,14 @@
   gap: $space-1-5;
   padding: 4px 0;
   text-transform: uppercase;
+  & > button {
+    flex-grow: 1;
+  }
 }
 
 .colorFilterSelector {
   display: flex;
+  flex-wrap: wrap;
   gap: $space-1-5;
 }
 
@@ -43,6 +47,8 @@
   }
   .rangeInput {
     padding: $space-2 0;
+    position: relative;
+    width: 100%;
   }
 }
 

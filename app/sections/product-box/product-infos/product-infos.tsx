@@ -14,7 +14,7 @@ import { ProductInfosProps } from './types'
 
 const ProductInfos = (props: ProductInfosProps) => {
   const { product } = useTypedRouteLoaderData<LoaderData['product']>(ROUTE_IDS.PRODUCT) ?? {}
-  const { title, collectionTitle, description, selectedVariant, variants, id } = product ?? {}
+  const { id, title, collectionTitle, description, selectedVariant, variants } = product ?? {}
   const [firstVariant] = variants?.nodes ?? []
 
   const { price, compareAtPrice } = getDisplayPrices(

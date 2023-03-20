@@ -2,7 +2,7 @@ import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector'
 import styles from './styles.module.css'
 import { ColorVariantSelectorProps } from './types'
 
-const ColorVariantSelector = ({ colorOption, size }: ColorVariantSelectorProps) => {
+const ColorVariantSelector = ({ colorOption, size, onClick }: ColorVariantSelectorProps) => {
   const { image, selected, exists } = colorOption
 
   /*
@@ -25,6 +25,7 @@ const ColorVariantSelector = ({ colorOption, size }: ColorVariantSelectorProps) 
       image={image}
       selected={selected}
       disabled={!exists}
+      onClick={onClick}
     />
   )
 }

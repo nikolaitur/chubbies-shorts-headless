@@ -1,7 +1,18 @@
+.productSwatches {
+  position: relative;
+  display: grid;
+  gap: 10px;
+}
+
 .inseamVariants {
   display: flex;
-  gap: 6px;
+  gap: 8px;
 }
 .inseamVariants * {
   flex-grow: 1;
+}
+
+.colorSwatches {
+  display: grid;
+  gap: 8px;
 }

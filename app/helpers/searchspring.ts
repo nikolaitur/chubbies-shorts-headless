@@ -1,5 +1,7 @@
 import { Collection } from '@shopify/hydrogen/storefront-api-types'
+import { COLOR_FILTER_KEY } from '~/constants'
 import { SearchSpringProduct, SearchspringResponse } from '~/global-types/searchspring'
+import { decodeBtoa } from './general'
 
 /*
 Possibily only needed during development
@@ -23,7 +25,7 @@ export const generateSearchspringFormat = (productCards: ProductCards) => {
 //Any product that appears after the first occurance of a product with the same ProductGroup and Swatch is removed.
 export const removeRedundantProducts = (results: SearchspringResponse['results']) => {
   return results.reduce((acc, curr) => {
-    if (!productSetContainsMatch(acc, curr) && productHasProductGroup(curr)) acc.push(curr)
+    if (!productSetContainsMatch(acc, curr)) acc.push(curr)
     return acc
   }, [] as SearchspringResponse['results'])
 }
@@ -40,14 +42,11 @@ export const extractProductIds = (results: SearchspringResponse['results']) => {
   return results.map(product => `gid://shopify/Product/${product.uid}`)
 }
 
-const productHasProductGroup = (product: SearchSpringProduct) => {
-  return product.ss_product_group && product.ss_product_group !== null
-}
-
 const productSetContainsMatch = (
   productSet: SearchspringResponse['results'],
   product: SearchSpringProduct,
 ) => {
+  if (!product.ss_product_group) return false
   const matchingProduct = productSet.find(comparisonProduct => {
     return (
       comparisonProduct.ss_swatch === product.ss_swatch &&
@@ -61,12 +60,18 @@ export const fetchSearchspringResults = async ({
   collectionHandle,
   searchParams,
 }: SSResultsInput): Promise<SearchspringResponse> => {
+  const swatch_key = `filter.${COLOR_FILTER_KEY}`
   const urlBase = 'https://38z3gf.a.searchspring.io/api/search/search.json'
   searchParams.append('resultsPerPage', '40')
   searchParams.append('page', '1')
   searchParams.append('resultsFormat', 'native')
   searchParams.append('siteId', '38z3gf')
   if (collectionHandle) searchParams.append('bgfilter.collection_handle', collectionHandle)
+  if (searchParams.has(swatch_key)) {
+    const newEntries = searchParams.getAll(swatch_key).map(entry => decodeBtoa(entry))
+    searchParams.delete(swatch_key)
+    newEntries.map(entry => searchParams.append(swatch_key, entry))
+  }
   const requestUrl = `${urlBase}?${searchParams}`
   const res = await fetch(requestUrl, {
     headers: {

@@ -3,15 +3,18 @@
 .container {
   padding: $space-8 $space-4;
 }
-
 .sidebar {
+  position: relative;
   display: none;
   width: 300px;
 }
+
 .filters {
   position: sticky;
   top: 10px;
+  width: 300px;
 }
+
 .grid {
   position: relative;
   display: flex;

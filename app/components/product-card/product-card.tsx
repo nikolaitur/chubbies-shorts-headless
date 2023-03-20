@@ -1,4 +1,4 @@
-import { Link, useMatches } from '@remix-run/react'
+import { Link } from '@remix-run/react'
 import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { Image } from '@shopify/storefront-kit-react'
 import Button from '@solo-brands/ui-library.ui.atomic.button'
@@ -7,43 +7,42 @@ import { CloseIcon, HeartIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import Price from '@solo-brands/ui-library.ui.atomic.price'
 import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
 import clsx from 'clsx'
-import { Suspense, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Await } from 'react-router'
 import AtcButton from '~/components/atc-button'
-import { COLLECTION_ROUTE_ID } from '~/constants/'
-import { ProductCardFragment } from '~/graphql/generated'
-import TagList from '../tag-list'
-import ProductCardMessage from './product-card-message'
+import { SizeOption } from '~/global-types'
+import { ProductCardFragment, ProductGroupVariantsFragment } from '~/graphql/generated'
 import ProductSwatches from './product-swatches'
 import styles from './styles.module.css'
+import { ProductCardProps } from './types'
 
-const ProductCard = ({ product }: { product: ProductCardFragment | null }) => {
+const ProductCard = ({ product, productGroups }: ProductCardProps) => {
   const [isQuickShopOpen, setIsQuickShopOpen] = useState(false)
+  // GET PRODUCT FROM PRODUCT GROUP
+  const [selectedProduct, setSelectedProduct] = useState<ProductCardFragment>(product)
+  const [sizeVariants, setSizeVariants] = useState<ProductCardFragment['variants']['nodes']>([])
+  const [selectedVariant, setSelectedVariant] = useState<ProductGroupVariantsFragment>()
 
-  // @ts-expect-error - TODO for Dylan: fix the type error
-  const { title, inseam_length, swatch, featuredImage, handle, variants, tags } = product ?? {}
-  const sizeVariants =
-    variants?.nodes?.map(
-      variant => variant?.selectedOptions?.find(option => option?.name === 'Size')?.value,
-    ) || []
+  useEffect(() => {
+    setSizeVariants(selectedProduct?.variants?.nodes ?? [])
+    setSelectedVariant(selectedProduct?.variants?.nodes?.[0] ?? {})
+    setIsQuickShopOpen(false)
+  }, [selectedProduct])
 
-  const selectedSize = sizeVariants?.[0]
-  const selectedVariant = variants?.nodes?.[0]
-
-  const matches = useMatches()
-  const collectionMatch = matches.find(match => match.id === COLLECTION_ROUTE_ID) ?? {}
-  // @ts-expect-error - TODO for Dylan: fix the type error
-  const { productGroups } = collectionMatch?.data || {}
+  const getProductSizeOptionValue = (options: Array<SizeOption>) => {
+    const sizeOption = options.find(option => option?.name === 'Size')
+    return sizeOption?.value
+  }
 
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
-        <Link to={`/products/${handle}`}>
-          <Image className={styles.image} data={featuredImage || {}} />
+        <Link to={`/products/${selectedProduct?.handle}`}>
+          <Image className={styles.image} data={selectedProduct?.images?.nodes?.[0] || {}} />
           {/* TODO: Add Hover Image, need metafield to wire data */}
-          {/* <Image className={styles.hoverImage} data={hoverImage} /> */}
+          <Image className={styles.hoverImage} data={selectedProduct?.images?.nodes?.[1] || {}} />
         </Link>
-        <TagList tags={tags} />
+        {/* <TagList tags={tags} /> */}
         <div className={styles.favorite}>
           <ButtonIcon
             variant="tertiary"
@@ -75,38 +74,52 @@ const ProductCard = ({ product }: { product: ProductCardFragment | null }) => {
                 {sizeVariants.map(variant => {
                   return (
                     <VariantSelector
-                      selected={selectedSize === variant}
-                      key={variant}
+                      key={variant.id}
+                      selected={selectedVariant === variant}
                       size="md"
-                      option={variant || ''}
+                      option={getProductSizeOptionValue(variant?.selectedOptions ?? []) || ''}
+                      onClick={() => setSelectedVariant(variant)}
                     />
                   )
                 })}
               </div>
             </div>
-            <AtcButton
-              selectedSize={selectedSize ?? null}
-              defaultVariant={selectedVariant as ProductVariant}
-              selectedVariant={selectedVariant as ProductVariant}
-            />
+            {selectedVariant && (
+              <AtcButton
+                withPrice={undefined}
+                selectedSize={'True'}
+                defaultVariant={selectedVariant as ProductVariant}
+                selectedVariant={selectedVariant as ProductVariant}
+              />
+            )}
           </div>
         </div>
       </div>
       <div className={styles.productDescription}>
-        <Link to={`/products/${handle}`}>
-          <h1 className={styles.title}>{title}</h1>
+        <Link to={`/products/${selectedProduct?.handle}`}>
+          <h1 className={styles.title}>{selectedProduct?.title}</h1>
         </Link>
-        <div className={styles.variantTitle}>Ultimate Training Short</div>
-        <Price amount="199.0" />
+        <Price
+          amount={selectedVariant?.price?.amount || '0.00'}
+          currencyCode={selectedVariant?.price?.currencyCode || 'USD'}
+        />
       </div>
-      {productGroups && (
-        <Suspense fallback={<></>}>
-          <Await resolve={productGroups}>
-            {productGroups => <ProductSwatches productGroups={productGroups} product={product} />}
-          </Await>
-        </Suspense>
-      )}
-      <ProductCardMessage tags={tags} />
+      <div className={styles.cardSwatches}>
+        {productGroups && (
+          <Suspense fallback={<></>}>
+            <Await resolve={productGroups}>
+              {productGroups => (
+                <ProductSwatches
+                  onSwatchUpdate={setSelectedProduct}
+                  productGroups={productGroups}
+                  product={selectedProduct}
+                />
+              )}
+            </Await>
+          </Suspense>
+        )}
+      </div>
+      {/* <ProductCardMessage tags={tags} /> */}
     </div>
   )
 }

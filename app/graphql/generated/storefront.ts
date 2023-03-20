@@ -6905,6 +6905,32 @@ export type CollectionQuery = {
   } | null
 }
 
+export type ColorFromIdsQueryVariables = Exact<{
+  ids: Array<Scalars['ID']> | Scalars['ID']
+}>
+
+export type ColorFromIdsQuery = {
+  nodes: Array<{
+    id: string
+    type: string
+    fields: Array<{
+      key: string
+      value?: string | null
+      reference?:
+        | {
+            image?: {
+              url: any
+              width?: number | null
+              height?: number | null
+              altText?: string | null
+            } | null
+          }
+        | { fields: Array<{ key: string; value?: string | null }> }
+        | null
+    }>
+  } | null>
+}
+
 export type MediaImageFragment = {
   image?: {
     url: any
@@ -6920,23 +6946,48 @@ export type ProductCardFragment = {
   handle: string
   tags: Array<string>
   productGroup?: { value: string; reference?: { title: string; description: string } | null } | null
-  inseam_length?: { value: string } | null
-  color?: { value: string } | null
   display_name?: { value: string } | null
   variants: {
     nodes: Array<{
       id: string
-      price: { currencyCode: CurrencyCode; amount: any }
-      compareAtPrice?: { currencyCode: CurrencyCode; amount: any } | null
+      availableForSale: boolean
+      sku?: string | null
+      title: string
       selectedOptions: Array<{ name: string; value: string }>
+      price: { amount: any; currencyCode: CurrencyCode }
+      compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+      product: { title: string; handle: string }
     }>
   }
-  featuredImage?: {
-    id?: string | null
-    width?: number | null
-    height?: number | null
-    url: any
-    altText?: string | null
+  images: {
+    nodes: Array<{
+      url: any
+      altText?: string | null
+      width?: number | null
+      height?: number | null
+    }>
+  }
+  inseam?: { value: string } | null
+  color?: {
+    reference?: {
+      id: string
+      type: string
+      fields: Array<{
+        key: string
+        value?: string | null
+        reference?:
+          | {
+              image?: {
+                url: any
+                width?: number | null
+                height?: number | null
+                altText?: string | null
+              } | null
+            }
+          | { fields: Array<{ key: string; value?: string | null }> }
+          | null
+      }>
+    } | null
   } | null
 }
 
@@ -7114,23 +7165,48 @@ export type GlobalSettingsQuery = {
                           value: string
                           reference?: { title: string; description: string } | null
                         } | null
-                        inseam_length?: { value: string } | null
-                        color?: { value: string } | null
                         display_name?: { value: string } | null
                         variants: {
                           nodes: Array<{
                             id: string
-                            price: { currencyCode: CurrencyCode; amount: any }
-                            compareAtPrice?: { currencyCode: CurrencyCode; amount: any } | null
+                            availableForSale: boolean
+                            sku?: string | null
+                            title: string
                             selectedOptions: Array<{ name: string; value: string }>
+                            price: { amount: any; currencyCode: CurrencyCode }
+                            compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+                            product: { title: string; handle: string }
                           }>
                         }
-                        featuredImage?: {
-                          id?: string | null
-                          width?: number | null
-                          height?: number | null
-                          url: any
-                          altText?: string | null
+                        images: {
+                          nodes: Array<{
+                            url: any
+                            altText?: string | null
+                            width?: number | null
+                            height?: number | null
+                          }>
+                        }
+                        inseam?: { value: string } | null
+                        color?: {
+                          reference?: {
+                            id: string
+                            type: string
+                            fields: Array<{
+                              key: string
+                              value?: string | null
+                              reference?:
+                                | {
+                                    image?: {
+                                      url: any
+                                      width?: number | null
+                                      height?: number | null
+                                      altText?: string | null
+                                    } | null
+                                  }
+                                | { fields: Array<{ key: string; value?: string | null }> }
+                                | null
+                            }>
+                          } | null
                         } | null
                       }
                     | null
@@ -7606,22 +7682,54 @@ export type InseamMetafieldFragment = { inseam?: { value: string } | null }
 export type ProductGroupVariantsFragment = {
   id: string
   availableForSale: boolean
+  sku?: string | null
+  title: string
   selectedOptions: Array<{ name: string; value: string }>
+  price: { amount: any; currencyCode: CurrencyCode }
+  compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+  product: { title: string; handle: string }
 }
 
 export type ProductGroupFragment = {
   products: {
     nodes: Array<{
       handle: string
+      title: string
       id: string
+      tags: Array<string>
+      display_name?: { value: string } | null
+      productGroup?: {
+        value: string
+        reference?: { title: string; description: string } | null
+      } | null
       variants: {
         nodes: Array<{
           id: string
           availableForSale: boolean
+          sku?: string | null
+          title: string
           selectedOptions: Array<{ name: string; value: string }>
+          price: { amount: any; currencyCode: CurrencyCode }
+          compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+          product: { title: string; handle: string }
         }>
       }
       options: Array<{ name: string; values: Array<string> }>
+      images: {
+        nodes: Array<{
+          url: any
+          altText?: string | null
+          width?: number | null
+          height?: number | null
+        }>
+      }
+      featuredImage?: {
+        id?: string | null
+        width?: number | null
+        height?: number | null
+        url: any
+        altText?: string | null
+      } | null
       color?: {
         reference?: {
           id: string
@@ -7851,15 +7959,42 @@ export type PpdProductGroupQuery = {
     products: {
       nodes: Array<{
         handle: string
+        title: string
         id: string
+        tags: Array<string>
+        display_name?: { value: string } | null
+        productGroup?: {
+          value: string
+          reference?: { title: string; description: string } | null
+        } | null
         variants: {
           nodes: Array<{
             id: string
             availableForSale: boolean
+            sku?: string | null
+            title: string
             selectedOptions: Array<{ name: string; value: string }>
+            price: { amount: any; currencyCode: CurrencyCode }
+            compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+            product: { title: string; handle: string }
           }>
         }
         options: Array<{ name: string; values: Array<string> }>
+        images: {
+          nodes: Array<{
+            url: any
+            altText?: string | null
+            width?: number | null
+            height?: number | null
+          }>
+        }
+        featuredImage?: {
+          id?: string | null
+          width?: number | null
+          height?: number | null
+          url: any
+          altText?: string | null
+        } | null
         color?: {
           reference?: {
             id: string
@@ -7902,23 +8037,48 @@ export type ProductCardQuery = {
       value: string
       reference?: { title: string; description: string } | null
     } | null
-    inseam_length?: { value: string } | null
-    color?: { value: string } | null
     display_name?: { value: string } | null
     variants: {
       nodes: Array<{
         id: string
-        price: { currencyCode: CurrencyCode; amount: any }
-        compareAtPrice?: { currencyCode: CurrencyCode; amount: any } | null
+        availableForSale: boolean
+        sku?: string | null
+        title: string
         selectedOptions: Array<{ name: string; value: string }>
+        price: { amount: any; currencyCode: CurrencyCode }
+        compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+        product: { title: string; handle: string }
       }>
     }
-    featuredImage?: {
-      id?: string | null
-      width?: number | null
-      height?: number | null
-      url: any
-      altText?: string | null
+    images: {
+      nodes: Array<{
+        url: any
+        altText?: string | null
+        width?: number | null
+        height?: number | null
+      }>
+    }
+    inseam?: { value: string } | null
+    color?: {
+      reference?: {
+        id: string
+        type: string
+        fields: Array<{
+          key: string
+          value?: string | null
+          reference?:
+            | {
+                image?: {
+                  url: any
+                  width?: number | null
+                  height?: number | null
+                  altText?: string | null
+                } | null
+              }
+            | { fields: Array<{ key: string; value?: string | null }> }
+            | null
+        }>
+      } | null
     } | null
   } | null>
 }
@@ -7932,15 +8092,42 @@ export type ProductGroups = {
     products: {
       nodes: Array<{
         handle: string
+        title: string
         id: string
+        tags: Array<string>
+        display_name?: { value: string } | null
+        productGroup?: {
+          value: string
+          reference?: { title: string; description: string } | null
+        } | null
         variants: {
           nodes: Array<{
             id: string
             availableForSale: boolean
+            sku?: string | null
+            title: string
             selectedOptions: Array<{ name: string; value: string }>
+            price: { amount: any; currencyCode: CurrencyCode }
+            compareAtPrice?: { amount: any; currencyCode: CurrencyCode } | null
+            product: { title: string; handle: string }
           }>
         }
         options: Array<{ name: string; values: Array<string> }>
+        images: {
+          nodes: Array<{
+            url: any
+            altText?: string | null
+            width?: number | null
+            height?: number | null
+          }>
+        }
+        featuredImage?: {
+          id?: string | null
+          width?: number | null
+          height?: number | null
+          url: any
+          altText?: string | null
+        } | null
         color?: {
           reference?: {
             id: string

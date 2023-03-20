@@ -25,9 +25,13 @@
   padding: 4px 0;
   text-transform: uppercase;
 }
+.sizeFilterSelector > button {
+  flex-grow: 1;
+}
 
 .colorFilterSelector {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
 }
 
@@ -46,6 +50,8 @@
 }
 .priceRangeSelector .rangeInput {
   padding: 8px 0;
+  position: relative;
+  width: 100%;
 }
 
 .clear {

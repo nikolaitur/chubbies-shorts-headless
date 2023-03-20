@@ -1,35 +1,56 @@
-import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector'
 import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
-import { Inseam } from '~/global-types'
+import { ColorOption, Inseam, InseamOption } from '~/global-types'
+import { ProductCardFragment } from '~/graphql/generated'
 import { getColorOptions, getInseamOptions } from '~/helpers'
+import ColorVariantsCarousel from '../color-variants-carousel'
 import styles from './styles.module.css'
+import { ProductSwatchesProps } from './types'
 
-// @ts-expect-error - TODO for Dylan: fix the type error
-const ProductSwatches = ({ productGroups, product }) => {
+const ProductSwatches = ({ productGroups, product, onSwatchUpdate }: ProductSwatchesProps) => {
   const productGroupId = product?.productGroup?.value
 
-  // @ts-expect-error - TODO for Dylan: fix the type error
-  const productGroup = productGroups.find(productGroup => productGroup.id === productGroupId)
+  const productGroup = productGroups.find((productGroup: any) => productGroup.id === productGroupId)
 
-  const { inseam_length, color } = product
+  const { inseam, color } = product ?? {}
   const productsFromProductGroup = productGroup?.products.nodes
-  const parsedInseam: Inseam | null = JSON.parse(inseam_length?.value ?? 'null')
-  const colorId = color?.value
+  const parsedInseam: Inseam | null = JSON.parse(inseam?.value ?? 'null')
+  const colorId = color?.reference?.id
   const inseamOptions = getInseamOptions(parsedInseam, colorId, productsFromProductGroup) ?? []
   const colorOptions = getColorOptions(colorId, parsedInseam, productsFromProductGroup) ?? []
+  const changeInseamOption = (inseam: InseamOption) => {
+    const product = productGroup?.products?.nodes.find(product => product.handle === inseam?.handle)
+    onSwatchUpdate(product as ProductCardFragment)
+  }
 
-  const selectedInseam = inseamOptions[0]
+  const changeColorOption = (colorOption: ColorOption) => {
+    const { handle } = colorOption || {}
+    const product = productGroup?.products?.nodes.find(product => product.handle === handle)
+    onSwatchUpdate(product as ProductCardFragment)
+  }
 
   return (
-    <div>
-      <div className={styles.colorVariants}>
-        {colorOptions.map(({ name, handle, selected, image }) => {
-          return <SwatchSelector key={handle} image={image} selected={selected} />
-        })}
+    <div className={styles.productSwatches}>
+      <div className={styles.colorSwatches}>
+        <ColorVariantsCarousel
+          colorOptions={colorOptions}
+          onChangeColorOption={changeColorOption}
+          variant="slider"
+          size="sm"
+        />
       </div>
       <div className={styles.inseamVariants}>
-        {inseamOptions?.map(({ value, selected, handle }) => {
-          return <VariantSelector selected={selected} key={handle} option={`${value}'`} />
+        {inseamOptions?.map(inseam => {
+          const { value, selected, handle, exists } = inseam || {}
+          return (
+            <VariantSelector
+              selected={selected}
+              key={`${handle}-inseam`}
+              option={`${value}"`}
+              onClick={() => changeInseamOption(inseam)}
+              disabled={!exists}
+              unavailable={!exists}
+            />
+          )
         })}
       </div>
     </div>

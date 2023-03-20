@@ -1,3 +1,4 @@
+import { Buffer } from 'buffer'
 import cookie from 'cookie'
 
 export const splitArrayToChunks = (array: any[], size = 2) => {
@@ -28,6 +29,14 @@ export const parseCookie = (request: Request, name: string) => {
 }
 
 export const capitalizeWord = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
+
+export const encodeBtoa = (str: string) => {
+  return Buffer.from(str).toString('base64')
+}
+
+export const decodeBtoa = (str: string) => {
+  return Buffer.from(str, 'base64').toString('ascii')
+}
 
 export const checkIfTouchDevice = () =>
   // @ts-expect-error - navigator type error

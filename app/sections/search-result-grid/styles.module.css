@@ -3,6 +3,7 @@
 }
 
 .sidebar {
+  position: relative;
   display: none;
   width: 300px;
 }
@@ -10,6 +11,7 @@
 .filters {
   position: sticky;
   top: 10px;
+  width: 300px;
 }
 
 .grid {

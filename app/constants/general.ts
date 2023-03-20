@@ -9,6 +9,7 @@ export const BREAKPOINTS = {
 export const STOREFRONT_NAME_KEY = 'storefront_name'
 export const PRODUCT_ROUTE_ID = 'routes/($lang)/__frame/products/$productHandle'
 export const COLLECTION_ROUTE_ID = 'routes/($lang)/__frame/collections/$collectionHandle'
+export const SEARCH_ROUTE_ID = 'routes/($lang)/__frame/search'
 export const FRAME_ROUTE_ID = 'routes/($lang)/__frame'
 export const UNIT_MEASUREMENT_SYMBOL: { [key: string]: string } = {
   INCHES: '"',

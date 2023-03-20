@@ -173,6 +173,20 @@ export const PRODUCT_GROUP_VARIANTS_FRAGMENT = /* gql */ `#graphql
       name
       value
     }
+    price {
+      amount
+      currencyCode
+    }
+    compareAtPrice {
+      amount
+      currencyCode
+    }
+    sku
+    title
+    product {
+      title
+      handle
+    }
   }
 `
 
@@ -181,7 +195,21 @@ export const PRODUCT_GROUP_FRAGMENT = /* gql */ `#graphql
     products(first: 100) {
       nodes {
         handle
+        title
         id
+        display_name:metafield(namespace: "custom",key: "display_name") {
+          value
+        }
+        productGroup: metafield(namespace: "custom", key: "product_group") {
+          value
+          reference {
+            ... on Collection {
+              title
+              description
+            }
+          }
+        }
+        tags
         variants(first: 10) {
           nodes {
             ...ProductGroupVariantsFragment
@@ -190,6 +218,23 @@ export const PRODUCT_GROUP_FRAGMENT = /* gql */ `#graphql
         options {
           name
           values
+        }
+        images(first: 2) {
+          nodes {
+            ... on Image {
+              url
+              altText
+              width
+              height
+            }
+          }
+        }
+        featuredImage {
+          id
+          width
+          height
+          url
+          altText
         }
         ...ColorMetafieldFragment
         ...ColorGroupMetafieldFragment

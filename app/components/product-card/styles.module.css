@@ -122,12 +122,7 @@
   display: none;
 }
 
-.colorVariants {
-  display: flex;
-  gap: 8px;
-}
-
-.inseamOptions {
-  display: flex;
-  gap: 8px;
+.cardSwatches {
+  display: grid;
+  gap: 10px;
 }

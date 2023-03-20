@@ -1,7 +1,20 @@
+@use '../../../styles/abstracts' as *;
+
+.productSwatches {
+  position: relative;
+  display: grid;
+  gap: $space-2-5;
+}
+
 .inseamVariants {
   display: flex;
-  gap: 6px;
+  gap: $space-2;
   & * {
     flex-grow: 1;
   }
+}
+
+.colorSwatches {
+  display: grid;
+  gap: $space-2;
 }

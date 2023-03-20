@@ -50,7 +50,7 @@
     "@solo-brands/ui-library.ui.atomic.product-tag": "^1.0.5",
     "@solo-brands/ui-library.ui.atomic.product-title": "^1.0.4",
     "@solo-brands/ui-library.ui.atomic.ratings": "^1.0.7",
-    "@solo-brands/ui-library.ui.atomic.slider-filter-control": "^1.0.2",
+    "@solo-brands/ui-library.ui.atomic.slider-filter-control": "^1.0.3",
     "@solo-brands/ui-library.ui.atomic.spinner": "^1.0.9",
     "@solo-brands/ui-library.ui.atomic.swatch-selector": "^1.0.8",
     "@solo-brands/ui-library.ui.atomic.tab-item": "^1.0.6",

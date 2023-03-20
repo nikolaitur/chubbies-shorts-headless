@@ -1,47 +1,25 @@
+import { RouteMatch, useMatches } from '@remix-run/react'
 import Button from '@solo-brands/ui-library.ui.atomic.button'
-import DropdownOptionGroup from '@solo-brands/ui-library.ui.atomic.dropdown-option-group'
-import { ChevronDownIcon, FilterIcon } from '@solo-brands/ui-library.ui.atomic.icon'
+import { FilterIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import BreadCrumbs from '@solo-brands/ui-library.ui.shared.bread-crumbs'
-import { useState } from 'react'
+import React from 'react'
 import CollectionFilters from '~/components/collection-filters'
 import CollectionPageTitle from '~/components/collection-page-title'
+import CollectionSortBy from '~/components/collection-sort-by'
 import Container from '~/components/container'
 import ProductCard from '~/components/product-card'
 import Section from '~/components/section'
-import CollectionBanner from './collection-banner'
+import { COLLECTION_ROUTE_ID } from '~/constants'
 import styles from './styles.module.css'
 import { CollectionGridProps } from './types'
 
 const CollectionGrid = ({ products, collection }: CollectionGridProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const { title, description, handle } = collection ?? {}
 
-  const { title, description, handle, image } = collection ?? {}
-  const options = [
-    {
-      value: 'option_1',
-      text: 'Option 1',
-    },
-    {
-      value: 'option_2',
-      text: 'Option 2',
-    },
-    {
-      value: 'option_3',
-      text: 'Option 3',
-    },
-    {
-      value: 'option_4',
-      text: 'Option 4',
-    },
-    {
-      value: 'option_5',
-      text: 'Option 5',
-    },
-  ]
-
-  const handleSortByOpen = () => {
-    setIsOpen(!isOpen)
-  }
+  // SEARCH SPRING DATA
+  const matches = useMatches()
+  const collectionMatch = matches.find(match => match.id === COLLECTION_ROUTE_ID) as RouteMatch
+  const { productGroups, facets, sorting } = collectionMatch?.data || {}
 
   return (
     <Section>
@@ -49,10 +27,9 @@ const CollectionGrid = ({ products, collection }: CollectionGridProps) => {
         <BreadCrumbs path={`/home/${handle}`}></BreadCrumbs>
         <div className={styles.grid}>
           <div className={styles.sidebar}>
-            <CollectionFilters className={styles.filters} />
+            <CollectionFilters className={styles.filters} facets={facets} />
           </div>
           <div className={styles.resultsGrid}>
-            <CollectionBanner className={styles.collectionBanner} image={image}></CollectionBanner>
             <div className={styles.gridHeader}>
               <CollectionPageTitle title={title} description={description} />
               <div className={styles.searchButtons}>
@@ -62,27 +39,20 @@ const CollectionGrid = ({ products, collection }: CollectionGridProps) => {
                   </Button>
                 </div>
                 <div className={styles.sortByButton}>
-                  <Button
-                    variant="tertiary"
-                    size="sm"
-                    iconRight={<ChevronDownIcon />}
-                    onClick={handleSortByOpen}
-                  >
-                    Sort By
-                  </Button>
-                  <DropdownOptionGroup
-                    data-testid="dropdown-option-group"
-                    isStandAlone={true}
-                    options={options}
-                    open={isOpen}
-                  />
+                  <CollectionSortBy sorting={sorting} />
                 </div>
               </div>
             </div>
             <div className={styles.productsGrid}>
               {/* @ts-expect-error - TODO for Dylan: fix the type error */}
               {products?.nodes?.map(product => (
-                <ProductCard key={product?.id} product={product} />
+                <>
+                  {product && (
+                    <React.Fragment key={product?.id}>
+                      <ProductCard product={product} productGroups={productGroups} />
+                    </React.Fragment>
+                  )}
+                </>
               ))}
             </div>
           </div>

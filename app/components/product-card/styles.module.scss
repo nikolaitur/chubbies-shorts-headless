@@ -126,12 +126,7 @@
   }
 }
 
-.colorVariants {
-  display: flex;
-  gap: $space-2;
-}
-
-.inseamOptions {
-  display: flex;
-  gap: $space-2;
+.cardSwatches {
+  display: grid;
+  gap: $space-2-5;
 }

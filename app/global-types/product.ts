@@ -49,8 +49,9 @@ export type InseamOption = {
 
 export type SizeOption = {
   name: string
-  exists: boolean
+  exists?: boolean
   availableForSale?: boolean
+  value?: string
 }
 
 export type ProductGroupProducts = ProductGroupFragment['products']['nodes']

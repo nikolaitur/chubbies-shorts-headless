@@ -2,11 +2,12 @@ import { useLoaderData, useMatches } from '@remix-run/react'
 import { defer, LoaderArgs } from '@shopify/remix-oxygen'
 import { useEffect } from 'react'
 import { ClientOnly } from 'remix-utils'
-import { SearchspringResponse } from '~/global-types/searchspring'
+import { COLOR_FILTER_KEY } from '~/constants'
+import { SearchSpringFacet, SearchspringResponse } from '~/global-types/searchspring'
 import { ProductCardQuery } from '~/graphql/generated'
 import { COLLECTION_QUERY } from '~/graphql/storefront/collections/queries'
 import { PRODUCT_CARDS_QUERY } from '~/graphql/storefront/products/queries/productCards'
-import { fetchProductGroupData, generatePlpAnalytics } from '~/helpers'
+import { fetchProductGroupData, retrieveColorValues, generatePlpAnalytics } from '~/helpers'
 import {
   extractProductIds,
   fetchSearchspringResults,
@@ -37,10 +38,18 @@ export async function loader({ params, request, context: { storefront } }: Loade
   const url = new URL(request.url)
   const { searchParams } = url
   const { collectionHandle } = params
-  const { results }: SearchspringResponse = await fetchSearchspringResults({
+  const { results, facets, sorting }: SearchspringResponse = await fetchSearchspringResults({
     searchParams,
     collectionHandle,
   })
+  const colorFacet = facets?.find(facet => facet.field === COLOR_FILTER_KEY) as SearchSpringFacet
+  // Facet Filters
+  const newColorFacet = await retrieveColorValues(storefront, colorFacet)
+  const newFacets = facets?.map(facet => {
+    if (facet.field === COLOR_FILTER_KEY) return newColorFacet
+    return facet
+  })
+
   //Any product that appears after the first occurance of a product with the same ProductGroup and Swatch is removed.
   //Remove null ProductGroup
   const filteredResults = removeRedundantProducts(results)
@@ -71,32 +80,20 @@ export async function loader({ params, request, context: { storefront } }: Loade
   return defer({
     products: await products,
     productGroups,
-    collection,
+    collection: collectionQuery as CollectionGridProps['collection'],
+    facets: newFacets,
+    sorting,
     analytics: generatePlpAnalytics(await products, collection),
   })
 }
 
 const CollectionPage = () => {
   const { products, collection } = useLoaderData<typeof loader>()
-
   const [root, locale, frame] = useMatches()
 
   useEffect(() => {
     dataLayerViewItemList({ ecommerce: frame?.data?.analytics })
   }, [frame?.data?.analytics])
-
-  /*
-    ProductGroups here is a promise, so we need to wrap it in a Suspense component.
-    This allows us to begin rendering the collection page while the productGroups query is still in flight.
-    That way, user can see available product cards while the swatches are still loading.
-    <ProductCard>
-      <Suspense fallback={<></>}>
-        <Await resolve={productGroups}>
-          { && (productGroups => <ProductCardSwatches productGroups={productGroups} />)}
-        </Await>
-      </Suspense>
-    </ProductCard>
-  */
 
   return (
     <>

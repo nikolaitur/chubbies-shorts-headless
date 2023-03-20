@@ -1,0 +1,40 @@
+.carousel.slider {
+  padding-left: 32px;
+  padding-right: 64px;
+}
+.carousel.slider :global(.carousel-navigation) {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.carousel.slider :global(.carousel-next-button) {
+  transform: translateX(-32px);
+  transition: 0.1s ease-out;
+}
+.carousel.slider :global(.carousel-next-button).withRemainingCount {
+  transform: translateX(0px);
+}
+.carousel.slider .remainingSlidesCount {
+  right: 32px;
+}
+.carousel.inline {
+  padding-right: 32px;
+}
+.carousel.inline .remainingSlidesCount {
+  right: 0px;
+}
+
+.remainingSlidesCount {
+  position: absolute;
+  color: rgb(0, 0, 0);
+  font-family: futura-pt, sans-serif;
+  font-weight: 500;
+  line-height: 100%;
+  font-size: 16px;
+  letter-spacing: 0%;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.link {
+  display: flex;
+}

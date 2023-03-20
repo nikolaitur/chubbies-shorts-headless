@@ -24,39 +24,26 @@ export const PRODUCT_CARD_FRAGMENT = /* gql */ `#graphql
         }
       }
     }
-    inseam_length:metafield(namespace: "custom",key: "inseam_length") {
-      value
-    }
-    color:metafield(namespace: "custom",key: "swatch") {
-      value
-    }
     display_name:metafield(namespace: "custom",key: "display_name") {
       value
     }
     tags
     variants(first:7) {
       nodes {
-        id
-        price {
-          currencyCode
-          amount
-        }
-        compareAtPrice {
-          currencyCode
-          amount
-        }
-        selectedOptions{
-          name
-          value
+        ...ProductGroupVariantsFragment
+      }
+    }
+    images(first: 2) {
+      nodes {
+        ... on Image {
+          url
+          altText
+          width
+          height
         }
       }
     }
-    featuredImage {
-      id
-      width
-      height
-      url
-      altText
-    }
+    ...InseamMetafieldFragment
+    ...ColorMetafieldFragment
   }
 `

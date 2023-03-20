@@ -3291,10 +3291,10 @@
     core-js "^3.0.0"
     styled-components "5.3.6"
 
-"@solo-brands/ui-library.ui.atomic.slider-filter-control@^1.0.2":
-  version "1.0.2"
-  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.slider-filter-control/-/@solo-brands-ui-library.ui.atomic.slider-filter-control-1.0.2.tgz"
-  integrity sha1-Tv3nmiGiPgkipeLKOenFvpdjbcA=
+"@solo-brands/ui-library.ui.atomic.slider-filter-control@^1.0.3":
+  version "1.0.3"
+  resolved "https://node.bit.cloud/@solo-brands/ui-library.ui.atomic.slider-filter-control/-/@solo-brands-ui-library.ui.atomic.slider-filter-control-1.0.3.tgz#11b99850a305d71517d12352a66efee3f9c6f45a"
+  integrity sha1-EbmYUKMF1xUX0SNSpm7+4/nG9Fo=
   dependencies:
     core-js "^3.0.0"
     styled-components "5.3.6"
