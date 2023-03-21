@@ -11,7 +11,10 @@ import { ThemeProvider } from 'styled-components'
 import {
   createNostoCookie,
   fetchAllMessagingCampaigns,
+  generateDYRequestBody,
+  generateDYRequestHeaders,
   generateNostoEventPayload,
+  getDYCookie,
   getEnrichedNostoPlacements,
   getNostoSessionID,
   updateNostoSession,
@@ -60,6 +63,32 @@ export const meta: MetaFunction = data => ({
   viewport: 'width=device-width,initial-scale=1',
 })
 
+const getDYVariantions = async (request: Request, apiKey: string) => {
+  const { dyId, dyIdSever, dyJSession } = await getDYCookie(request)
+  let response
+  try {
+    response = await fetch(`https://dy-api.com/v2/serve/user/choose`, {
+      method: 'POST',
+      headers: generateDYRequestHeaders(apiKey),
+      body: JSON.stringify(generateDYRequestBody({ dyId, dyIdSever, dyJSession, request })),
+    })
+  } catch (error) {
+    console.log('There was an error', error)
+  }
+
+  if (response?.ok) {
+    type DYResponse = {
+      choices: [] | null
+      cookies: [] | null
+    }
+
+    let res: DYResponse = await response.json()
+    return res
+  }
+
+  return { choices: null, cookies: null }
+}
+
 export async function loader({ context, request, params }: LoaderArgs) {
   const { storefront, session, env } = context
 
@@ -97,6 +126,14 @@ export async function loader({ context, request, params }: LoaderArgs) {
     initialNostoPlacements,
   )
 
+  const { choices, cookies } = await getDYVariantions(request, env.DY_API_KEY)
+  if (cookies) {
+    cookies.map(cookie => {
+      const { name, value, maxAge } = cookie
+      headers.push(['Set-Cookie', `${name}=${value}; Max-Age=${maxAge}`])
+    })
+  }
+
   //TODO: [CHU-184] Change to defer when Remix bug is fixed this is fixed
   return json(
     {
@@ -106,6 +143,7 @@ export async function loader({ context, request, params }: LoaderArgs) {
       nostoPlacements: enrichedNostoPlacements,
       selectedLocale: storefront.i18n,
       messagingCampaigns: campaignsWithTriggeringTags,
+      dy: choices,
     },
     {
       headers: new Headers(headers),

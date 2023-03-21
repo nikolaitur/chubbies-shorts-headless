@@ -23,6 +23,21 @@ const ThirdPartyScripts = () => {
         }}
       ></script>
 
+      <link rel="preconnect" href="//cdn.dynamicyield.com" />
+      <link rel="preconnect" href="//st.dynamicyield.com" />
+      <link rel="preconnect" href="//rcom.dynamicyield.com" />
+      <link rel="dns-prefetch" href="//cdn.dynamicyield.com" />
+      <link rel="dns-prefetch" href="//st.dynamicyield.com" />
+      <link rel="dns-prefetch" href="//rcom.dynamicyield.com" />
+      <script
+        type="text/javascript"
+        src="//cdn.dynamicyield.com/api/8770102/api_dynamic.js"
+      ></script>
+      <script
+        type="text/javascript"
+        src="//cdn.dynamicyield.com/api/8770102/api_static.js"
+      ></script>
+
       <script
         type="text/javascript"
         src="//connect.nosto.com/include/shopify-770432"
