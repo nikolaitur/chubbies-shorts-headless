@@ -8,9 +8,9 @@ import {
   ColorOptionsByGroup,
   Inseam,
   InseamOption,
+  PdpProduct,
   ProductGroupProducts,
   SizeOption,
-  PdpProduct,
 } from '~/global-types'
 import {
   ColorFragment,
@@ -135,7 +135,7 @@ export const getColorOptions = (
     const { variants, options } = currentProduct ?? {}
     const hasVariantsAndOptions = variants && options
 
-    const flattenedFamilyFields = family.reference?.fields
+    const flattenedFamilyFields = family?.reference?.fields
     const familyValue = flattenedFamilyFields?.find(field => field.key === 'storefront_name')?.value
     const flattenedImage = colorImage.reference?.image
 
