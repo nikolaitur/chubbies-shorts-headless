@@ -41,20 +41,12 @@ const CartShippingTiers = (
   const tierAmount = firstTier?.tier_amount ?? 0
 
   useEffect(() => {
-    if (
-      firstTier?.cart_footer_success_message &&
-      parseFloat(subtotalAmount?.amount ?? '0') >= tierAmount
-    ) {
+    if (firstTier?.cart_footer_success_message && subtotalFloat >= tierAmount) {
       setFreeShippingText(firstTier?.cart_footer_success_message ?? '')
     } else {
       setFreeShippingText('')
     }
-  }, [
-    firstTier?.cart_footer_success_message,
-    setFreeShippingText,
-    subtotalAmount?.amount,
-    tierAmount,
-  ])
+  }, [subtotalAmount])
 
   return (
     <div className={styles.shippingTiers} ref={ref} {...props}>
