@@ -2,6 +2,7 @@ export const CUSTOMER_QUERY = /* graphql */ `#graphql
   query CustomerQuery($customerAccessToken: String!, $country: CountryCode, $language: LanguageCode)
   @inContext(country: $country, language: $language) {
     customer(customerAccessToken: $customerAccessToken) {
+      id
       firstName
       lastName
       phone

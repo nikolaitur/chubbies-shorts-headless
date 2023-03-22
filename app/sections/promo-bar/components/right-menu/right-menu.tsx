@@ -1,5 +1,5 @@
-import { forwardRef, Ref } from 'react'
 import clsx from 'clsx'
+import { forwardRef, Ref } from 'react'
 
 import Link from '~/components/link'
 import LocaleSelector from '../locale-selector'
@@ -16,10 +16,12 @@ const RightMenu = ({ data }: RightMenuProps, ref: Ref<HTMLDivElement>) => (
       {data?.items.map((nav, idx) => {
         const { url, title } = nav
 
+        const reload = url.includes('rewards')
+
         if (!url) return null
 
         return (
-          <Link key={`nav-link-${idx + 1}`} to={url} title={title}>
+          <Link key={`nav-link-${idx + 1}`} to={url} title={title} reloadDocument={reload}>
             {title}
           </Link>
         )

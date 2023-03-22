@@ -2,7 +2,8 @@ import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon/dist/butto
 import Button from '@solo-brands/ui-library.ui.atomic.button/dist/button'
 import { CloseIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import clsx from 'clsx'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useMatches } from 'react-router'
 import { useFetcher } from 'react-router-dom'
 import { SignInModal, SignUpModal } from '~/components/account-modals'
 import Link from '~/components/link'
@@ -29,11 +30,29 @@ const AccountNavigation = ({
     useTypedRouteLoaderData<LoaderData['root']>(ROUTE_IDS.ROOT) ?? {}
   const { firstName, email } = customer ?? {}
 
+  const [currentPoints, setCurrentPoints] = useState(0)
+
   const { isShown } = useOverlayController({
     hoverControllerRef,
     toggleControllerRef,
     closeControllerRef: closeButtonRef,
   })
+
+  useEffect(() => {
+    if (!isAuthenticated) return
+
+    const getYotpoCustomer = async () => {
+      const response: any = await fetch(`/api/yotpo/customer?email=${email}`)
+
+      const {
+        data: { points_balance },
+      } = await response.json()
+
+      setCurrentPoints(points_balance)
+    }
+
+    getYotpoCustomer()
+  }, [isAuthenticated, email])
 
   return (
     <div className={clsx(styles.accountNavigation, { [styles.isShown]: isShown })} {...props}>
@@ -49,12 +68,14 @@ const AccountNavigation = ({
 
           <div className={styles.rewardPointsDetails}>
             <p className={styles.rewardPointsTitle}>Reward Points Balance</p>
-            <p className={styles.rewardPoints}>100</p>
-            <Button className={styles.redeemButton}>Redeem for $25.00</Button>
+            <p className={styles.rewardPoints}>{currentPoints}</p>
+            {/* TO DO : GET REWARD POINTS */}
+            {/* <Button className={styles.redeemButton}>Redeem for $25.00</Button> */}
           </div>
 
           <div className={styles.rewardDetailsFooter}>
-            <p>Only 100 points left to get your next reward!</p>
+            {/* TO DO : Get points need for next reward */}
+            {/* <p>Only 100 points left to get your next reward!</p> */}
             <div className={styles.rewardDetailsLinksWrapper}>
               <Link to="/" className={styles.linkText}>
                 View recommendations
