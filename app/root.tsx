@@ -2,7 +2,12 @@ import { cssBundleHref } from '@remix-run/css-bundle'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import { Storefront } from '@shopify/hydrogen'
 import { Cart } from '@shopify/hydrogen-react/storefront-api-types'
-import { json, type LinksFunction, type LoaderArgs, type MetaFunction } from '@shopify/remix-oxygen'
+import {
+  defer,
+  type LinksFunction,
+  type LoaderArgs,
+  type MetaFunction,
+} from '@shopify/remix-oxygen'
 import { BaseStyles } from '@solo-brands/ui-library.styles.global'
 // @ts-expect-error there are no typings for this module
 import { theme } from '@solobrands/token-library/dist/styled/chubbies'
@@ -61,7 +66,7 @@ export const meta: MetaFunction = data => ({
 })
 
 export async function loader({ context, request, params }: LoaderArgs) {
-  const { storefront, session, env } = context
+  const { storefront, session, env, wishlistKing } = context
 
   const headers: HeadersInit = []
   const destination = request.headers.get('sec-fetch-dest')
@@ -98,7 +103,7 @@ export async function loader({ context, request, params }: LoaderArgs) {
   )
 
   //TODO: [CHU-184] Change to defer when Remix bug is fixed this is fixed
-  return json(
+  return defer(
     {
       cart,
       isAuthenticated,
@@ -106,6 +111,7 @@ export async function loader({ context, request, params }: LoaderArgs) {
       nostoPlacements: enrichedNostoPlacements,
       selectedLocale: storefront.i18n,
       messagingCampaigns: campaignsWithTriggeringTags,
+      wishlist: wishlistKing.loadWishlist({ wishlistId: 'mine' }).then(({ wishlist }) => wishlist),
     },
     {
       headers: new Headers(headers),

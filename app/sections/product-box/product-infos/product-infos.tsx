@@ -1,9 +1,8 @@
 import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
-import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon'
-import { HeartIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import Price from '@solo-brands/ui-library.ui.atomic.price'
 import ProductTitle from '@solo-brands/ui-library.ui.atomic.product-title'
 import Ratings from '@solo-brands/ui-library.ui.atomic.ratings'
+import WishlistButton from '~/components/wishlist-button'
 import { ROUTE_IDS } from '~/constants'
 import { LoaderData } from '~/global-types'
 import { getDisplayPrices } from '~/helpers'
@@ -26,7 +25,7 @@ const ProductInfos = (props: ProductInfosProps) => {
     <div className={styles.wrapper} {...props}>
       <div className={styles.collectionTitleWrapper}>
         {collectionTitle && <p className={styles.collectionTitle}>{collectionTitle}</p>}
-        <ButtonIcon size="sm" variant="minimal" icon={<HeartIcon />}></ButtonIcon>
+        <WishlistButton productId={product?.id} variantId={product?.selectedVariant?.id} />
       </div>
 
       <div className={styles.titleWrapper}>

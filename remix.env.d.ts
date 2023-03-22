@@ -3,6 +3,7 @@
 /// <reference types="@shopify/oxygen-workers-types" />
 
 import type { Storefront } from '@shopify/hydrogen'
+import { WishlistClient } from '~/wishlist/WishlistClient'
 import type { HydrogenSession } from '../server'
 
 declare global {
@@ -32,6 +33,7 @@ declare module '@shopify/remix-oxygen' {
   export interface AppLoadContext {
     session: HydrogenSession
     storefront: Storefront
+    wishlistKing: WishlistClient
     env: Env
   }
 }

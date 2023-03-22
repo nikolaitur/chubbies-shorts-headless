@@ -1,26 +1,31 @@
 import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon'
 import { HeartIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import clsx from 'clsx'
-import { useState } from 'react'
+import { useWishlistProduct } from '~/wishlist/WishlistClient'
 import styles from './styles.module.css'
 import { WishlistButtonProps } from './types'
 
-const WishlistButton = ({ ...props }: WishlistButtonProps) => {
-  const [isInWishlist, setIsInWishlist] = useState(false)
+const WishlistButton = ({ productId = '', variantId, ...props }: WishlistButtonProps) => {
+  const { inWishlist, loading, submitting, toggleProduct } = useWishlistProduct({
+    productId,
+    variantId,
+  })
 
-  const handleWishList = () => {
-    setIsInWishlist(!isInWishlist)
-
-    //TODO: logic
-  }
   return (
     <ButtonIcon
       variant="tertiary"
       size="sm"
       border="rounded"
-      // @ts-expect-error - TODO: fix type error in UI Library
-      icon={<HeartIcon className={clsx(styles.button, { [styles.filled]: isInWishlist })} />}
-      onClick={handleWishList}
+      icon={
+        <HeartIcon
+          // @ts-expect-error - TODO: fix type error in UI Library
+          className={clsx(styles.button, {
+            [styles.filled]: inWishlist,
+          })}
+        />
+      }
+      onClick={toggleProduct}
+      disabled={loading || submitting}
       {...props}
     />
   )

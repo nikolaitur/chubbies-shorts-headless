@@ -3,13 +3,14 @@ import { ProductVariant } from '@shopify/hydrogen/storefront-api-types'
 import { Image } from '@shopify/storefront-kit-react'
 import Button from '@solo-brands/ui-library.ui.atomic.button'
 import ButtonIcon from '@solo-brands/ui-library.ui.atomic.button-icon'
-import { CloseIcon, HeartIcon } from '@solo-brands/ui-library.ui.atomic.icon'
+import { CloseIcon } from '@solo-brands/ui-library.ui.atomic.icon'
 import Price from '@solo-brands/ui-library.ui.atomic.price'
 import VariantSelector from '@solo-brands/ui-library.ui.atomic.variant-selector'
 import clsx from 'clsx'
 import { Suspense, useEffect, useState } from 'react'
 import { Await } from 'react-router'
 import AtcButton from '~/components/atc-button'
+import WishlistButton from '~/components/wishlist-button'
 import { SizeOption } from '~/global-types'
 import { ProductCardFragment, ProductGroupVariantsFragment } from '~/graphql/generated'
 import ProductSwatches from './product-swatches'
@@ -44,12 +45,7 @@ const ProductCard = ({ product, productGroups }: ProductCardProps) => {
         </Link>
         {/* <TagList tags={tags} /> */}
         <div className={styles.favorite}>
-          <ButtonIcon
-            variant="tertiary"
-            size="sm"
-            border="rounded"
-            icon={<HeartIcon fill="#000000" />}
-          />
+          <WishlistButton productId={product?.id} />
         </div>
         <div className={clsx(styles.quickShop, { [styles.active]: isQuickShopOpen })}>
           <Button

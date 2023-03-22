@@ -12,6 +12,7 @@ import { CSSProperties, useEffect, useState } from 'react'
 import Backdrop from '~/components/backdrop/backdrop'
 import { useCartActions, useCartState } from '~/components/cart-context/cart-context'
 import Link from '~/components/link'
+import WishlistLink from '~/components/wishlist-link'
 import CartModal from '~/sections/header/cart-modal/cart-modal'
 import DesktopNav from '~/sections/header/desktop-nav'
 import MobileNav from '~/sections/header/mobile-nav'
@@ -139,6 +140,7 @@ const Header = ({
                 <div className={styles.positionBlock}>
                   {/*TODO: Should be done in account functionality*/}
                   <AccountButton />
+                  <WishlistLink />
                   {/*TODO: Should be done in cart functionality*/}
                   <div className={styles.cartIcon}>
                     <button onClick={() => setIsCartOpen(!isCartOpen)}>

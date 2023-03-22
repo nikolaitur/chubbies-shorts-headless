@@ -53,7 +53,7 @@ const RecommendedProductCardInner = ({
     <div className={clsx(styles.card, styles[size])} ref={hoverControllerRef}>
       <div className={styles.imageBlock}>
         <TagList tags={tags} />
-        <WishlistButton className={styles.wishlistButton} />
+        <WishlistButton className={styles.wishlistButton} productId={product?.id} />
 
         <VariantOverlay
           className={styles.variantOverlay}

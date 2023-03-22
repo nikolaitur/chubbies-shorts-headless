@@ -4,6 +4,7 @@ import { createStorefrontClient, storefrontRedirect } from '@shopify/hydrogen'
 import { createRequestHandler, getBuyerIp } from '@shopify/remix-oxygen'
 import { getLocaleFromRequest } from '~/helpers'
 import { HydrogenSession } from '~/sessions/session.server'
+import { createWishlistClient } from '~/wishlist'
 
 /**
  * Export a fetch handler in module format.
@@ -41,13 +42,25 @@ export default {
       })
 
       /**
+       * Create Wishlist King client.
+       */
+      const { wishlist: wishlistKing } = createWishlistClient({
+        shopDomain: 'chubbies.myshopify.com',
+        sessionId: 'maxdevtest', // TODO: Set wishlist id
+        // customerId: "", // TODO: Set customer id
+        // pageType: "", // TODO: Set page type
+        cache: storefront.cache,
+        waitUntil,
+      })
+
+      /**
        * Create a Remix request handler and pass
        * Hydrogen's Storefront client to the loader context.
        */
       const handleRequest = createRequestHandler({
         build: remixBuild,
         mode: process.env.NODE_ENV,
-        getLoadContext: () => ({ cache, session, waitUntil, storefront, env }),
+        getLoadContext: () => ({ cache, session, waitUntil, storefront, env, wishlistKing }),
       })
 
       const response = await handleRequest(request)
@@ -63,7 +76,6 @@ export default {
 
       return response
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error(error)
       return new Response('An unexpected error occurred', { status: 500 })
     }

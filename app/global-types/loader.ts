@@ -5,7 +5,7 @@ import { loader as ProductLoader } from '~/routes/($lang)/__frame/products/$prod
 import { ExtractDeferredLoaderDataType, ExtractJSONLoaderDataType } from './type-helpers'
 
 export type LoaderData = {
-  root: ExtractJSONLoaderDataType<typeof RootLoader>
+  root: ExtractDeferredLoaderDataType<typeof RootLoader>
   frame: ExtractJSONLoaderDataType<typeof FrameLoader>
   product?: ExtractJSONLoaderDataType<typeof ProductLoader> | null
   collection: ExtractDeferredLoaderDataType<typeof CollectionLoader>
