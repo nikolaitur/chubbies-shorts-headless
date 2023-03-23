@@ -137,7 +137,7 @@ export const getColorOptions = (
 
     const flattenedFamilyFields = family?.reference?.fields
     const familyValue = flattenedFamilyFields?.find(field => field.key === 'storefront_name')?.value
-    const flattenedImage = colorImage.reference?.image
+    const flattenedImage = colorImage?.reference?.image
 
     const data = {
       id,
