@@ -46,6 +46,11 @@
     height: auto;
     aspect-ratio: 3/4;
   }
+  .thumbnailCarouselWrapper,
+  .mainCarouselWrapper {
+    position: sticky;
+    top: 115px;
+  }
   .thumbnailCarousel {
     display: block;
   }

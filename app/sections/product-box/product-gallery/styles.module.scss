@@ -55,6 +55,12 @@
     }
   }
 
+  .thumbnailCarouselWrapper,
+  .mainCarouselWrapper {
+    position: sticky;
+    top: 115px;
+  }
+
   .thumbnailCarousel {
     display: block;
   }

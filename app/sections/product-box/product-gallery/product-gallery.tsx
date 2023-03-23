@@ -37,13 +37,15 @@ const ProductGallery = ({ media, variant = 'slider', ...props }: ProductGalleryP
 
   return (
     <div className={clsx(styles.wrapper, styles[variant])} {...props}>
-      <GalleryNav
-        className={clsx(styles.thumbnailCarousel, 'thumbnail-carousel')}
-        mediaFiles={media}
-        aspectRatio="3:4"
-        options={{ direction: 'vertical', syncWith: '.main-carousel' }}
-        size="sm"
-      />
+      <div className={styles.thumbnailCarouselWrapper}>
+        <GalleryNav
+          className={clsx(styles.thumbnailCarousel, 'thumbnail-carousel')}
+          mediaFiles={media}
+          aspectRatio="3:4"
+          options={{ direction: 'vertical', syncWith: '.main-carousel' }}
+          size="sm"
+        />
+      </div>
       <div className={styles.mainCarouselWrapper}>
         <TagList tags={product?.tags} />
         <GalleryNav
