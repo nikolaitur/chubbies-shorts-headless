@@ -32,6 +32,7 @@ const VariantOverlay = ({
     >
       {sizeOptions && (
         <SizeVariantsGroup
+          className={styles.sizesWrapper}
           sizeOptions={sizeOptions}
           selectedSize={selectedSize}
           size={isComponentSizeXS ? 'sm' : 'md'}

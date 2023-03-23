@@ -45,7 +45,7 @@ const SizeVariantsGroup = ({
         optionName={SIZE_OPTION_NAME}
         optionValue={selectedSize ? getSizeTextDisplay(selectedSize) : ''}
       />
-      <div className={styles.sizeOptions}>
+      <div className={clsx(styles.sizeOptions, 'size-options')}>
         {sizeOptions.map((option, index) => (
           <LinkWrapper shouldWrap={isVariantProductBox} optionName={option.name} key={index}>
             <SizeVariantSelector

@@ -26,3 +26,9 @@
     visibility: visible;
   }
 }
+
+.sizesWrapper {
+  :global(.size-options) {
+    flex-wrap: wrap;
+  }
+}
