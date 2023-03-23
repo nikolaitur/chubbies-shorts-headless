@@ -97,24 +97,3 @@
     display: none;
   }
 }
-
-.wishlistIcon {
-  position: relative;
-}
-
-.wishlistBadge {
-  --size: 16px;
-
-  position: absolute;
-  top: -2px;
-  right: -6px;
-  min-width: var(--size);
-  height: var(--size);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: red;
-  color: white;
-  font-size: 10px;
-  border-radius: calc(var(--size) / 2);
-}
