@@ -1,9 +1,9 @@
-import { useMatches } from 'react-router'
-import { RootLoaderData } from '~/global-types'
+import { ROUTE_IDS } from '~/constants'
+import { LoaderData } from '~/global-types'
+import { useTypedRouteLoaderData } from '~/hooks'
 
 const YotpoIdentification = () => {
-  const [root] = useMatches()
-  const { customer } = (root.data as RootLoaderData) ?? {}
+  const { customer } = useTypedRouteLoaderData<LoaderData['root']>(ROUTE_IDS.ROOT) ?? {}
   const { email, id } = customer ?? {}
 
   const idNumberIndex = id?.lastIndexOf('/')
