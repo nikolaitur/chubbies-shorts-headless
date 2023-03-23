@@ -2,7 +2,7 @@ import { CartLineInput, ProductVariant } from '@shopify/hydrogen/storefront-api-
 import { ButtonAddToCartProps } from '@solo-brands/ui-library.ui.atomic.button-add-to-cart'
 
 export type ATCButtonProps = Pick<ButtonAddToCartProps, 'size' | 'withPrice'> & {
-  varaint?: 'default' | 'product-card'
+  variant?: 'default' | 'product-card'
   selectedSize: string | null
   defaultVariant: ProductVariant
   selectedVariant: ProductVariant | null

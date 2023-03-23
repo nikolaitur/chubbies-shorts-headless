@@ -17,6 +17,8 @@ const ProductActions = createContext<ProductContextActions | null>(
 ) as Context<ProductContextActions>
 
 const initialState = {
+  selectedColor: null,
+  selectedInseam: null,
   selectedSize: null,
   selectedVariant: null,
 }
@@ -25,6 +27,12 @@ const reducer = (state: typeof initialState, action: ProductReducerAction) => {
   const { payload, type } = action
 
   switch (type) {
+    case 'SET_SELECTED_COLOR':
+      return { ...state, selectedColor: payload }
+
+    case 'SET_SELECTED_INSEAM':
+      return { ...state, selectedInseam: payload }
+
     case 'SET_SELECTED_SIZE':
       return { ...state, selectedSize: payload }
 
@@ -55,6 +63,14 @@ const ProductProvider = ({ product, children }: ProductProviderProps) => {
     setState({ selectedSize: size, selectedVariant: currentVariant ?? null })
   }
 
+  const setSelectedColor = (payload: string) => {
+    dispatch({ type: ProductReducerActionType.SET_SELECTED_COLOR, payload })
+  }
+
+  const setSelectedInseam = (payload: string) => {
+    dispatch({ type: ProductReducerActionType.SET_SELECTED_INSEAM, payload })
+  }
+
   const setSelectedSize = (payload: string) => {
     dispatch({ type: ProductReducerActionType.SET_SELECTED_SIZE, payload })
   }
@@ -74,6 +90,8 @@ const ProductProvider = ({ product, children }: ProductProviderProps) => {
   }
 
   const actions = {
+    setSelectedColor,
+    setSelectedInseam,
     setSelectedSize,
     setSelectedVariant,
     setState,

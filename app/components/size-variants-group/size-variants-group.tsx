@@ -6,19 +6,37 @@ import SizeVariantSelector from '~/components/size-variant-selector'
 import { SIZE_OPTION_NAME } from '~/constants'
 import { getSizeTextDisplay } from '~/helpers'
 import styles from './styles.module.css'
-import { SizeVariantsGroupProps } from './types'
+import { LinkWrapperProps, SizeVariantsGroupProps } from './types'
+
+const LinkWrapper = ({ shouldWrap, children, optionName }: LinkWrapperProps) => {
+  const { pathname, state } = useLocation()
+
+  return shouldWrap ? (
+    <Link
+      prefetch="render"
+      to={{ pathname, search: `?${SIZE_OPTION_NAME}=${optionName}` }}
+      state={state}
+      replace
+      preventScrollReset
+    >
+      {children}
+    </Link>
+  ) : (
+    <>{children}</>
+  )
+}
 
 const SizeVariantsGroup = ({
   size = 'xl',
-  variant = 'product-card',
+  variant = 'default',
   sizeOptions,
   selectedSize,
   onSelectSize,
   ...props
 }: SizeVariantsGroupProps) => {
-  const { pathname, state } = useLocation()
-
   if (!sizeOptions) return null
+
+  const isVariantProductBox = variant === 'product-box'
 
   return (
     <div className={clsx(styles.wrapper, styles[variant])} {...props}>
@@ -28,28 +46,17 @@ const SizeVariantsGroup = ({
         optionValue={selectedSize ? getSizeTextDisplay(selectedSize) : ''}
       />
       <div className={styles.sizeOptions}>
-        {sizeOptions.map((option, index) =>
-          variant === 'product-box' ? (
-            <Link
-              key={index}
-              prefetch="render"
-              to={{ pathname, search: `?${SIZE_OPTION_NAME}=${option.name}` }}
-              state={state}
-              replace
-              preventScrollReset
-            >
-              <SizeVariantSelector size={size} selectedSize={selectedSize} sizeOption={option} />
-            </Link>
-          ) : (
+        {sizeOptions.map((option, index) => (
+          <LinkWrapper shouldWrap={isVariantProductBox} optionName={option.name} key={index}>
             <SizeVariantSelector
               key={index}
               size={size}
               selectedSize={selectedSize}
               sizeOption={option}
-              onSelectSize={onSelectSize}
+              onSelectSize={!isVariantProductBox ? onSelectSize : undefined}
             />
-          ),
-        )}
+          </LinkWrapper>
+        ))}
       </div>
     </div>
   )

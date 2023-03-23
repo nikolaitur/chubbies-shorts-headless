@@ -4,17 +4,3 @@
   display: grid;
   gap: $space-8;
 }
-
-.mobileColorVariants {
-  @include media-query(md) {
-    display: none;
-  }
-}
-
-.desktopColorVariants {
-  display: none;
-
-  @include media-query(md) {
-    display: grid;
-  }
-}

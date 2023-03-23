@@ -1,0 +1,23 @@
+.wrapper {
+  display: grid;
+  gap: 8px;
+}
+
+.sizeOptions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+.sizeOptions > a {
+  scroll-snap-align: start;
+}
+.sizeOptions::-webkit-scrollbar {
+  height: 0;
+  display: none;
+}
+
+.variantSelector:disabled {
+  pointer-events: none;
+}

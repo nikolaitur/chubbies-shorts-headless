@@ -32,7 +32,6 @@ const VariantOverlay = ({
     >
       {sizeOptions && (
         <SizeVariantsGroup
-          variant="product-card"
           sizeOptions={sizeOptions}
           selectedSize={selectedSize}
           size={isComponentSizeXS ? 'sm' : 'md'}
@@ -41,7 +40,7 @@ const VariantOverlay = ({
       )}
       <ATCButton
         size="sm"
-        varaint="product-card"
+        variant="product-card"
         selectedSize={selectedSize}
         defaultVariant={defaultVariant}
         selectedVariant={selectedVariant}

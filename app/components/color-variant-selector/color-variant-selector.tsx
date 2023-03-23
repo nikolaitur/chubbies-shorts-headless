@@ -2,8 +2,13 @@ import SwatchSelector from '@solo-brands/ui-library.ui.atomic.swatch-selector'
 import styles from './styles.module.css'
 import { ColorVariantSelectorProps } from './types'
 
-const ColorVariantSelector = ({ colorOption, size, onClick }: ColorVariantSelectorProps) => {
-  const { image, selected, exists } = colorOption
+const ColorVariantSelector = ({
+  colorOption,
+  size,
+  onSelectColor,
+  onProductCardClick,
+}: ColorVariantSelectorProps) => {
+  const { image, selected, exists, name } = colorOption
 
   /*
   This is for feature that colors will also be struck-through if it is out of stock based on selected size
@@ -25,7 +30,10 @@ const ColorVariantSelector = ({ colorOption, size, onClick }: ColorVariantSelect
       image={image}
       selected={selected}
       disabled={!exists}
-      onClick={onClick}
+      onClick={() => {
+        onProductCardClick && onProductCardClick()
+        onSelectColor && name && onSelectColor(name)
+      }}
     />
   )
 }

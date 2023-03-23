@@ -3,6 +3,8 @@ import { NostoRecommendedProduct, SizeOption } from '~/global-types'
 import { PdpProductVariantsFragment } from '~/graphql/generated'
 
 export type ProductContextState = {
+  selectedColor: string | null
+  selectedInseam: string | null
   selectedSize: string | null
   selectedVariant: PdpProductVariantsFragment | null
   product: NostoRecommendedProduct // temporary type, should be a generic one
@@ -10,6 +12,8 @@ export type ProductContextState = {
 }
 
 export type ProductContextActions = {
+  setSelectedColor: (payload: string) => void
+  setSelectedInseam: (payload: string) => void
   setSelectedSize: (payload: string) => void
   setSelectedVariant: (payload: PdpProductVariantsFragment) => void
   setState: (payload: Partial<ProductContextState>) => void
@@ -17,6 +21,8 @@ export type ProductContextActions = {
 }
 
 export enum ProductReducerActionType {
+  SET_SELECTED_INSEAM = 'SET_SELECTED_INSEAM',
+  SET_SELECTED_COLOR = 'SET_SELECTED_COLOR',
   SET_SELECTED_SIZE = 'SET_SELECTED_SIZE',
   SET_SELECTED_VARIANT = 'SET_SELECTED_VARIANT',
   SET_STATE = 'SET_STATE',

@@ -13,7 +13,7 @@ import styles from './styles.module.css'
 import { ATCButtonProps } from './types'
 
 const ATCButton = ({
-  varaint = 'default',
+  variant = 'default',
   defaultVariant,
   selectedSize,
   selectedVariant,
@@ -61,7 +61,7 @@ const ATCButton = ({
     : [...additionalLines]
 
   const displayText = (() => {
-    if (varaint === 'product-card') {
+    if (variant === 'product-card') {
       if (!hasSelectedSize || isNotYetReleased || isOutOfStock) return 'Select Size'
 
       return 'Add To Cart'

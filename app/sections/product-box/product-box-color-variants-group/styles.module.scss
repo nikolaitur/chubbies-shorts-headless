@@ -1,0 +1,15 @@
+@use '../../../styles/abstracts' as *;
+
+.mobileColorVariants {
+  @include media-query(md) {
+    display: none;
+  }
+}
+
+.desktopColorVariants {
+  display: none;
+
+  @include media-query(md) {
+    display: grid;
+  }
+}

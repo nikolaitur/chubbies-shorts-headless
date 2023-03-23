@@ -61,7 +61,7 @@ const ColorVariantsCarouselInner = ({
             <ColorVariantSelector
               size={size}
               colorOption={option}
-              onClick={() => onChangeColorOption(colorOption)}
+              onProductCardClick={() => onChangeColorOption(colorOption)}
             />
           </CarouselSlide>
         )

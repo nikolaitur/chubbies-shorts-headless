@@ -1,12 +1,9 @@
 import { useLocation } from '@remix-run/react'
 import VariantInfo from '@solo-brands/ui-library.ui.atomic.variant-info'
 import clsx from 'clsx'
-import { ROUTE_IDS } from '~/constants'
-import { LoaderData } from '~/global-types'
 import { moveInitialColorFirst } from '~/helpers'
-import { useTypedRouteLoaderData } from '~/hooks'
-import ColorVariantsCarousel from '../color-variants-carousel'
-import ColorVariantsExpandable from '../color-variants-expandable'
+import ColorVariantsCarousel from './color-variants-carousel'
+import ColorVariantsExpandable from './color-variants-expandable'
 import styles from './styles.module.css'
 import { ColorGroupProps, ColorVariantsGroupProps } from './types'
 
@@ -14,10 +11,10 @@ const ColorVariantsGroup = ({
   className,
   size = 'xl',
   variant = 'inline',
+  colorOptionsByGroup,
+  type = 'default',
   ...props
 }: ColorVariantsGroupProps) => {
-  const { product } = useTypedRouteLoaderData<LoaderData['product']>(ROUTE_IDS.PRODUCT) ?? {}
-  const { colorOptionsByGroup } = product ?? {}
   const groups = Object.keys(colorOptionsByGroup ?? {})
   if (!colorOptionsByGroup) return null
 
@@ -31,6 +28,7 @@ const ColorVariantsGroup = ({
         return (
           <ColorGroup
             key={index}
+            type={type}
             groupName={group}
             colorOptions={colorOptions}
             size={size}
@@ -42,7 +40,7 @@ const ColorVariantsGroup = ({
   )
 }
 
-const ColorGroup = ({ groupName, colorOptions, size, variant }: ColorGroupProps) => {
+const ColorGroup = ({ groupName, colorOptions, size, variant, type }: ColorGroupProps) => {
   const { state } = useLocation()
   const selectedColorName = colorOptions.find(option => option.selected)?.name
   const sortedColorOptions = colorOptions.sort(moveInitialColorFirst(state))
@@ -51,9 +49,14 @@ const ColorGroup = ({ groupName, colorOptions, size, variant }: ColorGroupProps)
     <div className={styles.groupWrapper}>
       <VariantInfo size={'sm'} optionName={groupName} optionValue={selectedColorName ?? ''} />
       {variant !== 'expandable' ? (
-        <ColorVariantsCarousel colorOptions={sortedColorOptions} size={size} variant={variant} />
+        <ColorVariantsCarousel
+          colorOptions={sortedColorOptions}
+          size={size}
+          variant={variant}
+          type={type}
+        />
       ) : (
-        <ColorVariantsExpandable colorOptions={sortedColorOptions} size={size} />
+        <ColorVariantsExpandable colorOptions={sortedColorOptions} size={size} type={type} />
       )}
     </div>
   )

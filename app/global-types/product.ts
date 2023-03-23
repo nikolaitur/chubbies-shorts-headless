@@ -10,7 +10,7 @@ export type PdpProduct = Omit<
   collectionTitle?: string
   description?: string
   inseamOptions: InseamOption[] | null
-  colorOptionsByGroup: { [key: string]: ColorOption[] } | null
+  colorOptionsByGroup: ColorOptionsByGroup | null
   sizeOptions: SizeOption[] | null
 }
 
@@ -56,9 +56,7 @@ export type SizeOption = {
 
 export type ProductGroupProducts = ProductGroupFragment['products']['nodes']
 
-export type ColorOptionsByGroup = {
-  [key: string]: ColorOption[]
-}
+export type ColorOptionsByGroup = Record<string, ColorOption[]>
 
 export type PpdLoaderData = {
   product: PdpProduct
